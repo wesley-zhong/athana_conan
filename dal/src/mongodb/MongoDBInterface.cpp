@@ -27,8 +27,6 @@ int MongoDBInterface::testInit() {
         auto opt =  roleCollection.find_one(make_document(kvp("_id", 1000001)));
         auto value =  opt.value();
         INFO_LOG("uuuuu value = {}",  bsoncxx::to_json(value));
-
-
     }
     catch (const mongocxx::exception &e)
     {

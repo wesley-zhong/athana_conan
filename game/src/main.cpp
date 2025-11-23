@@ -39,18 +39,18 @@ int main(int argc, char **argv) {
 
 
     // init all functions call
-    // GameServerNetWorkHandler::initAllMsgRegister();
-    // GameServerNetWorkHandler::startLogicThread(3);
+     GameServerNetWorkHandler::initAllMsgRegister();
+     GameServerNetWorkHandler::startLogicThread(3);
 
     //start server
-    // AthenaTcpServer tcp_server;
-    // tcp_server.setChannelIdleTime(5000, 0);
-    // tcp_server.onNewConnection = GameServerNetWorkHandler::onNewConnect;
-    // tcp_server.onRead = GameServerNetWorkHandler::onMsg;
-    // tcp_server.onClosed = GameServerNetWorkHandler::onClosed;
-    // tcp_server.onEventTrigger = GameServerNetWorkHandler::onEventTrigger;
-    //
-    // tcp_server.bind(9999).start(3);
+     AthenaTcpServer tcp_server;
+     tcp_server.setChannelIdleTime(5000, 0);
+     tcp_server.onNewConnection = GameServerNetWorkHandler::onNewConnect;
+     tcp_server.onRead = GameServerNetWorkHandler::onMsg;
+     tcp_server.onClosed = GameServerNetWorkHandler::onClosed;
+     tcp_server.onEventTrigger = GameServerNetWorkHandler::onEventTrigger;
+
+     tcp_server.bind(9999).start(3);
 
 
     // connect db
