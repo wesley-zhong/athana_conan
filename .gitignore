@@ -1,1 +1,6 @@
 /cmake-build-debug
+/build
+/.idea
+libs/macos/libcore.a
+/libs
+/bin

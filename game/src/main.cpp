@@ -7,7 +7,7 @@
 #include "objs/Player.h"
 #include "core/common/ObjectPool.hpp"
 #include "db/Dal.hpp"
-
+#include "mongodb/MongoDBInterface.h"
 #if defined(_WIN32)
 #include <windows.h>
 #else
@@ -19,6 +19,7 @@
 #include "transport/AthenaTcpServer.h"
 
 #include "network/GameServerNetWorkHandler.h"
+#include "mongodb/MongoDBInterface.h"
 
 
 static std::atomic<bool> g_running(true);
@@ -65,7 +66,8 @@ int main(int argc, char **argv) {
 //    MysqlResult db_result;
 //    Dal::DB::execute(&db_result, "select * from  user");
 
-
+    MongoDBInterface* mongdb = new MongoDBInterface();
+    mongdb->testInit();
 
     INFO_LOG("==========================  wait release");
     std::this_thread::sleep_for(std::chrono::seconds(5));

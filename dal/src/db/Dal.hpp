@@ -38,4 +38,7 @@ namespace Dal {
         //  template<typename T_KEY, typename T_VALUE>  Todo  this should support string and long ,int  as key
         int execute(DBResult *result, const std::string &cmd);
     }
+    namespace MongoDB{
+
+        }
 }
