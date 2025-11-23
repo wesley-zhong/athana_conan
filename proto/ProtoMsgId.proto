@@ -1,0 +1,9 @@
+syntax = "proto3";
+option java_package = "com.game.proto";
+option go_package = "/protoGen";
+enum MsgId {
+  INVALID_MSG_ID = 0;
+  HEART_BEAT_PUSH = 3; // req=HeartBeatPush,desc="客户端心跳 请求"
+  HEART_BEAT_NTF = 4;// res=HeartBeatNtf, ,desc="客户端心跳 返回"
+  DEBUG_CMD_REQ = 5; // req=DebugCmdReq
+}

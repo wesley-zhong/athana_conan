@@ -1,0 +1,1616 @@
+[2025-11-05 20:37:35.296] [thread 11883] [EventLoop.cpp:157] ############## event loop started
+[2025-11-05 20:37:40.403] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:37:40.404] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:37:45.404] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:37:45.405] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:37:50.406] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:37:50.407] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:37:55.406] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:37:55.407] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:38:00.406] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:38:00.407] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:38:10.408] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:38:10.409] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:38:15.409] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:38:15.410] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:38:25.411] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:38:25.412] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:38:30.411] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:38:30.412] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:38:35.412] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:38:35.413] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:38:40.412] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:38:40.413] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:38:45.413] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:38:45.414] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:38:50.414] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:38:50.415] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:38:55.415] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:38:55.417] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:39:00.417] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:39:00.418] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:39:10.417] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:39:10.418] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:39:15.419] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:39:15.420] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:39:20.421] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:39:20.422] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:39:30.422] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:39:30.423] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:39:35.423] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:39:35.424] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:39:40.424] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:39:40.425] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:39:45.424] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:39:45.425] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:39:50.424] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:39:50.424] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:39:55.427] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:39:55.428] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:40:00.428] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:40:00.429] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:40:05.429] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:40:05.430] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:40:10.431] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:40:10.432] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:40:20.432] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:40:20.433] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:40:30.432] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:40:30.434] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:40:40.434] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:40:40.435] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:40:50.435] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:40:50.436] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:40:55.435] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:40:55.436] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:41:00.436] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:41:00.437] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:41:05.437] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:41:05.438] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:41:10.438] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:41:10.439] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:41:15.439] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:41:15.440] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:41:20.441] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:41:20.442] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:41:25.443] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:41:25.444] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:41:30.444] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:41:30.445] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:41:35.444] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:41:35.445] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:41:40.446] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:41:40.447] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:41:45.448] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:41:45.449] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:41:50.448] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:41:50.449] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:41:55.449] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:41:55.450] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:42:00.450] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:42:00.451] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:42:05.451] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:42:05.451] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:42:10.453] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:42:10.454] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:42:15.454] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:42:15.454] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:42:20.456] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:42:20.457] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:42:25.456] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:42:25.457] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:42:30.457] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:42:30.458] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:42:35.459] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:42:35.460] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:42:45.460] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:42:45.461] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:42:55.460] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:42:55.461] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:43:00.461] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:43:00.462] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:43:05.462] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:43:05.462] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:43:10.464] [thread 11883] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:43:10.465] [thread 11881] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:43:38.432] [thread 19341] [EventLoop.cpp:157] ############## event loop started
+[2025-11-05 20:43:43.540] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:43:43.541] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:43:53.541] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:43:53.542] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:43:58.541] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:43:58.542] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:44:03.542] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:44:03.543] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:44:08.543] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:44:08.544] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:44:13.545] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:44:13.546] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:44:23.545] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:44:23.546] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:44:28.546] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:44:28.547] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:44:33.547] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:44:33.548] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:44:38.548] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:44:38.549] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:44:43.549] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:44:43.550] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:44:53.549] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:44:53.550] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:45:03.550] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:45:03.551] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:45:13.550] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:45:13.551] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:45:23.551] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:45:23.552] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:45:33.552] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:45:33.553] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:45:38.553] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:45:38.554] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:45:43.553] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:45:43.554] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:45:53.555] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:45:53.556] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:46:03.554] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:46:03.555] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:46:08.556] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:46:08.558] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:46:18.557] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:46:18.559] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:46:23.560] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:46:23.561] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:46:28.560] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:46:28.561] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:46:33.562] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:46:33.562] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:46:38.562] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:46:38.563] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:46:43.563] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:46:43.565] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:46:48.563] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:46:48.564] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:46:53.565] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:46:53.566] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:46:58.565] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:46:58.566] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:47:03.567] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:47:03.568] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:47:08.568] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:47:08.569] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:47:13.569] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:47:13.570] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:47:18.569] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:47:18.570] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:47:23.571] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:47:23.572] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:47:28.571] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:47:28.572] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:47:33.572] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:47:33.573] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:47:38.574] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:47:38.575] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:47:43.574] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:47:43.576] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:47:48.575] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:47:48.576] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:47:58.576] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:47:58.577] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:48:03.577] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:48:03.578] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:48:08.578] [thread 19341] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:48:08.580] [thread 19339] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:55:17.462] [thread 29099] [EventLoop.cpp:156] ############## event loop started
+[2025-11-05 20:55:22.564] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:55:22.565] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:55:27.563] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:55:27.564] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:55:32.565] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:55:32.566] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:55:37.566] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:55:37.567] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:55:42.567] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:55:42.568] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:55:47.568] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:55:47.569] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:55:52.568] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:55:52.569] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:55:57.568] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:55:57.569] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:56:02.569] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:56:02.570] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:56:12.569] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:56:12.570] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:56:17.569] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:56:17.570] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:56:22.570] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:56:22.571] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:56:32.570] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:56:32.572] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:56:37.571] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:56:37.572] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:56:47.572] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:56:47.573] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:56:52.573] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:56:52.574] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:57:02.574] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:57:02.575] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:57:12.574] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:57:12.574] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:57:17.575] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:57:17.576] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:57:22.576] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:57:22.577] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:57:27.577] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:57:27.578] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:57:32.577] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:57:32.577] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:57:37.577] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:57:37.579] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:57:42.578] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:57:42.579] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:57:47.583] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:57:47.584] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:57:52.592] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:57:52.593] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:57:57.599] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:57:57.600] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:58:02.603] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:58:02.604] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:58:07.607] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:58:07.608] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:58:12.611] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:58:12.612] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:58:17.613] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:58:17.614] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:58:22.614] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:58:22.615] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:58:27.617] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:58:27.618] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:58:37.619] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:58:37.619] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:58:42.619] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:58:42.620] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:58:47.621] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:58:47.622] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:58:57.622] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:58:57.623] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:59:02.622] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:59:02.623] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:59:07.623] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:59:07.624] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:59:12.624] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:59:12.625] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:59:17.624] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:59:17.625] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:59:22.625] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:59:22.626] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:59:32.626] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:59:32.627] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:59:37.629] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:59:37.630] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:59:42.629] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:59:42.630] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:59:47.628] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:59:47.629] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:59:52.628] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:59:52.629] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 20:59:57.631] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 20:59:57.631] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:00:02.631] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:00:02.632] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:00:07.633] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:00:07.634] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:00:12.634] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:00:12.634] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:00:17.631] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:00:17.633] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:00:22.634] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:00:22.635] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:00:32.634] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:00:32.635] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:00:37.635] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:00:37.636] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:00:42.635] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:00:42.636] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:00:52.636] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:00:52.637] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:00:57.636] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:00:57.636] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:01:07.635] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:01:07.636] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:01:12.638] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:01:12.639] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:01:22.638] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:01:22.639] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:01:27.638] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:01:27.639] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:01:32.640] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:01:32.641] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:01:37.640] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:01:37.641] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:01:47.640] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:01:47.641] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:01:52.640] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:01:52.641] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:02:02.641] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:02:02.641] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:02:07.642] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:02:07.643] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:02:12.642] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:02:12.643] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:02:17.643] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:02:17.644] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:02:22.644] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:02:22.645] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:02:27.644] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:02:27.645] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:02:32.645] [thread 29099] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:02:32.646] [thread 29097] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:03:02.755] [thread 37124] [EventLoop.cpp:156] ############## event loop started
+[2025-11-05 21:03:07.861] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:03:07.862] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:03:12.862] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:03:12.863] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:03:22.862] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:03:22.863] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:03:27.863] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:03:27.864] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:03:32.863] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:03:32.865] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:03:37.864] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:03:37.865] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:03:42.864] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:03:42.865] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:03:47.865] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:03:47.866] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:03:52.866] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:03:52.867] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:03:57.867] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:03:57.867] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:04:02.867] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:04:02.868] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:04:07.868] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:04:07.869] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:04:12.870] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:04:12.871] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:04:17.870] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:04:17.871] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:04:27.872] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:04:27.873] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:04:37.872] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:04:37.873] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:04:47.872] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:04:47.873] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:04:57.873] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:04:57.874] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:05:02.873] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:05:02.874] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:05:07.875] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:05:07.876] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:05:12.875] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:05:12.876] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:05:17.877] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:05:17.878] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:05:22.877] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:05:22.878] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:05:27.877] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:05:27.878] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:05:32.879] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:05:32.880] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:05:37.879] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:05:37.880] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:05:42.880] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:05:42.881] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:05:52.881] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:05:52.882] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:05:57.881] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:05:57.882] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:06:07.882] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:06:07.883] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:06:12.882] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:06:12.883] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:06:22.884] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:06:22.885] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:06:32.883] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:06:32.884] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:06:37.885] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:06:37.886] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:06:47.886] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:06:47.887] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:06:57.887] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:06:57.887] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:07:02.887] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:07:02.888] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:07:07.888] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:07:07.889] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:07:17.888] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:07:17.889] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:07:27.890] [thread 37124] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:07:27.891] [thread 37122] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:08:00.545] [thread 44441] [EventLoop.cpp:156] ############## event loop started
+[2025-11-05 21:08:05.648] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:08:05.649] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:08:10.649] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:08:10.650] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:08:15.650] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:08:15.651] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:08:20.652] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:08:20.653] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:08:25.653] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:08:25.654] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:08:30.654] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:08:30.655] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:08:35.654] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:08:35.655] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:08:40.655] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:08:40.656] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:08:45.655] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:08:45.656] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:08:50.657] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:08:50.658] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:08:55.656] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:08:55.657] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:09:05.660] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:09:05.661] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:09:10.659] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:09:10.660] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:09:15.662] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:09:15.663] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:09:20.663] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:09:20.664] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:09:25.664] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:09:25.664] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:09:35.663] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:09:35.664] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:09:45.665] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:09:45.666] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:09:50.666] [thread 44441] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:09:50.667] [thread 44439] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:09:59.211] [thread 44423] [main.cpp:32] Received signal 15 exiting...
+[2025-11-05 21:09:59.212] [thread 44423] [main.cpp:71] service exited
+[2025-11-05 21:10:20.496] [thread 47247] [EventLoop.cpp:156] ############## event loop started
+[2025-11-05 21:10:25.603] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:10:25.604] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:10:30.605] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:10:30.605] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:10:35.605] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:10:35.606] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:10:40.607] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:10:40.608] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:10:45.607] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:10:45.608] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:10:50.608] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:10:50.609] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:10:55.609] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:10:55.610] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:11:00.610] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:11:00.611] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:11:05.611] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:11:05.612] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:11:10.612] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:11:10.612] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:11:20.612] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:11:20.613] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:11:25.612] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:11:25.613] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:11:30.613] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:11:30.614] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:11:35.614] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:11:35.615] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:11:40.615] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:11:40.616] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:11:45.616] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:11:45.617] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:11:50.617] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:11:50.618] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:11:55.617] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:11:55.618] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:12:05.618] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:12:05.620] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:12:10.619] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:12:10.621] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:12:15.619] [thread 47247] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:12:15.620] [thread 47245] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:13:09.965] [thread 49938] [EventLoop.cpp:156] ############## event loop started
+[2025-11-05 21:13:24.336] [thread 49938] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:13:24.337] [thread 49936] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:13:30.073] [thread 49938] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:13:30.074] [thread 49936] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:13:35.074] [thread 49938] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:13:35.075] [thread 49936] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:13:40.074] [thread 49938] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:13:40.076] [thread 49936] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:14:08.325] [thread 50655] [EventLoop.cpp:156] ############## event loop started
+[2025-11-05 21:14:35.066] [thread 50655] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:14:36.530] [thread 50653] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-05 21:14:36.530] [thread 50655] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-05 21:14:36.531] [thread 50653] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:35:47.931] [thread 12805] [EventLoop.cpp:156] ############## event loop started
+[2025-11-09 17:35:53.039] [thread 12805] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:35:53.039] [thread 12803] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:44:51.380] [thread 19292] [EventLoop.cpp:156] ############## event loop started
+[2025-11-09 17:44:56.488] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:44:56.489] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:45:06.488] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:45:06.489] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:45:11.488] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:45:11.489] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:45:16.490] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:45:16.491] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:45:21.491] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:45:21.493] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:45:26.495] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:45:26.497] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:45:36.495] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:45:36.496] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:45:41.496] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:45:41.497] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:45:51.497] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:45:51.498] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:45:56.500] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:45:56.501] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:46:01.501] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:46:01.502] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:46:06.501] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:46:06.502] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:46:16.503] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:46:16.504] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:46:21.503] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:46:21.504] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:46:26.505] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:46:26.506] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:46:36.507] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:46:36.508] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:46:41.508] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:46:41.509] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:46:46.508] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:46:46.509] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:46:56.510] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:46:56.511] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:47:06.513] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:47:06.514] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:47:16.515] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:47:16.516] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:47:21.514] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:47:21.516] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:47:31.515] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:47:31.516] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:47:36.517] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:47:36.518] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:47:41.517] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:47:41.518] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:47:46.519] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:47:46.520] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:47:51.524] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:47:51.525] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:47:56.523] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:47:56.525] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:48:01.524] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:48:01.525] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:48:06.527] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:48:06.528] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:48:16.529] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:48:16.532] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:48:21.531] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:48:21.532] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:48:26.530] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:48:26.531] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:48:31.531] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:48:31.533] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:48:41.534] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:48:41.535] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:48:51.538] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:48:51.540] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:48:56.535] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:48:56.539] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:49:01.537] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:49:01.538] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:49:06.543] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:49:06.543] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:49:16.543] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:49:16.544] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:49:21.544] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:49:21.546] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:49:26.545] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:49:26.546] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:49:36.546] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:49:36.547] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:49:41.548] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:49:41.548] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:49:51.551] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:49:51.554] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:49:56.549] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:49:56.550] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:50:01.550] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:50:01.551] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:50:06.551] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:50:06.552] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:50:11.553] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:50:11.554] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:50:16.553] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:50:16.554] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:50:21.555] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:50:21.556] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:50:26.555] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:50:26.556] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:50:31.557] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:50:31.558] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:50:36.559] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:50:36.560] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:50:41.561] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:50:41.561] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:50:46.562] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:50:46.563] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:50:51.563] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:50:51.564] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:50:56.565] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:50:56.566] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:51:01.566] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:51:01.567] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:51:06.565] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:51:06.566] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:51:16.566] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:51:16.567] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:51:21.568] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:51:21.569] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:51:26.569] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:51:26.570] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:51:31.570] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:51:31.572] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:51:36.572] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:51:36.573] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:51:41.575] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:51:41.575] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:51:46.574] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:51:46.574] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:51:51.575] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:51:51.576] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:52:01.577] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:52:01.578] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:52:06.577] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:52:06.578] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:52:11.579] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:52:11.579] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:52:16.579] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:52:16.580] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:52:21.585] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:52:21.586] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:52:26.585] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:52:26.586] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:52:31.586] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:52:31.587] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:52:36.587] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:52:36.588] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:52:46.588] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:52:46.590] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:52:51.590] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:52:51.590] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:53:01.591] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:53:01.592] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:53:06.591] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:53:06.592] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:53:11.594] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:53:11.595] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:53:16.595] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:53:16.595] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:53:26.596] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:53:26.596] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:53:31.596] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:53:31.597] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:53:41.596] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:53:41.597] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:53:46.598] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:53:46.599] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:53:51.598] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:53:51.599] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:53:56.602] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:53:56.604] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:54:01.600] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:54:01.601] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:54:06.602] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:54:06.603] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:54:11.603] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:54:11.604] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:54:16.604] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:54:16.605] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:54:21.607] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:54:21.612] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:54:26.608] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:54:26.609] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:54:31.608] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:54:31.609] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:54:36.609] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:54:36.610] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:54:41.611] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:54:41.612] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:54:46.612] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:54:46.613] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:54:56.613] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:54:56.614] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:55:01.614] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:55:01.615] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:55:06.616] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:55:06.617] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:55:11.615] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:55:11.615] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:55:16.617] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:55:16.618] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:55:21.617] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:55:21.618] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:55:26.619] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:55:26.620] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:55:31.620] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:55:31.621] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:55:36.621] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:55:36.622] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:55:46.621] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:55:46.622] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:55:51.623] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:55:51.623] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:56:01.624] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:56:01.625] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:56:06.628] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:56:06.630] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:56:16.628] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:56:16.629] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:56:21.629] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:56:21.630] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:56:31.630] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:56:31.631] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:56:36.631] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:56:36.631] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:56:41.632] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:56:41.633] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:56:51.633] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:56:51.635] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:56:56.635] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:56:56.636] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:57:06.635] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:57:06.637] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:57:11.636] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:57:11.637] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:57:16.637] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:57:16.638] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:57:21.639] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:57:21.640] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:57:26.640] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:57:26.641] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:57:31.642] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:57:31.643] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:57:36.643] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:57:36.644] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:57:46.648] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:57:46.649] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:57:51.644] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:57:51.645] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:57:56.646] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:57:56.647] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:58:06.649] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:58:06.649] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:58:16.650] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:58:16.651] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:58:21.651] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:58:21.652] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:58:26.652] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:58:26.653] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:58:31.653] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:58:31.654] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:58:36.653] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:58:36.654] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:58:46.654] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:58:46.655] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:58:51.655] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:58:51.656] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:58:56.657] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:58:56.658] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:59:01.661] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:59:01.661] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:59:11.659] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:59:11.660] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:59:16.659] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:59:16.660] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:59:26.660] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:59:26.662] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:59:31.662] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:59:31.663] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:59:36.663] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:59:36.664] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:59:41.664] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:59:41.665] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:59:46.666] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:59:46.667] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:59:51.683] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:59:51.683] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 17:59:56.669] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 17:59:56.670] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:00:01.669] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:00:01.670] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:00:11.671] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:00:11.672] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:00:21.671] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:00:21.672] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:00:31.673] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:00:31.674] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:00:36.675] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:00:36.676] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:00:41.674] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:00:41.675] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:00:46.676] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:00:46.677] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:00:51.677] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:00:51.678] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:00:56.676] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:00:56.678] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:01:01.678] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:01:01.680] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:01:06.680] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:01:06.681] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:01:11.681] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:01:11.682] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:01:16.682] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:01:16.683] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:01:21.683] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:01:21.683] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:01:26.684] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:01:26.685] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:01:31.688] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:01:31.690] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:01:36.687] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:01:36.688] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:01:46.687] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:01:46.688] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:01:51.688] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:01:51.689] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:01:56.688] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:01:56.689] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:02:01.690] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:02:01.691] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:02:06.691] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:02:06.692] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:02:11.692] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:02:11.693] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:02:16.693] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:02:16.694] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:02:21.694] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:02:21.695] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:02:26.695] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:02:26.696] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:02:31.697] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:02:31.698] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:02:36.698] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:02:36.699] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:02:46.700] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:02:46.701] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:02:56.700] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:02:56.702] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:03:01.703] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:03:01.703] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:03:06.703] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:03:06.704] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:03:11.704] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:03:11.705] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:03:21.705] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:03:21.705] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:03:26.706] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:03:26.706] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:03:31.706] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:03:31.707] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:03:36.708] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:03:36.709] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:03:41.710] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:03:41.711] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:03:46.710] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:03:46.711] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:03:51.711] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:03:51.712] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:04:52.025] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:04:52.026] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:04:57.027] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:04:57.028] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:05:02.028] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:05:02.028] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:05:12.029] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:05:12.030] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:05:22.029] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:05:22.030] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:05:27.030] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:05:27.031] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:05:32.031] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:05:32.032] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:05:37.032] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:05:37.033] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:05:47.033] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:05:47.034] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:05:52.035] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:05:52.035] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:05:57.037] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:05:57.038] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:06:07.038] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:06:07.039] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:06:12.039] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:06:12.039] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:06:22.038] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:06:22.039] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:06:32.042] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:06:32.043] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:06:42.041] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:06:42.043] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:06:47.042] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:06:47.043] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:06:57.044] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:06:57.045] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:07:02.046] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:07:02.046] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:07:07.045] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:07:07.046] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:07:12.048] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:07:12.049] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:07:22.048] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:07:22.049] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:07:27.055] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:07:27.056] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:07:32.058] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:07:32.058] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:07:42.061] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:07:42.061] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:07:47.062] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:07:47.063] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:07:52.063] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:07:52.064] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:08:02.064] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:08:02.065] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:08:12.067] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:08:12.067] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:08:17.067] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:08:17.068] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:08:22.067] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:08:22.068] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:08:27.068] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:08:27.069] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:08:32.071] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:08:32.071] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:08:37.071] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:08:37.072] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:08:42.076] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:08:42.077] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:08:47.076] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:08:47.077] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:08:57.076] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:08:57.077] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:09:02.077] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:09:02.078] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:09:07.079] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:09:07.080] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:09:12.081] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:09:12.082] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:09:17.081] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:09:17.082] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:09:22.085] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:09:22.085] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:09:32.087] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:09:32.088] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:09:37.086] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:09:37.087] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:09:42.091] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:09:42.092] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:09:52.091] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:09:52.092] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:10:02.094] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:10:02.095] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:10:12.095] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:10:12.096] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:10:17.105] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:10:17.106] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:10:27.106] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:10:27.107] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:10:37.107] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:10:37.108] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:10:42.107] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:10:42.109] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:10:47.108] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:10:47.110] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:10:52.109] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:10:52.110] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:11:02.110] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:11:02.111] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:11:07.111] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:11:07.111] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:11:12.113] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:11:12.114] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:11:17.113] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:11:17.114] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:11:27.117] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:11:27.118] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:11:32.117] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:11:32.120] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:11:37.117] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:11:37.119] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:11:42.118] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:11:42.119] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:11:52.119] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:11:52.120] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:12:02.120] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:12:02.121] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:12:12.122] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:12:12.123] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:12:17.124] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:12:17.124] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:12:22.125] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:12:22.126] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:12:32.127] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:12:32.127] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:12:37.127] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:12:37.128] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:12:42.128] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:12:42.129] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:12:47.129] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:12:47.130] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:12:57.131] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:12:57.133] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:13:02.131] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:13:02.131] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:13:07.132] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:13:07.133] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:13:17.133] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:13:17.134] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:13:22.134] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:13:22.135] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:13:27.135] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:13:27.135] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:13:37.135] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:13:37.137] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:13:42.137] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:13:42.137] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:13:47.137] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:13:47.138] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:13:52.139] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:13:52.140] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:13:57.141] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:13:57.142] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:14:02.141] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:14:02.142] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:14:07.142] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:14:07.142] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:14:17.145] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:14:17.145] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:14:27.146] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:14:27.147] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:14:32.148] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:14:32.148] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:14:42.151] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:14:42.151] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:14:52.153] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:14:52.154] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:14:57.153] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:14:57.154] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:15:02.153] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:15:02.154] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:15:07.155] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:15:07.159] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:15:17.156] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:15:17.157] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:15:22.157] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:15:22.159] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:15:27.158] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:15:27.159] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:15:37.159] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:15:37.160] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:15:42.160] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:15:42.160] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:15:47.164] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:15:47.165] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:15:57.164] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:15:57.165] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:16:02.164] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:16:02.165] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:16:07.164] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:16:07.166] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:16:12.166] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:16:12.167] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:16:22.167] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:16:22.168] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:16:32.168] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:16:32.169] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:16:37.169] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:16:37.170] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:16:47.169] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:16:47.170] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:16:52.172] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:16:52.172] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:16:57.172] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:16:57.173] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:17:02.173] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:17:02.174] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:17:12.174] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:17:12.174] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:17:17.176] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:17:17.177] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:17:22.179] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:17:22.179] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:17:27.177] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:17:27.178] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:17:37.179] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:17:37.179] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:17:42.182] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:17:42.183] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:17:47.183] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:17:47.184] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:17:52.184] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:17:52.185] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:18:02.185] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:18:02.186] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:18:12.186] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:18:12.187] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:18:17.186] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:18:17.187] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:18:27.188] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:18:27.189] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:18:32.189] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:18:32.190] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:18:42.189] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:18:42.190] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:18:52.190] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:18:52.191] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:19:02.197] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:19:02.197] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:19:12.196] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:19:12.196] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:19:22.197] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:19:22.198] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:19:27.198] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:19:27.199] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:19:37.202] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:19:37.203] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:19:47.201] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:19:47.202] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:19:57.202] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:19:57.203] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:20:02.206] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:20:02.207] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:20:07.205] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:20:07.206] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:20:17.206] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:20:17.208] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:20:27.207] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:20:27.208] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:20:32.208] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:20:32.209] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:20:42.209] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:20:42.210] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:20:47.211] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:20:47.211] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:20:57.211] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:20:57.212] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:21:02.212] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:21:02.213] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:21:07.213] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:21:07.214] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:21:12.214] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:21:12.215] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:21:22.216] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:21:22.218] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:21:32.216] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:21:32.217] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:21:37.219] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:21:37.220] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:21:42.219] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:21:42.220] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:21:47.221] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:21:47.222] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:21:52.221] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:21:52.222] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:22:02.223] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:22:02.224] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:22:07.224] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:22:07.225] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:22:17.224] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:22:17.225] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:22:27.225] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:22:27.226] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:22:32.227] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:22:32.227] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:22:42.227] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:22:42.229] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:22:52.230] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:22:52.231] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:22:57.232] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:22:57.233] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:23:07.234] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:23:07.235] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:23:12.238] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:23:12.239] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:23:17.238] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:23:17.239] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:23:22.242] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:23:22.244] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:23:27.242] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:23:27.243] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:23:32.245] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:23:32.246] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:23:42.246] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:23:42.247] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:23:52.248] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:23:52.248] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:23:57.254] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:23:57.255] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:24:07.250] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:24:07.251] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:24:12.252] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:24:12.253] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:24:17.251] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:24:17.252] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:24:22.253] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:24:22.254] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:24:32.254] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:24:32.255] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:24:37.255] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:24:37.257] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:24:47.258] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:24:47.259] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:24:57.258] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:24:57.260] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:25:02.264] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:25:02.265] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:25:12.262] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:25:12.264] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:25:22.266] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:25:22.266] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:25:27.265] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:25:27.266] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:25:32.265] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:25:32.266] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:25:37.266] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:25:37.267] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:25:42.267] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:25:42.268] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:25:47.269] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:25:47.270] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:25:52.270] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:25:52.271] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:25:57.271] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:25:57.271] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:26:02.273] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:26:02.274] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:26:12.273] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:26:12.274] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:26:17.275] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:26:17.276] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:26:22.275] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:26:22.276] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:26:27.277] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:26:27.278] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:26:32.277] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:26:32.278] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:26:37.277] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:26:37.278] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:26:42.279] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:26:42.280] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:26:47.280] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:26:47.282] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:26:52.282] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:26:52.283] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:27:02.282] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:27:02.283] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:27:12.287] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:27:12.287] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:27:22.285] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:27:22.286] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:27:27.291] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:27:27.291] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:27:32.288] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:27:32.288] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:27:42.288] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:27:42.289] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:27:52.289] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:27:52.290] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:28:02.291] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:28:02.292] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:28:12.291] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:28:12.292] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:28:22.292] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:28:22.293] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:28:27.293] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:28:27.294] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:28:32.295] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:28:32.295] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:28:37.295] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:28:37.295] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:28:42.296] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:28:42.296] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:28:47.298] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:28:47.298] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:28:57.299] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:28:57.299] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:29:07.301] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:29:07.302] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:29:12.302] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:29:12.302] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:29:22.305] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:29:22.306] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:29:27.304] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:29:27.305] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:29:32.305] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:29:32.306] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:29:42.306] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:29:42.307] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:29:52.307] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:29:52.308] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:29:57.307] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:29:57.309] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:30:07.308] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:30:07.309] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:30:12.310] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:30:12.310] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:30:22.311] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:30:22.312] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:30:27.314] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:30:27.315] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:30:37.317] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:30:37.320] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:30:42.315] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:30:42.316] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:30:47.318] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:30:47.318] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:30:52.319] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:30:52.320] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:30:57.318] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:30:57.318] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:31:02.320] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:31:02.321] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:31:12.323] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:31:12.323] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:31:17.324] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:31:17.325] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:31:22.325] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:31:22.326] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:31:27.327] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:31:27.329] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:31:32.333] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:31:32.333] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:31:37.329] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:31:37.330] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:31:47.332] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:31:47.337] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:31:52.331] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:31:52.332] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:31:57.333] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:31:57.334] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:32:07.334] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:32:07.335] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:32:12.334] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:32:12.336] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:32:17.336] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:32:17.338] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:32:22.340] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:32:22.341] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:32:32.340] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:32:32.340] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:32:42.341] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:32:42.342] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:32:47.343] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:32:47.343] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:32:52.345] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:32:52.346] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:33:02.346] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:33:02.347] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:33:12.348] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:33:12.349] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:33:22.349] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:33:22.350] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:33:27.349] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:33:27.350] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:33:37.350] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:33:37.351] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:33:42.351] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:33:42.352] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:33:47.358] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:33:47.359] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:33:52.356] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:33:52.357] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:34:02.357] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:34:02.358] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:34:12.358] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:34:12.359] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:34:17.358] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:34:17.360] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:34:22.360] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:34:22.361] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:34:32.361] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:34:32.362] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:34:37.362] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:34:37.363] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:34:42.364] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:34:42.365] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:34:47.364] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:34:47.367] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:34:57.186] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:34:57.187] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:35:07.187] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:35:07.189] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:35:12.188] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:35:12.189] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:35:17.190] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:35:17.190] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:35:22.190] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:35:22.191] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:35:27.190] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:35:27.191] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:35:32.190] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:35:32.191] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:35:37.193] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:35:37.194] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:35:42.193] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:35:42.194] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:35:47.193] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:35:47.194] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:35:52.194] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:35:52.195] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:35:57.196] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:35:57.197] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:36:02.196] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:36:02.197] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:36:12.197] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:36:12.198] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:36:17.200] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:36:17.200] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:36:22.199] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:36:22.199] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:36:27.200] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:36:27.200] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:36:37.200] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:36:37.201] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:36:42.201] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:36:42.202] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:36:52.201] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:36:52.202] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:37:02.201] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:37:02.202] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:37:07.202] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:37:07.203] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:37:12.203] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:37:12.204] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:37:17.204] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:37:17.205] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:37:22.205] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:37:22.206] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:37:27.206] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:37:27.206] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:37:37.206] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:37:37.207] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:37:47.208] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:37:47.209] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:37:57.209] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:37:57.210] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:38:02.210] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:38:02.211] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:53:32.857] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:53:32.858] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:53:37.989] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:53:37.990] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:53:42.992] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:53:42.993] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:53:47.994] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:53:47.995] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:53:52.994] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:53:52.995] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:53:57.997] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:53:57.998] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:54:02.997] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:54:02.999] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:54:08.000] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:54:08.001] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 18:54:13.001] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 18:54:13.003] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:09:19.165] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:09:19.166] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:09:24.167] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:09:24.167] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:09:29.168] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:09:29.168] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:09:34.170] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:09:34.170] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:09:39.171] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:09:39.172] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:09:44.173] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:09:44.174] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:09:49.174] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:09:49.175] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:09:54.176] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:09:54.177] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:09:59.178] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:09:59.179] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:10:04.180] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:10:04.181] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:24:35.600] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:24:35.601] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:24:40.603] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:24:40.603] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:24:45.603] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:24:45.604] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:24:50.604] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:24:50.605] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:24:55.605] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:24:55.606] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:25:05.608] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:25:05.609] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:25:10.617] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:25:10.617] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:25:15.610] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:25:15.610] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:25:20.611] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:25:20.612] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:25:25.613] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:25:25.614] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:25:35.616] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:25:35.617] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:25:40.616] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:25:40.618] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:25:45.618] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:25:45.619] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:25:50.619] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:25:50.620] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:26:00.621] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:26:00.623] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:26:05.625] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:26:05.625] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:26:10.625] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:26:10.626] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:26:20.944] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:26:20.945] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:29:54.385] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:29:54.386] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:29:59.386] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:29:59.387] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:30:09.387] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:30:09.388] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:30:14.389] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:30:14.390] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:30:19.389] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:30:19.390] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:30:24.390] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:30:24.391] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:30:29.390] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:30:29.391] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:30:34.392] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:30:34.393] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:30:39.392] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:30:39.393] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:30:44.394] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:30:44.395] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:30:49.395] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:30:49.396] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:30:54.396] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:30:54.396] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:30:59.396] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:30:59.397] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:31:04.398] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:31:04.399] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:31:09.398] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:31:09.399] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:31:14.399] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:31:14.400] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:31:19.400] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:31:19.401] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:31:24.402] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:31:24.403] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:31:29.403] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:31:29.404] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:31:34.404] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:31:34.405] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:31:39.404] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:31:39.405] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:31:44.405] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:31:44.406] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:31:49.406] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:31:49.407] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:31:54.407] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:31:54.407] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:31:59.408] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:31:59.409] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:32:04.409] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:32:04.410] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:32:09.411] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:32:09.411] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
+[2025-11-09 19:32:19.411] [thread 19292] [ClientNetWorkHandler.cpp:33]   === ------------on read len=11 
+[2025-11-09 19:32:19.412] [thread 19290] [PlayerLoginHandler.cpp:14] ----- on onHeartBeat  server time =7567
