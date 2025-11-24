@@ -9,7 +9,7 @@ class AthenaDeps(ConanFile):
     generators = "CMakeDeps", "CMakeToolchain"
 
     requires = [
-        "mongo-cxx-driver/4.0.0",
+        "mongo-cxx-driver/3.6.7",
         "libmysqlclient/8.1.0",
         "hiredis/1.3.0",
         "protobuf/5.29.3",

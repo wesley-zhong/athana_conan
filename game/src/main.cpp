@@ -38,23 +38,23 @@ int main(int argc, char **argv) {
     xLogInitLog(LogLevel::LL_INFO, "../logs/game.log");
 
 
-    // init all functions call
-     GameServerNetWorkHandler::initAllMsgRegister();
-     GameServerNetWorkHandler::startLogicThread(3);
-
-    //start server
-     AthenaTcpServer tcp_server;
-     tcp_server.setChannelIdleTime(5000, 0);
-     tcp_server.onNewConnection = GameServerNetWorkHandler::onNewConnect;
-     tcp_server.onRead = GameServerNetWorkHandler::onMsg;
-     tcp_server.onClosed = GameServerNetWorkHandler::onClosed;
-     tcp_server.onEventTrigger = GameServerNetWorkHandler::onEventTrigger;
-
-     tcp_server.bind(9999).start(3);
-
+    // // init all functions call
+    //  GameServerNetWorkHandler::initAllMsgRegister();
+    //  GameServerNetWorkHandler::startLogicThread(3);
+    //
+    // //start server
+    //  AthenaTcpServer tcp_server;
+    //  tcp_server.setChannelIdleTime(5000, 0);
+    //  tcp_server.onNewConnection = GameServerNetWorkHandler::onNewConnect;
+    //  tcp_server.onRead = GameServerNetWorkHandler::onMsg;
+    //  tcp_server.onClosed = GameServerNetWorkHandler::onClosed;
+    //  tcp_server.onEventTrigger = GameServerNetWorkHandler::onEventTrigger;
+    //
+    //  tcp_server.bind(9999).start(3);
+    //
 
     // connect db
-    std::string ip = "127.0.0.1";
+    std::string ip = "172.18.2.101";
     Dal::Cache::init(ip, 6379, "", "", "");
     RedisResult redisResult;
     Dal::Cache::execute(&redisResult,"set ol:100064913 889");
