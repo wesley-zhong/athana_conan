@@ -1,5 +1,5 @@
-#include <iostream>
 
+#include <cstring>
 template <typename T>
 class RingBuffer
 {
