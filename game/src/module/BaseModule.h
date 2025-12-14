@@ -5,7 +5,7 @@
 #ifndef ATHENA_BASEMODULE_H
 #define ATHENA_BASEMODULE_H
 
-#include "dal/BaseDAO.h"
+//#include "dal/BaseDAO.h"
 
 class Player;
 
@@ -13,10 +13,10 @@ class DO;
 
 class BaseModule {
 public:
-    BaseModule(Player *player, BaseDAO *dao) {
-        this->player = player;
-        this->baseDao = dao;
-    }
+//    BaseModule(Player *player, BaseDAO *dao) {
+//        this->player = player;
+//        this->baseDao = dao;
+//    }
 
     virtual void initFromDB() = 0;
 
@@ -32,7 +32,7 @@ protected:
 
 protected:
     Player *player;
-    BaseDAO *baseDao;
+   // BaseDAO *baseDao;
 };
 
 

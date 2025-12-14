@@ -7,15 +7,15 @@
 
 #include "module/Module.h"
 #include "RoleDO.h"
-#include "dal/BaseDAO.h"
+
 class Player;
 
 
 class RoleModule : public Module<RoleDO> {
 public:
-    explicit RoleModule(Player *player) : Module<RoleDO>(player, new BaseDAO()) {
-
-    }
+//    explicit RoleModule(Player *player) : Module<RoleDO>(player, new BaseDAO()) {
+//
+//    }
 
     void fromDO(RoleDO *Do) override;
 

@@ -11,6 +11,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(3RD ${PROJECT_SOURCE_DIR}/3rd)
+set(CODE_GEN ${PROJECT_SOURCE_DIR}/code-gen)
+set(SOLUTION_DIR ./)
+
 
 # Dependencies from Conan
 find_package(spdlog REQUIRED)
@@ -54,3 +57,4 @@ add_subdirectory(engine-lua)
 add_subdirectory(game)
 add_subdirectory(gateway)
 add_subdirectory(client)
+add_subdirectory(tools)

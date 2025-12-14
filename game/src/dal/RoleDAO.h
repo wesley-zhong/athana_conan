@@ -5,9 +5,16 @@
 #ifndef ATHENA_ROLEDAO_H
 #define ATHENA_ROLEDAO_H
 
+#include "core/common/BaseType.h"
+#include "mongodb/DAO.hpp"
+#include "dos/RoleDO.h"
+#include "mongodb/MongClientInstance.h"
 
-class RoleDAO {
+class RoleDAO : public DAO<RoleDO, int64> {
+public:
+    RoleDAO() : DAO("game", "role") {
 
+    }
 };
 
 

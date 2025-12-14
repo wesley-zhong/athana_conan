@@ -14,8 +14,8 @@ class BaseDAO;
 template<typename DO>
 class Module : public BaseModule {
 public:
-    Module(Player *player, BaseDAO *baseDAO) : BaseModule(player, baseDAO) {
-    }
+//    Module(Player *player, BaseDAO *baseDAO) : BaseModule(player, baseDAO) {
+//    }
 
     void initFromDB() {
     };

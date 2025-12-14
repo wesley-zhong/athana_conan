@@ -5,7 +5,7 @@
 #include "MongoDBInterface.h"
 
 int MongoDBInterface::testInit() {
-    mongocxx::instance instance;
+  //  mongocxx::instance instance;
     // Replace the placeholder with your Atlas connection string
     mongocxx::uri uri("mongodb://admin:admin@localhost:27017/?authSource=admin");
     // Create a mongocxx::client with a mongocxx::options::client object to set the Stable API version

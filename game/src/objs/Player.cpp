@@ -14,6 +14,6 @@ void Player::sendMsg(int msgId, std::shared_ptr<google::protobuf::Message> msg) 
 }
 
 void Player::initModules() {
-    REGISTER_MODULE(RoleModule);
+  //  REGISTER_MODULE(RoleModule);
 
 }

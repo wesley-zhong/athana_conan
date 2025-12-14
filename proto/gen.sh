@@ -1,1 +1,1 @@
-protoc  --cpp_out=../proto-gen ./*.proto
+protoc  --cpp_out=../code-gen/proto-gen ./*.proto

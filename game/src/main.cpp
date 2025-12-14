@@ -20,7 +20,8 @@
 
 #include "network/GameServerNetWorkHandler.h"
 #include "mongodb/MongoDBInterface.h"
-
+#include "mongodb/MongClientInstance.h"
+#include "dal/RoleDAO.h"
 
 static std::atomic<bool> g_running(true);
 static std::condition_variable g_cv;
@@ -54,7 +55,7 @@ int main(int argc, char **argv) {
     //
 
     // connect db
-    std::string ip = "172.18.2.101";
+    std::string ip = "localhost";
     Dal::Cache::init(ip, 6379, "", "", "");
     RedisResult redisResult;
     Dal::Cache::execute(&redisResult,"set ol:100064913 889");
@@ -66,8 +67,18 @@ int main(int argc, char **argv) {
 //    MysqlResult db_result;
 //    Dal::DB::execute(&db_result, "select * from  user");
 
-    MongoDBInterface* mongdb = new MongoDBInterface();
-    mongdb->testInit();
+    MongClientInstance::init("localhost","admin","admin");
+    RoleDAO * roleDDAO = new RoleDAO();
+    int64 userId = 1111;
+    RoleDO* roleDo = new RoleDO();
+    roleDDAO->update(roleDo);
+    RoleDO* pRoleDO = roleDDAO->find_one(userId);
+
+
+
+
+   // MongoDBInterface* mongdb = new MongoDBInterface();
+    //mongdb->testInit();
 
     INFO_LOG("==========================  wait release");
     std::this_thread::sleep_for(std::chrono::seconds(5));
