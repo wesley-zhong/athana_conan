@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 project(tools VERSION 0.1.0 LANGUAGES C CXX)
 
 
-set(SOLUTION_DIR ${PROJECT_SOURCE_DIR}/..)
+#find_package(Clang REQUIRED CONFIG)
 
 # 自动递归查找所有源码文件
 file(GLOB_RECURSE SRC_FILES
