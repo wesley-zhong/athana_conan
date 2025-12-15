@@ -15,14 +15,17 @@ namespace Dal {
     T *initDB(const char *host, unsigned int port, const char *dbname, const char *user, const char *pswd
     ) {
         T *obj = new T(host, port, dbname, user, pswd);
-        obj->connect();
-        return obj;
+        bool ret = obj->connect();
+        if (ret) {
+            return obj;
+        }
+        return nullptr;
     }
 
     namespace DB {
         extern DBInterfaceMysql *mysql;
 
-        void init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
+        bool init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
                   const std::string &password);
 
         //  template<typename T_KEY, typename T_VALUE>  Todo  this should support string and long ,int  as key
@@ -32,7 +35,7 @@ namespace Dal {
     namespace Cache {
         extern DBInterfaceRedis *redis;
 
-        void init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
+        bool init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
                   const std::string &password);
 
         //  template<typename T_KEY, typename T_VALUE>  Todo  this should support string and long ,int  as key

@@ -6,9 +6,10 @@
 namespace Dal::DB {
     DBInterfaceMysql *mysql = nullptr;
 
-    void init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
+    bool init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
               const std::string &password) {
         mysql = initDB<DBInterfaceMysql>(ip.c_str(), port, dbname.c_str(), username.c_str(), password.c_str());
+        return mysql != nullptr;
     }
 
     int execute(DBResult *result, const std::string &cmd) {
@@ -19,9 +20,11 @@ namespace Dal::DB {
 namespace Dal::Cache {
     DBInterfaceRedis *redis = nullptr;
 
-    void init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
+    bool init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
               const std::string &password) {
         redis = initDB<DBInterfaceRedis>(ip.c_str(), port, dbname.c_str(), username.c_str(), password.c_str());
+        return redis != nullptr;
+
     }
 
     int execute(DBResult *result, const std::string &cmd) {

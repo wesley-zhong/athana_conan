@@ -37,7 +37,8 @@ bool DBInterfaceMysql::connect() {
 
     if (!mysql_real_connect(&mMysql_, m_ip.c_str(), m_user.c_str(), m_pswd.c_str(), m_dbname.c_str(), m_port, NULL,
                             0)) {
-        ERR_LOG("mysql_real_connect Errno:{} error: {}  client info ={}  version ={}", getErrno(), getError(), mysql_get_client_info(), mysql_get_client_version());
+        ERR_LOG("mysql_real_connect Errno:{} error: {}  client info ={}  version ={}", getErrno(), getError(),
+                mysql_get_client_info(), mysql_get_client_version());
         return false;
     }
 
@@ -56,29 +57,26 @@ int DBInterfaceMysql::execute(DBResult *result, const char *cmd, int len) {
         return -1;
     }
 
-    MYSQL_RES *pResult = mysql_store_result(&mMysql_);
+    MYSQL_RES *mysql_res = mysql_store_result(&mMysql_);
+    MysqlResult* dbResult = (MysqlResult*) result;
+    // if (mysql_res) {
+    //     uint32 nrows = (uint32) mysql_num_rows(mysql_res);
+    //     uint32 nfields = (uint32) mysql_num_fields(mysql_res);
+    //     dbResult->setResult(mysql_res)；
+    //     MYSQL_ROW arow;
+    //     while ((arow = mysql_fetch_row(mysql_res)) != nullptr) {
+    //         unsigned long *lengths = mysql_fetch_lengths(mysql_res);
+    //
+    //         for (uint32 i = 0; i < nfields; ++i) {
+    //             // arow[i], lengths[i]
+    //         }
+    //     }
+    //
+    //     mysql_free_result(mysql_res);
+    // } else {
+    // }
 
-
-    if (pResult) {
-        uint32 nrows = (uint32) mysql_num_rows(pResult);
-        uint32 nfields = (uint32) mysql_num_fields(pResult);
-
-        MYSQL_ROW arow;
-        while ((arow = mysql_fetch_row(pResult)) != NULL) {
-            unsigned long *lengths = mysql_fetch_lengths(pResult);
-
-            for (uint32 i = 0; i < nfields; ++i) {
-                // arow[i], lengths[i]
-            }
-        }
-
-        mysql_free_result(pResult);
-    } else {
-    }
-
-
-    static_cast<MysqlResult *>(result)->setResult(pResult);
-
+    static_cast<MysqlResult *>(result)->setResult(mysql_res);
     return 0;
 }
 

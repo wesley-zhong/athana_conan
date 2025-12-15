@@ -16,11 +16,20 @@
 using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_array;
 using bsoncxx::builder::basic::make_document;
+
 class MongoDBInterface {
 public:
     int testInit();
 
+    template<typename R, typename KT>
+    R *find_one(KT key);
 };
 
+template<typename R, typename KT>
+R * MongoDBInterface::find_one(KT key) {
+    R *result = new R();
+
+    return result;
+}
 
 #endif //ATHENA_MONGODBINTERFACE_H
