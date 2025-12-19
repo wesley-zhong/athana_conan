@@ -2,7 +2,7 @@
 #define MSGHANDLER_H_
 
 #include "core/common/BaseType.h"
-#include "p/ProtoCommon.pb.h"
+#include "ProtoCommon.pb.h"
 
 #include "ProtoTask.pb.h"
 #include "transport/Channel.h"
