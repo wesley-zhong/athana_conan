@@ -13,7 +13,7 @@
 #include "core/common/BaseType.h"
 class RoleDO : public BsonSerializable {
 public:
-    int64 _id;
+    int64_t _id;
     std::string name;
 
     bsoncxx::document::value toBson() const;

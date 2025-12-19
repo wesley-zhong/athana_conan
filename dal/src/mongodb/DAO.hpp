@@ -37,12 +37,17 @@ public:
         return doObj;
     }
 
-    DO_T *find_one(int32 id) {
+    std::optional<DO_T> *find_one(int32 id) {
         return find_one(int64(id));
     }
 
     int update(DO_T &obj) {
-        tbl_coll.find_one_and_replace(make_document(kvp("_id", obj._id)), obj.toBson());
+        mongocxx::options::find_one_and_replace opts;
+        opts.upsert(true);
+        auto ret = tbl_coll.find_one_and_replace(make_document(kvp("_id", obj._id)), obj.toBson(), opts);
+        if (ret) {
+            ret.value();
+        }
         return 0;
     }
 

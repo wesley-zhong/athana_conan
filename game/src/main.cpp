@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
     MongClientInstance::init("localhost", "admin", "admin");
     RoleDAO *roleDDAO = new RoleDAO();
     roleDDAO->init();
-    int64 userId = 1111;
+    int64 userId = 99999;
     RoleDO roleDo;
     roleDo.name="kkkk_name";
     roleDo._id =99999;
