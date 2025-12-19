@@ -4,24 +4,17 @@
 
 #ifndef ATHENA_DAO_H
 #define ATHENA_DAO_H
-
-#include <cstdint>
-#include <iostream>
-#include <vector>
 #include <bsoncxx/builder/basic/document.hpp>
-#include <bsoncxx/json.hpp>
 #include <mongocxx/client.hpp>
-#include <mongocxx/instance.hpp>
-#include <mongocxx/stdx.hpp>
-#include <mongocxx/uri.hpp>
 #include "MongClientInstance.h"
+#include <optional>
 
 
 using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_array;
 using bsoncxx::builder::basic::make_document;
 
-template<typename DO_T, typename ID_T>
+template<typename DO_T>
 class DAO {
 public:
     DAO(std::string dbName, std::string table) {
@@ -31,20 +24,25 @@ public:
 
     int init() {
         tbl_coll = MongClientInstance::getCollection(dbName, tableName);
+        return 0;
     }
 
-    DO_T *find_one(ID_T id) {
+    std::optional<DO_T> find_one(int64 id) {
         auto find_one_result = tbl_coll.find_one(make_document(kvp("_id", id)));
         if (!find_one_result) {
-            return nullptr;
+            return std::nullopt;
         }
-        DO_T *pDO = new DO_T();
-        pDO->parse(find_one_result.view());
-        return pDO;
+        DO_T doObj;
+        doObj.fromBson(find_one_result->view());
+        return doObj;
     }
 
-    int update(DO_T *obj) {
-        tbl_coll.find_one_and_replace(make_document(kvp("_id", obj->_id)), obj);
+    DO_T *find_one(int32 id) {
+        return find_one(int64(id));
+    }
+
+    int update(DO_T &obj) {
+        tbl_coll.find_one_and_replace(make_document(kvp("_id", obj._id)), obj.toBson());
         return 0;
     }
 

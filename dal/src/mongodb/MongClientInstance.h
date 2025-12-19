@@ -21,13 +21,14 @@ using bsoncxx::builder::basic::make_document;
 
 class MongClientInstance {
 public:
+
     static int init(const std::string &ip, const std::string &userName, const std::string &password);
 
-    static mongocxx::collection getCollection(const std::string& dbName, const std::string &collectionName);
+    static  mongocxx::collection getCollection(const std::string &dbName, const std::string &collectionName);
 
 
-    static mongocxx::client *client;
-    static mongocxx::database db;
+    mongocxx::client client;
+    mongocxx::database db;
 };
 
 

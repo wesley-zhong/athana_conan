@@ -55,34 +55,35 @@ int main(int argc, char **argv) {
     //
 
     // connect db
-    std::string ip = "localhost";
+    std::string ip = "172.18.2.101";
     Dal::Cache::init(ip, 6379, "", "", "");
     RedisResult redisResult;
-    Dal::Cache::execute(&redisResult,"set ol:100064913 889");
+    Dal::Cache::execute(&redisResult, "set ol:100064913 889");
     RedisResult redisResult1;
     Dal::Cache::execute(&redisResult1, "get ol:100064913");
-    INFO_LOG("OUT STRING ={}",redisResult1.getStream());
+    INFO_LOG("OUT STRING ={}", redisResult1.getStream());
 
-//    Dal::DB::init(ip,3306,"gm_tool", "root","MyUN#FoyT!EtLnh7");
-//    MysqlResult db_result;
-//    Dal::DB::execute(&db_result, "select * from  user");
+    //    Dal::DB::init(ip,3306,"gm_tool", "root","MyUN#FoyT!EtLnh7");
+    //    MysqlResult db_result;
+    //    Dal::DB::execute(&db_result, "select * from  user");
 
-    MongClientInstance::init("localhost","admin","admin");
-    RoleDAO * roleDDAO = new RoleDAO();
+
+    MongClientInstance::init("localhost", "admin", "admin");
+    RoleDAO *roleDDAO = new RoleDAO();
+    roleDDAO->init();
     int64 userId = 1111;
-    RoleDO* roleDo = new RoleDO();
+    RoleDO roleDo;
+    roleDo.name="kkkk_name";
+    roleDo._id =99999;
     roleDDAO->update(roleDo);
-    RoleDO* pRoleDO = roleDDAO->find_one(userId);
+    std::optional<RoleDO> pRoleDO = roleDDAO->find_one(userId);
 
 
-
-
-   // MongoDBInterface* mongdb = new MongoDBInterface();
+    // MongoDBInterface* mongdb = new MongoDBInterface();
     //mongdb->testInit();
 
     INFO_LOG("==========================  wait release");
     std::this_thread::sleep_for(std::chrono::seconds(5));
-
 
 
     // 💡 主线程阻塞等待，无限期休眠（CPU 占用≈0）

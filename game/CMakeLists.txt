@@ -10,15 +10,21 @@ file(GLOB_RECURSE SRC_FILES
         ${PROJECT_SOURCE_DIR}/src/*.cc
         ${PROJECT_SOURCE_DIR}/src/*.c
 
-        ${SOLUTION_DIR}/proto-gen/*.cpp
-        ${SOLUTION_DIR}/proto-gen/*.cc
-        ${SOLUTION_DIR}/proto-gen/*.c
+        ${PROJECT_SOURCE_DIR}/code-gen/*.cpp
+        ${PROJECT_SOURCE_DIR}/code-gen/*.cc
+        ${PROJECT_SOURCE_DIR}/code-gen/*.c
+
+
+        ${SOLUTION_DIR}/code-gen/proto-gen/*.cpp
+        ${SOLUTION_DIR}/code-gen/proto-gen/*.cc
+        ${SOLUTION_DIR}/code-gen/proto-gen/*.c
 )
 # 生成可执行文件
 add_executable(${PROJECT_NAME} ${SRC_FILES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
         ${PROJECT_SOURCE_DIR}/src
+        ${PROJECT_SOURCE_DIR}/src/dos
         ${CODE_GEN}/proto-gen
 )
 # 链接操作

@@ -7,10 +7,10 @@
 
 #include "core/common/BaseType.h"
 #include "mongodb/DAO.hpp"
-#include "dos/RoleDO.h"
+#include "dos/RoleDO.hpp"
 #include "mongodb/MongClientInstance.h"
 
-class RoleDAO : public DAO<RoleDO, int64> {
+class RoleDAO : public DAO<RoleDO> {
 public:
     RoleDAO() : DAO("game", "role") {
 
