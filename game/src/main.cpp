@@ -78,9 +78,6 @@ int main(int argc, char **argv) {
     roleDDAO->update(roleDo);
     INFO_LOG("ROLE DO ID ={} updated", roleDo._id);
 
-
-
-
     std::optional<RoleDO> pRoleDO = Dal::DAO<RoleDAO>().find_one(userId);//roleDDAO->find_one(userId);
 
 

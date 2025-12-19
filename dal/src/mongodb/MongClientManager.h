@@ -15,8 +15,6 @@ using bsoncxx::builder::basic::make_document;
 
 class MongClientManager {
 public:
-    static MongClientManager *getInstance();
-
     static int init(const std::string &ip, const std::string &userName, const std::string &password);
 
     static mongocxx::pool::entry getClient();

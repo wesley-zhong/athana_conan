@@ -26,12 +26,13 @@ public:
 
 
     std::optional<DO_T> find_one(int64 id) {
-        return find_one(MongClientManager::getClient(), id);
+        auto client = MongClientManager::getClient();
+        return this->find_oneImp(client, id);
     }
 
     bool update(const DO_T &obj) {
-       mongocxx::pool::entry entry =  MongClientManager::getClient();
-        return update(entry, obj);
+        auto client = MongClientManager::getClient();
+        return update(client, obj);
     }
 
     void bulk_update(DO_T &dos ...) {
@@ -44,7 +45,7 @@ public:
     }
 
 private:
-    std::optional<DO_T> find_one(mongocxx::pool::entry& client, int64 id) {
+    std::optional<DO_T> find_oneImp(mongocxx::pool::entry &client, int64 id) {
         auto find_one_result = (*client)[dbName][tableName].find_one(make_document(kvp("_id", id)));
         if (!find_one_result) {
             return std::nullopt;
@@ -55,7 +56,7 @@ private:
     }
 
 
-    bool update(mongocxx::pool::entry& client, const DO_T &obj) {
+    bool update(mongocxx::pool::entry &client, const DO_T &obj) {
         try {
             mongocxx::options::replace opts;
             opts.upsert(true);
