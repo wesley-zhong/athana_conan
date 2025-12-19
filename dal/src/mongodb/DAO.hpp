@@ -10,7 +10,7 @@
 #include "MongClientManager.h"
 #include <optional>
 #include "core/log/XLog.h"
-
+#include "core/common/BaseType.h"
 
 using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_array;

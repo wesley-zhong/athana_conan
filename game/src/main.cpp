@@ -22,6 +22,7 @@
 #include "mongodb/MongoDBInterface.h"
 #include "mongodb/MongClientManager.h"
 #include "dal/RoleDAO.h"
+#include "dal/Dal.hpp"
 
 static std::atomic<bool> g_running(true);
 static std::condition_variable g_cv;
@@ -70,13 +71,18 @@ int main(int argc, char **argv) {
 
     MongClientManager::init("localhost", "admin", "admin");
     RoleDAO *roleDDAO = new RoleDAO();
-    int64_t userId = 99999;
+    int64 userId = 99999;
     RoleDO roleDo;
     roleDo.name="kkkk_name";
     roleDo._id =99999;
     roleDDAO->update(roleDo);
     INFO_LOG("ROLE DO ID ={} updated", roleDo._id);
-    std::optional<RoleDO> pRoleDO = roleDDAO->find_one(userId);
+
+
+
+
+    std::optional<RoleDO> pRoleDO = Dal::DAO<RoleDAO>().find_one(userId);//roleDDAO->find_one(userId);
+
 
     INFO_LOG("==========================  wait release");
     std::this_thread::sleep_for(std::chrono::seconds(5));
