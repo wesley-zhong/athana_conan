@@ -7,22 +7,21 @@
 
 #include <bsoncxx/builder/basic/document.hpp>
 #include <mongocxx/client.hpp>
+#include <mongocxx/pool.hpp>
 
 using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_array;
 using bsoncxx::builder::basic::make_document;
 
-class MongClientInstance {
+class MongClientManager {
 public:
-    static MongClientInstance *getInstance();
+    static MongClientManager *getInstance();
 
     static int init(const std::string &ip, const std::string &userName, const std::string &password);
 
-    static mongocxx::collection getCollection(const std::string &dbName, const std::string &collectionName);
+    static mongocxx::pool::entry getClient();
 
-
-    mongocxx::client client;
-    mongocxx::database db;
+    static mongocxx::pool *pool;
 };
 
 

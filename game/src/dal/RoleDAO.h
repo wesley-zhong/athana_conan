@@ -8,12 +8,11 @@
 #include "core/common/BaseType.h"
 #include "mongodb/DAO.hpp"
 #include "dos/RoleDO.hpp"
-#include "mongodb/MongClientInstance.h"
+#include "mongodb/MongClientManager.h"
 
 class RoleDAO : public DAO<RoleDO> {
 public:
     RoleDAO() : DAO("game", "role") {
-
     }
 };
 

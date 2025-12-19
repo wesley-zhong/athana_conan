@@ -20,7 +20,7 @@
 
 #include "network/GameServerNetWorkHandler.h"
 #include "mongodb/MongoDBInterface.h"
-#include "mongodb/MongClientInstance.h"
+#include "mongodb/MongClientManager.h"
 #include "dal/RoleDAO.h"
 
 static std::atomic<bool> g_running(true);
@@ -68,19 +68,15 @@ int main(int argc, char **argv) {
     //    Dal::DB::execute(&db_result, "select * from  user");
 
 
-    MongClientInstance::init("localhost", "admin", "admin");
+    MongClientManager::init("localhost", "admin", "admin");
     RoleDAO *roleDDAO = new RoleDAO();
-    roleDDAO->init();
-    int64 userId = 99999;
+    int64_t userId = 99999;
     RoleDO roleDo;
     roleDo.name="kkkk_name";
     roleDo._id =99999;
     roleDDAO->update(roleDo);
+    INFO_LOG("ROLE DO ID ={} updated", roleDo._id);
     std::optional<RoleDO> pRoleDO = roleDDAO->find_one(userId);
-
-
-    // MongoDBInterface* mongdb = new MongoDBInterface();
-    //mongdb->testInit();
 
     INFO_LOG("==========================  wait release");
     std::this_thread::sleep_for(std::chrono::seconds(5));
