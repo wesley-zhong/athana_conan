@@ -8,6 +8,7 @@
 #include "core/common/ObjectPool.hpp"
 #include "db/Dal.hpp"
 #include "mongodb/MongoDBInterface.h"
+
 #if defined(_WIN32)
 #include <windows.h>
 #else
@@ -56,7 +57,7 @@ int main(int argc, char **argv) {
     //
 
     // connect db
-    std::string ip = "172.18.2.101";
+    std::string ip = "localhost";
     Dal::Cache::init(ip, 6379, "", "", "");
     RedisResult redisResult;
     Dal::Cache::execute(&redisResult, "set ol:100064913 889");
@@ -70,15 +71,18 @@ int main(int argc, char **argv) {
 
 
     MongClientManager::init("localhost", "admin", "admin");
-    RoleDAO *roleDDAO = new RoleDAO();
-    int64 userId = 99999;
+    int64 userId = 1000001;
     RoleDO roleDo;
-    roleDo.name="kkkk_name";
-    roleDo._id =99999;
-    roleDDAO->update(roleDo);
-    INFO_LOG("ROLE DO ID ={} updated", roleDo._id);
+    roleDo.name = "kkkk_name";
+    roleDo._id = 99999;
+    bool ret = Dal::DAO<RoleDAO>().update(roleDo);
+    INFO_LOG("ROLE DO ID ={} updated ret ={}", roleDo._id, ret);
 
     std::optional<RoleDO> pRoleDO = Dal::DAO<RoleDAO>().find_one(userId);//roleDDAO->find_one(userId);
+    if (pRoleDO) {
+        RoleDO &roleDo = pRoleDO.value();
+        INFO_LOG(" role id ={} name ={}", roleDo._id, roleDo.name);
+    }
 
 
     INFO_LOG("==========================  wait release");
