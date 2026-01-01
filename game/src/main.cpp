@@ -41,26 +41,26 @@ int main(int argc, char **argv) {
     xLogInitLog(LogLevel::LL_INFO, "../logs/game.log");
 
 
-    // // init all functions call
-    //  GameServerNetWorkHandler::initAllMsgRegister();
-    //  GameServerNetWorkHandler::startLogicThread(3);
-    //
-    // //start server
-    //  AthenaTcpServer tcp_server;
-    //  tcp_server.setChannelIdleTime(5000, 0);
-    //  tcp_server.onNewConnection = GameServerNetWorkHandler::onNewConnect;
-    //  tcp_server.onRead = GameServerNetWorkHandler::onMsg;
-    //  tcp_server.onClosed = GameServerNetWorkHandler::onClosed;
-    //  tcp_server.onEventTrigger = GameServerNetWorkHandler::onEventTrigger;
-    //
-    //  tcp_server.bind(9999).start(3);
+     // init all functions call
+      GameServerNetWorkHandler::initAllMsgRegister();
+      GameServerNetWorkHandler::startLogicThread(3);
+
+     //start server
+      AthenaTcpServer tcp_server;
+      tcp_server.setChannelIdleTime(5000, 0);
+      tcp_server.onNewConnection = GameServerNetWorkHandler::onNewConnect;
+      tcp_server.onRead = GameServerNetWorkHandler::onMsg;
+      tcp_server.onClosed = GameServerNetWorkHandler::onClosed;
+      tcp_server.onEventTrigger = GameServerNetWorkHandler::onEventTrigger;
+
+      tcp_server.bind(9999).start(3);
     //
 
     // connect db
     std::string ip = "localhost";
     Dal::Cache::init(ip, 6379, "", "", "");
     RedisResult redisResult;
-    Dal::Cache::execute(&redisResult, "set ol:100064913 889");
+    Dal::Cache::execute(&redisResult, "set ol:100064913 889abc");
     RedisResult redisResult1;
     Dal::Cache::execute(&redisResult1, "get ol:100064913");
     INFO_LOG("OUT STRING ={}", redisResult1.getStream());
@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
     bool ret = Dal::DAO<RoleDAO>().update(roleDo);
     INFO_LOG("ROLE DO ID ={} updated ret ={}", roleDo._id, ret);
 
-    std::optional<RoleDO> pRoleDO = Dal::DAO<RoleDAO>().find_one(userId);//roleDDAO->find_one(userId);
+    std::optional<RoleDO> pRoleDO = Dal::DAO<RoleDAO>().find_one(userId);
     if (pRoleDO) {
         RoleDO &roleDo = pRoleDO.value();
         INFO_LOG(" role id ={} name ={}", roleDo._id, roleDo.name);

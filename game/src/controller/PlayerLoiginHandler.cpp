@@ -6,8 +6,7 @@
 
 void PlayerLoginHandler::registMsgHandler() {
     REGISTER_MSG_ID_FUN(INNER_TO_GAME_LOGIN_REQ, InnerLoginRequest, PlayerLoginHandler::onInnerLogin);
-    REGISTER_MSG_ID_FUN(INNER_PLAYER_DISCONNECT_REQ, InnerPlayerDisconnectRequest,
-                        PlayerLoginHandler::onPlayerDisconnected);
+    REGISTER_MSG_ID_FUN(INNER_PLAYER_DISCONNECT_REQ, InnerPlayerDisconnectRequest,PlayerLoginHandler::onPlayerDisconnected);
 }
 
 

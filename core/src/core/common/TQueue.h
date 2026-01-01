@@ -35,7 +35,7 @@ public:
     }
 
     void push(T &&object) {
-        mqueue.enqueue(std::move(object));
+        mqueue.enqueue(object);
     }
 
     bool tryPop(T &object) {
