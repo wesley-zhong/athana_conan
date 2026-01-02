@@ -39,7 +39,7 @@ void GameServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
         return;
     }
 
-    void *msg = msg_function->newParam(data, len);
+    void *msg = msg_function->parseParam(data, len);
     threadPool->execute([playerId, msg_function, channel, msg]() {
         msg_function->msgFunction(playerId, channel, msg);
     }, 2);

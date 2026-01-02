@@ -101,6 +101,8 @@ void EventLoop::asyncAccept(uv_os_sock_t fd) {
         int ret = uv_tcp_open(client, fd); // 绑定 socket 到本 loop
         if (ret != 0) {
             ERR_LOG("  -------tcp open faild ret ={}", ret);
+            delete client;
+            return ;
         }
 
         uv_read_start((uv_stream_t *) client, uv_alloc_cb, uv_read_cb);

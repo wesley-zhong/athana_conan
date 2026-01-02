@@ -13,7 +13,7 @@ Dispatcher::Instance()->registerMsgHandler<MSG_TYPE>(MSGID, std::function(FUNCTI
 
 struct MsgFunction {
     std::function<void(int64_t, Channel *, void *)> msgFunction;
-    std::function<void *(void *, int)> newParam; //this may be use obj pool
+    std::function<void *(void *, int)> parseParam; //this may be use obj pool
 };
 
 class Dispatcher : public Singleton<Dispatcher> {
@@ -45,7 +45,7 @@ private:
 template<typename T>
 void Dispatcher::registerMsgHandler(int msgId, std::function<void(int64_t, T *)> msgFuc) {
     auto *msgFunction = new MsgFunction();
-    msgFunction->newParam = [](void *body, int len) {
+    msgFunction->parseParam = [](void *body, int len) {
         T *msg = ObjPool::acquirePtr<T>();
         msg->ParseFromArray(body, len);
         return msg;
@@ -60,7 +60,7 @@ void Dispatcher::registerMsgHandler(int msgId, std::function<void(int64_t, T *)>
 template<typename T>
 void Dispatcher::registerMsgHandler(int msgId, std::function<void(Channel *, T *)> msgFuc) {
     auto *msgFunction = new MsgFunction();
-    msgFunction->newParam = [](void *body, int len) {
+    msgFunction->parseParam = [](void *body, int len) {
         T *msg = ObjPool::acquirePtr<T>();
         msg->ParseFromArray(body, len);
         return msg;
