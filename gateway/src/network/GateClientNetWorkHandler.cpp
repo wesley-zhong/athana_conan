@@ -30,14 +30,13 @@ void GateClientNetWorkHandler::onNewConnect(Channel *channel, int status) {
 }
 
 void GateClientNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
-    //INFO_LOG("  === on read   channel ={} len ={}", channel->getAddr(), len);
     uint8 *data = static_cast<uint8 *>(buff);
     data = data + 4;
     int msgId = ByteUtils::readInt32(data);
     int playerId = 999;
     data += 4;
     len -= 4;
-
+    INFO_LOG("  === on read   channel ={}  msgId={}  len ={}", channel->getAddr(), msgId, len);
     MsgFunction *msg_function = Dispatcher::Instance()->findMsgFuncion(msgId);
     if (msg_function == nullptr) {
         ERR_LOG(" msgId ={} not found process function", msgId);

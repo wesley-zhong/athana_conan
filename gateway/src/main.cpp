@@ -41,9 +41,7 @@ int main(int argc, char **argv) {
 
     xLogInitLog(LogLevel::LL_INFO, "../logs/gateway.log");
 
-    //
-    // std::string ip = "172.18.2.101";
-    // Dal::Cache::init(ip, 6379, "", "", "");
+    //tcp client
     GateClientNetWorkHandler::initAllMsgRegister();
     GateClientNetWorkHandler::startLogicThread(2);
     TcpClient tcp_client;
@@ -56,6 +54,9 @@ int main(int argc, char **argv) {
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
     tcp_client.connect("127.0.0.1", 9999);
 
+
+
+    // tcp server
     GatewayServerNetWorkHandler::initAllMsgRegister();
     GatewayServerNetWorkHandler::startLogicThread(2);
     AthenaTcpServer tcp_server;

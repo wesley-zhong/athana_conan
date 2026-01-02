@@ -8,14 +8,14 @@
 #include "transport/Dispatcher.h"
 
 void SystemMsgHandler::onShakHandReq(Channel *channel, InnerServerHandShakeReq *req) {
-    INFO_LOG(" receive shake req hand msg ={} innherHeaderId = {}", channel->getAddr(), req->service_id());
+    INFO_LOG("receive shakehand req msg ={} innherHeaderId = {}", channel->getAddr(), req->service_id());
     auto res = std::make_shared<InnerServerHandShakeRes>();
     res->set_service_id("9999ttt");
     channel->sendMsg(INNER_SERVER_HAND_SHAKE_RES, res);
 }
 
 void SystemMsgHandler::onShakHandResponse(Channel *channel, InnerServerHandShakeRes *res) {
-    INFO_LOG(" receive shake  reshand msg ={} innherHeaderId = {}", channel->getAddr(), res->service_id());
+    INFO_LOG("receive shakehand  res msg ={} innherHeaderId = {}", channel->getAddr(), res->service_id());
 }
 
 
@@ -25,7 +25,7 @@ void SystemMsgHandler::onHeartBeatReq(Channel *channel, InnerHeartBeatRequest *r
 }
 
 void SystemMsgHandler::onHeartBeatRes(Channel *channel, InnerHeartBeatResponse *res) {
-    INFO_LOG(" receive   onHeartBeatRes msg ={} time = {}", channel->getAddr(), res->time());
+    INFO_LOG("receive   onHeartBeatRes msg ={} time = {}", channel->getAddr(), res->time());
 }
 
 void SystemMsgHandler::registMsg() {
