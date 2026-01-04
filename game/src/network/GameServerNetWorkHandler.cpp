@@ -32,7 +32,9 @@ void GameServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     data += 4;
     len -= 8;
 
-    INFO_LOG("  === on read   channel ={} msgId ={}  len ={} ", channel->getAddr(), msgId, len);
+    if (msgId != -3) {
+        INFO_LOG("  === on read   channel ={} msgId ={}  len ={} ", channel->getAddr(), msgId, len);
+    }
     MsgFunction *msg_function = Dispatcher::Instance()->findMsgFuncion(msgId);
     if (msg_function == nullptr) {
         ERR_LOG(" msgId ={} not found process function", msgId);

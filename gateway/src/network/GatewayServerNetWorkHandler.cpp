@@ -29,12 +29,13 @@ void GatewayServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     int msgId = ByteUtils::readInt32(data);
     int playerId = 0;
     len -= 8;
-    INFO_LOG("=== on read   channel ={} len ={} msgId={}", channel->getAddr(), len,msgId);
+
+    INFO_LOG("=== on read   channel ={} len ={} msgId={}", channel->getAddr(), len, msgId);
 
     //first check all msg_id valid
     MsgFunction *msg_function = Dispatcher::Instance()->findMsgFuncion(msgId);
     if (msg_function == nullptr) {
-        proxyMsgToGame(channel, (char*)buff, len);
+        proxyMsgToGame(channel, (char *) buff, len);
         ERR_LOG(" msgId ={} not found process function", msgId);
         return;
     }
@@ -57,8 +58,7 @@ void GatewayServerNetWorkHandler::onEventTrigger(Channel *channel, TriggerEventE
     }
 }
 
-void GatewayServerNetWorkHandler::proxyMsgToGame(Channel *channel,char *buff, int len) {
-
+void GatewayServerNetWorkHandler::proxyMsgToGame(Channel *channel, char *buff, int len) {
 }
 
 

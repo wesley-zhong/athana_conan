@@ -64,8 +64,7 @@ void Channel::eventLoopWrite(int msgId, google::protobuf::Message *msg) {
     send_buff->writeBytes(getEventPackBuff(), len);
     last_send_time = nowTime();
 
-    INFO_LOG("-------- send msgId={}  len={} ", msgId, len);
-
+    //INFO_LOG("-------- send msgId={}  len={} ", msgId, len);
     // do send
     if (needCallSend) {
         doUvSend();
