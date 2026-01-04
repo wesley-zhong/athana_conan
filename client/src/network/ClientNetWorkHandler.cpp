@@ -36,7 +36,7 @@ void ClientNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     int msgId = ByteUtils::readInt32(data);
     int playerId = 0;
     data += 4;
-    len -= 4;
+    len -= 8;
 
     MsgFunction *msg_function = Dispatcher::Instance()->findMsgFuncion(msgId);
     if (msg_function == nullptr) {
