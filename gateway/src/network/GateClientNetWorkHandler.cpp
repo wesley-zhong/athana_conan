@@ -36,7 +36,7 @@ void GateClientNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     int playerId = 999;
     data += 4;
     len -= 8;
-    INFO_LOG("=== on read   channel ={}  msgId={}  len ={}", channel->getAddr(), msgId, len);
+   // INFO_LOG("=== on read   channel ={}  msgId={}  len ={}", channel->getAddr(), msgId, len);
     MsgFunction *msg_function = Dispatcher::Instance()->findMsgFuncion(msgId);
     if (msg_function == nullptr) {
         ERR_LOG("msgId ={} not found process function", msgId);

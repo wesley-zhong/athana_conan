@@ -17,9 +17,9 @@ private:
 
     static void onShakHandResponse(Channel *channel, InnerServerHandShakeRes *res);
 
-    static void onHeartBeatReq(Channel *channel, InnerHeartBeatRequest *req);
+    static void onInnerHeartBeatReq(Channel *channel, InnerHeartBeatRequest *req);
 
-    static void onHeartBeatRes(Channel *channel, InnerHeartBeatResponse *res);
+    static void onInnerHeartBeatRes(Channel *channel, InnerHeartBeatResponse *res);
 };
 
 

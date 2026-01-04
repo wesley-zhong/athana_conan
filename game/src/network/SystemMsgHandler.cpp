@@ -19,19 +19,19 @@ void SystemMsgHandler::onShakHandResponse(Channel *channel, InnerServerHandShake
 }
 
 
-void SystemMsgHandler::onHeartBeatReq(Channel *channel, InnerHeartBeatRequest *req) {
+void SystemMsgHandler::onInnerHeartBeatReq(Channel *channel, InnerHeartBeatRequest *req) {
     auto res = std::make_shared<InnerHeartBeatResponse>();
     res->set_time(9999);
     INFO_LOG("inner heatbeat req time ={}  send msgId={} res time ={}", req->time(),(int)INNER_HEART_BEAT_RES,9999);
     channel->sendMsg(INNER_HEART_BEAT_RES, res);
 }
 
-void SystemMsgHandler::onHeartBeatRes(Channel *channel, InnerHeartBeatResponse *res) {
+void SystemMsgHandler::onInnerHeartBeatRes(Channel *channel, InnerHeartBeatResponse *res) {
 }
 
 void SystemMsgHandler::registMsg() {
     REGISTER_MSG_ID_FUN(INNER_SERVER_HAND_SHAKE_REQ, InnerServerHandShakeReq, onShakHandReq);
     REGISTER_MSG_ID_FUN(INNER_SERVER_HAND_SHAKE_RES, InnerServerHandShakeRes, onShakHandResponse);
-    REGISTER_MSG_ID_FUN(INNER_HEART_BEAT_REQ, InnerHeartBeatRequest, onHeartBeatReq);
-    REGISTER_MSG_ID_FUN(INNER_HEART_BEAT_RES, InnerHeartBeatResponse, onHeartBeatRes);
+    REGISTER_MSG_ID_FUN(INNER_HEART_BEAT_REQ, InnerHeartBeatRequest, onInnerHeartBeatReq);
+    REGISTER_MSG_ID_FUN(INNER_HEART_BEAT_RES, InnerHeartBeatResponse, onInnerHeartBeatRes);
 }
