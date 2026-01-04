@@ -25,7 +25,7 @@ void SystemMsgHandler::onHeartBeatReq(Channel *channel, InnerHeartBeatRequest *r
 }
 
 void SystemMsgHandler::onHeartBeatRes(Channel *channel, InnerHeartBeatResponse *res) {
-    INFO_LOG("receive   onHeartBeatRes msg ={} time = {}", channel->getAddr(), res->time());
+    INFO_LOG("#### receive   onHeartBeatRes msg ={} time = {}", channel->getAddr(), res->time());
 }
 
 void SystemMsgHandler::registMsg() {

@@ -25,27 +25,27 @@ void GateClientNetWorkHandler::startLogicThread(int threadNum) {
 void GateClientNetWorkHandler::onNewConnect(Channel *channel, int status) {
     INFO_LOG("on new connection ={}", channel->getAddr());
     auto req = std::make_shared<InnerServerHandShakeReq>();
-    req->set_service_id("JJJJJJJJJ");
+    req->set_service_id("JJJJJJJJJ123");
     channel->sendMsg(INNER_SERVER_HAND_SHAKE_REQ, req);
 }
 
 void GateClientNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     uint8 *data = static_cast<uint8 *>(buff);
-    data = data + 4;
+    data += 4;
     int msgId = ByteUtils::readInt32(data);
     int playerId = 999;
     data += 4;
-    len -= 4;
-    INFO_LOG("  === on read   channel ={}  msgId={}  len ={}", channel->getAddr(), msgId, len);
+    len -= 8;
+    INFO_LOG("=== on read   channel ={}  msgId={}  len ={}", channel->getAddr(), msgId, len);
     MsgFunction *msg_function = Dispatcher::Instance()->findMsgFuncion(msgId);
     if (msg_function == nullptr) {
-        ERR_LOG(" msgId ={} not found process function", msgId);
+        ERR_LOG("msgId ={} not found process function", msgId);
         return;
     }
 
     void *msg = msg_function->parseParam(data, len);
     threadPool->execute([playerId, msg_function, channel, msg]() {
-        msg_function->msgFunction(playerId, channel, msg);
+        msg_function->invoke(playerId, channel, msg);
     }, 2);
 }
 
@@ -54,7 +54,7 @@ void GateClientNetWorkHandler::onEventTrigger(Channel *channel, TriggerEventEnum
         auto msg = std::make_shared<InnerHeartBeatRequest>();
         msg->set_time(8888);
         channel->sendMsg(INNER_HEART_BEAT_REQ, msg);
-       // INFO_LOG("heart beat = -----------------");
+        // INFO_LOG("heart beat = -----------------");
         return;
     }
     // this should be closed

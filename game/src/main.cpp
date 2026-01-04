@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
     //
 
     // connect db
-    std::string ip = "localhost";
+    std::string ip = "172.18.2.101";
     Dal::Cache::init(ip, 6379, "", "", "");
     RedisResult redisResult;
     Dal::Cache::execute(&redisResult, "set ol:100064913 889abc");

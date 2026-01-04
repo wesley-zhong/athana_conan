@@ -46,7 +46,7 @@ void ClientNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
 
     void *msg = msg_function->parseParam(data, len);
     threadPool->execute([playerId, msg_function, channel, msg]() {
-        msg_function->msgFunction(playerId, channel, msg);
+        msg_function->invoke(playerId, channel, msg);
     }, 2);
 }
 

@@ -12,8 +12,8 @@
 Dispatcher::Instance()->registerMsgHandler<MSG_TYPE>(MSGID, std::function(FUNCTION))
 
 struct MsgFunction {
-    std::function<void(int64_t, Channel *, void *)> msgFunction;
     std::function<void *(void *, int)> parseParam; //this may be use obj pool
+    std::function<void(int64_t, Channel *, void *)> invoke;
 };
 
 class Dispatcher : public Singleton<Dispatcher> {
@@ -50,7 +50,7 @@ void Dispatcher::registerMsgHandler(int msgId, std::function<void(int64_t, T *)>
         msg->ParseFromArray(body, len);
         return msg;
     };
-    msgFunction->msgFunction = [msgFuc](int64_t playerId, Channel *channel, void *msg) {
+    msgFunction->invoke = [msgFuc](int64_t playerId, Channel *channel, void *msg) {
         msgFuc(playerId, (T *) msg);
         ObjPool::release<T>((T *) msg, true);
     };
@@ -65,9 +65,9 @@ void Dispatcher::registerMsgHandler(int msgId, std::function<void(Channel *, T *
         msg->ParseFromArray(body, len);
         return msg;
     };
-    msgFunction->msgFunction = [msgFuc](int64_t playerId, Channel *channel, void *msg) {
-        msgFuc(channel, (T *) msg);
-        ObjPool::release<T>((T *) msg, true);
+    msgFunction->invoke = [msgFuc](int64_t playerId, Channel *channel, void *msg) {
+        msgFuc(channel, static_cast<T *>(msg));
+        ObjPool::release<T>(static_cast<T *>(msg), true);
     };
     msgMap[msgId] = msgFunction;
 }

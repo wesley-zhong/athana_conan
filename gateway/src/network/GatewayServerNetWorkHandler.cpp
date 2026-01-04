@@ -41,7 +41,7 @@ void GatewayServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
 
     void *msg = msg_function->parseParam((char *) data + 4, len);
     threadPool->execute([playerId, msg_function, channel, msg]() {
-        msg_function->msgFunction(playerId, channel, msg);
+        msg_function->invoke(playerId, channel, msg);
     }, 2);
 }
 

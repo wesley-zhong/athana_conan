@@ -26,13 +26,13 @@ void GameServerNetWorkHandler::onNewConnect(Channel *channel) {
 
 void GameServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     uint8 *data = static_cast<uint8 *>(buff);
-    data = data + 4;
+    data += 4;
     int msgId = ByteUtils::readInt32(data);
     int playerId = 999;
     data += 4;
-    len -= 4;
+    len -= 8;
 
-    INFO_LOG("  === on read   channel ={} len ={} msgId ={} ", channel->getAddr(), len, msgId);
+    INFO_LOG("  === on read   channel ={} msgId ={}  len ={} ", channel->getAddr(), msgId, len);
     MsgFunction *msg_function = Dispatcher::Instance()->findMsgFuncion(msgId);
     if (msg_function == nullptr) {
         ERR_LOG(" msgId ={} not found process function", msgId);
@@ -41,7 +41,7 @@ void GameServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
 
     void *msg = msg_function->parseParam(data, len);
     threadPool->execute([playerId, msg_function, channel, msg]() {
-        msg_function->msgFunction(playerId, channel, msg);
+        msg_function->invoke(playerId, channel, msg);
     }, 2);
 }
 
