@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
 
      //start server
       AthenaTcpServer tcp_server;
-      tcp_server.setChannelIdleTime(5000, 0);
+      tcp_server.setChannelIdleTime(10000, 0);
       tcp_server.onNewConnection = GameServerNetWorkHandler::onNewConnect;
       tcp_server.onRead = GameServerNetWorkHandler::onMsg;
       tcp_server.onClosed = GameServerNetWorkHandler::onClosed;

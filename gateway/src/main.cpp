@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     GateClientNetWorkHandler::initAllMsgRegister();
     GateClientNetWorkHandler::startLogicThread(2);
     TcpClient tcp_client;
-    tcp_client.setChannelIdleTime(5000, 15000);
+    tcp_client.setChannelIdleTime(3000, 15000);
     tcp_client.onConnected = GateClientNetWorkHandler::onNewConnect;
     tcp_client.onRead = GateClientNetWorkHandler::onMsg;
     tcp_client.onTriggerEvent = GateClientNetWorkHandler::onEventTrigger;
