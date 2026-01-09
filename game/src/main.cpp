@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
       tcp_server.onClosed = GameServerNetWorkHandler::onClosed;
       tcp_server.onEventTrigger = GameServerNetWorkHandler::onEventTrigger;
 
-      tcp_server.bind(9999).start(3);
+      tcp_server.bind(9999).start(1);
     //
 
     // connect db

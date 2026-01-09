@@ -22,12 +22,11 @@ public:
     EventLoop(NetInterface *tcpInterFace, EventTrigger *event_trigger) : _netInterface(tcpInterFace) {
         maxPackBody = static_cast<char *>(malloc(8192));
         _eventTrigger = event_trigger;
+        _loop = new uv_loop_t;
     }
 
-    ~EventLoop() {
+    ~EventLoop()   {
     }
-
-    void asyncAccept(uv_os_sock_t client);
 
     void execute();
 
@@ -55,7 +54,7 @@ public:
         return nullptr;
     }
 
-    void run();
+    virtual void run() ;
 
     void start();
 
@@ -78,6 +77,7 @@ public:
     char *getPacketBuff() {
         return maxPackBody;
     }
+
     EventTrigger *event_trigger() {
         return _eventTrigger;
     }
@@ -90,8 +90,14 @@ public:
 
     static void uv_on_connect(uv_connect_t *req, int status);
 
-private:
+protected:
+    int initAsynEvent();
+
+    void doRun();
+
     uv_loop_t *_loop;
+
+private:
     uv_async_t uv_async_accept; // not used in this sample (accept in main thread)
     uv_async_t uv_async_write; // used by biz threads to notify reactor for pending writes
     uv_async_t uv_async_connect;

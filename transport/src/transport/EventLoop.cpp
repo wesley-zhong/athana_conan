@@ -27,7 +27,7 @@ void EventLoop::uv_alloc_cb(uv_handle_t *h, size_t s, uv_buf_t *buf) {
     Channel *channel = (Channel *) h->data;
     size_t lineWritAbleLen = 0;
     uint8 *writePtr = channel->recv_buffer->linearWriteablePtr(&lineWritAbleLen);
-    buf->base = (char*)writePtr;//uv_buf_init((char *) writePtr, lineWritAbleLen);
+    buf->base = (char *) writePtr; //uv_buf_init((char *) writePtr, lineWritAbleLen);
     buf->len = lineWritAbleLen;
 }
 
@@ -48,7 +48,7 @@ void EventLoop::uv_on_connect(uv_connect_t *req, int status) {
 
 
 void EventLoop::uv_read_cb(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf) {
-   // INFO_LOG("============================= on read len={} ", nread);
+    // INFO_LOG("============================= on read len={} ", nread);
     Channel *channel = static_cast<Channel *>(client->data);
     channel->onRead(client, nread, buf);
 
@@ -88,30 +88,14 @@ void EventLoop::asyncConnect(const std::string &ip, int port) {
         ret = uv_tcp_connect(connect_req, client, (const struct sockaddr *) &dest, uv_on_connect);
         if (ret != 0) {
             ERR_LOG("uv_tcp_connect  failed code =code {}:{}", ret, uv_strerror(ret));
+            uv_close((uv_handle_t *) client, [](uv_handle_t *client) {
+                delete client;
+            });
+            delete connect_req;
+            delete clientChannel;
         }
     });
     async_connect_task();
-}
-
-void EventLoop::asyncAccept(uv_os_sock_t fd) {
-    EventLoop *event_loop = this;
-    push([event_loop, fd] {
-        uv_tcp_t *client = new uv_tcp_t;
-        uv_tcp_init(event_loop->uv_loop(), client);
-        int ret = uv_tcp_open(client, fd); // 绑定 socket 到本 loop
-        if (ret != 0) {
-            ERR_LOG("  -------tcp open faild ret ={}", ret);
-            delete client;
-            return ;
-        }
-
-        uv_read_start((uv_stream_t *) client, uv_alloc_cb, uv_read_cb);
-        Channel *channel = new Channel(event_loop, client, fd);
-        client->data = channel;
-        event_loop->onNewConnection(channel);
-        INFO_LOG(" =================== START READ read data ");
-    });
-    async_accept_task();
 }
 
 void EventLoop::onNewConnection(Channel *channel) {
@@ -129,9 +113,7 @@ void EventLoop::onRead(Channel *channel, char *body, int len) const {
     _netInterface->on_read(channel, body, len);
 }
 
-
-void EventLoop::run() {
-    _loop = new uv_loop_t;
+int EventLoop::initAsynEvent() {
     uv_loop_init(_loop);
     // store reactor pointer in loop->data for later retrieval in read callbacks
     _loop->data = this;
@@ -139,23 +121,33 @@ void EventLoop::run() {
     int ret = uv_async_init(_loop, &uv_async_write, async_write_cb);
     if (ret != 0) {
         ERR_LOG("uv_async_init  async_write  ret ={} ", ret);
-        return;
+        return ret;
     }
     uv_async_write.data = this;
     ret = uv_async_init(_loop, &uv_async_accept, async_accept_cb);
     if (ret != 0) {
         ERR_LOG("uv_async_init  async_accept ret ={} ", ret);
-        return;
+        return ret;
     }
     uv_async_accept.data = this;
 
     ret = uv_async_init(_loop, &uv_async_connect, async_connect_cb);
     if (ret != 0) {
         ERR_LOG("uv_async_init  async_accept ret ={} ", ret);
-        return;
+        return ret;
     }
     uv_async_connect.data = this;
+    return 0;
+}
+
+
+void EventLoop::run() {
     INFO_LOG("############## event loop started");
+    initAsynEvent();
+    doRun();
+}
+
+void EventLoop::doRun() {
     uv_run(_loop, UV_RUN_DEFAULT);
     uv_close(reinterpret_cast<uv_handle_t *>(&uv_async_write), nullptr);
     uv_close(reinterpret_cast<uv_handle_t *>(&uv_async_accept), nullptr);
@@ -166,6 +158,7 @@ void EventLoop::run() {
     _loop = nullptr;
     INFO_LOG(" event  run end ");
 }
+
 
 void EventLoop::execute() {
     while (true) {
