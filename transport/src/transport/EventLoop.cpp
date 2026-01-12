@@ -8,18 +8,18 @@
 #include "AthenaTcpServer.h"
 #include "IdleStateHandler.h"
 
-void async_accept_cb(uv_async_t *handle) {
-    EventLoop *event_loop = static_cast<EventLoop *>(handle->data);
+void async_accept_cb(uv_async_t *handler) {
+    EventLoop *event_loop = static_cast<EventLoop *>(handler->data);
     event_loop->execute();
 }
 
-void async_connect_cb(uv_async_t *handle) {
-    EventLoop *event_loop = static_cast<EventLoop *>(handle->data);
+void async_connect_cb(uv_async_t *handler) {
+    EventLoop *event_loop = static_cast<EventLoop *>(handler->data);
     event_loop->execute();
 }
 
-void async_write_cb(uv_async_t *handle) {
-    EventLoop *event_loop = static_cast<EventLoop *>(handle->data);
+void async_write_cb(uv_async_t *handler) {
+    EventLoop *event_loop = static_cast<EventLoop *>(handler->data);
     event_loop->execute();
 }
 

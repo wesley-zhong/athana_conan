@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
     tcp_server.onEventTrigger = GatewayServerNetWorkHandler::onEventTrigger;
 
     tcp_server.setChannelIdleTime(5000, 0);
-    tcp_server.bind(6666).start(4);
+    tcp_server.bind(6666).start(1);
 
 
     // 💡 主线程阻塞等待，无限期休眠（CPU 占用≈0）
