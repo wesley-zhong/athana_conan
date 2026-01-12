@@ -23,4 +23,5 @@ message("ooooooooooooo${3RD}")
 target_link_libraries(${PROJECT_NAME} PUBLIC
         protobuf::libprotobuf
         spdlog::spdlog
+        tomlplusplus::tomlplusplus
 )

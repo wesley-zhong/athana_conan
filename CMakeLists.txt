@@ -23,6 +23,7 @@ find_package(protobuf REQUIRED)
 find_package(sol2 REQUIRED)
 find_package(hiredis REQUIRED)
 find_package(libuv REQUIRED)
+find_package(tomlplusplus REQUIRED)
 
 # Platform compile settings
 if(APPLE)

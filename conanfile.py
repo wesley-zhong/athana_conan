@@ -15,7 +15,8 @@ class AthenaDeps(ConanFile):
         "protobuf/5.29.3",
         "libuv/1.51.0",
         "spdlog/1.16.0",
-        "sol2/3.5.0"
+        "sol2/3.5.0",
+        "tomlplusplus/3.4.0"
     ]
     generators = "CMakeDeps", "CMakeToolchain"
 
