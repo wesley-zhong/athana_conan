@@ -25,6 +25,13 @@ find_package(hiredis REQUIRED)
 find_package(libuv REQUIRED)
 find_package(tomlplusplus REQUIRED)
 
+# 如果因为平台差异没有 uv_a，但有标准的 libuv，则手动做个映射
+if(NOT TARGET libuv::uv_a AND TARGET libuv::libuv)
+	message(STATUS "Mapping libuv::libuv to libuv::uv_a for compatibility")
+	add_library(libuv::uv_a INTERFACE IMPORTED)
+	set_target_properties(libuv::uv_a PROPERTIES INTERFACE_LINK_LIBRARIES libuv::libuv)
+endif()
+
 # Platform compile settings
 if(APPLE)
 	add_definitions("-Wall -g")
