@@ -17,6 +17,7 @@
 
 #endif
 
+
 #include "transport/AthenaTcpServer.h"
 
 #include "network/GameServerNetWorkHandler.h"
@@ -24,6 +25,7 @@
 #include "mongodb/MongClientManager.h"
 #include "dal/RoleDAO.h"
 #include "dal/Dal.hpp"
+#include "core/common/AthenaConfig.h"
 
 static std::atomic<bool> g_running(true);
 static std::condition_variable g_cv;
@@ -38,22 +40,33 @@ void handleSignal(int signum) {
 int main(int argc, char **argv) {
     std::signal(SIGTERM, handleSignal);
     std::signal(SIGINT, handleSignal);
+    std::filesystem::path cur_path = std::filesystem::current_path();
+    INFO_LOG("+++  cur path: {}", cur_path.string());
+    bool success = AthenaConfig::instance().load("config/game.toml");
+    if (!success) {
+        ERR_LOG("config ={} load failed", cur_path.string() + "/config/game.toml");
+    }
+
+    int serverPort = AthenaConfig::instance().get("server", "port", 0);
+    std::string serverName = AthenaConfig::instance().get("server", "name", "");
+    std::vector<std::string> serverNode = AthenaConfig::instance().getArray<std::string>("discover", "server_nodes");
+
     xLogInitLog(LogLevel::LL_INFO, "../logs/game.log");
 
 
-     // init all functions call
-      GameServerNetWorkHandler::initAllMsgRegister();
-      GameServerNetWorkHandler::startLogicThread(3);
+    // init all functions call
+    GameServerNetWorkHandler::initAllMsgRegister();
+    GameServerNetWorkHandler::startLogicThread(3);
 
-     //start server
-      AthenaTcpServer tcp_server;
-      tcp_server.setChannelIdleTime(10000, 0);
-      tcp_server.onNewConnection = GameServerNetWorkHandler::onNewConnect;
-      tcp_server.onRead = GameServerNetWorkHandler::onMsg;
-      tcp_server.onClosed = GameServerNetWorkHandler::onClosed;
-      tcp_server.onEventTrigger = GameServerNetWorkHandler::onEventTrigger;
+    //start server
+    AthenaTcpServer tcp_server;
+    tcp_server.setChannelIdleTime(10000, 0);
+    tcp_server.onNewConnection = GameServerNetWorkHandler::onNewConnect;
+    tcp_server.onRead = GameServerNetWorkHandler::onMsg;
+    tcp_server.onClosed = GameServerNetWorkHandler::onClosed;
+    tcp_server.onEventTrigger = GameServerNetWorkHandler::onEventTrigger;
 
-      tcp_server.bind(9999).start(1);
+    tcp_server.bind(serverPort).start(1);
     //
 
     // connect db

@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
-project(core VERSION 0.1.0 LANGUAGES C CXX)
+project(discovery VERSION 0.1.0 LANGUAGES C CXX)
+
+set(SOLUTION_DIR ../..)
+find_package(protobuf CONFIG REQUIRED)
 
 # 自动递归查找所有源码文件
 file(GLOB_RECURSE SRC_FILES
@@ -12,15 +15,14 @@ add_library(${PROJECT_NAME} STATIC
         ${SRC_FILES}
 )
 
-# 统一头文件路径，公开给下游（如 gateway）
+# 统一头文件路径，公开给下游（如 game）
 target_include_directories(${PROJECT_NAME} PUBLIC
-        ${PROJECT_SOURCE_DIR}/src
+        ..
         ${3RD}
+        ${PROJECT_SOURCE_DIR}/src/
 )
 
 # 链接依赖库
 target_link_libraries(${PROJECT_NAME} PUBLIC
-        protobuf::protobuf
-        spdlog::spdlog
-        tomlplusplus::tomlplusplus
+        core
 )

@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.16)
 project(transport VERSION 0.1.0 LANGUAGES C CXX)
 
 set(SOLUTION_DIR ../..)
+
+get_target_property(PROTO_DIR protobuf::libprotobuf INTERFACE_INCLUDE_DIRECTORIES)
+message(STATUS "CHECKING PROTOBUF PATH: ${PROTO_DIR}")
 # 自动递归查找所有源码文件
 file(GLOB_RECURSE SRC_FILES
         ${PROJECT_SOURCE_DIR}/*.cpp
@@ -23,5 +26,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 # 链接依赖库
 target_link_libraries(${PROJECT_NAME} PUBLIC
         core
+        protobuf::protobuf
         libuv::uv_a
 )

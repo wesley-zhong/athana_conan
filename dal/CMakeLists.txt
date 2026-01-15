@@ -25,7 +25,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 # 链接依赖库
 target_link_libraries(${PROJECT_NAME} PUBLIC
         core
-        protobuf::libprotobuf
         mongo::mongocxx_static
         mongo::bsoncxx_static
         hiredis::hiredis

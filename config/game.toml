@@ -1,0 +1,24 @@
+[server]
+name= "game.V1"
+type = 3
+port = 7080
+tcp-port = 7081
+group-id = 0
+max-player-count = 20000
+io-thread = 1
+
+[discover]
+server_nodes=["localhost:2379","localhost:2379"]
+watch-servers=["game.V1","mmo-world.V1"]
+
+[mongodb]
+ip="localhost"
+port=6379
+username="admin"
+password="admin"
+
+[redis]
+ip="localhost"
+port=6379
+username="admin"
+password="admin"
