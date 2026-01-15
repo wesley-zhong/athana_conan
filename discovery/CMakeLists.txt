@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.16)
 project(discovery VERSION 0.1.0 LANGUAGES C CXX)
 
 set(SOLUTION_DIR ../..)
-find_package(etcd-cpp-apiv3 REQUIRED)
 
 # 自动递归查找所有源码文件
 file(GLOB_RECURSE SRC_FILES

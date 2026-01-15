@@ -6,6 +6,7 @@ project(athena VERSION 0.1.0 LANGUAGES C CXX)
 # 注意：官方只推荐 include conandeps.cmake
 #include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
 
+
 # C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
