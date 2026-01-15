@@ -4,7 +4,7 @@ project(athena VERSION 0.1.0 LANGUAGES C CXX)
 
 # Conan 2.x 自动生成的依赖文件
 # 注意：官方只推荐 include conandeps.cmake
-#include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
+include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
 
 
 # C++ standard
@@ -25,6 +25,7 @@ find_package(sol2 REQUIRED)
 find_package(hiredis REQUIRED)
 find_package(libuv REQUIRED)
 find_package(tomlplusplus REQUIRED)
+find_package(etcd-cpp-apiv3 REQUIRED)
 
 # 如果因为平台差异没有 uv_a，但有标准的 libuv，则手动做个映射
 if(NOT TARGET libuv::uv_a AND TARGET libuv::libuv)
