@@ -55,29 +55,30 @@ void AthenaEtcdClient::watchKeys(const std::vector<std::string> &keys,
 }
 
 void AthenaEtcdClient::keepAlive(std::string key, std::string value, int ttl) {
-    // 1. 申请一个租约
-    auto lease_resp = client->leasegrant(ttl).get();
-    if (!lease_resp.is_ok()) {
-        ERR_LOG("Failed to grant lease: {} ", lease_resp.error_message());
+    // 0. 防止重复注册导致的资源浪费
+    if (keep_alives.find(key) != keep_alives.end()) {
+        WARN_LOG("Key {} is already being kept alive, updating...", key);
+        // 如果需要，可以在这里先停止旧的
+    }
+
+    // 1. 申请租约
+    auto keeper = client->leasekeepalive(ttl).get();
+    if (!keeper) {
+        ERR_LOG("Failed create keep alive{} ");
         return;
     }
-    int64_t lease_id = lease_resp.value().lease();
+    int64_t lease_id = keeper->Lease();
 
-    // 2. 将 Key 绑定到这个租约上
-    // 注意：put 操作需要带上 lease_id
+    // 2. 将 Key 绑定到租约
     auto put_resp = client->put(key, value, lease_id).get();
     if (!put_resp.is_ok()) {
         ERR_LOG("Failed to bind key to lease: {} ", put_resp.error_message());
+        // 绑定失败应撤销租约，防止孤儿租约
+        client->leaserevoke(lease_id);
+        keeper->Cancel();
         return;
     }
-
-    // 3. 创建 KeepAlive 对象进行自动续约
-    // etcd::KeepAlive 内部会维护一个后台线程发送心跳
-    auto keeper = client->leasekeepalive(lease_id);
-
-    // 4. 管理 KeepAlive 对象的生命周期
-    // 必须保存这个对象，否则续约会停止
     keep_alives[key] = keeper;
 
-    INFO_LOG("KeepAlive started for key:{}  with lease:{} ", key, lease_id);
+    INFO_LOG("KeepAlive started for key: {} with lease: {}", key, lease_id);
 }

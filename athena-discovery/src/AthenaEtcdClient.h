@@ -32,7 +32,7 @@ private:
     std::unique_ptr<etcd::Client> client;
     // 必须持有 Watcher，否则监听会立即停止
     std::vector<std::unique_ptr<etcd::Watcher> > watchers;
-    std::map<std::string, pplx::task<std::shared_ptr<etcd::KeepAlive> > > keep_alives;
+    std::map<std::string, std::shared_ptr<etcd::KeepAlive> > keep_alives;
 };
 
 
