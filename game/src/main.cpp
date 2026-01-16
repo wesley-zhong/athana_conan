@@ -40,6 +40,8 @@ void handleSignal(int signum) {
 int main(int argc, char **argv) {
     std::signal(SIGTERM, handleSignal);
     std::signal(SIGINT, handleSignal);
+    xLogInitLog(LogLevel::LL_INFO, "../logs/game.log");
+
     std::filesystem::path cur_path = std::filesystem::current_path();
     INFO_LOG("+++  cur path: {}", cur_path.string());
     bool success = AthenaConfig::instance().load("config/game.toml");
@@ -55,7 +57,7 @@ int main(int argc, char **argv) {
     }
 
     int serverPort = AthenaConfig::instance().get("server", "port", 0);
-    xLogInitLog(LogLevel::LL_INFO, "../logs/game.log");
+    INFO_LOG("#### bind server port:{}", serverPort);
 
     // init all functions call
     GameServerNetWorkHandler::initAllMsgRegister();

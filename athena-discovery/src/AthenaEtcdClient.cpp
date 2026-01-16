@@ -48,7 +48,7 @@ void AthenaEtcdClient::watchKeys(const std::vector<std::string> &keys,
                     callback(event.kv().key(), event.kv().as_string());
                 }
             }
-        });
+        }, true);
         // 注意：Watcher 对象必须在类中管理其生命周期，否则函数结束就会停止监听
         watchers.push_back(std::move(watcher));
     }

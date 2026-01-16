@@ -4,16 +4,19 @@
 
 #include <chrono>
 #include <iostream>
+#include <filesystem>
 #include <csignal>
 #include "core/common/RingBuffer.hpp"
 #include "core/log/XLog.h"
 #include "transport/Dispatcher.h"
 
 #include "ProtoInner.pb.h"
+#include "core/common/AthenaConfig.h"
 
 #include "thread/AthenaThreadPool.h"
 #include "core/common/ObjectPool.hpp"
 #include "db/Dal.hpp"
+#include "discovery/Discovery.h"
 #include "network/GatewayServerNetWorkHandler.h"
 #include "transport/AthenaTcpServer.h"
 
@@ -41,6 +44,23 @@ int main(int argc, char **argv) {
 
     xLogInitLog(LogLevel::LL_INFO, "../logs/gateway.log");
 
+
+    std::filesystem::path cur_path = std::filesystem::current_path();
+    INFO_LOG("+++  cur path: {}", cur_path.string());
+    bool success = AthenaConfig::instance().load("config/gateway.toml");
+    if (!success) {
+        ERR_LOG("config ={} load failed", cur_path.string() + "/config/gateway.toml");
+        return -1;
+    }
+
+    success = Discovery::initWithConf(AthenaConfig::instance());
+    if (!success) {
+        ERR_LOG("initWithConf  faild");
+        return -2;
+    }
+
+    int serverPort = AthenaConfig::instance().get("server", "port", 0);
+    INFO_LOG("#### bind server port:{}", serverPort);
     //tcp client
     GateClientNetWorkHandler::initAllMsgRegister();
     GateClientNetWorkHandler::startLogicThread(2);
@@ -52,7 +72,7 @@ int main(int argc, char **argv) {
     tcp_client.start();
 
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    tcp_client.connect("127.0.0.1", 7080);
+    //tcp_client.connect("127.0.0.1", 7080);
 
 
 
@@ -67,7 +87,8 @@ int main(int argc, char **argv) {
     tcp_server.onEventTrigger = GatewayServerNetWorkHandler::onEventTrigger;
 
     tcp_server.setChannelIdleTime(5000, 0);
-    tcp_server.bind(6666).start(1);
+    tcp_server.bind(serverPort).start(1);
+
 
 
     // 💡 主线程阻塞等待，无限期休眠（CPU 占用≈0）

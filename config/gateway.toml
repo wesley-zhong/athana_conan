@@ -1,21 +1,16 @@
 [server]
-name = "c_game.V1"
+name = "c_gate.V1"
 type = 3
-port = 27080
-tcp-port = 27081
+port = 37080
+tcp-port = 37081
 group-id = 0
 max-player-count = 20000
 io-thread = 1
 
 [discover]
 server_nodes = "http://localhost:2379;http://localhost:2379"
-watch-servers = ["mmo-world.V1"]
+watch-servers = ["c_game.V1"]
 
-[mongodb]
-ip = "localhost"
-port = 6379
-username = "admin"
-password = "admin"
 
 [redis]
 ip = "localhost"
