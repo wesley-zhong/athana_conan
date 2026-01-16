@@ -3,7 +3,7 @@
 set -e
 
 BUILD_DIR="cmake-build-debug"
-TOOLCHAIN_FILE="${BUILD_DIR}/conan_toolchain.cmake"
+TOOLCHAIN_FILE="${BUILD_DIR}/build/Debug/generators/conan_toolchain.cmake"
 CPPSTD=17
 JOBS=8
 
