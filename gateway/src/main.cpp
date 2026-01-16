@@ -64,14 +64,9 @@ int main(int argc, char **argv) {
     //tcp client
     GateClientNetWorkHandler::initAllMsgRegister();
     GateClientNetWorkHandler::startLogicThread(2);
-    TcpClient tcp_client;
-    tcp_client.setChannelIdleTime(3000, 15000);
-    tcp_client.onConnected = GateClientNetWorkHandler::onNewConnect;
-    tcp_client.onRead = GateClientNetWorkHandler::onMsg;
-    tcp_client.onTriggerEvent = GateClientNetWorkHandler::onEventTrigger;
-    tcp_client.start();
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    // TcpClient tcp_client;
+    //
+    // std::this_thread::sleep_for(std::chrono::milliseconds(100));
     //tcp_client.connect("127.0.0.1", 7080);
 
 
