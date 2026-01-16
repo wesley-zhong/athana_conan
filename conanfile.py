@@ -22,6 +22,8 @@ class AthenaDeps(ConanFile):
         self.requires("tomlplusplus/3.4.0")
         self.requires("etcd-cpp-apiv3/0.15.4")
         self.requires("grpc/1.54.3")
+        self.requires("rapidjson/1.1.0")
+
 
         # 强制统一版本
         self.requires("zstd/1.5.7", override=True)

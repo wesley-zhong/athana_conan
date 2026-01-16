@@ -26,6 +26,7 @@ find_package(hiredis REQUIRED)
 find_package(libuv REQUIRED)
 find_package(tomlplusplus REQUIRED)
 find_package(etcd-cpp-apiv3 REQUIRED)
+find_package(RapidJSON REQUIRED)
 
 # 如果因为平台差异没有 uv_a，但有标准的 libuv，则手动做个映射
 if(NOT TARGET libuv::uv_a AND TARGET libuv::libuv)
