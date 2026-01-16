@@ -4,7 +4,7 @@ project(athena VERSION 0.1.0 LANGUAGES C CXX)
 
 # Conan 2.x 自动生成的依赖文件
 # 注意：官方只推荐 include conandeps.cmake
-include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
+#include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
 
 
 # C++ standard
