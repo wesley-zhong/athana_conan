@@ -60,7 +60,7 @@ public:
             // 2. 遍历并尝试转换每个元素
             for (auto&& item : *arr) {
                 // value<T>() 如果类型不匹配或为空会返回空 optional
-                if (auto val = item.value<T>()) {
+                if (auto val = item.template value<T>()) {
                     result.push_back(*val);
                 }
             }
