@@ -17,7 +17,7 @@
 
 #endif
 
-
+#include <filesystem>
 #include "transport/AthenaTcpServer.h"
 
 #include "network/GameServerNetWorkHandler.h"
