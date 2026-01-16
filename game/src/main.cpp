@@ -26,7 +26,7 @@
 #include "dal/RoleDAO.h"
 #include "dal/Dal.hpp"
 #include "core/common/AthenaConfig.h"
-
+#include "discovery/Discovery.h"
 static std::atomic<bool> g_running(true);
 static std::condition_variable g_cv;
 static std::mutex g_mutex;
@@ -45,14 +45,17 @@ int main(int argc, char **argv) {
     bool success = AthenaConfig::instance().load("config/game.toml");
     if (!success) {
         ERR_LOG("config ={} load failed", cur_path.string() + "/config/game.toml");
+        return -1;
+    }
+
+    success = Discovery::initWithConf(AthenaConfig::instance());
+    if (!success) {
+        ERR_LOG("initWithConf  faild");
+        return -2;
     }
 
     int serverPort = AthenaConfig::instance().get("server", "port", 0);
-    std::string serverName = AthenaConfig::instance().get("server", "name", "");
-    std::vector<std::string> serverNode = AthenaConfig::instance().getArray<std::string>("discover", "server_nodes");
-
     xLogInitLog(LogLevel::LL_INFO, "../logs/game.log");
-
 
     // init all functions call
     GameServerNetWorkHandler::initAllMsgRegister();

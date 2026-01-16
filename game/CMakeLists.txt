@@ -29,5 +29,5 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 )
 # 链接操作
 
-set(PROJECT_LINK_LIBS dal engine-lua)
+set(PROJECT_LINK_LIBS athena-discovery dal engine-lua)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_LINK_LIBS})

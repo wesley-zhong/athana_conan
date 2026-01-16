@@ -7,10 +7,8 @@
 #include <iostream>
 #include "core/log/XLog.h"
 // 构造函数：将 string_view 组合成连接字符串
-AthenaEtcdClient::AthenaEtcdClient(std::string_view ip, int port) {
-    std::string url = "http://" + std::string(ip) + ":" + std::to_string(port);
-    // 实例化 etcd 客户端
-    client = std::make_unique<etcd::Client>(url);
+AthenaEtcdClient::AthenaEtcdClient(std::string addrs) {
+    client = std::make_unique<etcd::Client>(addrs);
 }
 
 int AthenaEtcdClient::connect() {
@@ -56,16 +54,6 @@ void AthenaEtcdClient::watchKeys(const std::vector<std::string> &keys,
     }
 }
 
-// 获取租约 (Lease)
-int64_t AthenaEtcdClient::getLease(const std::string_view key) {
-    // 默认租约时间，例如 10 秒
-    auto response = client->leasegrant(10).get();
-    if (response.is_ok()) {
-        return response.value().lease();
-    }
-    return -1;
-}
-
 void AthenaEtcdClient::keepAlive(std::string key, std::string value, int ttl) {
     // 1. 申请一个租约
     auto lease_resp = client->leasegrant(ttl).get();
@@ -89,7 +77,7 @@ void AthenaEtcdClient::keepAlive(std::string key, std::string value, int ttl) {
 
     // 4. 管理 KeepAlive 对象的生命周期
     // 必须保存这个对象，否则续约会停止
-    keep_alives[key] = keeper.get();
+    keep_alives[key] = keeper;
 
-    std::cout << "KeepAlive started for key: " << key << " with lease: " << lease_id << std::endl;
+    INFO_LOG("KeepAlive started for key:{}  with lease:{} ", key, lease_id);
 }

@@ -22,5 +22,5 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         ${CODE_GEN}/proto-gen
 )
 # 链接操作
-set(PROJECT_LINK_LIBS  transport dal  engine-lua)
+set(PROJECT_LINK_LIBS athena-discovery transport dal  engine-lua)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_LINK_LIBS})

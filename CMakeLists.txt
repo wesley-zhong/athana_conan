@@ -57,7 +57,7 @@ endif()
 
 # Project submodules
 add_subdirectory(core)
-add_subdirectory(discovery)
+add_subdirectory(athena-discovery)
 add_subdirectory(dal)
 add_subdirectory(transport)
 add_subdirectory(engine-lua)

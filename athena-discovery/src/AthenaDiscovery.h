@@ -9,7 +9,6 @@
 #include <vector>
 
 #include "AthenaEtcdClient.h"
-#include "Register.h"
 
 struct NodeInfo {
     std::string service_id;
@@ -23,24 +22,23 @@ struct NodeInfo {
     int64_t keep_alive_lease_id;
 };
 
-class Discovery {
+class AthenaDiscovery {
 public:
-    Discovery(AthenaEtcdClient *client) {
+    AthenaDiscovery(AthenaEtcdClient *client) {
         this->client = client;
     }
 
-    void registerMyself(int myPort, int myType, std::string_view myName);
+    void keepAlive(const std::string &key, const std::string &myName);
 
-    void watchKeys(const std::vector<std::string> &keysm,  std::function<void(const std::string_view &, const std::string_view &)> watchKeysCB);
+    void watchKeys(const std::vector<std::string> &keysm,
+                   std::function<void(const std::string_view &, const std::string_view &)> watchKeysCB);
 
-    ~Discovery() {
+    ~AthenaDiscovery() {
         delete client;
-        delete register_;
         delete mySelf;
     }
 
 private:
-    Register *register_ = new Register();
     AthenaEtcdClient *client;
     NodeInfo *mySelf = new NodeInfo();
 };

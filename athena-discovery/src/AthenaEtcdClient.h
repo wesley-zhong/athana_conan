@@ -16,7 +16,7 @@
 
 class AthenaEtcdClient {
 public:
-    AthenaEtcdClient(std::string_view ip, int port);
+    AthenaEtcdClient(std::string ip);
 
     int connect();
 
@@ -26,15 +26,13 @@ public:
     void watchKeys(const std::vector<std::string> &keys,
                    std::function<void(const std::string_view &, const std::string_view &)> callback);
 
-    int64_t getLease(const std::string_view key);
-
     void keepAlive(std::string key, std::string value, int ttl = 20);
 
 private:
     std::unique_ptr<etcd::Client> client;
     // 必须持有 Watcher，否则监听会立即停止
     std::vector<std::unique_ptr<etcd::Watcher> > watchers;
-    std::map<std::string, std::shared_ptr<etcd::KeepAlive> > keep_alives;
+    std::map<std::string, pplx::task<std::shared_ptr<etcd::KeepAlive> > > keep_alives;
 };
 
 
