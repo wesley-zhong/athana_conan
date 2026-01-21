@@ -9,7 +9,7 @@
 
 bool Discovery::initWithConf(AthenaConfig &conf) {
     std::string discoverAddrs = conf.get<std::string>("discover", "server_nodes", "http://127.0.0.1:2379");
-    int myPort = conf.get<int>("server", "tcp-por", 8080);
+    int myPort = conf.get<int>("server", "tcp-port", 8080);
     std::string myName = conf.get<std::string>("server", "name", std::string("None"));
     AthenaEtcdClient *etcd_client = new AthenaEtcdClient(discoverAddrs);
     int erro = etcd_client->connect();

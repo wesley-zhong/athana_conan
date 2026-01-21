@@ -7,7 +7,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-
+#include <memory>
 #include "AthenaEtcdClient.h"
 
 struct NodeInfo {
@@ -28,6 +28,8 @@ public:
         this->client = client;
     }
 
+    void registerServer(std::shared_ptr<NodeInfo> nodeInfo);
+
     void keepAlive(const std::string &key, const std::string &myName);
 
     void watchKeys(const std::vector<std::string> &keysm,
@@ -35,12 +37,11 @@ public:
 
     ~AthenaDiscovery() {
         delete client;
-        delete mySelf;
     }
 
 private:
     AthenaEtcdClient *client;
-    NodeInfo *mySelf = new NodeInfo();
+    std::shared_ptr<NodeInfo> mySelf;
 };
 
 #endif //ATHENA_DISCOVERY_H
