@@ -15,7 +15,7 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/prettywriter.h"
-#include "AthenaDiscovery.h"
+#include "core/common/NodeInfo.h"
 
 class JsonUtils {
 public:

@@ -9,19 +9,8 @@
 #include <vector>
 #include <memory>
 #include "AthenaEtcdClient.h"
+#include "core/common/NodeInfo.h"
 
-struct NodeInfo {
-    std::string service_id;
-    std::string service_name;
-    std::string ip;
-    int type;
-    int port;
-    int net_port;
-    int id;
-    int group_id;
-    std::unordered_map<std::string, std::string> meta_data;
-    int64_t keep_alive_lease_id;
-};
 
 class AthenaDiscovery {
 public:
