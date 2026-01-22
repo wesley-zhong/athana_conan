@@ -22,6 +22,7 @@ bool Discovery::initWithConf(AthenaConfig &conf) {
         athena_discovery->watchKeys(watchKeys, Discovery::onWatchKeyChange);
         for(auto key : watchKeys){
            std::vector<NodeInfo*> nodes =  athena_discovery->getServerNode(key);
+
             INFO_LOG("============== getnode = size ={}", nodes.size());
         }
     }
