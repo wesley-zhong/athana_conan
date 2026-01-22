@@ -21,7 +21,11 @@ bool Discovery::initWithConf(AthenaConfig &conf) {
     std::vector<std::string> watchKeys = conf.getArray<std::string>("discover", "watch-servers");
     if (!watchKeys.empty()) {
         athena_discovery->watchKeys(watchKeys, Discovery::onWatchKeyChange);
+        for(auto key : watchKeys){
+            athena_discovery->getServerNode(key);
+        }
     }
+
 
     std::shared_ptr<NodeInfo> nodeInfo = std::make_shared<NodeInfo>();
     nodeInfo->service_name =  conf.get<std::string>("server", "name", std::string("None"));

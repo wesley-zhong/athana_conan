@@ -21,7 +21,7 @@ class JsonUtils {
 public:
     static std::string SerializeNodeInfo( NodeInfo *node);
 
-    bool DeserializeNodeInfo(const std::string &jsonStr, NodeInfo &node);
+    static bool DeserializeNodeInfo(const std::string &jsonStr, NodeInfo &node);
 
 };
 

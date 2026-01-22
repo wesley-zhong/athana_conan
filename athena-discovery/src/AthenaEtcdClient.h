@@ -4,7 +4,10 @@
 
 #ifndef ATHENA_ATHENAETCDCLIENT_H
 #define ATHENA_ATHENAETCDCLIENT_H
+
 #include <string>
+#include<map>
+#include <vector>
 #include "etcd/Client.hpp"
 #include "etcd/KeepAlive.hpp"
 #include "etcd/Response.hpp"
@@ -23,12 +26,18 @@ public:
     // 建议返回 string 而不是 string_view，防止悬挂指针
     std::vector<std::string> get(const std::vector<std::string_view> &keys);
 
+    std::string get(const std::string &key);
+
+    std::map<std::string, std::string> getPrefix(const std::string &key);
+
     void watchKeys(const std::vector<std::string> &keys,
                    std::function<void(const std::string_view &, const std::string_view &)> callback);
 
     void keepAlive(std::string key, std::string value, int ttl = 20);
 
 private:
+    std::map<std::string, std::string> getKeysWithValues(std::string const &prefix);
+
     std::unique_ptr<etcd::Client> client;
     // 必须持有 Watcher，否则监听会立即停止
     std::vector<std::unique_ptr<etcd::Watcher> > watchers;

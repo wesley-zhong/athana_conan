@@ -6,6 +6,9 @@
 
 #include <iostream>
 #include "core/log/XLog.h"
+
+using namespace etcd;
+
 // 构造函数：将 string_view 组合成连接字符串
 AthenaEtcdClient::AthenaEtcdClient(std::string addrs) {
     client = std::make_unique<etcd::Client>(addrs);
@@ -18,6 +21,14 @@ int AthenaEtcdClient::connect() {
         return 0;
     }
     return response.error_code();
+}
+
+std::string AthenaEtcdClient::get(const std::string &key) {
+    auto response = client->get(key).get();
+    if (response.is_ok()) {
+        return response.value().as_string();
+    }
+    return nullptr;
 }
 
 // 获取一组 Key 的值
@@ -33,6 +44,10 @@ std::vector<std::string> AthenaEtcdClient::get(const std::vector<std::string_vie
         }
     }
     return results;
+}
+
+std::map<std::string, std::string> AthenaEtcdClient::getPrefix(const std::string &key) {
+    return getKeysWithValues(key);
 }
 
 // 监听 Key 的变化
@@ -81,4 +96,29 @@ void AthenaEtcdClient::keepAlive(std::string key, std::string value, int ttl) {
     keep_alives[key] = keeper;
 
     INFO_LOG("KeepAlive started for key: {} with lease: {}", key, lease_id);
+}
+
+std::map<std::string, std::string> AthenaEtcdClient::getKeysWithValues(std::string const &prefix) {
+    Response keys_response = client->keys(prefix).get();
+
+    if (!keys_response.is_ok()) {
+        throw std::runtime_error("Failed to get keys");
+    }
+
+    std::map<std::string, std::string> result;
+
+    // 对每个键获取值（同步方式）
+    for (const auto &key: keys_response.keys()) {
+        // 跳过目录（以/结尾的）
+        if (!key.empty() && key.back() == '/') {
+            continue;
+        }
+
+        // 同步获取值
+        Response value_response = client->get(key).get();
+        if (value_response.is_ok()) {
+            result[key] = value_response.value().as_string();
+        }
+    }
+    return result;
 }

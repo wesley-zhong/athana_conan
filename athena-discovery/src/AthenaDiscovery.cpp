@@ -5,6 +5,8 @@
 #include "AthenaDiscovery.h"
 #include "JsonUtils.h"
 #include "core/utils/NetUtils.h"
+#include "core/log/XLog.h"
+
 
 void AthenaDiscovery::keepAlive(const std::string &key, const std::string &value) {
     client->keepAlive(key, value);
@@ -21,4 +23,16 @@ void AthenaDiscovery::registerServer(std::shared_ptr<NodeInfo> nodeInfo) {
     std::string jsonStr = JsonUtils::SerializeNodeInfo(nodeInfo.get());
 
     keepAlive(nodeInfo->service_id, jsonStr);
+}
+
+std::vector<NodeInfo *> AthenaDiscovery::getServerNode(const std::string &key) {
+    std::map<std::string, std::string> keyValues = client->getPrefix(key);
+    std::vector<NodeInfo *> nodeVec;
+    for (const auto &[key, value]: keyValues) {
+        NodeInfo *nodeInfo = new NodeInfo();
+        bool ret = JsonUtils::DeserializeNodeInfo(value, *nodeInfo);
+        INFO_LOG("++++++++++++  GET KEY ={}  value ={}", key, value);
+        nodeVec.push_back(nodeInfo);
+    }
+    return nodeVec;
 }

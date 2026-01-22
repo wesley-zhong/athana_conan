@@ -36,6 +36,8 @@ public:
     void watchKeys(const std::vector<std::string> &keysm,
                    std::function<void(const std::string_view &, const std::string_view &)> watchKeysCB);
 
+    std::vector<NodeInfo*> getServerNode(const std::string& key);
+
     ~AthenaDiscovery() {
         delete client;
     }
