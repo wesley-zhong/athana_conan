@@ -12,6 +12,8 @@ file(GLOB_RECURSE SRC_FILES
 
 add_library(${PROJECT_NAME} STATIC
         ${SRC_FILES}
+        src/JsonUtils.cpp
+        src/JsonUtils.h
 )
 
 # 统一头文件路径，公开给下游（如 game）

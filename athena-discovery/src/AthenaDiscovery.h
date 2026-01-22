@@ -13,8 +13,9 @@
 struct NodeInfo {
     std::string service_id;
     std::string service_name;
+    std::string ip;
+    int type;
     int port;
-    int ip;
     int net_port;
     int id;
     int group_id;

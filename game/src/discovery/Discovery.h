@@ -13,8 +13,6 @@ public:
 
     static void onWatchKeyChange(const std::string_view &key, const std::string_view &value);
 
-    static bool registerMySelf(const std::string &ip, int port, std::string sever_name, std::string value);
-
     static AthenaDiscovery *athena_discovery;
 };
 

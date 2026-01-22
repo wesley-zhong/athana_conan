@@ -9,8 +9,8 @@
 
 bool Discovery::initWithConf(AthenaConfig &conf) {
     std::string discoverAddrs = conf.get<std::string>("discover", "server_nodes", "http://127.0.0.1:2379");
-    int myPort = conf.get<int>("server", "tcp-port", 8080);
-    std::string myName = conf.get<std::string>("server", "name", std::string("None"));
+
+
     AthenaEtcdClient *etcd_client = new AthenaEtcdClient(discoverAddrs);
     int erro = etcd_client->connect();
     if (erro) {
@@ -22,7 +22,14 @@ bool Discovery::initWithConf(AthenaConfig &conf) {
     if (!watchKeys.empty()) {
         athena_discovery->watchKeys(watchKeys, Discovery::onWatchKeyChange);
     }
-    registerMySelf(NetUtils::getLocalIPs()[0], myPort, myName,"hello" );
+
+    std::shared_ptr<NodeInfo> nodeInfo = std::make_shared<NodeInfo>();
+    nodeInfo->service_name =  conf.get<std::string>("server", "name", std::string("None"));
+    nodeInfo->port = conf.get<int>("server", "tcp-port", 8080);
+    nodeInfo->ip = NetUtils::getLocalIPs()[0];
+    nodeInfo->type = conf.get<int>("server", "type", 0);
+
+    athena_discovery->registerServer(nodeInfo);
     return true;
 }
 
@@ -30,12 +37,6 @@ void Discovery::onWatchKeyChange(const std::string_view &key, const std::string_
     INFO_LOG("================= on watched key ={} value ={}", key, value);
 }
 
-bool Discovery::registerMySelf(const std::string &ip, int port, std::string sever_name, std::string value) {
-    std::string key = sever_name + "/" + ip + ":" + std::to_string(port);
 
-    std::string body = key + ":" + value;
-    athena_discovery->keepAlive(key, body);
-    return true;
-}
 
 AthenaDiscovery *Discovery::athena_discovery = nullptr;
