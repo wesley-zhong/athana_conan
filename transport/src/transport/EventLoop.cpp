@@ -73,6 +73,7 @@ void EventLoop::uv_on_timer(uv_timer_t *timer) {
 void EventLoop::asyncConnect(const std::string &ip, int port) {
     EventLoop *event_loop = this;
     push([ip, port, event_loop]() {
+        INFO_LOG("------------- do connect idp ={} port ={}", ip, port);
         sockaddr_in dest;
         int ret = uv_ip4_addr(ip.c_str(), port, &dest);
         if (ret != 0) {
@@ -94,6 +95,7 @@ void EventLoop::asyncConnect(const std::string &ip, int port) {
             delete connect_req;
             delete clientChannel;
         }
+        INFO_LOG("###### connected  ip ={} port ={} success ", ip, port);
     });
     async_connect_task();
 }

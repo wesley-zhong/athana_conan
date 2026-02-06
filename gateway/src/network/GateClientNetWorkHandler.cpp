@@ -50,17 +50,17 @@ void GateClientNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
 }
 
 void GateClientNetWorkHandler::onEventTrigger(Channel *channel, TriggerEventEnum reason) {
-    if (reason == WRITE_IDLE) {
+    if (reason == WRITE_IDLE ||reason == READ_IDLE) {
         auto msg = std::make_shared<InnerHeartBeatRequest>();
         msg->set_time(8888);
         channel->sendMsg(INNER_HEART_BEAT_REQ, msg);
         // INFO_LOG("heart beat = -----------------");
         return;
     }
-    // this should be closed
-    if (reason == READ_IDLE) {
-        INFO_LOG("========== onEventTrigger ={}   reason ={} idle should closed ", channel->getAddr(), (int)reason);
-    }
+//    // this should be closed
+//    if (reason == READ_IDLE) {
+//        INFO_LOG("========== onEventTrigger ={}   reason ={} idle should closed ", channel->getAddr(), (int)reason);
+//    }
 }
 
 

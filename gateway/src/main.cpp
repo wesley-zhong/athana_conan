@@ -21,10 +21,13 @@
 #include "transport/AthenaTcpServer.h"
 
 #if defined(_WIN32)
+
 #include <windows.h>
+
 #else
 #include <unistd.h>
 #endif
+
 #include "transport/TcpClient.h"
 #include "network/GateClientNetWorkHandler.h"
 
@@ -53,24 +56,26 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-    success = Discovery::initWithConf(AthenaConfig::instance());
+    //tcp client
+    GateClientNetWorkHandler::initAllMsgRegister();
+    GateClientNetWorkHandler::startLogicThread(2);
+    TcpClient tcp_client;
+    tcp_client.onConnected = GateClientNetWorkHandler::onNewConnect;
+    tcp_client.onClosed = GateClientNetWorkHandler::onClosed;
+    tcp_client.onRead = GateClientNetWorkHandler::onMsg;
+    tcp_client.onTriggerEvent  = GateClientNetWorkHandler::onEventTrigger;
+    tcp_client.setChannelIdleTime(5000, 3000);
+
+    tcp_client.start();
+
+    success = Discovery::initWithConf(AthenaConfig::instance(), tcp_client);
     if (!success) {
         ERR_LOG("initWithConf  faild");
         return -2;
     }
 
-    int serverPort = AthenaConfig::instance().get("server", "port", 0);
+    int serverPort = AthenaConfig::instance().get("server", "tcp-port", 0);
     INFO_LOG("#### bind server port:{}", serverPort);
-    //tcp client
-    GateClientNetWorkHandler::initAllMsgRegister();
-    GateClientNetWorkHandler::startLogicThread(2);
-    // TcpClient tcp_client;
-    //
-    // std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    //tcp_client.connect("127.0.0.1", 7080);
-
-
-
     // tcp server
     GatewayServerNetWorkHandler::initAllMsgRegister();
     GatewayServerNetWorkHandler::startLogicThread(2);
@@ -93,6 +98,5 @@ int main(int argc, char **argv) {
     }
 
     INFO_LOG("service exited");
-
     return 0;
 }

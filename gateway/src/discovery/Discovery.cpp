@@ -7,7 +7,7 @@
 #include "AthenaEtcdClient.h"
 #include "core/utils/NetUtils.h"
 
-bool Discovery::initWithConf(AthenaConfig &conf) {
+bool Discovery::initWithConf(AthenaConfig &conf, TcpClient &tcpClient) {
     std::string discoverAddrs = conf.get<std::string>("discover", "server_nodes", "http://127.0.0.1:2379");
 
     AthenaEtcdClient *etcd_client = new AthenaEtcdClient(discoverAddrs);
@@ -20,15 +20,17 @@ bool Discovery::initWithConf(AthenaConfig &conf) {
     std::vector<std::string> watchKeys = conf.getArray<std::string>("discover", "watch-servers");
     if (!watchKeys.empty()) {
         athena_discovery->watchKeys(watchKeys, Discovery::onWatchKeyChange);
-        for(auto key : watchKeys){
-           std::vector<NodeInfo*> nodes =  athena_discovery->getServerNode(key);
-
-            INFO_LOG("============== getnode = size ={}", nodes.size());
+        for (auto key: watchKeys) {
+            std::vector<NodeInfo *> nodes = athena_discovery->getServerNode(key);
+            INFO_LOG("==============  key ={}  getnode = size ={}",key, nodes.size());
+            for (NodeInfo * nodeInfo: nodes) {
+                tcpClient.connect(nodeInfo->ip, nodeInfo->port);
+            }
         }
     }
 
     std::shared_ptr<NodeInfo> nodeInfo = std::make_shared<NodeInfo>();
-    nodeInfo->service_name =  conf.get<std::string>("server", "name", std::string("None"));
+    nodeInfo->service_name = conf.get<std::string>("server", "name", std::string("None"));
     nodeInfo->port = conf.get<int>("server", "tcp-port", 8080);
     nodeInfo->ip = NetUtils::getLocalIPs()[0];
     nodeInfo->type = conf.get<int>("server", "type", 0);
@@ -40,7 +42,6 @@ bool Discovery::initWithConf(AthenaConfig &conf) {
 void Discovery::onWatchKeyChange(const std::string_view &key, const std::string_view &value) {
     INFO_LOG("================= on watched key ={} value ={}", key, value);
 }
-
 
 
 AthenaDiscovery *Discovery::athena_discovery = nullptr;

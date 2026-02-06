@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
         return -2;
     }
 
-    int serverPort = AthenaConfig::instance().get("server", "port", 0);
+    int serverPort = AthenaConfig::instance().get("server", "tcp-port", 0);
     INFO_LOG("#### bind server port:{}", serverPort);
 
     // init all functions call
