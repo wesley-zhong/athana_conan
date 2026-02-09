@@ -24,5 +24,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 # 链接依赖库
 target_link_libraries(${PROJECT_NAME} PUBLIC
         core
+        transport
         etcd-cpp-apiv3::etcd-cpp-apiv3
 )

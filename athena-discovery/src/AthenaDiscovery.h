@@ -4,6 +4,7 @@
 
 #ifndef ATHENA_DISCOVERY_H
 #define ATHENA_DISCOVERY_H
+
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -25,7 +26,7 @@ public:
     void watchKeys(const std::vector<std::string> &keysm,
                    std::function<void(const std::string_view &, const std::string_view &)> watchKeysCB);
 
-    std::vector<NodeInfo*> getServerNode(const std::string& key);
+    std::vector<std::unique_ptr<NodeInfo >> getServerNode(const std::string &key);
 
     ~AthenaDiscovery() {
         delete client;

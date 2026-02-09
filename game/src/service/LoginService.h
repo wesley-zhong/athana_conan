@@ -17,7 +17,7 @@ public:
     static void onPlayerDisconnect(uint64 playerId, InnerPlayerDisconnectRequest *req);
 
 private:
-    std::unique_ptr<PlayerMgr> playerMgr = std::make_unique<PlayerMgr>();
+    inline static std::unique_ptr<PlayerMgr> playerMgr = std::make_unique<PlayerMgr>();
 };
 
 

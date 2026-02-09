@@ -6,6 +6,7 @@
 #include "core/log/XLog.h"
 #include "AthenaEtcdClient.h"
 #include "core/utils/NetUtils.h"
+#include "PeerConn.h"
 
 bool Discovery::initWithConf(AthenaConfig &conf, TcpClient &tcpClient) {
     std::string discoverAddrs = conf.get<std::string>("discover", "server_nodes", "http://127.0.0.1:2379");
@@ -21,20 +22,23 @@ bool Discovery::initWithConf(AthenaConfig &conf, TcpClient &tcpClient) {
     if (!watchKeys.empty()) {
         athena_discovery->watchKeys(watchKeys, Discovery::onWatchKeyChange);
         for (auto key: watchKeys) {
-            std::vector<NodeInfo *> nodes = athena_discovery->getServerNode(key);
-            INFO_LOG("==============  key ={}  getnode = size ={}",key, nodes.size());
-            for (NodeInfo * nodeInfo: nodes) {
-                tcpClient.connect(nodeInfo->ip, nodeInfo->port);
+            auto serverNodes = athena_discovery->getServerNode(key);
+            if (serverNodes.empty()) {
+                continue;
+            }
+            for (auto &node: serverNodes) {
+                PeerConn::saveNode(std::move(node));
+                tcpClient.connect(node->ip, node->port);
             }
         }
     }
+
 
     std::shared_ptr<NodeInfo> nodeInfo = std::make_shared<NodeInfo>();
     nodeInfo->service_name = conf.get<std::string>("server", "name", std::string("None"));
     nodeInfo->port = conf.get<int>("server", "tcp-port", 8080);
     nodeInfo->ip = NetUtils::getLocalIPs()[0];
     nodeInfo->type = conf.get<int>("server", "type", 0);
-
     athena_discovery->registerServer(nodeInfo);
     return true;
 }

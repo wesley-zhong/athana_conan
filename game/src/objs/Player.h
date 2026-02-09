@@ -44,6 +44,14 @@ public:
     void setPid(uint32_t pid) {
         this->pid = pid;
     }
+
+    void setChannel(Channel* channel){
+        this->channel = channel;
+    }
+
+    Channel* getChannel(){
+        return this->channel;
+    }
 private:
     uint32_t pid;
     Channel *channel;

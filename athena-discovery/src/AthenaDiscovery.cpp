@@ -25,14 +25,14 @@ void AthenaDiscovery::registerServer(std::shared_ptr<NodeInfo> nodeInfo) {
     keepAlive(nodeInfo->service_id, jsonStr);
 }
 
-std::vector<NodeInfo *> AthenaDiscovery::getServerNode(const std::string &key) {
+std::vector<std::unique_ptr<NodeInfo >> AthenaDiscovery::getServerNode(const std::string &key) {
     std::map<std::string, std::string> keyValues = client->getPrefix(key);
-    std::vector<NodeInfo *> nodeVec;
+    std::vector<std::unique_ptr<NodeInfo >> nodeVec;
     for (const auto &[key, value]: keyValues) {
-        NodeInfo *nodeInfo = new NodeInfo();
+        auto nodeInfo = std::make_unique<NodeInfo>();
         bool ret = JsonUtils::DeserializeNodeInfo(value, *nodeInfo);
-        INFO_LOG("++++++++++++  GET KEY ={}  value ={}", key, value);
-        nodeVec.push_back(nodeInfo);
+        INFO_LOG("++++++++++++  GET KEY ={}  value ={}  parse ret ={}", key, value, ret);
+        nodeVec.push_back(std::move(nodeInfo));
     }
     return nodeVec;
 }

@@ -6,16 +6,19 @@
 #include "core/log/XLog.h"
 #include "ProtoInner.pb.h"
 #include "transport/Dispatcher.h"
+#include "PeerConn.h"
 
 void SystemMsgHandler::onShakHandReq(Channel *channel, InnerServerHandShakeReq *req) {
     INFO_LOG("receive shakehand req msg ={} innherHeaderId = {}", channel->getAddr(), req->service_id());
     auto res = std::make_shared<InnerServerHandShakeRes>();
     res->set_service_id("9999ttt");
     channel->sendMsg(INNER_SERVER_HAND_SHAKE_RES, res);
+
 }
 
 void SystemMsgHandler::onShakHandResponse(Channel *channel, InnerServerHandShakeRes *res) {
     INFO_LOG("receive shakehand  res msg ={} innherHeaderId = {}", channel->getAddr(), res->service_id());
+    PeerConn::saveNodeChannel(res->service_id(), channel);
 }
 
 
@@ -25,7 +28,7 @@ void SystemMsgHandler::onInnerHeartBeatReq(Channel *channel, InnerHeartBeatReque
 }
 
 void SystemMsgHandler::onInnerHeartBeatRes(Channel *channel, InnerHeartBeatResponse *res) {
-  //  INFO_LOG("#### receive   on Inner HeartBeatRes msg ={} time = {}", channel->getAddr(), res->time());
+    //  INFO_LOG("#### receive   on Inner HeartBeatRes msg ={} time = {}", channel->getAddr(), res->time());
 }
 
 void SystemMsgHandler::registMsg() {

@@ -44,9 +44,7 @@ void handleSignal(int signum) {
 int main(int argc, char **argv) {
     std::signal(SIGTERM, handleSignal);
     std::signal(SIGINT, handleSignal);
-
     xLogInitLog(LogLevel::LL_INFO, "../logs/gateway.log");
-
 
     std::filesystem::path cur_path = std::filesystem::current_path();
     INFO_LOG("+++  cur path: {}", cur_path.string());
