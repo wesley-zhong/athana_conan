@@ -2,13 +2,14 @@
 // Created by zhongweiqi on 2025/10/18.
 //
 #pragma once
+
 #include <string>
 #include "MysqlResult.h"
 #include  "RedisResult.h"
 #include "DB_Interface_mysql.h"
 #include "hiredis/hiredis.h"
 #include "DB_Interface_redis.h"
-
+#include "mongodb/MongClientManager.h"
 
 namespace Dal {
     template<typename T>
@@ -38,10 +39,11 @@ namespace Dal {
         bool init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
                   const std::string &password);
 
-        //  template<typename T_KEY, typename T_VALUE>  Todo  this should support string and long ,int  as key
         int execute(DBResult *result, const std::string &cmd);
     }
-    namespace MongoDB{
+    namespace MongoDB {
+        bool init(const std::string &ip, const std::string &username,
+                  const std::string &password);
 
-        }
+    }
 }

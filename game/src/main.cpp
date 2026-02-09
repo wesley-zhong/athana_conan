@@ -7,10 +7,11 @@
 #include "objs/Player.h"
 #include "core/common/ObjectPool.hpp"
 #include "db/Dal.hpp"
-#include "mongodb/MongoDBInterface.h"
 
 #if defined(_WIN32)
+
 #include <windows.h>
+
 #else
 
 #include <unistd.h>
@@ -21,12 +22,12 @@
 #include "transport/AthenaTcpServer.h"
 
 #include "network/GameServerNetWorkHandler.h"
-#include "mongodb/MongoDBInterface.h"
 #include "mongodb/MongClientManager.h"
 #include "dal/RoleDAO.h"
 #include "dal/Dal.hpp"
 #include "core/common/AthenaConfig.h"
 #include "discovery/Discovery.h"
+
 static std::atomic<bool> g_running(true);
 static std::condition_variable g_cv;
 static std::mutex g_mutex;
@@ -87,15 +88,18 @@ int main(int argc, char **argv) {
     //    MysqlResult db_result;
     //    Dal::DB::execute(&db_result, "select * from  user");
 
+    std::string mongDBAddr = AthenaConfig::instance().get("mongodb", "ip", "localhost:27017");
+    std::string userName = AthenaConfig::instance().get("mongodb", "username", "admin");
+    std::string password = AthenaConfig::instance().get("mongodb", "password", "admin");
 
-    MongClientManager::init("localhost", "admin", "admin");
-    int64 userId = 1000001;
+    Dal::MongoDB::init(mongDBAddr, userName, password);
+
     RoleDO roleDo;
-    roleDo.name = "kkkk_name";
+    roleDo.name = "kkkk_name_2";
     roleDo._id = 99999;
     bool ret = Dal::DAO<RoleDAO>().update(roleDo);
     INFO_LOG("ROLE DO ID ={} updated ret ={}", roleDo._id, ret);
-
+    int64 userId = 99999;
     std::optional<RoleDO> pRoleDO = Dal::DAO<RoleDAO>().find_one(userId);
     if (pRoleDO) {
         RoleDO &roleDo = pRoleDO.value();

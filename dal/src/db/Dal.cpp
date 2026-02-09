@@ -31,3 +31,10 @@ namespace Dal::Cache {
         return redis->execute(result, cmd.c_str(), cmd.length());
     }
 }
+
+namespace Dal::MongoDB {
+    bool init(const std::string &ip, const std::string &username,
+              const std::string &password) {
+        return MongClientManager::init(ip, username, password) == 0;
+    }
+}
