@@ -27,8 +27,8 @@ bool Discovery::initWithConf(AthenaConfig &conf, TcpClient &tcpClient) {
                 continue;
             }
             for (auto &node: serverNodes) {
-                PeerConn::saveNode(std::move(node));
                 tcpClient.connect(node->ip, node->port);
+                PeerConn::saveNode(std::move(node));
             }
         }
     }
