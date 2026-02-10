@@ -4,6 +4,7 @@
 
 #ifndef ATHENA_DAO_H
 #define ATHENA_DAO_H
+
 #include <bsoncxx/builder/basic/document.hpp>
 #include <mongocxx/client.hpp>
 #include <mongocxx/exception/exception.hpp>
@@ -46,13 +47,19 @@ public:
 
 private:
     std::optional<DO_T> find_oneImp(mongocxx::pool::entry &client, int64 id) {
-        auto find_one_result = (*client)[dbName][tableName].find_one(make_document(kvp("_id", id)));
-        if (!find_one_result) {
+        try {
+            auto find_one_result = (*client)[dbName][tableName].find_one(make_document(kvp("_id", id)));
+            if (!find_one_result) {
+                return std::nullopt;
+            }
+            DO_T doObj;
+            doObj.fromBson(find_one_result->view());
+            return doObj;
+        } catch (const std::exception &e) {
+            // Log the error: e.what()
+            ERR_LOG("xxxxxxxxxxxxx ERROR {}",e.what());
             return std::nullopt;
         }
-        DO_T doObj;
-        doObj.fromBson(find_one_result->view());
-        return doObj;
     }
 
 
@@ -62,9 +69,9 @@ private:
             opts.upsert(true);
 
             (*client)[dbName][tableName].replace_one(
-                make_document(kvp("_id", obj._id)),
-                obj.toBson(),
-                opts
+                    make_document(kvp("_id", obj._id)),
+                    obj.toBson(),
+                    opts
             );
             return true;
         } catch (const mongocxx::exception &e) {

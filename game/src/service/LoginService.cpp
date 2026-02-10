@@ -15,6 +15,8 @@ void LoginService::onPlayerLogin(Channel *channel, InnerLoginRequest *req) {
         playerMgr->addPlayer(existPlayer);
     }
     auto res = std::make_shared<InnerLoginResponse>();
+    res->set_roleid(req->roleid());
+    res->set_sid(req->sid());
     channel->sendMsg(INNER_TO_GAME_LOGIN_RES, res);
 }
 

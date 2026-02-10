@@ -58,13 +58,13 @@ void Channel::eventLoopWrite(int msgId, google::protobuf::Message *msg) {
         ERR_LOG(" msgId = {} serialize failed", msgId);
         return;
     }
-    size_t len = msg->ByteSizeLong();
+    int32  len = msg->ByteSizeLong();
     send_buff->writeInt32(len + 4);
     send_buff->writeInt32(msgId);
     send_buff->writeBytes(getEventPackBuff(), len);
     last_send_time = nowTime();
 
-    //INFO_LOG("-------- send msgId={}  len={} ", msgId, len);
+    INFO_LOG("-------- send msgId={}  len={} ", msgId, len+4 +4);
     // do send
     if (needCallSend) {
         doUvSend();
@@ -87,7 +87,7 @@ void Channel::doUvSend() {
     uv_write(req, (uv_stream_t *) client, &buf, 1,
              [](uv_write_t *req1, int status) {
                  WritePack *write_pack = (WritePack *) req1->data;
-                 //  INFO_LOG(" ------------write complete call back ={}  send len ={} ", status, write_pack->sendSize);
+                   INFO_LOG(" ------------write complete call back ={}  send len ={} ", status, write_pack->sendSize);
                  write_pack->_channel->send_buff->storage().advanceReadIndex(write_pack->sendSize);
                  write_pack->_channel->doUvSend();
                  ObjPool::getPool<WritePack>().release(write_pack, true) ;
