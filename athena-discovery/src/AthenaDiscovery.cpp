@@ -4,7 +4,7 @@
 
 #include "AthenaDiscovery.h"
 #include "core/utils/JsonUtils.h"
-#include "core/utils/NetUtils.h"
+
 #include "core/log/XLog.h"
 
 
@@ -17,12 +17,9 @@ void AthenaDiscovery::watchKeys(const std::vector<std::string> &keys,
     client->watchKeys(keys, watchKeysCB);
 }
 
-void AthenaDiscovery::registerServer(std::shared_ptr<NodeInfo> nodeInfo) {
-    std::string localIp = NetUtils::getLocalIPs()[0];
-    nodeInfo->service_id = nodeInfo->service_name + "/" + localIp + ":" + std::to_string(nodeInfo->port);
-    std::string jsonStr = JsonUtils::SerializeNodeInfo(nodeInfo.get());
-
-    keepAlive(nodeInfo->service_id, jsonStr);
+void AthenaDiscovery::registerServer() {
+    std::string jsonStr = JsonUtils::SerializeNodeInfo(mySelf.get());
+    keepAlive(mySelf->service_id, jsonStr);
 }
 
 std::vector<std::unique_ptr<NodeInfo >> AthenaDiscovery::getServerNode(const std::string &key) {

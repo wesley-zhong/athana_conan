@@ -4,6 +4,7 @@
 
 #ifndef DISCOVERY_H
 #define  DISCOVERY_H
+
 #include "AthenaDiscovery.h"
 #include "core/common/AthenaConfig.h"
 
@@ -12,8 +13,6 @@ public:
     static bool initWithConf(AthenaConfig &conf);
 
     static void onWatchKeyChange(const std::string_view &key, const std::string_view &value);
-
-    static AthenaDiscovery *athena_discovery;
 };
 
 

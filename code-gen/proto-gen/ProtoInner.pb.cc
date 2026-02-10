@@ -178,6 +178,7 @@ PROTOBUF_CONSTEXPR InnerServerHandShakeReq::InnerServerHandShakeReq(
     /*decltype(_impl_.service_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.service_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.areaid_)*/0
+  , /*decltype(_impl_.server_type_)*/0
   , /*decltype(_impl_.id_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct InnerServerHandShakeReqDefaultTypeInternal {
@@ -333,6 +334,7 @@ const uint32_t TableStruct_ProtoInner_2eproto::offsets[] PROTOBUF_SECTION_VARIAB
   PROTOBUF_FIELD_OFFSET(::InnerServerHandShakeReq, _impl_.service_name_),
   PROTOBUF_FIELD_OFFSET(::InnerServerHandShakeReq, _impl_.service_id_),
   PROTOBUF_FIELD_OFFSET(::InnerServerHandShakeReq, _impl_.areaid_),
+  PROTOBUF_FIELD_OFFSET(::InnerServerHandShakeReq, _impl_.server_type_),
   PROTOBUF_FIELD_OFFSET(::InnerServerHandShakeReq, _impl_.id_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::InnerServerHandShakeRes, _internal_metadata_),
@@ -373,9 +375,9 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 72, -1, -1, sizeof(::InnerLogoutNotify)},
   { 80, -1, -1, sizeof(::InnerLoginInitNotify)},
   { 87, -1, -1, sizeof(::InnerServerHandShakeReq)},
-  { 97, -1, -1, sizeof(::InnerServerHandShakeRes)},
-  { 106, -1, -1, sizeof(::KickOutRequest)},
-  { 115, -1, -1, sizeof(::KickOutResponse)},
+  { 98, -1, -1, sizeof(::InnerServerHandShakeRes)},
+  { 107, -1, -1, sizeof(::KickOutRequest)},
+  { 116, -1, -1, sizeof(::KickOutResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -412,28 +414,28 @@ const char descriptor_table_protodef_ProtoInner_2eproto[] PROTOBUF_SECTION_VARIA
   "oginWorldResponse\022\021\n\terrorCode\030\001 \001(\005\022\016\n\006"
   "unitId\030\002 \001(\003\"6\n\021InnerLogoutNotify\022\016\n\006rol"
   "eId\030\001 \001(\003\022\021\n\tsessionId\030\002 \001(\003\"&\n\024InnerLog"
-  "inInitNotify\022\016\n\006roleId\030\001 \001(\003\"_\n\027InnerSer"
+  "inInitNotify\022\016\n\006roleId\030\001 \001(\003\"t\n\027InnerSer"
   "verHandShakeReq\022\024\n\014service_name\030\001 \001(\t\022\022\n"
-  "\nservice_id\030\002 \001(\t\022\016\n\006areaId\030\003 \001(\005\022\n\n\002id\030"
-  "\004 \001(\005\"S\n\027InnerServerHandShakeRes\022\024\n\014serv"
-  "ice_name\030\001 \001(\t\022\022\n\nservice_id\030\002 \001(\t\022\016\n\006ar"
-  "eaId\030\003 \001(\005\"=\n\016KickOutRequest\022\016\n\006roleId\030\001"
-  " \001(\003\022\013\n\003sid\030\002 \001(\003\022\016\n\006reason\030\003 \001(\005\"!\n\017Kic"
-  "kOutResponse\022\016\n\006reason\030\001 \001(\005*\335\002\n\016InnerPr"
-  "otoCode\022\021\n\rINNER_INVALID\020\000\022(\n\033INNER_SERV"
-  "ER_HAND_SHAKE_REQ\020\377\377\377\377\377\377\377\377\377\001\022(\n\033INNER_SE"
-  "RVER_HAND_SHAKE_RES\020\376\377\377\377\377\377\377\377\377\001\022!\n\024INNER_"
-  "HEART_BEAT_REQ\020\375\377\377\377\377\377\377\377\377\001\022!\n\024INNER_HEART"
-  "_BEAT_RES\020\374\377\377\377\377\377\377\377\377\001\022(\n\033INNER_PLAYER_DIS"
-  "CONNECT_REQ\020\372\377\377\377\377\377\377\377\377\001\022(\n\033INNER_PLAYER_D"
-  "ISCONNECT_RES\020\371\377\377\377\377\377\377\377\377\001\022$\n\027INNER_TO_GAM"
-  "E_LOGIN_REQ\020\366\377\377\377\377\377\377\377\377\001\022$\n\027INNER_TO_GAME_"
-  "LOGIN_RES\020\365\377\377\377\377\377\377\377\377\001B\033\n\016com.game.protoZ\t"
-  "/protoGenb\006proto3"
+  "\nservice_id\030\002 \001(\t\022\016\n\006areaId\030\003 \001(\005\022\023\n\013ser"
+  "ver_type\030\004 \001(\005\022\n\n\002id\030\005 \001(\005\"S\n\027InnerServe"
+  "rHandShakeRes\022\024\n\014service_name\030\001 \001(\t\022\022\n\ns"
+  "ervice_id\030\002 \001(\t\022\016\n\006areaId\030\003 \001(\005\"=\n\016KickO"
+  "utRequest\022\016\n\006roleId\030\001 \001(\003\022\013\n\003sid\030\002 \001(\003\022\016"
+  "\n\006reason\030\003 \001(\005\"!\n\017KickOutResponse\022\016\n\006rea"
+  "son\030\001 \001(\005*\335\002\n\016InnerProtoCode\022\021\n\rINNER_IN"
+  "VALID\020\000\022(\n\033INNER_SERVER_HAND_SHAKE_REQ\020\377"
+  "\377\377\377\377\377\377\377\377\001\022(\n\033INNER_SERVER_HAND_SHAKE_RES"
+  "\020\376\377\377\377\377\377\377\377\377\001\022!\n\024INNER_HEART_BEAT_REQ\020\375\377\377\377"
+  "\377\377\377\377\377\001\022!\n\024INNER_HEART_BEAT_RES\020\374\377\377\377\377\377\377\377\377"
+  "\001\022(\n\033INNER_PLAYER_DISCONNECT_REQ\020\372\377\377\377\377\377\377"
+  "\377\377\001\022(\n\033INNER_PLAYER_DISCONNECT_RES\020\371\377\377\377\377"
+  "\377\377\377\377\001\022$\n\027INNER_TO_GAME_LOGIN_REQ\020\366\377\377\377\377\377\377"
+  "\377\377\001\022$\n\027INNER_TO_GAME_LOGIN_RES\020\365\377\377\377\377\377\377\377\377"
+  "\001B\033\n\016com.game.protoZ\t/protoGenb\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_ProtoInner_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_ProtoInner_2eproto = {
-    false, false, 1297, descriptor_table_protodef_ProtoInner_2eproto,
+    false, false, 1318, descriptor_table_protodef_ProtoInner_2eproto,
     "ProtoInner.proto",
     &descriptor_table_ProtoInner_2eproto_once, nullptr, 0, 15,
     schemas, file_default_instances, TableStruct_ProtoInner_2eproto::offsets,
@@ -2776,6 +2778,7 @@ InnerServerHandShakeReq::InnerServerHandShakeReq(const InnerServerHandShakeReq& 
       decltype(_impl_.service_name_){}
     , decltype(_impl_.service_id_){}
     , decltype(_impl_.areaid_){}
+    , decltype(_impl_.server_type_){}
     , decltype(_impl_.id_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -2810,6 +2813,7 @@ inline void InnerServerHandShakeReq::SharedCtor(
       decltype(_impl_.service_name_){}
     , decltype(_impl_.service_id_){}
     , decltype(_impl_.areaid_){0}
+    , decltype(_impl_.server_type_){0}
     , decltype(_impl_.id_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -2890,9 +2894,17 @@ const char* InnerServerHandShakeReq::_InternalParse(const char* ptr, ::_pbi::Par
         } else
           goto handle_unusual;
         continue;
-      // int32 id = 4;
+      // int32 server_type = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.server_type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 id = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
@@ -2953,10 +2965,16 @@ uint8_t* InnerServerHandShakeReq::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_areaid(), target);
   }
 
-  // int32 id = 4;
+  // int32 server_type = 4;
+  if (this->_internal_server_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_server_type(), target);
+  }
+
+  // int32 id = 5;
   if (this->_internal_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_id(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2994,7 +3012,12 @@ size_t InnerServerHandShakeReq::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_areaid());
   }
 
-  // int32 id = 4;
+  // int32 server_type = 4;
+  if (this->_internal_server_type() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_server_type());
+  }
+
+  // int32 id = 5;
   if (this->_internal_id() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_id());
   }
@@ -3025,6 +3048,9 @@ void InnerServerHandShakeReq::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg
   }
   if (from._internal_areaid() != 0) {
     _this->_internal_set_areaid(from._internal_areaid());
+  }
+  if (from._internal_server_type() != 0) {
+    _this->_internal_set_server_type(from._internal_server_type());
   }
   if (from._internal_id() != 0) {
     _this->_internal_set_id(from._internal_id());

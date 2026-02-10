@@ -26,6 +26,12 @@ public:
 
     Channel *getRandomChannel(const std::string &srviceId);
 
+
+    static bool sendMsg(Channel *channel, int msgId, google::protobuf::Message *msg);
+
+    static bool sendMsg(int serverType, int msgId, google::protobuf::Message *msg);
+
+
 private:
     static std::unordered_map<std::string, std::shared_ptr<NodeChannelInfo >> node_id_nodes;
     static std::unordered_map<int, std::vector<std::shared_ptr<NodeChannelInfo>>> node_type_nodes;

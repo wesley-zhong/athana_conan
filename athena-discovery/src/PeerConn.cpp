@@ -124,3 +124,19 @@ Channel *PeerConn::getRandomChannel(const std::string &serviceId) {
 
 std::unordered_map<std::string, std::shared_ptr<NodeChannelInfo>> PeerConn::node_id_nodes;
 std::unordered_map<int, std::vector<std::shared_ptr<NodeChannelInfo>>> PeerConn::node_type_nodes;
+
+bool PeerConn::sendMsg(int serverType, int msgId, google::protobuf::Message *msg) {
+    auto it = node_type_nodes.find(serverType);
+    if (it == node_type_nodes.end()) {
+        return false;
+    }
+    //TODO
+    auto channel = it->second[0]->channels[0];
+    return sendMsg(channel, msgId, msg);
+
+}
+
+bool PeerConn::sendMsg(Channel *channel, int msgId, google::protobuf::Message *msg) {
+    channel->sendMsg(msgId, msg);
+    return true;
+}

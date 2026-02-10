@@ -14,8 +14,6 @@ public:
     static bool initWithConf(AthenaConfig &conf, TcpClient &tcpClient);
 
     static void onWatchKeyChange(const std::string_view &key, const std::string_view &value);
-
-    static AthenaDiscovery *athena_discovery;
 };
 
 

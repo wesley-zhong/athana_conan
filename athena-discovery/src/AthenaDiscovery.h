@@ -11,15 +11,26 @@
 #include <memory>
 #include "AthenaEtcdClient.h"
 #include "core/common/NodeInfo.h"
+#include "core/common/Singleton.h"
+#include "core/utils/NetUtils.h"
 
 
-class AthenaDiscovery {
+class AthenaDiscovery : public Singleton<AthenaDiscovery> {
 public:
-    AthenaDiscovery(AthenaEtcdClient *client) {
+    AthenaDiscovery() {
+    }
+
+    void setEtcdClient(AthenaEtcdClient *client) {
         this->client = client;
     }
 
-    void registerServer(std::shared_ptr<NodeInfo> nodeInfo);
+    void setMySelfInfo(std::shared_ptr<NodeInfo> me) {
+        mySelf = me;
+        std::string localIp = NetUtils::getLocalIPs()[0];
+        mySelf->service_id = mySelf->service_name + "/" + localIp + ":" + std::to_string(mySelf->port);
+    }
+
+    void registerServer();
 
     void keepAlive(const std::string &key, const std::string &myName);
 
@@ -27,6 +38,10 @@ public:
                    std::function<void(const std::string_view &, const std::string_view &)> watchKeysCB);
 
     std::vector<std::unique_ptr<NodeInfo >> getServerNode(const std::string &key);
+
+    std::shared_ptr<NodeInfo> getMySelf() {
+        return mySelf;
+    }
 
     ~AthenaDiscovery() {
         delete client;

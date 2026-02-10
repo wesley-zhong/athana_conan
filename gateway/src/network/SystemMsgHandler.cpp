@@ -7,13 +7,23 @@
 #include "ProtoInner.pb.h"
 #include "transport/Dispatcher.h"
 #include "PeerConn.h"
+#include "AthenaDiscovery.h"
 
 void SystemMsgHandler::onShakHandReq(Channel *channel, InnerServerHandShakeReq *req) {
-    INFO_LOG("receive shakehand req msg ={} innherHeaderId = {}", channel->getAddr(), req->service_id());
-    auto res = std::make_shared<InnerServerHandShakeRes>();
-    res->set_service_id("9999ttt");
-    channel->sendMsg(INNER_SERVER_HAND_SHAKE_RES, res);
+    INFO_LOG("receive shake req hand msg ={} innherHeaderId = {}", channel->getAddr(), req->service_id());
+    auto shNodeInfo = std::make_unique<NodeInfo>();
+    shNodeInfo->type = req->server_type();
+    shNodeInfo->service_name = req->service_name();
+    shNodeInfo->service_id = req->service_id();
 
+    PeerConn::saveNode(std::move(shNodeInfo));
+    PeerConn::saveNodeChannel(req->service_id(), channel);
+
+    auto res = std::make_shared<InnerServerHandShakeRes>();
+    std::shared_ptr<NodeInfo> mySelf = AthenaDiscovery::Instance()->getMySelf();
+    res->set_service_id(mySelf->service_id);
+    res->set_service_name(mySelf->service_name);
+    channel->sendMsg(INNER_SERVER_HAND_SHAKE_RES, res);
 }
 
 void SystemMsgHandler::onShakHandResponse(Channel *channel, InnerServerHandShakeRes *res) {

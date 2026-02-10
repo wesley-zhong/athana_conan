@@ -2009,7 +2009,8 @@ class InnerServerHandShakeReq final :
     kServiceNameFieldNumber = 1,
     kServiceIdFieldNumber = 2,
     kAreaIdFieldNumber = 3,
-    kIdFieldNumber = 4,
+    kServerTypeFieldNumber = 4,
+    kIdFieldNumber = 5,
   };
   // string service_name = 1;
   void clear_service_name();
@@ -2048,7 +2049,16 @@ class InnerServerHandShakeReq final :
   void _internal_set_areaid(int32_t value);
   public:
 
-  // int32 id = 4;
+  // int32 server_type = 4;
+  void clear_server_type();
+  int32_t server_type() const;
+  void set_server_type(int32_t value);
+  private:
+  int32_t _internal_server_type() const;
+  void _internal_set_server_type(int32_t value);
+  public:
+
+  // int32 id = 5;
   void clear_id();
   int32_t id() const;
   void set_id(int32_t value);
@@ -2068,6 +2078,7 @@ class InnerServerHandShakeReq final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr service_name_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr service_id_;
     int32_t areaid_;
+    int32_t server_type_;
     int32_t id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -3197,7 +3208,27 @@ inline void InnerServerHandShakeReq::set_areaid(int32_t value) {
   // @@protoc_insertion_point(field_set:InnerServerHandShakeReq.areaId)
 }
 
-// int32 id = 4;
+// int32 server_type = 4;
+inline void InnerServerHandShakeReq::clear_server_type() {
+  _impl_.server_type_ = 0;
+}
+inline int32_t InnerServerHandShakeReq::_internal_server_type() const {
+  return _impl_.server_type_;
+}
+inline int32_t InnerServerHandShakeReq::server_type() const {
+  // @@protoc_insertion_point(field_get:InnerServerHandShakeReq.server_type)
+  return _internal_server_type();
+}
+inline void InnerServerHandShakeReq::_internal_set_server_type(int32_t value) {
+  
+  _impl_.server_type_ = value;
+}
+inline void InnerServerHandShakeReq::set_server_type(int32_t value) {
+  _internal_set_server_type(value);
+  // @@protoc_insertion_point(field_set:InnerServerHandShakeReq.server_type)
+}
+
+// int32 id = 5;
 inline void InnerServerHandShakeReq::clear_id() {
   _impl_.id_ = 0;
 }

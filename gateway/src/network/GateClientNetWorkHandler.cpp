@@ -11,6 +11,7 @@
 
 #include "ProtoInner.pb.h"
 #include "SystemMsgHandler.h"
+#include "AthenaDiscovery.h"
 
 void GateClientNetWorkHandler::initAllMsgRegister() {
     SystemMsgHandler::registMsg();
@@ -25,7 +26,10 @@ void GateClientNetWorkHandler::startLogicThread(int threadNum) {
 void GateClientNetWorkHandler::onNewConnect(Channel *channel, int status) {
     INFO_LOG("on new connection ={}", channel->getAddr());
     auto req = std::make_shared<InnerServerHandShakeReq>();
-    req->set_service_id("JJJJJJJJJ123");
+    std::shared_ptr<NodeInfo> shNodeInfo = AthenaDiscovery::Instance()->getMySelf();
+    req->set_service_id(shNodeInfo->service_id);
+    req->set_service_name(shNodeInfo->service_name);
+    req->set_server_type(shNodeInfo->type);
     channel->sendMsg(INNER_SERVER_HAND_SHAKE_REQ, req);
 }
 
@@ -50,7 +54,7 @@ void GateClientNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
 }
 
 void GateClientNetWorkHandler::onEventTrigger(Channel *channel, TriggerEventEnum reason) {
-    if (reason == WRITE_IDLE ||reason == READ_IDLE) {
+    if (reason == WRITE_IDLE || reason == READ_IDLE) {
         auto msg = std::make_shared<InnerHeartBeatRequest>();
         msg->set_time(8888);
         channel->sendMsg(INNER_HEART_BEAT_REQ, msg);
