@@ -4,6 +4,7 @@
 #include "ProtoCommon.pb.h"
 #include "ProtoInner.pb.h"
 #include "transport/Dispatcher.h"
+#include "discovery/PeerConn.h"
 
 void PlayerLoginHandler::onInnerLoginRes(Channel *channel, InnerLoginResponse *res) {
     INFO_LOG("----- on login res ={}", res->roleid(), res->sid());
@@ -11,8 +12,7 @@ void PlayerLoginHandler::onInnerLoginRes(Channel *channel, InnerLoginResponse *r
 
 void PlayerLoginHandler::onLoginReq(Channel *channel, LoginRequest *req) {
     INFO_LOG("----- on login req ={}", req->roleid());
-
-
+ //   PeerConn::sendMsg(ServerType);
 
 }
 

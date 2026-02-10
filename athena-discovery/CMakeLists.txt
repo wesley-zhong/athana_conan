@@ -18,7 +18,7 @@ add_library(${PROJECT_NAME} STATIC
 target_include_directories(${PROJECT_NAME} PUBLIC
         ..
         ${3RD}
-        ${PROJECT_SOURCE_DIR}/src/
+        ${PROJECT_SOURCE_DIR}/
 )
 
 # 链接依赖库

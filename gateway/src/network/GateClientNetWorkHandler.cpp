@@ -11,7 +11,7 @@
 
 #include "ProtoInner.pb.h"
 #include "SystemMsgHandler.h"
-#include "AthenaDiscovery.h"
+#include "discovery/AthenaDiscovery.h"
 
 void GateClientNetWorkHandler::initAllMsgRegister() {
     SystemMsgHandler::registMsg();

@@ -4,9 +4,9 @@
 
 #include "Discovery.h"
 #include "core/log/XLog.h"
-#include "AthenaEtcdClient.h"
+#include "discovery/AthenaEtcdClient.h"
 #include "core/utils/NetUtils.h"
-#include "PeerConn.h"
+#include "discovery/PeerConn.h"
 
 bool Discovery::initWithConf(AthenaConfig &conf) {
 

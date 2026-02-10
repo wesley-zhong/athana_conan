@@ -5,7 +5,7 @@
 #ifndef DISCOVERY_H
 #define  DISCOVERY_H
 
-#include "AthenaDiscovery.h"
+#include "discovery/AthenaDiscovery.h"
 #include "core/common/AthenaConfig.h"
 
 class Discovery {

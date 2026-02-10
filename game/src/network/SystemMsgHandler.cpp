@@ -6,8 +6,8 @@
 #include "core/log/XLog.h"
 #include "ProtoInner.pb.h"
 #include "transport/Dispatcher.h"
-#include "AthenaDiscovery.h"
-#include "PeerConn.h"
+#include "discovery/AthenaDiscovery.h"
+#include "discovery/PeerConn.h"
 
 void SystemMsgHandler::onShakHandReq(Channel *channel, InnerServerHandShakeReq *req) {
     INFO_LOG("receive shake req hand msg ={} innherHeaderId = {}", channel->getAddr(), req->service_id());
