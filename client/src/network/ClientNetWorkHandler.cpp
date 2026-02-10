@@ -10,8 +10,8 @@
 #include "core/log/XLog.h"
 #include "transport/ByteUtils.h"
 
-#include "ProtoInner.pb.h"
 #include "transport/EventDefs.h"
+#include "ProtoMsgId.pb.h"
 
 void ClientNetWorkHandler::initAllMsgRegister() {
     REGISTER_MSG_ID_FUN(LOGIN_RESPONSE, LoginResponse, PlayerLoginHandler::onLoginRes);
@@ -23,9 +23,10 @@ void ClientNetWorkHandler::startThread(int threadNum) {
     threadPool->create(threadNum);
 }
 
+int id  =100;
 void ClientNetWorkHandler::onConnect(Channel *channel, int status) {
     auto login = std::make_shared<LoginRequest>();
-    login->set_roleid(123);
+    login->set_roleid(id++);
     channel->sendMsg(LOGIN_REQUEST, login);
 }
 
@@ -55,7 +56,7 @@ void ClientNetWorkHandler::onEventTrigger(Channel *channel, TriggerEventEnum rea
     if (reason == WRITE_IDLE) {
         auto msg = std::make_shared<HeartBeatRequest>();
         msg->set_clienttime(5555);
-        channel->sendMsg(HEART_BEAT_REQUEST, msg);
+        channel->sendMsg(HEART_BEAT_PUSH, msg);
         // INFO_LOG("heart beat = -----------------");
         return;
     }

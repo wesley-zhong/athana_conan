@@ -12,8 +12,10 @@ void PlayerLoginHandler::onInnerLoginRes(Channel *channel, InnerLoginResponse *r
 
 void PlayerLoginHandler::onLoginReq(Channel *channel, LoginRequest *req) {
     INFO_LOG("----- on login req ={}", req->roleid());
- //   PeerConn::sendMsg(ServerType);
-
+    auto it = new InnerLoginRequest(); // this may be use obj pool
+    it->set_roleid(req->roleid());
+    it->set_sid(1111);
+    PeerConn::sendMsg(SRV_TYPE_GAME, INNER_TO_GAME_LOGIN_REQ, it);
 }
 
 void PlayerLoginHandler::onHeartBeat(Channel *channel, HeartBeatRequest *req) {
@@ -23,7 +25,7 @@ void PlayerLoginHandler::onHeartBeat(Channel *channel, HeartBeatRequest *req) {
 }
 
 void PlayerLoginHandler::registMsgHandler() {
-    REGISTER_MSG_ID_FUN(INNER_TO_GAME_LOGIN_REQ, InnerLoginResponse, PlayerLoginHandler::onInnerLoginRes);
+    REGISTER_MSG_ID_FUN(INNER_TO_GAME_LOGIN_RES, InnerLoginResponse, PlayerLoginHandler::onInnerLoginRes);
     REGISTER_MSG_ID_FUN(LOGIN_REQUEST, LoginRequest, PlayerLoginHandler::onLoginReq);
     REGISTER_MSG_ID_FUN(HEART_BEAT_REQUEST, HeartBeatRequest, PlayerLoginHandler::onHeartBeat);
 }

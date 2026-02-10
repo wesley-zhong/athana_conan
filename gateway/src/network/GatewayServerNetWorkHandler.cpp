@@ -9,6 +9,7 @@
 #include "core/log/XLog.h"
 #include "transport/ByteUtils.h"
 #include "ProtoInner.pb.h"
+#include "ProtoMsgId.pb.h"
 
 
 void GatewayServerNetWorkHandler::initAllMsgRegister() {
@@ -23,6 +24,7 @@ void GatewayServerNetWorkHandler::onConnect(Channel *channel) {
     INFO_LOG("++++++++  on new connection ={}", channel->getAddr());
 }
 
+//|---4 msgLen|----4 msgId|-----4 playeId |------ 4 crc| ------ body|
 void GatewayServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     uint8 *data = static_cast<uint8 *>(buff);
     data = data + 4;
@@ -30,6 +32,9 @@ void GatewayServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     int playerId = 0;
     len -= 8;
 
+    if (msgId == HEART_BEAT_PUSH) {
+        return;
+    }
     INFO_LOG("=== on read   channel ={} len ={} msgId={}", channel->getAddr(), len, msgId);
 
     //first check all msg_id valid
