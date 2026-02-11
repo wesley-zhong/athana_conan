@@ -15,7 +15,7 @@ ByteBuffer::~ByteBuffer() {
 }
 
 RingByteBuf *ByteBuffer::createBuffer() {
-    return new RingByteBuf(64);
+    return new RingByteBuf(4*1024*1024);
 }
 
 

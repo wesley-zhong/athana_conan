@@ -11,8 +11,8 @@
 
 void AthenaTcpServer::start(int eventLoopNum) {
     for (int i = 0; i < eventLoopNum; i++) {
-        auto it = std::make_unique<ServerEventLoop>(this, event_trigger);
-        event_loops_.push_back(std::move(it));
+        auto it = std::make_shared<ServerEventLoop>(this, event_trigger);
+        event_loops_.push_back(it);
     }
     for (int i = 0; i < eventLoopNum; i++) {
         event_loops_[i]->bind(bindPort);

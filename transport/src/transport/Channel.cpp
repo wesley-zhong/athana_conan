@@ -58,13 +58,13 @@ void Channel::eventLoopWrite(int msgId, google::protobuf::Message *msg) {
         ERR_LOG(" msgId = {} serialize failed", msgId);
         return;
     }
-    int32  len = msg->ByteSizeLong();
+    int32 len = msg->ByteSizeLong();
     send_buff->writeInt32(len + 4);
     send_buff->writeInt32(msgId);
     send_buff->writeBytes(getEventPackBuff(), len);
     last_send_time = nowTime();
 
-    INFO_LOG("-------- send msgId={}  len={} ", msgId, len+4 +4);
+    INFO_LOG("--------{} send msgId={}  len={} ",(void*)this, msgId, len + 4 + 4);
     // do send
     if (needCallSend) {
         doUvSend();
@@ -80,17 +80,31 @@ void Channel::doUvSend() {
     auto *req = new uv_write_t;
     uv_buf_t buf = uv_buf_init((char *) sendPtr, needSendLen);
 
-    WritePack *write_pack =  ObjPool::getPool<WritePack>().acquirePtr();//new WritePack();
+    WritePack *write_pack = ObjPool::getPool<WritePack>().acquirePtr();//new WritePack();
     write_pack->_channel = this;
     write_pack->sendSize = needSendLen;
     req->data = write_pack;
     uv_write(req, (uv_stream_t *) client, &buf, 1,
              [](uv_write_t *req1, int status) {
                  WritePack *write_pack = (WritePack *) req1->data;
-                   INFO_LOG(" ------------write complete call back ={}  send len ={} ", status, write_pack->sendSize);
-                 write_pack->_channel->send_buff->storage().advanceReadIndex(write_pack->sendSize);
-                 write_pack->_channel->doUvSend();
-                 ObjPool::getPool<WritePack>().release(write_pack, true) ;
+                 Channel *channel = write_pack->_channel;
+                 INFO_LOG(" -----------chanel{} -write complete call back ={}  send len ={} ",(void*)channel, status, write_pack->sendSize);
+
+                 if (status < 0) {
+                     // 1. 记录错误日志
+                     // uv_strerror 可以将错误码转为可读字符串
+                     ERR_LOG("write failed: {}, addr: {}", uv_strerror(status), channel->getAddr());
+                     // 2. 发生错误时，通常需要关闭连接
+                     // 注意：不要在这里再次调用 doUvSend()
+                     channel->close();
+                 } else {
+                     // 3. 只有成功时才推进索引并继续发送
+                     channel->send_buff->storage().advanceReadIndex(write_pack->sendSize);
+                     channel->doUvSend();
+                 }
+
+                 // 4. 无论成功与否，必须释放本次请求相关的内存
+                 ObjPool::getPool<WritePack>().release(write_pack, true);
                  free(req1);
              });
 }

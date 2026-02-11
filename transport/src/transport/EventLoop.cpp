@@ -48,7 +48,7 @@ void EventLoop::uv_on_connect(uv_connect_t *req, int status) {
 
 
 void EventLoop::uv_read_cb(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf) {
-    // INFO_LOG("============================= on read len={} ", nread);
+  //   INFO_LOG("============================= on read len={} ", nread);
     Channel *channel = static_cast<Channel *>(client->data);
     channel->onRead(client, nread, buf);
 
@@ -144,12 +144,20 @@ int EventLoop::initAsynEvent() {
 
 
 void EventLoop::run() {
-    INFO_LOG("############## event loop started");
     initAsynEvent();
+    // 启动 libuv 事件循环
     doRun();
 }
 
 void EventLoop::doRun() {
+    INFO_LOG("############## event loop started");
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        // 执行一些 libuv 的初始化，例如 uv_loop_init()
+        running_ = true;
+    }
+    cv_.notify_all(); // 通知 start() 线程已经准备好了
+
     uv_run(_loop, UV_RUN_DEFAULT);
     uv_close(reinterpret_cast<uv_handle_t *>(&uv_async_write), nullptr);
     uv_close(reinterpret_cast<uv_handle_t *>(&uv_async_accept), nullptr);
@@ -175,6 +183,9 @@ void EventLoop::execute() {
 
 void EventLoop::start() {
     t = std::thread(&EventLoop::run, this);
+    // 等待子线程开始执行
+    std::unique_lock<std::mutex> lock(mutex_);
+    cv_.wait(lock, [this] { return running_; });
 }
 
 

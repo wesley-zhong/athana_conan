@@ -4,6 +4,7 @@
 #include "ByteConverter.h"
 #include  "BaseType.h"
 #include "RingByteBuf.h"
+#include "core/log/XLog.h"
 
 class ByteBuffer {
 public:
@@ -82,8 +83,12 @@ public:
         return Endian::fromNetwork<uint64>(ret);
     }
 
-    void writeBytes(char *body, size_t size) const {
-        _storage->write(body, size);
+    bool writeBytes(char *body, size_t size) const {
+      bool  ret =  _storage->write(body, size);
+      if(!ret){
+          ERR_LOG("XXXXXXXXXXXXXXXXXXXX  send buff is full");
+      }
+        return  ret;
     }
 
     size_t readBytes(char *body, size_t size) const {

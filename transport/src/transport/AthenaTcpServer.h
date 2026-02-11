@@ -63,7 +63,7 @@ public:
 
 private:
     std::atomic<size_t> next_reactor{0};
-    std::vector<std::unique_ptr<ServerEventLoop> > event_loops_;
+    std::vector<std::shared_ptr<ServerEventLoop> > event_loops_;
     EventTrigger *event_trigger;
     int bindPort;
 };

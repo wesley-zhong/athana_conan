@@ -111,13 +111,19 @@ void RingByteBuf::advanceReadIndex(size_t n) {
     if (n == 0) return;
     size_t avail = readableBytes();
     if (n > avail) throw std::out_of_range("consume > readableBytes");
-    head_ = (head_ + n) % cap_;
+    head_ += n;
+    if (head_ >= cap_) {
+        head_ -= cap_;
+    }
 }
 
 void RingByteBuf::advanceWriteIndex(size_t n) {
     if (n == 0) return;
     if (n > writableBytes()) throw std::out_of_range("advanceWriteIndex overflow");
-    tail_ = (tail_ + n) % cap_;
+    tail_ += n;
+    if (tail_ >= cap_) {
+        tail_ -= cap_;
+    }
 }
 
 void RingByteBuf::clear() noexcept {
