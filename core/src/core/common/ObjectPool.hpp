@@ -280,7 +280,7 @@ private:
 namespace ObjPool {
     template<typename T>
     ObjectPool<T> &getPool() {
-        static ObjectPool<T> s_pool(0, 1024);
+        static ObjectPool<T> s_pool(0, 4096);
         return s_pool;
     }
 

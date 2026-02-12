@@ -33,7 +33,7 @@ void GatewayServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     len -= 8;
 
     if (msgId == HEART_BEAT_PUSH) {
-        auto res =  new HeartBeatResponse();
+        auto res = std::make_shared<HeartBeatResponse>();
         res->set_servertime(8888);
         res->set_clienttime(7777);
         channel->sendMsg(HEART_BEAT_RESPONSE, res);
