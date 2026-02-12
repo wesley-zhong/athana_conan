@@ -21,12 +21,12 @@ class AthenaDeps(ConanFile):
         self.requires("sol2/3.5.0")
         self.requires("tomlplusplus/3.4.0")
         self.requires("etcd-cpp-apiv3/0.15.4")
-        self.requires("grpc/1.54.3")
+        self.requires("grpc/1.72.0")
         self.requires("rapidjson/1.1.0")
 
 
         # 强制统一版本
         self.requires("zstd/1.5.7", override=True)
-        self.requires("protobuf/3.21.12", override=True)
+        self.requires("protobuf/5.27.0", override=True)
         self.requires("boost/1.83.0", override=True)
 
