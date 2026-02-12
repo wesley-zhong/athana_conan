@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
     ClientNetWorkHandler::initAllMsgRegister();
     ClientNetWorkHandler::startThread(2);
     TcpClient tcp_client;
-    tcp_client.setChannelIdleTime(5000, 3000);
+    tcp_client.setChannelIdleTime(3000, 5000);
     tcp_client.onConnected = ClientNetWorkHandler::onConnect;
     tcp_client.onRead = ClientNetWorkHandler::onMsg;
     tcp_client.onTriggerEvent = ClientNetWorkHandler::onEventTrigger;
