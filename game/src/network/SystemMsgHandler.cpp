@@ -34,7 +34,7 @@ void SystemMsgHandler::onShakHandResponse(Channel *channel, InnerServerHandShake
 void SystemMsgHandler::onInnerHeartBeatReq(Channel *channel, InnerHeartBeatRequest *req) {
     auto res = std::make_shared<InnerHeartBeatResponse>();
     res->set_time(9999);
-    // INFO_LOG("inner heatbeat req time ={}  send msgId={} res time ={}", req->time(),(int)INNER_HEART_BEAT_RES,9999);
+     INFO_LOG("inner heatbeat req time ={}  send msgId={} res time ={}", req->time(),(int)INNER_HEART_BEAT_RES,9999);
     channel->sendMsg(INNER_HEART_BEAT_RES, res);
 }
 

@@ -36,6 +36,10 @@ void Channel::initPackTime() {
 }
 
 void Channel::close() {
+    if (closed) {
+        return;
+    }
+    closed = true;
     _eventLoop->onClosed(this);
     uv_close((uv_handle_t *) client, [](uv_handle_t *handle) {
     });
@@ -51,17 +55,35 @@ void Channel::sendMsg(int msgId, google::protobuf::Message *msg) {
 }
 
 void Channel::eventLoopWrite(int msgId, google::protobuf::Message *msg) {
+    if (closed) {
+        return;
+    }
     bool needCallSend = send_buff->storage().readableBytes() == 0;
 
-    int ret = msg->SerializeToArray(getEventPackBuff(), 8192);
-    if (!ret) {
+    int64 bodyLen = (int64) msg->ByteSizeLong();
+    int64 frameLen = bodyLen + 2 * sizeof(int32); // 4B packLen + 4B msgId + body
+    if (frameLen > MAX_PACKET_SIZE) {
+        ERR_LOG(" msgId = {} frame too large frameLen ={}, drop it", msgId, frameLen);
+        return;
+    }
+    // the whole frame must fit into send buff, a partial frame would desync the stream
+    if (send_buff->storage().writableBytes() < (size_t) frameLen) {
+        ERR_LOG("send buff full, msgId ={} frameLen ={}, drop it", msgId, frameLen);
+        return;
+    }
+    char *packBuf = getEventPackBuff((int32) bodyLen);
+    if (packBuf == nullptr) {
+        ERR_LOG(" msgId = {} alloc pack buff failed, drop it", msgId);
+        return;
+    }
+    if (!msg->SerializeToArray(packBuf, (int32) bodyLen)) {
         ERR_LOG(" msgId = {} serialize failed", msgId);
         return;
     }
-    int32 len = msg->ByteSizeLong();
+    int32 len = (int32) bodyLen;
     send_buff->writeInt32(len + 4);
     send_buff->writeInt32(msgId);
-    send_buff->writeBytes(getEventPackBuff(), len);
+    send_buff->writeBytes(packBuf, len);
     last_send_time = nowTime();
 
     INFO_LOG("--------{} send msgId={}  len={} ",(void*)this, msgId, len + 4 + 4);
@@ -72,6 +94,9 @@ void Channel::eventLoopWrite(int msgId, google::protobuf::Message *msg) {
 }
 
 void Channel::doUvSend() {
+    if (closed) {
+        return;
+    }
     size_t needSendLen = 0;
     const uint8_t *sendPtr = send_buff->storage().linearReadablePtr(&needSendLen);
     if (needSendLen == 0) {
@@ -80,7 +105,7 @@ void Channel::doUvSend() {
     auto *req = new uv_write_t;
     uv_buf_t buf = uv_buf_init((char *) sendPtr, needSendLen);
 
-    WritePack *write_pack = ObjPool::getPool<WritePack>().acquirePtr();//new WritePack();
+    WritePack *write_pack = ObjPool::GetPool<WritePack>().acquirePtr();//new WritePack();
     write_pack->_channel = this;
     write_pack->sendSize = needSendLen;
     req->data = write_pack;
@@ -88,7 +113,7 @@ void Channel::doUvSend() {
              [](uv_write_t *req1, int status) {
                  WritePack *write_pack = (WritePack *) req1->data;
                  Channel *channel = write_pack->_channel;
-                 INFO_LOG(" -----------chanel{} -write complete call back ={}  send len ={} ",(void*)channel, status, write_pack->sendSize);
+                 INFO_LOG(" -----------chanel: {} -write complete call back ={}  send len ={} ",(void*)channel, status, write_pack->sendSize);
 
                  if (status < 0) {
                      // 1. 记录错误日志
@@ -104,7 +129,7 @@ void Channel::doUvSend() {
                  }
 
                  // 4. 无论成功与否，必须释放本次请求相关的内存
-                 ObjPool::getPool<WritePack>().release(write_pack, true);
+                 ObjPool::GetPool<WritePack>().release(write_pack);
                  free(req1);
              });
 }
@@ -152,6 +177,6 @@ uint64_t Channel::nowTime() {
 }
 
 
-char *Channel::getEventPackBuff() {
-    return _eventLoop->getPacketBuff();
+char *Channel::getEventPackBuff(int needLen) {
+    return _eventLoop->getPacketBuff(needLen);
 }

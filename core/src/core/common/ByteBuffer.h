@@ -37,9 +37,10 @@ public:
     }
 
     uint8 getInt8() const {
-        uint8 value;
-        uint8 ret = _storage->peek(&value, sizeof(value));
-        return Endian::fromNetwork<uint8>(ret);
+        uint8 value = 0;
+        // peek 返回的是实际拷贝的字节数，不是读到的值
+        if (_storage->peek(&value, sizeof(value)) != sizeof(value)) return 0;
+        return value;
     }
 
     void writeInt16(uint16 value) const {
@@ -48,8 +49,9 @@ public:
     }
 
     uint16 getInt16() const {
-        uint16 value;
-        _storage->peek(&value, sizeof(value));
+        uint16 value = 0;
+        // peek 返回的是实际拷贝的字节数，不是读到的值
+        if (_storage->peek(&value, sizeof(value)) != sizeof(value)) return 0;
         return Endian::fromNetwork<uint16>(value);
     }
 
@@ -59,9 +61,10 @@ public:
     }
 
     uint32 getInt32() const {
-        uint32 value;
-        uint32 ret = _storage->peek(&value, sizeof(value));
-        return Endian::fromNetwork<uint32>(ret);
+        uint32 value = 0;
+        // peek 返回的是实际拷贝的字节数，不是读到的值
+        if (_storage->peek(&value, sizeof(value)) != sizeof(value)) return 0;
+        return Endian::fromNetwork<uint32>(value);
     }
 
     void writeInt64(uint64 value) const {
@@ -78,9 +81,10 @@ public:
     }
 
     uint64 getInt64() const {
-        uint64 value;
-        uint64 ret = _storage->peek(&value, sizeof(value));
-        return Endian::fromNetwork<uint64>(ret);
+        uint64 value = 0;
+        // peek 返回的是实际拷贝的字节数，不是读到的值
+        if (_storage->peek(&value, sizeof(value)) != sizeof(value)) return 0;
+        return Endian::fromNetwork<uint64>(value);
     }
 
     bool writeBytes(char *body, size_t size) const {

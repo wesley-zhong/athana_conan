@@ -28,9 +28,11 @@ void uv_on_new_connection(uv_stream_t *server, int status) {
     }
 
 
-    uv_read_start((uv_stream_t *) client, EventLoop::uv_alloc_cb, EventLoop::uv_read_cb);
+    // channel must be set into client->data before read starts,
+    // or the alloc cb would deref a null pointer on early arrival data
     Channel *channel = new Channel(event_loop, client, sock);
     client->data = channel;
+    uv_read_start((uv_stream_t *) client, EventLoop::uv_alloc_cb, EventLoop::uv_read_cb);
     event_loop->onNewConnection(channel);
     INFO_LOG(" =================== START READ read data ");
 }

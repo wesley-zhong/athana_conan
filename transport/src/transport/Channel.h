@@ -39,8 +39,12 @@ struct WritePack {
 
 class Channel {
 public:
+    // single packet max size: frame = 4B packLen + 4B msgId + body, aligned with ring capacity(4MB)
+    static constexpr int MAX_PACKET_SIZE = 4 * 1024 * 1024;
+
     Channel(EventLoop *event_loop, uv_tcp_t *client, uv_os_sock_t fd) : _eventLoop(event_loop),
-                                                                        client(client), fd((uint64) fd) {
+                                                                        client(client), fd((uint64) fd),
+                                                                        writing(false), closed(false) {
         recv_buffer = new ByteBuffer();
         send_buff = new ByteBuffer();
         heartbeat_timer.data = this;
@@ -72,20 +76,37 @@ public:
         return &heartbeat_timer;
     }
 
-    char *getEventPackBuff();
+    char *getEventPackBuff(int needLen);
 
     uint64_t nowTime();
 
     void close();
 
+    bool isClosed() const {
+        return closed;
+    }
+
     std::string getAddr();
 
-    int getPack(char *outPacket) const {
-        int packetLen = recv_buffer->getNextPackLen();
-        if (packetLen > 0) {
-            recv_buffer->readBytes(outPacket, packetLen);
+    // peek next frame length without consuming:
+    // -1 incomplete, -2 illegal length(caller should close), else frame bytes = packLen + 4
+    int peekNextPackLen() const {
+        int readableBytes = (int) recv_buffer->storage().readableBytes();
+        if (readableBytes < 8) {
+            return -1;
         }
-        return packetLen;
+        uint32 packLen = recv_buffer->getInt32();
+        if (packLen > (uint32) (MAX_PACKET_SIZE - 4)) {
+            return -2;
+        }
+        if (packLen > readableBytes - 4) {
+            return -1;
+        }
+        return packLen + 4;
+    }
+
+    int getPack(char *outPacket, int packLen) const {
+        return (int) recv_buffer->readBytes(outPacket, packLen);
     }
 
     void doUvSend();

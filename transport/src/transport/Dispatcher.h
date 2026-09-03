@@ -52,7 +52,7 @@ void Dispatcher::registerMsgHandler(int msgId, std::function<void(int64_t, T *)>
     };
     msgFunction->invoke = [msgFuc](int64_t playerId, Channel *channel, void *msg) {
         msgFuc(playerId, (T *) msg);
-        ObjPool::release<T>((T *) msg, true);
+        ObjPool::release<T>((T *) msg);
     };
     msgMap[msgId] = msgFunction;
 }
@@ -67,7 +67,7 @@ void Dispatcher::registerMsgHandler(int msgId, std::function<void(Channel *, T *
     };
     msgFunction->invoke = [msgFuc](int64_t playerId, Channel *channel, void *msg) {
         msgFuc(channel, static_cast<T *>(msg));
-        ObjPool::release<T>(static_cast<T *>(msg), true);
+        ObjPool::release<T>(static_cast<T *>(msg));
     };
     msgMap[msgId] = msgFunction;
 }

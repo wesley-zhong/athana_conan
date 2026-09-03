@@ -13,17 +13,20 @@
 #include "SystemMsgHandler.h"
 #include "discovery/AthenaDiscovery.h"
 
-void GateClientNetWorkHandler::initAllMsgRegister() {
+void GateClientNetWorkHandler::initAllMsgRegister()
+{
     SystemMsgHandler::registMsg();
     PlayerLoginHandler::registMsgHandler();
 }
 
-void GateClientNetWorkHandler::startLogicThread(int threadNum) {
+void GateClientNetWorkHandler::startLogicThread(int threadNum)
+{
     threadPool = new AthenaThreadPool();
     threadPool->create(threadNum);
 }
 
-void GateClientNetWorkHandler::onNewConnect(Channel *channel, int status) {
+void GateClientNetWorkHandler::onNewConnect(Channel* channel, int status)
+{
     INFO_LOG("on new connection ={}", channel->getAddr());
     auto req = std::make_shared<InnerServerHandShakeReq>();
     std::shared_ptr<NodeInfo> shNodeInfo = AthenaDiscovery::Instance()->getMySelf();
@@ -33,44 +36,51 @@ void GateClientNetWorkHandler::onNewConnect(Channel *channel, int status) {
     channel->sendMsg(INNER_SERVER_HAND_SHAKE_REQ, req);
 }
 
-void GateClientNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
-    uint8 *data = static_cast<uint8 *>(buff);
+void GateClientNetWorkHandler::onMsg(Channel* channel, void* buff, int len)
+{
+    uint8* data = static_cast<uint8*>(buff);
     data += 4;
     int msgId = ByteUtils::readInt32(data);
     int playerId = 999;
     data += 4;
     len -= 8;
-   // INFO_LOG("=== on read   channel ={}  msgId={}  len ={}", channel->getAddr(), msgId, len);
-    MsgFunction *msg_function = Dispatcher::Instance()->findMsgFuncion(msgId);
-    if (msg_function == nullptr) {
+    // INFO_LOG("=== on read   channel ={}  msgId={}  len ={}", channel->getAddr(), msgId, len);
+    MsgFunction* msg_function = Dispatcher::Instance()->findMsgFuncion(msgId);
+    if (msg_function == nullptr)
+    {
         ERR_LOG("msgId ={} not found process function", msgId);
         return;
     }
 
-    void *msg = msg_function->parseParam(data, len);
-    threadPool->execute([playerId, msg_function, channel, msg]() {
+    void* msg = msg_function->parseParam(data, len);
+    threadPool->execute([playerId, msg_function, channel, msg]()
+    {
         msg_function->invoke(playerId, channel, msg);
     }, 2);
 }
 
-void GateClientNetWorkHandler::onEventTrigger(Channel *channel, TriggerEventEnum reason) {
-    if (reason == WRITE_IDLE || reason == READ_IDLE) {
+void GateClientNetWorkHandler::onEventTrigger(Channel* channel, TriggerEventEnum reason)
+{
+    if (reason == WRITE_IDLE)
+    {
         auto msg = std::make_shared<InnerHeartBeatRequest>();
         msg->set_time(8888);
         channel->sendMsg(INNER_HEART_BEAT_REQ, msg);
         // INFO_LOG("heart beat = -----------------");
         return;
     }
-//    // this should be closed
-//    if (reason == READ_IDLE) {
-//        INFO_LOG("========== onEventTrigger ={}   reason ={} idle should closed ", channel->getAddr(), (int)reason);
-//    }
+    //    // this should be closed
+    if (reason == READ_IDLE)
+    {
+        INFO_LOG("========== onEventTrigger ={}   reason ={} idle should closed ", channel->getAddr(), (int)reason);
+    }
 }
 
 
-void GateClientNetWorkHandler::onClosed(Channel *channel) {
+void GateClientNetWorkHandler::onClosed(Channel* channel)
+{
     INFO_LOG("connection ={}  closed ", channel->getAddr());
 }
 
 
-Thread::ThreadPool *GateClientNetWorkHandler::threadPool = nullptr;
+Thread::ThreadPool* GateClientNetWorkHandler::threadPool = nullptr;

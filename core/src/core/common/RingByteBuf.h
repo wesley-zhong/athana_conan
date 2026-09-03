@@ -1,12 +1,7 @@
-//
-// Created by zhongweiqi on 2025/10/27.
-//
-
 #ifndef ATHENA_RINGBYTEBUF_H
 #define ATHENA_RINGBYTEBUF_H
 
 #pragma once
-
 
 #include <cstdint>
 #include <cstddef>
@@ -15,97 +10,72 @@
 #include <mutex>
 #include <memory>
 #include <stdexcept>
-//#include <jemalloc/jemalloc.h>
 
-
-// RingByteBuf: a thread-safe ring (circular) buffer backed by jemalloc.
-// - Fixed capacity allocated by jemalloc at construction time.
-// - Thread-safe for multiple readers and multiple writers using internal locks.
-// - Provides zero-copy access to the contiguous readable region via linearReadablePtr().
-// - Supports common operations: write, read, peek, consume, clear, readableBytes, writableBytes.
-// - Designed to interoperate with a higher-level ByteBuf (slice/duplicate).
-
-
+// RingByteBuf: SPSC (Single-Producer Single-Consumer) 场景下高效的环形字节缓冲区。
+// - 容量强制/自动调整为 2 的幂次方，使用位运算（& mask）替代取模（% cap）。
+// - 实际最大可用容量为 cap_ - 1（浪费 1 字节用于区分空/满）。
 class RingByteBuf {
 public:
     explicit RingByteBuf(size_t capacity);
-
     ~RingByteBuf();
 
-
-    // no copy
+    // 禁止拷贝
     RingByteBuf(const RingByteBuf &) = delete;
-
     RingByteBuf &operator=(const RingByteBuf &) = delete;
 
-
-    // move allowed
+    // 允许移动
     RingByteBuf(RingByteBuf &&other) noexcept;
-
     RingByteBuf &operator=(RingByteBuf &&other) noexcept;
 
+    // 容量与大小
+    size_t capacity() const noexcept { return cap_ - 1; } // 返回实际可用最大字节数
+    size_t totalAllocatedCapacity() const noexcept { return cap_; } // 返回实际分配的内存大小
+    size_t readableBytes() const noexcept;
+    size_t writableBytes() const noexcept;
 
-    // Capacity and sizes
-    size_t capacity() const noexcept;
-
-    size_t readableBytes() const noexcept; // total readable
-    size_t writableBytes() const noexcept; // total writable
-
-
-    // Write data (thread-safe)
-    // If there's not enough space, returns false and writes nothing.
+    // 写入与读取
     bool tryWrite(const void *src, size_t len);
-
-
-    // Blocking write (will throw if cannot grow or write)
-    // Here, buffer is fixed capacity so blocking write will return false if not enough space.
     bool write(const void *src, size_t len) { return tryWrite(src, len); }
-
-    bool write(int write_index, const void *src, size_t len) const;
-
-
-    // Read data (thread-safe). Reads up to len bytes into dst; returns actual bytes read.
     size_t read(void *dst, size_t len);
-
-    size_t writeTail();
-
-
-    // Peek without advancing read index (thread-safe). Copies up to len bytes into dst, returns bytes copied.
     size_t peek(void *dst, size_t len) const;
 
-
-    // Provide pointer to linear readable region and its length (may be less than readableBytes).
-    // This is zero-copy: caller must not modify the memory. After using the region, call consume() to advance.
+    // 零拷贝接口
     uint8_t *linearReadablePtr(size_t *outLen) noexcept;
-
     uint8_t *linearWritablePtr(size_t *outLen) noexcept;
 
-    // Advance the read index by n bytes (thread-safe)
+    // 移动读写指针
     void advanceReadIndex(size_t n);
-
     void advanceWriteIndex(size_t n);
 
-
-    // Reset indices
+    // 清空缓冲区
     void clear() noexcept;
 
-    void *je_malloc(size_t size);
-
-    void je_free(void *ptr);
+    // 内存分配辅助
+    static void *je_malloc(size_t size);
+    static void je_free(void *ptr);
 
 private:
-    uint8_t *buf_; // base pointer
-    const size_t cap_; // total capacity
-    std::atomic<size_t> head_; // read index (byte offset from base)
-    std::atomic<size_t> tail_; // write index (byte offset from base)
+    // 计算大于等于 n 的最小 2 的幂次方
+    static constexpr size_t ceilToPowerOfTwo(size_t n) noexcept {
+        if (n <= 2) return n < 1 ? 2 : n;
+        n--;
+        n |= n >> 1;
+        n |= n >> 2;
+        n |= n >> 4;
+        n |= n >> 8;
+        n |= n >> 16;
+#if UINTPTR_MAX == 0xFFFFFFFFFFFFFFFF
+        n |= n >> 32;
+#endif
+        return n + 1;
+    }
 
-
-    // For multi-reader/multi-writer safety we'll guard read- and write- critical sections
-    // with separate mutexes to allow limited concurrency: reads and writes can proceed in parallel
-    // as long as they don't race on the same atomic indices in a conflicting way.
-    // Note: This is not lock-free; it's a pragmatic, correct design for many apps.
-    mutable std::mutex read_mtx_;
-    mutable std::mutex write_mtx_;
+private:
+    uint8_t *buf_{nullptr};            // 内存基址
+    size_t cap_{0};                    // 实际分配容量 (必须是 2 的幂)
+    size_t mask_{0};                   // 掩码 (cap_ - 1)
+    std::atomic<size_t> head_{0};     // 读索引
+    std::atomic<size_t> tail_{0};     // 写索引
 };
 
-#endif //ATHENA_RINGBYTEBUF_H
+#endif // ATHENA_RINGBYTEBUF_H

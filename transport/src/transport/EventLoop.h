@@ -21,6 +21,7 @@ class EventLoop {
 public:
     EventLoop(NetInterface *tcpInterFace, EventTrigger *event_trigger) : _netInterface(tcpInterFace) {
         maxPackBody = static_cast<char *>(malloc(8192));
+        maxPackBodyLen = 8192;
         _eventTrigger = event_trigger;
         _loop = new uv_loop_t;
         running_ = false;
@@ -75,9 +76,9 @@ public:
         return _loop;
     }
 
-    char *getPacketBuff() {
-        return maxPackBody;
-    }
+    // scratch buffer for one packet, grows on demand
+    // returns nullptr when grow failed, caller must not use it
+    char *getPacketBuff(int needLen);
 
     EventTrigger *event_trigger() {
         return _eventTrigger;
@@ -112,6 +113,7 @@ private:
     NetInterface *_netInterface;
     EventTrigger *_eventTrigger;
     char *maxPackBody;
+    int maxPackBodyLen;
 };
 
 #endif //ATHENA_EVENTLOOP_H

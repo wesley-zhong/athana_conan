@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
     tcp_client.onClosed = GateClientNetWorkHandler::onClosed;
     tcp_client.onRead = GateClientNetWorkHandler::onMsg;
     tcp_client.onTriggerEvent  = GateClientNetWorkHandler::onEventTrigger;
-    tcp_client.setChannelIdleTime(5000, 3000);
+    tcp_client.setChannelIdleTime(5000, 6000);
 
     tcp_client.start();
 
