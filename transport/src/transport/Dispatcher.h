@@ -46,13 +46,13 @@ template<typename T>
 void Dispatcher::registerMsgHandler(int msgId, std::function<void(int64_t, T *)> msgFuc) {
     auto *msgFunction = new MsgFunction();
     msgFunction->parseParam = [](void *body, int len) {
-        T *msg = ObjPool::acquirePtr<T>();
+        T *msg = ObjPool::AcquirePtr<T>();
         msg->ParseFromArray(body, len);
         return msg;
     };
     msgFunction->invoke = [msgFuc](int64_t playerId, Channel *channel, void *msg) {
         msgFuc(playerId, (T *) msg);
-        ObjPool::release<T>((T *) msg);
+        ObjPool::Release<T>((T *) msg);
     };
     msgMap[msgId] = msgFunction;
 }
@@ -61,13 +61,13 @@ template<typename T>
 void Dispatcher::registerMsgHandler(int msgId, std::function<void(Channel *, T *)> msgFuc) {
     auto *msgFunction = new MsgFunction();
     msgFunction->parseParam = [](void *body, int len) {
-        T *msg = ObjPool::acquirePtr<T>();
+        T *msg = ObjPool::AcquirePtr<T>();
         msg->ParseFromArray(body, len);
         return msg;
     };
     msgFunction->invoke = [msgFuc](int64_t playerId, Channel *channel, void *msg) {
         msgFuc(channel, static_cast<T *>(msg));
-        ObjPool::release<T>(static_cast<T *>(msg));
+        ObjPool::Release<T>(static_cast<T *>(msg));
     };
     msgMap[msgId] = msgFunction;
 }

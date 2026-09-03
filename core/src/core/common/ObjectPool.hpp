@@ -247,22 +247,22 @@ namespace ObjPool {
 
 
     template<typename T, typename... Args>
-    typename ObjectPool<T>::PoolObjRef acquire(Args &&... args) {
+    typename ObjectPool<T>::PoolObjRef Acquire(Args &&... args) {
         return GetPool<T>().acquire(std::forward<Args>(args)...);
     }
 
     template<typename T, typename... Args>
-    T *acquirePtr(Args &&... args) {
+    T *AcquirePtr(Args &&... args) {
         return GetPool<T>().acquirePtr(std::forward<Args>(args)...);
     }
 
     template<typename T, typename... Args>
-    std::unique_ptr<typename ObjectPool<T>::PoolObjRef> acquireUniquePtr(Args &&... args) {
+    std::unique_ptr<typename ObjectPool<T>::PoolObjRef> AcquireUniquePtr(Args &&... args) {
         return GetPool<T>().acquireUniquePtr(std::forward<Args>(args)...);
     }
 
     template<typename T>
-    void release(T *ptr) {
+    void Release(T *ptr) {
         GetPool<T>().release(ptr);
     }
 
@@ -271,16 +271,16 @@ namespace ObjPool {
     public:
         template<typename... Args>
         static T *create(Args &&... args) {
-            return acquirePtr<T>(std::forward<Args>(args)...);
+            return AcquirePtr<T>(std::forward<Args>(args)...);
         }
 
         template<typename... Args>
         static typename ObjectPool<T>::PoolObjRef claim(Args &&... args) {
-            return acquire<T>(std::forward<Args>(args)...);
+            return Acquire<T>(std::forward<Args>(args)...);
         }
 
         static void recycle(T *ptr) {
-            release<T>(ptr);
+            Release<T>(ptr);
         }
     };
 }

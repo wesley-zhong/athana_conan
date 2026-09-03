@@ -16,5 +16,5 @@ void PlayerMgr::removePlayer(Player *player) {
 
 
 Player *PlayerMgr::newPlayer(uint32 playerId, Channel *channel) {
-    return ObjPool::acquirePtr<Player>(playerId, channel);
+    return ObjPool::AcquirePtr<Player>(playerId, channel);
 }
