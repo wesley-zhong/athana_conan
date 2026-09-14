@@ -14,6 +14,13 @@ AthenaEtcdClient::AthenaEtcdClient(std::string addrs) {
     client = std::make_unique<etcd::Client>(addrs);
 }
 
+AthenaEtcdClient::~AthenaEtcdClient() {
+    monitorRunning = false;
+    if (monitorThread.joinable()) {
+        monitorThread.join();
+    }
+}
+
 int AthenaEtcdClient::connect() {
     // etcd-cpp-apiv3 通常是惰性连接，但可以通过头跳检查来验证连接
     auto response = client->head().get();
@@ -28,7 +35,7 @@ std::string AthenaEtcdClient::get(const std::string &key) {
     if (response.is_ok()) {
         return response.value().as_string();
     }
-    return nullptr;
+    return {}; // 不能 return nullptr：std::string 从空指针构造是 UB
 }
 
 // 获取一组 Key 的值
@@ -95,7 +102,39 @@ void AthenaEtcdClient::keepAlive(std::string key, std::string value, int ttl) {
     }
     keep_alives[key] = keeper;
 
+    // 记录注册信息，并启动掉线监测（首次注册时）
+    {
+        std::lock_guard<std::mutex> lock(regMutex);
+        registrations[key] = {value, ttl};
+    }
+    bool expectFalse = false;
+    if (monitorRunning.compare_exchange_strong(expectFalse, true)) {
+        monitorThread = std::thread(&AthenaEtcdClient::monitorLoop, this);
+    }
+
     INFO_LOG("KeepAlive started for key: {} with lease: {}", key, lease_id);
+}
+
+void AthenaEtcdClient::monitorLoop() {
+    const int checkIntervalSec = 5;
+    while (monitorRunning) {
+        std::this_thread::sleep_for(std::chrono::seconds(checkIntervalSec));
+        if (!monitorRunning) {
+            break;
+        }
+        std::map<std::string, std::pair<std::string, int> > snapshot;
+        {
+            std::lock_guard<std::mutex> lock(regMutex);
+            snapshot = registrations;
+        }
+        for (auto &[key, reg]: snapshot) {
+            // key 查不到 = lease 已过期或 etcd 重启，走完整的重新注册流程
+            if (!client->get(key).get().is_ok()) {
+                WARN_LOG("discovery key [{}] lost (lease expired or etcd restarted), re-registering", key);
+                keepAlive(key, reg.first, reg.second);
+            }
+        }
+    }
 }
 
 std::map<std::string, std::string> AthenaEtcdClient::getKeysWithValues(std::string const &prefix) {
