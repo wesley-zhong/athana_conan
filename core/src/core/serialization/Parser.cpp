@@ -108,7 +108,7 @@ void Parser::__dataType(TypeInfo * tinfo)
 		__baseType(tinfo);
 		if (tinfo->type == 1)
 		{
-			// vectorÀïÃæ²»ÔÊĞíÖ±½Ó°üº¬vector
+			// vectoré‡Œé¢ä¸å…è®¸ç›´æ¥åŒ…å«vector
 			TOKEN_ERROR;
 		}
 		tinfo->type = 1;
@@ -368,7 +368,7 @@ void Parser::__import()
 	std::string dir = getFileDir(P_TOKEN->getBuffer()->getFileName());
 	filename.insert(0, dir);
 
-	// ½âÎöÎÄ¼ş£¬²¢½«Êı¾İ¼ÓÈëµ½TypedefÖĞ
+	// è§£ææ–‡ä»¶ï¼Œå¹¶å°†æ•°æ®åŠ å…¥åˆ°Typedefä¸­
 	FBuffer fbuff;
 	if (!fbuff.load(filename.c_str()))
 	{

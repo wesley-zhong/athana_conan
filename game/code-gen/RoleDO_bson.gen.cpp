@@ -20,5 +20,5 @@ void RoleDO::fromBson(bsoncxx::document::view v) {
     if (auto e = v["_id"])
         _id = e.get_int64();
     if (auto e = v["name"])
-        name = e.get_utf8().value.to_string();
+        name = std::string(e.get_string().value);
 }

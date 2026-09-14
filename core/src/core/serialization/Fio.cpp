@@ -26,7 +26,7 @@ bool FBuffer::load(const char * path)
 	__m_buffer = (char*)malloc(lSize + 1);
 	if (!__m_buffer)
 		return false;
-	rewind(pf); //Ö¸ÕëÖØĞÂÖ¸ÏòÎÄ¼ş¿ªÊ¼
+	rewind(pf); //æŒ‡é’ˆé‡æ–°æŒ‡å‘æ–‡ä»¶å¼€å§‹
 	fread(__m_buffer, sizeof(char), lSize, pf);
 	__m_buffer[lSize] = '\0';
 	fclose(pf);

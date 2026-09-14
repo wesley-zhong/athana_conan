@@ -2,8 +2,8 @@
 
 /************************************************************************
 * @file      Parser.h
-* @brief     Óï·¨·ÖÎö
-* @author    jiangwang
+* @brief     è¯­æ³•åˆ†æ
+* @author    Wesley
 * @data      2020-1-2
 * @version   0.1
 ************************************************************************/
@@ -60,7 +60,7 @@ private:
 	void __rwList();
 	void __function();
 
-	// ±í´ïÊ½
+	// è¡¨è¾¾å¼
 	Oper getOper(int op);
 	bool expre(std::string & str);
 

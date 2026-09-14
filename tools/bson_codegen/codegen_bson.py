@@ -123,7 +123,9 @@ def parse_types(text: str) -> Dict[str, TypeDef]:
 def bson_get_expr(cxx_type: str, var: str) -> str:
     t = normalize_type(cxx_type)
     if t in ("std::string", "string"):
-        return f'{var}.get_utf8().value.to_string()'
+        # mongocxx 4.x: get_utf8() was replaced by get_string(); stdx::string_view no longer
+        # has to_string(), so build std::string explicitly.
+        return f'std::string({var}.get_string().value)'
     if t in ("int32_t", "int"):
         return f'{var}.get_int32()'
     if t in ("int64_t", "long", "longlong"):
