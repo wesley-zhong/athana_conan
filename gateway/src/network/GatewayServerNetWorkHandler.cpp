@@ -16,8 +16,12 @@ void GatewayServerNetWorkHandler::initAllMsgRegister() {
 }
 
 void GatewayServerNetWorkHandler::startLogicThread(int threadNum) {
-    threadPool = new AthenaThreadPool();
-    threadPool->create(threadNum);
+    auto &sys = actor::ActorSystem::instance();
+    for (int i = 0; i < threadNum; ++i) {
+        if (actor::Actor *a = sys.spawn<actor::Actor>("gateway-logic-" + std::to_string(i))) {
+            logicActors.push_back(a->id());
+        }
+    }
 }
 
 void GatewayServerNetWorkHandler::onConnect(Channel *channel) {
@@ -50,9 +54,10 @@ void GatewayServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     }
 
     void *msg = msg_function->parseParam((char *) data + 4, len);
-    threadPool->execute([playerId, msg_function, channel, msg]() {
-        msg_function->invoke(playerId, channel, msg);
-    }, 2);
+    actor::ActorSystem::instance().execute(logicActors[2 % logicActors.size()],
+                                           [playerId, msg_function, channel, msg]() {
+                                               msg_function->invoke(playerId, channel, msg);
+                                           });
 }
 
 
@@ -71,4 +76,4 @@ void GatewayServerNetWorkHandler::proxyMsgToGame(Channel *channel, char *buff, i
 }
 
 
-Thread::ThreadPool *GatewayServerNetWorkHandler::threadPool = nullptr;
+std::vector<uint64> GatewayServerNetWorkHandler::logicActors;

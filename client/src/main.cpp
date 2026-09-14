@@ -11,7 +11,6 @@
 
 #include "ProtoInner.pb.h"
 
-#include "thread/AthenaThreadPool.h"
 #include "core/common/ObjectPool.hpp"
 #include "db/Dal.hpp"
 #include "transport/AthenaTcpServer.h"

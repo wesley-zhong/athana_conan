@@ -97,48 +97,36 @@ void DBRedisTask::complete()
 
 //------------------------------------------------
 
-DBThread::DBThread()
+DBThread::DBThread(const DBConfig &config) : Actor("db-thread"), _config(config)
 {
-	m_db = nullptr;
-}
-
-DBThread::~DBThread()
-{
-
 }
 
 void DBThread::onStart()
 {
-	//DBThreadPool * pool =  n;//static_cast<DBThreadPool*>(_pool);
-
-	//const DBConfig * config = pool->getConfig();
-    // Todo  only for just now
- //    const DBConfig * config = new DBConfig();
- //    if (config->device == "mysql")
-	// {
-	// 	m_db = new DBInterfaceMysql(config->ip.c_str(), config->dbname.c_str(), config->user.c_str(), config->pswd.c_str(), config->port);
-	// }
-	// else
-	// {
-	// 	m_db = new DBInterfaceRedis(config->ip.c_str(), config->port);
-	// }
-	//
-	m_db->connect();
+	if (_config.device == "redis")
+	{
+		m_db = new DBInterfaceRedis(_config.ip.c_str(), _config.port, _config.dbname.c_str(), _config.user.c_str(), _config.pswd.c_str());
+	}
+	else
+	{
+		m_db = new DBInterfaceMysql(_config.ip.c_str(), _config.port, _config.dbname.c_str(), _config.user.c_str(), _config.pswd.c_str());
+	}
+	if (!m_db->connect())
+	{
+		ERR_LOG("DBThread connect {}:{} failed", _config.ip, _config.port);
+	}
 }
 
-void DBThread::onEnd()
+void DBThread::onStop()
 {
 	if (m_db)
 	{
 		delete m_db;
+		m_db = nullptr;
 	}
 }
 
-void DBThread::run(TaskPtr task)
-{
-	static_cast<DBTask*>(task)->dbi(m_db);
-	Worker::run(task);
-}
+//------------------------------------------------
 
 DBThreadPool::DBThreadPool(DBConfig config)
 {
@@ -147,17 +135,45 @@ DBThreadPool::DBThreadPool(DBConfig config)
 
 DBThreadPool::~DBThreadPool()
 {
-	
+	exit();
 }
 
-Worker* DBThreadPool::createThread()
+void DBThreadPool::create(int count)
 {
-	return new DBThread();
+	for (int i = 0; i < count; ++i)
+	{
+		auto *t = new DBThread(m_config);
+		if (t->start())
+		{
+			_threads.push_back(t);
+		}
+		else
+		{
+			delete t;
+		}
+	}
 }
 
+void DBThreadPool::exit()
+{
+	for (DBThread *t : _threads)
+	{
+		t->stop();
+		delete t;
+	}
+	_threads.clear();
+}
 
+void DBThreadPool::executeTask(DBTask *task, int threadHashCode)
+{
+	if (task == nullptr || _threads.empty())
+	{
+		return;
+	}
+	_threads[threadHashCode % (int) _threads.size()]->executeTask(task);
+}
 
-const DBConfig * DBThreadPool::getConfig()
+const DBConfig *DBThreadPool::getConfig()
 {
 	return &m_config;
 }

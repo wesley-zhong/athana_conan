@@ -4,7 +4,8 @@
 
 #ifndef ATHENA_NETWORKHANDLER_H
 #define ATHENA_NETWORKHANDLER_H
-#include "thread/AthenaThreadPool.h"
+#include <vector>
+#include "core/actor/ActorSystem.h"
 #include "transport/EventDefs.h"
 struct MsgFunction;
 class Channel;
@@ -25,6 +26,6 @@ public:
 
     static void onEventTrigger(Channel *channel, TriggerEventEnum reason);
 
-    static Thread::ThreadPool *threadPool;
+    static std::vector<uint64> logicActors; // 逻辑 actor id 列表，onMsg 按 hash 路由
 };
 #endif //ATHENA_NETWORKHANDLER_H

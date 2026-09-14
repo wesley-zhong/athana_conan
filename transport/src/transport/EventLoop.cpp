@@ -229,14 +229,10 @@ void EventLoop::doRun()
 
 void EventLoop::execute()
 {
-    while (true)
+    VOID_FUN task;
+    while (pop(task))
     {
-        Thread::TaskPtr task_ptr = pop();
-        if (task_ptr == nullptr)
-        {
-            return;
-        }
-        task_ptr->run();
+        task();
     }
 }
 

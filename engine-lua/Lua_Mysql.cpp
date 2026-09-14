@@ -5,7 +5,6 @@
 #include "db/MysqlResult.h"
 #include "db/SqlPrepare.h"
 #include "db/DBThreadPool.h"
-#include "core/common/ThreadPool.h"
 #include "db/SqlResultSet.h"
 
 class Lua_SqlResult {

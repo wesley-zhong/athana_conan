@@ -21,8 +21,12 @@ void GateClientNetWorkHandler::initAllMsgRegister()
 
 void GateClientNetWorkHandler::startLogicThread(int threadNum)
 {
-    threadPool = new AthenaThreadPool();
-    threadPool->create(threadNum);
+    auto &sys = actor::ActorSystem::instance();
+    for (int i = 0; i < threadNum; ++i) {
+        if (actor::Actor *a = sys.spawn<actor::Actor>("gate-logic-" + std::to_string(i))) {
+            logicActors.push_back(a->id());
+        }
+    }
 }
 
 void GateClientNetWorkHandler::onNewConnect(Channel* channel, int status)
@@ -53,10 +57,11 @@ void GateClientNetWorkHandler::onMsg(Channel* channel, void* buff, int len)
     }
 
     void* msg = msg_function->parseParam(data, len);
-    threadPool->execute([playerId, msg_function, channel, msg]()
-    {
-        msg_function->invoke(playerId, channel, msg);
-    }, 2);
+    actor::ActorSystem::instance().execute(logicActors[2 % logicActors.size()],
+                                           [playerId, msg_function, channel, msg]()
+                                           {
+                                               msg_function->invoke(playerId, channel, msg);
+                                           });
 }
 
 void GateClientNetWorkHandler::onEventTrigger(Channel* channel, TriggerEventEnum reason)
@@ -83,4 +88,4 @@ void GateClientNetWorkHandler::onClosed(Channel* channel)
 }
 
 
-Thread::ThreadPool* GateClientNetWorkHandler::threadPool = nullptr;
+std::vector<uint64> GateClientNetWorkHandler::logicActors;

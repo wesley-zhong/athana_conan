@@ -10,7 +10,8 @@
 
 #include "Channel.h"
 #include "uv.h"
-#include "core/common/ThreadPool.h"
+#include "core/common/TQueue.h"
+#include "core/common/BaseType.h"
 #include "IdleStateHandler.h"
 
 
@@ -32,9 +33,8 @@ public:
 
     void execute();
 
-    void push(std::function<void()> func) {
-        auto it = Thread::RunTask::create(func);
-        _waitTasks.push(it);
+    void push(VOID_FUN func) {
+        _waitTasks.push(std::move(func));
     }
 
     void onNewConnection(Channel *channel);
@@ -47,13 +47,9 @@ public:
 
     void startHeartbeatTimer(Channel *channel);
 
-    Thread::TaskPtr pop() {
-        Thread::TaskPtr run_task;
-        bool ret = _waitTasks.tryPop(run_task);
-        if (ret) {
-            return run_task;
-        }
-        return nullptr;
+    // 取出一个待执行闭包，队列空返回 false
+    bool pop(VOID_FUN &task) {
+        return _waitTasks.tryPop(task);
     }
 
     virtual void run() ;
@@ -108,7 +104,7 @@ private:
     uv_async_t uv_async_write; // used by biz threads to notify reactor for pending writes
     uv_async_t uv_async_connect;
     std::mutex write_mtx;
-    TQueue<Thread::TaskPtr> _waitTasks;
+    TQueue<VOID_FUN> _waitTasks;
     std::thread t;
     NetInterface *_netInterface;
     EventTrigger *_eventTrigger;

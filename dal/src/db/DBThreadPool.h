@@ -1,9 +1,8 @@
 #pragma once
 
-
-#include "core/common/ThreadPool.h"
+#include <vector>
+#include "core/actor/Actor.h"
 #include "core/common/ObjectPool.hpp"
-using namespace Thread;
 
 struct DBConfig {
     std::string device = "mysql"; // mysql or redis
@@ -20,13 +19,16 @@ class RedisResult;
 class SqlPrepare;
 class SqlResultSet;
 
-class DBTask : public ITask{
+// DB 任务基类：由 DB 线程执行 run()，完成后 complete() 触发回调
+class DBTask {
 public:
     DBTask();
 
-    ~DBTask();
+    virtual ~DBTask();
 
     void dbi(DB_Interface *dbi);
+
+    virtual void run() = 0;
 
 protected:
     DB_Interface *_dbi;
@@ -35,7 +37,7 @@ protected:
     std::string _error;
 };
 
-class DBSqlTask : public DBTask, public ObjPool::PoolObjClass<DBSqlTask>  {
+class DBSqlTask : public DBTask, public ObjPool::PoolObjClass<DBSqlTask> {
 public:
     DBSqlTask(std::shared_ptr<SqlPrepare> pre, std::shared_ptr<SqlResultSet> result);
 
@@ -44,9 +46,6 @@ public:
     virtual void run();
 
     virtual void complete();
-
-    virtual void release() override {
-    }
 
 public:
     std::function<void(int32, const char *, std::shared_ptr<SqlResultSet>)> backfunc;
@@ -66,9 +65,6 @@ public:
 
     virtual void complete();
 
-    virtual void release() override {
-    };
-
 public:
     std::function<void(int32, const char *, std::shared_ptr<RedisResult>)> backfunc;
 
@@ -77,32 +73,45 @@ private:
     std::shared_ptr<RedisResult> _result;
 };
 
-class DBThread : public Worker {
+// DB 线程 actor：一个 actor 一个线程 + 一条 DB 连接，该线程上的任务串行执行
+class DBThread : public actor::Actor {
 public:
-    DBThread();
+    explicit DBThread(const DBConfig &config);
 
-    ~DBThread();
+    // 提交 DB 任务：闭包在本 DB 线程内注入自身 dbi 后执行
+    void executeTask(DBTask *task) {
+        execute([this, task] {
+            task->dbi(m_db);
+            task->run();
+        });
+    }
 
-    virtual void onStart();
+protected:
+    void onStart() override;
 
-    virtual void onEnd();
-
-    virtual void run(TaskPtr task);
+    void onStop() override;
 
 private:
-    DB_Interface *m_db;
+    DBConfig _config;
+    DB_Interface *m_db = nullptr;
 };
 
-class DBThreadPool : public ThreadPool {
+// DB 线程池：N 个 DBThread，按 hash 路由任务
+class DBThreadPool {
 public:
-    DBThreadPool(DBConfig config);
+    explicit DBThreadPool(DBConfig config);
 
     ~DBThreadPool();
 
-    virtual Worker *createThread();
+    void create(int count);
+
+    void exit();
+
+    void executeTask(DBTask *task, int threadHashCode = 0);
 
     const DBConfig *getConfig();
 
 private:
     DBConfig m_config;
+    std::vector<DBThread *> _threads;
 };

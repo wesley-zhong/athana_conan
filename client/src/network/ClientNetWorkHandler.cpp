@@ -19,8 +19,12 @@ void ClientNetWorkHandler::initAllMsgRegister() {
 }
 
 void ClientNetWorkHandler::startThread(int threadNum) {
-    threadPool = new AthenaThreadPool();
-    threadPool->create(threadNum);
+    auto &sys = actor::ActorSystem::instance();
+    for (int i = 0; i < threadNum; ++i) {
+        if (actor::Actor *a = sys.spawn<actor::Actor>("client-logic-" + std::to_string(i))) {
+            logicActors.push_back(a->id());
+        }
+    }
 }
 
 int id  =100;
@@ -46,9 +50,10 @@ void ClientNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     }
 
     void *msg = msg_function->parseParam(data, len);
-    threadPool->execute([playerId, msg_function, channel, msg]() {
-        msg_function->invoke(playerId, channel, msg);
-    }, 2);
+    actor::ActorSystem::instance().execute(logicActors[2 % logicActors.size()],
+                                           [playerId, msg_function, channel, msg]() {
+                                               msg_function->invoke(playerId, channel, msg);
+                                           });
 }
 
 
@@ -72,4 +77,4 @@ void ClientNetWorkHandler::onClosed(Channel *channel) {
 }
 
 
-Thread::ThreadPool *ClientNetWorkHandler::threadPool = nullptr;
+std::vector<uint64> ClientNetWorkHandler::logicActors;

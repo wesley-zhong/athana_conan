@@ -13,7 +13,6 @@
 #include "ProtoInner.pb.h"
 #include "core/common/AthenaConfig.h"
 
-#include "thread/AthenaThreadPool.h"
 #include "core/common/ObjectPool.hpp"
 #include "db/Dal.hpp"
 #include "discovery/Discovery.h"
