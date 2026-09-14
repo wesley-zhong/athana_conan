@@ -52,7 +52,7 @@ void ServerEventLoop::run() {
 
 
     uv_tcp_bind(&server, reinterpret_cast<const sockaddr *>(&addr), 0);
-    int ret = uv_listen((uv_stream_t *) &server, 128, uv_on_new_connection);
+    int ret = uv_listen((uv_stream_t *) &server, 1024, uv_on_new_connection);
     if (ret != 0) {
         ERR_LOG(" listen failed: {}", uv_err_name(ret));
     }

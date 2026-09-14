@@ -13,11 +13,11 @@ class AthenaDeps(ConanFile):
         cmake_layout(self)
 
     def requirements(self):
-        self.requires("mongo-cxx-driver/3.6.7")
+        self.requires("mongo-cxx-driver/4.0.0")
         self.requires("libmysqlclient/8.1.0")
         self.requires("hiredis/1.3.0")
         self.requires("libuv/1.51.0")
-        self.requires("spdlog/1.16.0")
+        self.requires("spdlog/1.17.0")
         self.requires("sol2/3.5.0")
         self.requires("tomlplusplus/3.4.0")
         self.requires("etcd-cpp-apiv3/0.15.4")
