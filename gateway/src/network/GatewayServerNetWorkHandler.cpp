@@ -63,6 +63,7 @@ void GatewayServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
 
 void GatewayServerNetWorkHandler::onClosed(Channel *channel) {
     INFO_LOG("connection ={}  closed ", channel->getAddr());
+
 }
 
 void GatewayServerNetWorkHandler::onEventTrigger(Channel *channel, TriggerEventEnum reason) {

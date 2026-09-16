@@ -56,6 +56,8 @@ public:
 
     void  onLogout();
 
+    void saveDataToDB();
+
     void setPid(uint32_t pid)
     {
         this->pid = pid;

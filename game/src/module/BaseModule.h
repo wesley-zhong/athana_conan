@@ -20,8 +20,16 @@ public:
 
     virtual void loadDataFromDB() =0;
 
+    virtual void saveDataToDB() =0;
+
+    virtual void markDirty()
+    {
+        is_dirty = true;
+    }
+
 protected:
     Player* owner;
+    bool is_dirty;
 };
 
 

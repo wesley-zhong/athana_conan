@@ -10,6 +10,7 @@
 #include <mongocxx/exception/exception.hpp>
 #include "MongClientManager.h"
 #include <optional>
+#include <vector>
 #include "core/log/XLog.h"
 #include "core/common/BaseType.h"
 
@@ -39,7 +40,7 @@ public:
     void bulk_update(DO_T &dos ...) {
     }
 
-    void bulk_update(const std::vector<DO_T &> dos) {
+    void bulk_update(const std::vector<DO_T> &dos) {
         // collection.update_many(make_document(kvp("i", make_document(kvp("$gt", 0)))),
         //                   make_document(kvp("$set", make_document(kvp("foo", "buzz")))));
         // tbl_coll.update_many()
@@ -68,11 +69,20 @@ private:
             mongocxx::options::replace opts;
             opts.upsert(true);
 
-            (*client)[dbName][tableName].replace_one(
+            // 返回值仅在写入被 acknowledged 时才有值
+            auto result = (*client)[dbName][tableName].replace_one(
                     make_document(kvp("_id", obj._id)),
                     obj.toBson(),
                     opts
             );
+            if (!result) {
+                ERR_LOG("Mongo update not acknowledged, db={}, table={}, id={}",
+                        dbName, tableName, obj._id);
+                return false;
+            }
+            INFO_LOG("Mongo update ok, db={}, table={}, id={}, matched={}, modified={}",
+                     dbName, tableName, obj._id,
+                     result->matched_count(), result->modified_count());
             return true;
         } catch (const mongocxx::exception &e) {
             ERR_LOG("Mongo update failed, id={}, err={}", obj._id, e.what());

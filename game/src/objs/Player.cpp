@@ -27,6 +27,14 @@ void Player::loadDataFormDB()
     });
 }
 
+void Player::saveDataToDB()
+{
+    moduleContainer->forEach([](BaseModule* module)
+    {
+        module->saveDataToDB();
+    });
+}
+
 
 void Player::onLogin()
 {

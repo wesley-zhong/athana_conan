@@ -36,6 +36,14 @@ public:
         dataDO = ret.value();
         fromDO(&dataDO);
     }
+    void saveDataToDB() override
+    {
+        if (!is_dirty)
+        {
+            return;
+        }
+        dao_.update(dataDO);
+    }
 };
 
 

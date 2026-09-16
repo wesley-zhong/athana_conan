@@ -18,6 +18,7 @@ void RoleModule::fromDO(RoleDO* dataObj)
 void RoleModule::onLogin()
 {
     INFO_LOG("pid = {} on login", owner->getPid());
+    markDirty();
 }
 
 void RoleModule::onLogout()

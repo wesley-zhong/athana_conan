@@ -29,6 +29,9 @@ void LoginService::onPlayerLogin(Channel* channel, InnerLoginRequest* req)
     res->set_roleid(req->roleid());
     res->set_sid(req->sid());
     channel->sendMsg(INNER_TO_GAME_LOGIN_RES, res);
+
+    // only for test
+    existPlayer->saveDataToDB();
 }
 
 void LoginService::onPlayerDisconnect(uint64 playerId, InnerPlayerDisconnectRequest* req)
@@ -48,4 +51,6 @@ void LoginService::onPlayerDisconnect(uint64 playerId, InnerPlayerDisconnectRequ
     INFO_LOG("player id = {} channel ={}  disconnected", playerId, existPlayer->getChannel()->getAddr());
 
     existPlayer->onLogout();
+
+    existPlayer->saveDataToDB();
 }
