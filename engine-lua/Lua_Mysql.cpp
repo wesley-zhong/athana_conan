@@ -1,11 +1,11 @@
 #include "sol/sol.hpp"
 
 #include "mysql.h"
-#include "db/DB_Interface_mysql.h"
-#include "db/MysqlResult.h"
-#include "db/SqlPrepare.h"
-#include "db/DBThreadPool.h"
-#include "db/SqlResultSet.h"
+#include "dal/db/DB_Interface_mysql.h"
+#include "dal/db/MysqlResult.h"
+#include "dal/db/SqlPrepare.h"
+#include "dal/db/DBThreadPool.h"
+#include "dal/db/SqlResultSet.h"
 
 class Lua_SqlResult {
 public:
