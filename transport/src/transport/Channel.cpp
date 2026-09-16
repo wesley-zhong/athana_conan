@@ -86,7 +86,7 @@ void Channel::eventLoopWrite(int msgId, google::protobuf::Message *msg) {
     send_buff->writeBytes(packBuf, len);
     last_send_time = nowTime();
 
-    INFO_LOG("--------{} send msgId={}  len={} ",(void*)this, msgId, len + 4 + 4);
+  //  INFO_LOG("--------{} send msgId={}  len={} ",(void*)this, msgId, len + 4 + 4);
     // do send
     if (needCallSend) {
         doUvSend();
@@ -113,7 +113,7 @@ void Channel::doUvSend() {
              [](uv_write_t *req1, int status) {
                  WritePack *write_pack = (WritePack *) req1->data;
                  Channel *channel = write_pack->_channel;
-                 INFO_LOG(" -----------chanel: {} -write complete call back ={}  send len ={} ",(void*)channel, status, write_pack->sendSize);
+                // INFO_LOG(" -----------chanel: {} -write complete call back ={}  send len ={} ",(void*)channel, status, write_pack->sendSize);
 
                  if (status < 0) {
                      // 1. 记录错误日志

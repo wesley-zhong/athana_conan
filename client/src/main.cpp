@@ -12,7 +12,7 @@
 #include "ProtoInner.pb.h"
 
 #include "core/common/ObjectPool.hpp"
-#include "db/Dal.hpp"
+#include "dal/db/Dal.hpp"
 #include "transport/AthenaTcpServer.h"
 
 #if defined(_WIN32)
@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
 
 
     // AthenaTcpClient athena_tcp_client;
-     for (int i = 0; i < 2000; ++i) {
+     for (int i = 0; i < 1; ++i) {
           tcp_client.connect("172.18.2.93", 37081);
      }
     // 💡 主线程阻塞等待，无限期休眠（CPU 占用≈0）

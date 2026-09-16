@@ -11,7 +11,7 @@
 #include <Windows.h>
 #else
 #include <sys/time.h>
-#endif // PLATFORM_WINDOWS
+#endif // SYSTEM_WIN
 
 
 class XTime
@@ -32,6 +32,9 @@ public:
 	static int64 microStamp();
 	// sec
 	static time_t stamp();
+
+	// 纪元毫秒, 语义同 Java System.currentTimeMillis
+	static int64 currentTimeMillis();
 
 	static uint32 iclock();
 };

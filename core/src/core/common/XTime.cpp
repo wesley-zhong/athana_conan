@@ -1,33 +1,35 @@
-﻿#include "XTime.h"
-#include <limits.h>
-#include <sstream>
-#include <iomanip>
-#include <string.h>
+#include "XTime.h"
+#include <ctime>
 using namespace std;
 
 #ifdef SYSTEM_WIN
-#include<winsock.h>
+#include <winsock.h> // struct timeval
+#endif
 
-int gettimeofday(struct timeval *tp, void *tzp) 
+namespace
 {
-	time_t clock;
-	struct tm tm;
-	SYSTEMTIME wtm;
-	GetLocalTime(&wtm);
-	tm.tm_year = wtm.wYear - 1900;
-	tm.tm_mon = wtm.wMonth - 1;
-	tm.tm_mday = wtm.wDay;
-	tm.tm_hour = wtm.wHour;
-	tm.tm_min = wtm.wMinute;
-	tm.tm_sec = wtm.wSecond;
-	tm.tm_isdst = -1;
-	clock = mktime(&tm);
-	tp->tv_sec = static_cast<long>(clock);
-	tp->tv_usec = wtm.wMilliseconds * 1000;
-	return (0);
+	// Unix 纪元时间 (秒 + 微秒), 全部时间函数的统一来源
+	// Windows 下基于 UTC 的 FILETIME, 不经过本地时间/时区换算
+	void epochTime(int64 * sec, int64 * usec)
+	{
+#ifdef SYSTEM_WIN
+		FILETIME ft;
+		GetSystemTimeAsFileTime(&ft);
+		ULARGE_INTEGER ticks;
+		ticks.LowPart = ft.dwLowDateTime;
+		ticks.HighPart = ft.dwHighDateTime;
+		// FILETIME 是 1601-01-01 UTC 起的 100 纳秒数, 转为 Unix 纪元
+		const int64 intervals = static_cast<int64>(ticks.QuadPart) - 116444736000000000LL;
+		*sec = intervals / 10000000;
+		*usec = intervals % 10000000 / 10;
+#else
+		struct timeval tv;
+		gettimeofday(&tv, NULL);
+		*sec = tv.tv_sec;
+		*usec = tv.tv_usec;
+#endif
+	}
 }
-#endif // PLATFORM_WINDOWS
-
 
 bool XTime::isLeapYear(int year)
 {
@@ -62,14 +64,20 @@ int XTime::yearMonthDays(int year, int month)
 
 const struct tm * XTime::getTMStruct()
 {
-	time_t _currt = time(NULL);
-	return std::localtime(&_currt);
+	time_t now = time(NULL);
+	static struct tm tmBuf;
+#ifdef SYSTEM_WIN
+	localtime_s(&tmBuf, &now);
+#else
+	localtime_r(&now, &tmBuf);
+#endif
+	return &tmBuf;
 }
 
 std::string XTime::format(const char * fmt)
 {
 	char buf[256] = { 0 };
-	if (0 == strftime(buf, 63, fmt, getTMStruct())) {
+	if (0 == strftime(buf, sizeof(buf), fmt, getTMStruct())) {
 		buf[0] = '\0';
 	}
 	return std::string(buf);
@@ -82,31 +90,40 @@ time_t XTime::getTime(struct tm * tm_)
 
 void XTime::getTimeval(struct timeval * tp)
 {
-	gettimeofday(tp, NULL);
+	int64 sec, usec;
+	epochTime(&sec, &usec);
+	tp->tv_sec = static_cast<long>(sec);
+	tp->tv_usec = static_cast<long>(usec);
+}
+
+// 纪元毫秒, 语义同 Java System.currentTimeMillis
+int64 XTime::currentTimeMillis()
+{
+	int64 sec, usec;
+	epochTime(&sec, &usec);
+	return sec * 1000 + usec / 1000;
 }
 
 // msec
 int64 XTime::milliStamp()
 {
-	struct timeval tv;
-	getTimeval(&tv);
-	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return currentTimeMillis();
 }
 
 // usec
 int64 XTime::microStamp()
 {
-	struct timeval tv;
-	getTimeval(&tv);
-	return tv.tv_sec * 1000000 + tv.tv_usec;
+	int64 sec, usec;
+	epochTime(&sec, &usec);
+	return sec * 1000000 + usec;
 }
 
 // sec
 time_t XTime::stamp()
 {
-	struct timeval tv;
-	getTimeval(&tv);
-	return tv.tv_sec;
+	int64 sec, usec;
+	epochTime(&sec, &usec);
+	return static_cast<time_t>(sec);
 }
 
 uint32 XTime::iclock()

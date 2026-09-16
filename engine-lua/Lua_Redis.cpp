@@ -1,10 +1,10 @@
 #include "sol/sol.hpp"
 
 #include "hiredis/hiredis.h"
-#include "db/DB_Interface_redis.h"
-#include "db/RedisResult.h"
-#include "db/DBThreadPool.h"
-#include "db/RedisCommand.h"
+#include "dal/db/DB_Interface_redis.h"
+#include "dal/db/RedisResult.h"
+#include "dal/db/DBThreadPool.h"
+#include "dal/db/RedisCommand.h"
 class Lua_Redis
 {
 public:

@@ -14,7 +14,7 @@
 #include "core/common/AthenaConfig.h"
 
 #include "core/common/ObjectPool.hpp"
-#include "db/Dal.hpp"
+#include "dal/db/Dal.hpp"
 #include "discovery/Discovery.h"
 #include "network/GatewayServerNetWorkHandler.h"
 #include "transport/AthenaTcpServer.h"

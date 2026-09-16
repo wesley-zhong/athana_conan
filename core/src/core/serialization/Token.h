@@ -30,7 +30,6 @@ private:
 	int read_var();
 	int symbol();
 	void read_long_string();
-private:
 	FBuffer * __m_pBuffer;
 	std::string __m_name;
 	int __m_i;
