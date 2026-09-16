@@ -6,23 +6,25 @@
 #define ATHENA_ROLEMODULE_H
 
 #include "module/Module.h"
-#include "RoleDO.h"
+#include "dos/RoleDO.hpp"
+#include "dao/Dal.hpp"
+#include "dao/RoleDAO.h"
 
 class Player;
 
 
-class RoleModule : public Module<RoleDO> {
+class RoleModule : public Module<RoleDO>
+{
 public:
-//    explicit RoleModule(Player *player) : Module<RoleDO>(player, new BaseDAO()) {
-//
-//    }
+    explicit RoleModule(Player* player) : Module(player, Dal::DAO<RoleDAO>())
+    {
+    }
 
-    void fromDO(RoleDO *Do) override;
+    void fromDO(RoleDO* Do) override;
 
     void onLogin() override;
 
-    void onAfterLogin() override;
-
+    void onLogout() override;
 };
 
 

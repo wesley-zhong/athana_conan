@@ -6,22 +6,36 @@
 #define ATHENA_MODULE_H
 
 #include "BaseModule.h"
-
-class Player;
+#include "dal/mongodb/DAO.hpp"
+#include "gateway/src/objs/Player.h"
 
 class BaseDAO;
 
-template<typename DO>
-class Module : public BaseModule {
+template <typename DO>
+class Module : public BaseModule
+{
+private:
+    DO dataDO;
+    DAO<DO> dao_;
+
 public:
-//    Module(Player *player, BaseDAO *baseDAO) : BaseModule(player, baseDAO) {
-//    }
+    Module(Player* player, DAO<DO>& dao) : BaseModule(player), dao_(dao)
+    {
+    }
 
-    void initFromDB() {
-    };
+    virtual void fromDO(DO* pDO) = 0;
 
-    virtual void fromDO(DO *pDO) = 0;
-
+    void loadDataFromDB() override
+    {
+        auto ret = dao_.find_one(owner->getPid());
+        if (!ret)
+        {
+            fromDO(nullptr);
+            return;
+        }
+        dataDO = ret.value();
+        fromDO(&dataDO);
+    }
 };
 
 

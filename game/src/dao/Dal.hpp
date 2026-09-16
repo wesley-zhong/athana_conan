@@ -4,9 +4,6 @@
 
 #ifndef ATHENA_DAL_H
 #define ATHENA_DAL_H
-#include "mongodb/DAO.hpp"
-#include <optional>
-
 namespace Dal {
     template<typename T>
     T &DAO() {

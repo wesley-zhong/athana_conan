@@ -9,7 +9,7 @@
 #include "DB_Interface_mysql.h"
 #include "hiredis/hiredis.h"
 #include "DB_Interface_redis.h"
-#include "mongodb/MongClientManager.h"
+#include "dal/mongodb/MongClientManager.h"
 
 namespace Dal {
     template<typename T>

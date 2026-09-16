@@ -7,8 +7,7 @@
 
 #include <functional>
 #include<vector>
-#include "BaseModule.h"
-
+class BaseModule;
 
 class ModuleContainer {
 public:

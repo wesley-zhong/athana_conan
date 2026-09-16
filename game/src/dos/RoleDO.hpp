@@ -9,7 +9,7 @@
 #include <string>
 #include <bsoncxx/builder/basic/document.hpp>
 
-#include "mongodb/BsonSerializable .h"
+#include "dal/mongodb/BsonSerializable .h"
 #include "core/common/BaseType.h"
 class RoleDO : public BsonSerializable {
 public:

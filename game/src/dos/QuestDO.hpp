@@ -6,7 +6,7 @@
 #define ATHENA_QUESTDO_H
 #include <bsoncxx/builder/basic/document.hpp>
 
-#include "mongodb/BsonSerializable .h"
+#include "dal/mongodb/BsonSerializable .h"
 #include "core/common/BaseType.h"
 
 class QuestDO : public BsonSerializable

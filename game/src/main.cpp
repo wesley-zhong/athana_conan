@@ -6,7 +6,7 @@
 #include "core/log/XLog.h"
 #include "objs/Player.h"
 #include "core/common/ObjectPool.hpp"
-#include "db/Dal.hpp"
+#include "dal/db/Dal.hpp"
 
 #if defined(_WIN32)
 
@@ -22,9 +22,9 @@
 #include "transport/AthenaTcpServer.h"
 
 #include "network/GameServerNetWorkHandler.h"
-#include "mongodb/MongClientManager.h"
-#include "dal/RoleDAO.h"
-#include "dal/Dal.hpp"
+#include "dal/mongodb/MongClientManager.h"
+#include "dao/RoleDAO.h"
+#include "dao/Dal.hpp"
 #include "core/common/AthenaConfig.h"
 #include "discovery/Discovery.h"
 

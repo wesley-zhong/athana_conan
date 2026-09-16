@@ -4,35 +4,24 @@
 
 #ifndef ATHENA_BASEMODULE_H
 #define ATHENA_BASEMODULE_H
-
-//#include "dal/BaseDAO.h"
-
 class Player;
 
-class DO;
-
-class BaseModule {
+class BaseModule
+{
 public:
-//    BaseModule(Player *player, BaseDAO *dao) {
-//        this->player = player;
-//        this->baseDao = dao;
-//    }
-
-    virtual void initFromDB() = 0;
+    BaseModule(Player* player)
+    {
+        owner = player;
+    }
 
     virtual void onLogin() = 0;
 
-    virtual void onAfterLogin() = 0;
+    virtual void onLogout() = 0;
+
+    virtual void loadDataFromDB() =0;
 
 protected:
-    DO *loadDataFromDB() {
-        // return baseDao.findOne
-        return nullptr;
-    }
-
-protected:
-    Player *player;
-   // BaseDAO *baseDao;
+    Player* owner;
 };
 
 
