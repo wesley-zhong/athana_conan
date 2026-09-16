@@ -6,6 +6,7 @@
 #include "core/log/XLog.h"
 #include "objs/Player.h"
 #include "core/common/ObjectPool.hpp"
+#include "core/utils/Snowflake.h"
 #include "dal/db/Dal.hpp"
 
 #if defined(_WIN32)
@@ -56,6 +57,13 @@ int main(int argc, char **argv) {
         ERR_LOG("initWithConf  faild");
         return -2;
     }
+    //init
+    success = Snowflake::init(AthenaConfig::instance().get("server", "worker-id", 0));
+    if (!success) {
+        ERR_LOG("Snowflake init failed");
+        return -3;
+    }
+    INFO_LOG("Snowflake init ok");
 
     // connect db
     std::string redisIp = AthenaConfig::instance().get("redis", "ip", "localhost");
@@ -65,7 +73,7 @@ int main(int argc, char **argv) {
     success = Dal::Cache::init(redisIp, redisPort, "", redisUser, redisPassword);
     if (!success) {
         ERR_LOG("Redis init failed, addr={}:{}", redisIp, redisPort);
-        return -3;
+        return -4;
     }
     INFO_LOG("Redis init ok, addr={}:{}", redisIp, redisPort);
     RedisResult redisResult;
@@ -85,7 +93,7 @@ int main(int argc, char **argv) {
     success = Dal::MongoDB::init(mongDBAddr, userName, password);
     if (!success) {
         ERR_LOG("MongoDB init failed, addr={}, user={}", mongDBAddr, userName);
-        return -4;
+        return -5;
     }
     INFO_LOG("MongoDB init ok, addr={}", mongDBAddr);
 

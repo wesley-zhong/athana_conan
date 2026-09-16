@@ -5,6 +5,7 @@
 #include "ProtoInner.pb.h"
 #include "transport/Dispatcher.h"
 #include "discovery/PeerConn.h"
+#include "core/utils/snowflake.h"
 
 void PlayerLoginHandler::onInnerLoginRes(Channel *channel, InnerLoginResponse *res) {
     INFO_LOG("----- on login res ={}", res->roleid(), res->sid());
@@ -14,7 +15,7 @@ void PlayerLoginHandler::onLoginReq(Channel *channel, LoginRequest *req) {
     INFO_LOG("----- on login req ={}", req->roleid());
     auto it = new InnerLoginRequest(); // this may be use obj pool
     it->set_roleid(req->roleid());
-    it->set_sid(1111);
+    it->set_sid(Snowflake::nextId());
     PeerConn::sendMsg(SRV_TYPE_GAME, INNER_TO_GAME_LOGIN_REQ, it);
 }
 

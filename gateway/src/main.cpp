@@ -14,6 +14,7 @@
 #include "core/common/AthenaConfig.h"
 
 #include "core/common/ObjectPool.hpp"
+#include "core/utils/Snowflake.h"
 #include "dal/db/Dal.hpp"
 #include "discovery/Discovery.h"
 #include "network/GatewayServerNetWorkHandler.h"
@@ -53,6 +54,14 @@ int main(int argc, char **argv) {
         return -1;
     }
 
+    // snowflake init
+    success = Snowflake::init(AthenaConfig::instance().get("server", "worker-id", 0));
+    if (!success) {
+        ERR_LOG("Snowflake init failed");
+        return -2;
+    }
+    INFO_LOG("Snowflake init ok");
+
     //tcp client
     GateClientNetWorkHandler::initAllMsgRegister();
     GateClientNetWorkHandler::startLogicThread(2);
@@ -68,7 +77,7 @@ int main(int argc, char **argv) {
     success = Discovery::initWithConf(AthenaConfig::instance(), tcp_client);
     if (!success) {
         ERR_LOG("initWithConf  faild");
-        return -2;
+        return -3;
     }
 
     int serverPort = AthenaConfig::instance().get("server", "tcp-port", 0);

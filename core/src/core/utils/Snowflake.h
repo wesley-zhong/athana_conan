@@ -18,18 +18,52 @@
 //  10 bit  机器 ID, 0 ~ 1023, 多机部署时由部署方分配保证不重复
 //  12 bit  同毫秒内序列号, 单机单毫秒最多 4096 个
 //
-// 生成的 ID 按时间趋势递增; 线程安全
+// 用法: 启动阶段 Snowflake::init(workerId) 初始化一次,
+//       之后任意线程 Snowflake::nextId() 生成 ID (趋势递增, 线程安全)
 class Snowflake {
 public:
-    explicit Snowflake(int64 workerId)
-        : workerId_(workerId), lastTimestamp_(0), sequence_(0)
+    // 初始化进程级全局实例, workerId 多机部署时必须唯一
+    // 重复初始化返回 false
+    static bool init(int64 workerId)
     {
-        XAssert(workerId >= 0 && workerId <= MAX_WORKER_ID);
+        if (instance() != nullptr) {
+            return false;
+        }
+        instance() = new Snowflake(workerId);
+        return true;
     }
 
     // 生成一个 ID
     // 时钟回拨时自旋等待时钟追上上次的生成时间
-    int64 nextId()
+    static int64 nextId()
+    {
+        Snowflake *inst = instance();
+        XAssert(inst != nullptr, "call Snowflake::init(workerId) first");
+        return inst->nextIdImp();
+    }
+
+    // 从 ID 还原生成时的毫秒时间戳 (Unix 纪元)
+    static int64 getTimestamp(int64 id)
+    {
+        return (id >> TIMESTAMP_SHIFT) + EPOCH;
+    }
+
+private:
+    explicit Snowflake(int64 workerId)
+        : workerId_(workerId), lastTimestamp_(0), sequence_(0)
+    {
+        XAssert(workerId >= 0 && workerId <= MAX_WORKER_ID, "workerId=%lld not in [0, 1023]",
+                static_cast<long long>(workerId));
+    }
+
+    // header-only 的单例指针存储, 函数内静态变量避免多编译单元重复定义
+    static Snowflake *&instance()
+    {
+        static Snowflake *inst = nullptr;
+        return inst;
+    }
+
+    int64 nextIdImp()
     {
         std::lock_guard<std::mutex> lock(mutex_);
         int64 timestamp = XTime::currentTimeMillis();
@@ -57,13 +91,6 @@ public:
                | sequence_;
     }
 
-    // 从 ID 还原生成时的毫秒时间戳 (Unix 纪元)
-    static int64 getTimestamp(int64 id)
-    {
-        return (id >> TIMESTAMP_SHIFT) + EPOCH;
-    }
-
-private:
     // 位分配
     static const int64 WORKER_ID_BITS = 10;
     static const int64 SEQUENCE_BITS = 12;

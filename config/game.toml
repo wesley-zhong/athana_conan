@@ -4,6 +4,7 @@ type = 3
 port = 27080
 tcp-port = 27081
 group-id = 0
+worker-id = 1
 max-player-count = 20000
 io-thread = 1
 
