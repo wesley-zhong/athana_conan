@@ -17,7 +17,7 @@ username = "admin"
 password = "admin"
 
 [redis]
-ip = "localhost"
+ip = "172.18.2.101"
 port = 6379
 username = "admin"
 password = "admin"

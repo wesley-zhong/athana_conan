@@ -57,6 +57,38 @@ int main(int argc, char **argv) {
         return -2;
     }
 
+    // connect db
+    std::string redisIp = AthenaConfig::instance().get("redis", "ip", "localhost");
+    int redisPort = AthenaConfig::instance().get("redis", "port", 6379);
+    std::string redisUser = AthenaConfig::instance().get("redis", "username", "");
+    std::string redisPassword = AthenaConfig::instance().get("redis", "password", "");
+    success = Dal::Cache::init(redisIp, redisPort, "", redisUser, redisPassword);
+    if (!success) {
+        ERR_LOG("Redis init failed, addr={}:{}", redisIp, redisPort);
+        return -3;
+    }
+    INFO_LOG("Redis init ok, addr={}:{}", redisIp, redisPort);
+    RedisResult redisResult;
+    Dal::Cache::execute(&redisResult, "set ol:100064913 889abc");
+    RedisResult redisResult1;
+    Dal::Cache::execute(&redisResult1, "get ol:100064913");
+    INFO_LOG("OUT STRING ={}", redisResult1.getStream());
+
+    //    Dal::DB::init(ip,3306,"gm_tool", "root","MyUN#FoyT!EtLnh7");
+    //    MysqlResult db_result;
+    //    Dal::DB::execute(&db_result, "select * from  user");
+
+    std::string mongDBAddr = AthenaConfig::instance().get("mongodb", "ip", "localhost:27017");
+    std::string userName = AthenaConfig::instance().get("mongodb", "username", "admin");
+    std::string password = AthenaConfig::instance().get("mongodb", "password", "admin");
+
+    success = Dal::MongoDB::init(mongDBAddr, userName, password);
+    if (!success) {
+        ERR_LOG("MongoDB init failed, addr={}, user={}", mongDBAddr, userName);
+        return -4;
+    }
+    INFO_LOG("MongoDB init ok, addr={}", mongDBAddr);
+
     int serverPort = AthenaConfig::instance().get("server", "tcp-port", 0);
     INFO_LOG("#### bind server port:{}", serverPort);
 
@@ -74,25 +106,6 @@ int main(int argc, char **argv) {
 
     tcp_server.bind(serverPort).start(1);
     //
-
-    // connect db
-    std::string ip = "172.18.2.101";
-    Dal::Cache::init(ip, 6379, "", "", "");
-    RedisResult redisResult;
-    Dal::Cache::execute(&redisResult, "set ol:100064913 889abc");
-    RedisResult redisResult1;
-    Dal::Cache::execute(&redisResult1, "get ol:100064913");
-    INFO_LOG("OUT STRING ={}", redisResult1.getStream());
-
-    //    Dal::DB::init(ip,3306,"gm_tool", "root","MyUN#FoyT!EtLnh7");
-    //    MysqlResult db_result;
-    //    Dal::DB::execute(&db_result, "select * from  user");
-
-    std::string mongDBAddr = AthenaConfig::instance().get("mongodb", "ip", "localhost:27017");
-    std::string userName = AthenaConfig::instance().get("mongodb", "username", "admin");
-    std::string password = AthenaConfig::instance().get("mongodb", "password", "admin");
-
-    Dal::MongoDB::init(mongDBAddr, userName, password);
 
     RoleDO roleDo;
     roleDo.name = "kkkk_name_2";
