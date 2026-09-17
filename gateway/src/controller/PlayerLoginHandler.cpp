@@ -5,7 +5,7 @@
 #include "ProtoInner.pb.h"
 #include "transport/Dispatcher.h"
 #include "discovery/PeerConn.h"
-#include "core/utils/snowflake.h"
+#include "core/utils/Snowflake.h"
 
 void PlayerLoginHandler::onInnerLoginRes(transport::Channel *channel, InnerLoginResponse *res) {
     INFO_LOG("----- on login res ={}", res->roleid(), res->sid());
