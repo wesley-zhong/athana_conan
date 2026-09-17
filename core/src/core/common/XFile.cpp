@@ -4,7 +4,6 @@
 #include <sstream> 
 #include "Define.h"
 
-namespace core {
 
 #ifdef SYSTEM_WIN
 	#include <io.h>
@@ -15,6 +14,8 @@ namespace core {
 	#include <sys/types.h>
 	#include <dirent.h>
 #endif
+
+namespace core {
 
 XFile::XFile()
 {
