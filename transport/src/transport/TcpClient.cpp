@@ -4,6 +4,8 @@
 
 #include "TcpClient.h"
 
+namespace transport {
+
 
 TcpClient::TcpClient() {
 }
@@ -30,3 +32,5 @@ TcpClient &TcpClient::setChannelIdleTime(uint64 idle_write_time, uint64 idle_rea
     event_trigger = new IdleStateHandler(this, idle_write_time, idle_read_time);
     return *this;
 }
+
+} // namespace transport

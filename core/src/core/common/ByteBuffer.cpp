@@ -3,6 +3,8 @@
 
 #include "../log/XLog.h"
 
+namespace core {
+
 //std::shared_ptr<BufferPool>   g_buffPool = std::make_shared<BufferPool>(4096) ;
 // constructor
 ByteBuffer::ByteBuffer() {
@@ -34,3 +36,5 @@ int ByteBuffer::getNextPackLen() {
     }
     return packLen + 4;
 }
+
+} // namespace core

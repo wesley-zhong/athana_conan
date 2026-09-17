@@ -9,6 +9,8 @@
 #include "core/log/XLog.h"
 #include <string>
 #include <string_view>
+
+namespace core {
 class AthenaConfig {
 public:
     // 获取全局单例
@@ -76,5 +78,7 @@ private:
 
     toml::table table_;
 };
+
+} // namespace core
 
 #endif //ATHENA_ATHENACONFIG_H

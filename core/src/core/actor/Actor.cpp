@@ -7,6 +7,8 @@
 #include <exception>
 #include <chrono>
 
+namespace core {
+
 namespace actor {
 
     static std::atomic<uint64> s_actorIdSeq{1};
@@ -84,3 +86,5 @@ namespace actor {
     }
 
 }
+
+} // namespace core

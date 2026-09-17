@@ -6,6 +6,8 @@
 #include <vector>
 #include "RedisCommand.h"
 
+namespace dal {
+
 DBInterfaceRedis::DBInterfaceRedis(const char * ip, unsigned int port,const char *dbname, const char *user, const char *pswd) : DB_Interface(ip, port)
 {
 	m_context = NULL;
@@ -126,3 +128,4 @@ int DBInterfaceRedis::execute(RedisCommand* command, DBResult* result)
 	static_cast<RedisResult *>(result)->setResult(pRedisReply);
 	return 0;
 }
+} // namespace dal

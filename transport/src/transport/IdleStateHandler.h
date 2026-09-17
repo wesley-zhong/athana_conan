@@ -7,6 +7,8 @@
 #include "core/common/BaseType.h"
 
 #include "EventTrigger.h"
+
+namespace transport {
 class NetInterface;
 class Channel;
 class IdleStateHandler : public EventTrigger {
@@ -26,5 +28,7 @@ private:
     uint64 max_read_idle_time;
 };
 
+
+} // namespace transport
 
 #endif //ATHENA_IDLESTATEHANDLER_H

@@ -1,6 +1,8 @@
 #include "Timer.h"
 #include "XTime.h"
 
+namespace core {
+
 struct Heap::heap Timer::gRootHeap;
 
 Timer::Timer()
@@ -97,3 +99,5 @@ int Timer::compare_fn(const struct Heap::heap_node* a, const struct Heap::heap_n
 
 	return 0;
 }
+
+} // namespace core

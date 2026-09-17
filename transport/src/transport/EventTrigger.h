@@ -6,6 +6,8 @@
 #define ATHENA_EVENTTRIGGER_H
 #include "core/common/BaseType.h"
 #include "EventDefs.h"
+
+namespace transport {
 class Channel;
 
 class EventTrigger {
@@ -15,5 +17,7 @@ public:
     virtual void triggerEvent(Channel *channel, TriggerEventEnum reason) = 0;
 };
 
+
+} // namespace transport
 
 #endif //ATHENA_EVENTTRIGGER_H

@@ -7,6 +7,8 @@
 #include "ServerEventLoop.h"
 #include "core/log/XLog.h"
 
+namespace transport {
+
 
 
 void AthenaTcpServer::start(int eventLoopNum) {
@@ -37,3 +39,5 @@ AthenaTcpServer &AthenaTcpServer::setChannelIdleTime(uint64 idle_write_time, uin
     event_trigger = new IdleStateHandler(this, idle_write_time, idle_read_time);
     return *this;
 }
+
+} // namespace transport

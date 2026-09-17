@@ -4,6 +4,8 @@
 #include <vector>
 #include <map>
 
+namespace core {
+
 namespace jwEngine
 {
 	enum eJOSN_TYPE
@@ -123,3 +125,5 @@ namespace jwEngine
 		std::map<std::string, JBaseObj *> maps;
 	};
 }
+
+} // namespace core

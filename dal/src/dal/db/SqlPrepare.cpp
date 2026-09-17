@@ -9,6 +9,8 @@
 #include "SqlResultSet.h"
 #include <memory.h>
 
+namespace dal {
+
 SqlPrepare::SqlPrepare(const char * sqlstr)
 {
 	m_stmt = NULL;
@@ -16,7 +18,7 @@ SqlPrepare::SqlPrepare(const char * sqlstr)
 	m_widx = 0;
 
 	m_sql = sqlstr;
-	m_count = Tools::charCount((char *)sqlstr, '?');
+	m_count = core::Tools::charCount((char *)sqlstr, '?');
 	if (m_count > 0)
 	{
 		m_paramBind = new MYSQL_BIND[m_count];
@@ -219,3 +221,4 @@ bool SqlPrepare::_query(MYSQL_RES** pRes)
 	*pRes = mysql_stmt_result_metadata(m_stmt);
 	return true;
 }
+} // namespace dal

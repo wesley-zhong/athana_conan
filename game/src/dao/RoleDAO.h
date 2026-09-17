@@ -9,7 +9,7 @@
 #include "dos/RoleDO.hpp"
 
 
-class RoleDAO : public DAO<RoleDO> {
+class RoleDAO : public dal::DAO<RoleDO> {
 public:
     RoleDAO() : DAO("game", "role") {
     }

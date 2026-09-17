@@ -5,7 +5,7 @@
 #ifndef ATHENA_SYSTEMMSGHANDLER_H
 #define ATHENA_SYSTEMMSGHANDLER_H
 #include "ProtoInner.pb.h"
-class Channel;
+namespace transport { class Channel; }
 
 
 class SystemMsgHandler {
@@ -13,13 +13,13 @@ public:
     static void registMsg();
 
 private:
-    static void onShakHandReq(Channel *channel, InnerServerHandShakeReq *req);
+    static void onShakHandReq(transport::Channel *channel, InnerServerHandShakeReq *req);
 
-    static void onShakHandResponse(Channel *channel, InnerServerHandShakeRes *res);
+    static void onShakHandResponse(transport::Channel *channel, InnerServerHandShakeRes *res);
 
-    static void onInnerHeartBeatReq(Channel *channel, InnerHeartBeatRequest *req);
+    static void onInnerHeartBeatReq(transport::Channel *channel, InnerHeartBeatRequest *req);
 
-    static void onInnerHeartBeatRes(Channel *channel, InnerHeartBeatResponse *res);
+    static void onInnerHeartBeatRes(transport::Channel *channel, InnerHeartBeatResponse *res);
 };
 
 

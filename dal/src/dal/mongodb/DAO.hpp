@@ -18,6 +18,8 @@ using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_array;
 using bsoncxx::builder::basic::make_document;
 
+namespace dal {
+
 template<typename DO_T>
 class DAO {
 public:
@@ -93,5 +95,7 @@ private:
     std::string dbName;
     std::string tableName;
 };
+
+} // namespace dal
 
 #endif //ATHENA_DAO_H

@@ -11,6 +11,8 @@
 #include <type_traits>
 #include <algorithm>
 
+namespace core {
+
 class RandomUtil {
 public:
     static int32 getInt(int32 min, int32 max) {
@@ -37,5 +39,7 @@ private:
     }
 };
 
+
+} // namespace core
 
 #endif //ATHENA_RANDOMUTIL_H

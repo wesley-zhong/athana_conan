@@ -3,3 +3,7 @@
 //
 
 #include "EventTrigger.h"
+
+namespace transport {
+
+} // namespace transport

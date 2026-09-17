@@ -3,6 +3,8 @@
 #include <memory> // For std::unique_ptr
 #include <thread> // For std::thread
 
+namespace core {
+
 //  SequenceBarrier implementation (Single)
 
 class SingleSequenceBarrier
@@ -89,3 +91,5 @@ private:
         return sequence_.load() == barrier_.load();
     }
 };
+
+} // namespace core

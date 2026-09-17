@@ -14,8 +14,10 @@
 #include "core/common/Singleton.h"
 #include "core/utils/NetUtils.h"
 
+namespace discovery {
 
-class AthenaDiscovery : public Singleton<AthenaDiscovery> {
+
+class AthenaDiscovery : public core::Singleton<AthenaDiscovery> {
 public:
     AthenaDiscovery() {
     }
@@ -24,9 +26,9 @@ public:
         this->client = client;
     }
 
-    void setMySelfInfo(std::shared_ptr<NodeInfo> me) {
+    void setMySelfInfo(std::shared_ptr<core::NodeInfo> me) {
         mySelf = me;
-        std::string localIp = NetUtils::getLocalIPs()[0];
+        std::string localIp = core::NetUtils::getLocalIPs()[0];
         mySelf->service_id = mySelf->service_name + "/" + localIp + ":" + std::to_string(mySelf->port);
     }
 
@@ -37,9 +39,9 @@ public:
     void watchKeys(const std::vector<std::string> &keysm,
                    std::function<void(const std::string_view &, const std::string_view &)> watchKeysCB);
 
-    std::vector<std::unique_ptr<NodeInfo >> getServerNode(const std::string &key);
+    std::vector<std::unique_ptr<core::NodeInfo >> getServerNode(const std::string &key);
 
-    std::shared_ptr<NodeInfo> getMySelf() {
+    std::shared_ptr<core::NodeInfo> getMySelf() {
         return mySelf;
     }
 
@@ -49,7 +51,9 @@ public:
 
 private:
     AthenaEtcdClient *client;
-    std::shared_ptr<NodeInfo> mySelf;
+    std::shared_ptr<core::NodeInfo> mySelf;
 };
+
+} // namespace discovery
 
 #endif //ATHENA_DISCOVERY_H

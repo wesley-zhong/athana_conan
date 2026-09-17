@@ -7,6 +7,8 @@
 #include <memory>
 #include <thread>
 
+namespace core {
+
 
 void Tools::encrypt(char *buf, char *key) {
     char *p = buf;
@@ -161,3 +163,5 @@ int Tools::random(int begin, int end) {
 
     return value + begin;
 }
+
+} // namespace core

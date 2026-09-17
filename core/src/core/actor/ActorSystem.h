@@ -12,6 +12,8 @@
 
 #include "Actor.h"
 
+namespace core {
+
 namespace actor {
 
     // actor 注册与消息路由：
@@ -108,3 +110,5 @@ namespace actor {
 //      pa->execute([data](int hp) { data->setHp(hp); }, 100);      // 带参投递：参数跟在闭包后面
 //      actor::ActorSystem::instance().stopAll();                   // 进程退出前调用
 //  }
+
+} // namespace core

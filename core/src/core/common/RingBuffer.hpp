@@ -1,5 +1,7 @@
 
 #include <cstring>
+
+namespace core {
 template <typename T>
 class RingBuffer
 {
@@ -180,3 +182,5 @@ private:
     unsigned int head_;         // Index of the first element
     unsigned int tail_;         // Index of the element after the last element
 };
+
+} // namespace core

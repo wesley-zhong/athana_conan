@@ -3,6 +3,8 @@
 
 #include "concurrentqueue/concurrentqueue.h"
 
+namespace core {
+
 /*
 
 using namespace moodycamel;
@@ -45,5 +47,7 @@ public:
 private:
     moodycamel::ConcurrentQueue<T> mqueue;
 };
+
+} // namespace core
 
 #endif

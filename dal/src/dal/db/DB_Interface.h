@@ -1,5 +1,7 @@
 #pragma once
 
+namespace dal {
+
 class DBResult;
 class DB_Interface
 {
@@ -18,3 +20,5 @@ protected:
 	std::string m_ip;
 	unsigned int m_port;
 };
+
+} // namespace dal

@@ -3,6 +3,8 @@
 #include "llhttp.h"
 #include "ParseUrl.h"
 
+namespace core {
+
 // 
 struct HttpSettings : public llhttp_settings_t
 {
@@ -28,3 +30,5 @@ private:
 	ParseUrl m_url;
 };
 
+
+} // namespace core

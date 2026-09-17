@@ -4,6 +4,8 @@
 #include <sstream> 
 #include "Define.h"
 
+namespace core {
+
 #ifdef SYSTEM_WIN
 	#include <io.h>
 	#include <direct.h>
@@ -182,3 +184,5 @@ int XFile::listFiles(const char * dir, std::vector<std::string> & vec_file)
 
 	return 0;
 }
+
+} // namespace core

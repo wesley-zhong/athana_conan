@@ -5,7 +5,7 @@
 #include "LoginService.h"
 #include "core/log/XLog.h"
 
-void LoginService::onPlayerLogin(Channel* channel, InnerLoginRequest* req)
+void LoginService::onPlayerLogin(transport::Channel* channel, InnerLoginRequest* req)
 {
     Player* existPlayer = playerMgr->getPlayer(req->roleid());
     if (existPlayer != nullptr)
@@ -42,7 +42,7 @@ void LoginService::onPlayerDisconnect(uint64 playerId, InnerPlayerDisconnectRequ
         INFO_LOG("player id ={} disconnected not founded", playerId);
         return;
     }
-    Channel* playerChannel = existPlayer->getChannel();
+    transport::Channel* playerChannel = existPlayer->getChannel();
     if (playerChannel == nullptr)
     {
         INFO_LOG("player id = {}   disconnected", playerId);

@@ -10,9 +10,9 @@
 
 class PlayerLoginHandler {
 public:
-    static void onLoginRes(Channel *channel, LoginResponse *res);
+    static void onLoginRes(transport::Channel *channel, LoginResponse *res);
 
-    static void onHeartBeat(Channel *channel, HeartBeatResponse *res);
+    static void onHeartBeat(transport::Channel *channel, HeartBeatResponse *res);
 };
 
 #endif

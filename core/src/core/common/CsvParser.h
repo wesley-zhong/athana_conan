@@ -1,8 +1,11 @@
 #ifndef CSVPARSER_H_
 #define CSVPARSER_H_
 #include <string>
+
 # include <sstream>
 #include <vector>
+
+namespace core {
 
 class CsvRow
 {
@@ -55,4 +58,6 @@ private:
 	std::vector<std::string> _header;
 	std::vector<CsvRow> _content;
 };
+} // namespace core
+
 #endif

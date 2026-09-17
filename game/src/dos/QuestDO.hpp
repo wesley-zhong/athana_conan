@@ -9,7 +9,7 @@
 #include "dal/mongodb/BsonSerializable .h"
 #include "core/common/BaseType.h"
 
-class QuestDO : public BsonSerializable
+class QuestDO : public dal::BsonSerializable
 {
 public:
     int64_t _id;

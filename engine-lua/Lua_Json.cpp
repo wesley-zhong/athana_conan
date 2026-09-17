@@ -2,7 +2,7 @@
 #include "core/utils/Json.h"
 #include "core/utils/JsonReader.h"
 
-using namespace jwEngine;
+using namespace core::jwEngine;
 
 JValue * json_to_value(JBaseObj * obj)
 {
@@ -25,9 +25,9 @@ void luabind_json(sol::state & lua)
 	lua["json_to_value"] = &json_to_value;
 	lua["json_to_array"] = &json_to_array;
 	lua["json_to_obj"] = &json_to_obj;
-	lua["json_parser"] = &JsonReader::parser;
-	lua["json_error"] = &JsonReader::getError;
-	lua["json_write"] = &JsonReader::write;
+	lua["json_parser"] = &core::jwEngine::JsonReader::parser;
+	lua["json_error"] = &core::jwEngine::JsonReader::getError;
+	lua["json_write"] = &core::jwEngine::JsonReader::write;
 
 	lua.new_usertype<JBaseObj>("JBaseObj",
 		"type", &JBaseObj::type);

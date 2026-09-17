@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <new>
 
+namespace core {
+
 RingByteBuf::RingByteBuf(size_t capacity)
 {
     // 防止 capacity + 1 溢出：上取整末尾的 n + 1 会回绕为 0，导致 cap_=0、mask_=SIZE_MAX，
@@ -215,3 +217,5 @@ void RingByteBuf::je_free(void* ptr)
     std::free(ptr);
 #endif
 }
+
+} // namespace core

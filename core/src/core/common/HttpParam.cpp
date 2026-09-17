@@ -4,6 +4,8 @@
 #include <map>
 #include "HttpParam.h"
 
+namespace core {
+
 HttpParam::HttpParam(std::string_view str_v, char cut)
 {
 	std::vector<std::string_view> equal;
@@ -56,3 +58,5 @@ float HttpParam::getFloat(std::string_view key)
 	std::string sf(params[key]);
 	return std::stof(sf);
 }
+
+} // namespace core

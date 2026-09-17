@@ -1,10 +1,10 @@
 #include "sol/sol.hpp"
 
 #include "hiredis/hiredis.h"
-#include "dal/db/DB_Interface_redis.h"
-#include "dal/db/RedisResult.h"
+#include "dal/redis/DB_Interface_redis.h"
+#include "dal/redis/RedisResult.h"
 #include "dal/db/DBThreadPool.h"
-#include "dal/db/RedisCommand.h"
+#include "dal/redis/RedisCommand.h"
 class Lua_Redis
 {
 public:
@@ -70,7 +70,7 @@ private:
 class Lua_RedisResult
 {
 public:
-	Lua_RedisResult(std::shared_ptr<RedisResult> result):
+	Lua_RedisResult(std::shared_ptr<dal::RedisResult> result):
 		m_result(result)
 	{
 
@@ -103,14 +103,14 @@ public:
 	}
 
 private:
-	std::shared_ptr<RedisResult> m_result;
+	std::shared_ptr<dal::RedisResult> m_result;
 };
 
 class Lua_RedisCommand
 {
 public:
 	Lua_RedisCommand(const char * cmd):
-		m_command(new RedisCommand(cmd))
+		m_command(new dal::RedisCommand(cmd))
 	{
 		
 	}
@@ -128,12 +128,12 @@ public:
 	void pushString(std::string value) { m_command->pushString(value); }
 	void pushData(std::string sv) { m_command->pushData(sv); }
 
-	void addToPool(DBThreadPool * pool, std::function<void(int32, const char* , Lua_RedisResult *)> backfunc)
+	void addToPool(dal::DBThreadPool * pool, std::function<void(int32, const char* , Lua_RedisResult *)> backfunc)
 	{
-		auto dbTask = new DBRedisTask(m_command, std::unique_ptr<RedisResult>());
+		auto dbTask = new dal::DBRedisTask(m_command, std::unique_ptr<dal::RedisResult>());
 
 		// back func
-		dbTask->backfunc = [backfunc](int32 errno_, const char * err, std::shared_ptr<RedisResult> result) {
+		dbTask->backfunc = [backfunc](int32 errno_, const char * err, std::shared_ptr<dal::RedisResult> result) {
 
 			if (backfunc != nullptr)
 			{
@@ -145,7 +145,7 @@ public:
 	}
 
 private:
-	std::shared_ptr<RedisCommand> m_command;
+	std::shared_ptr<dal::RedisCommand> m_command;
 };
 
 void luabind_redis(sol::state & lua)

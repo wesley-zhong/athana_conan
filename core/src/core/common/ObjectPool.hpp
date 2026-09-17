@@ -11,6 +11,8 @@
 #include <new>
 #include "../log/XLog.h"
 
+namespace core {
+
 // 对象池生命周期契约：
 // - acquire：命中空闲链时先 std::destroy_at 结束旧实例，再原地构造新实例；未命中直接 new。
 // - release：只把对象归还空闲链，不析构。
@@ -284,3 +286,5 @@ namespace ObjPool {
         }
     };
 }
+
+} // namespace core

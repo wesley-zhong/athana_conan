@@ -8,6 +8,8 @@
 #include "AthenaTcpServer.h"
 #include "IdleStateHandler.h"
 
+namespace transport {
+
 void async_accept_cb(uv_async_t* handler)
 {
     EventLoop* event_loop = static_cast<EventLoop*>(handler->data);
@@ -261,3 +263,5 @@ void EventLoop::startHeartbeatTimer(Channel* channel)
         ERR_LOG("XXXXXXXXX  uv_timer_start erro ret ={}", erro);
     }
 }
+
+} // namespace transport

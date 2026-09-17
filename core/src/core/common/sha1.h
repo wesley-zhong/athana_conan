@@ -1,6 +1,8 @@
 #ifndef _SHA1_H_
 #define _SHA1_H_
 
+namespace core {
+
 class SHA1
 {
 
@@ -62,5 +64,7 @@ private:
 	bool Corrupted;            // Is the message digest corruped?
 
 };
+
+} // namespace core
 
 #endif

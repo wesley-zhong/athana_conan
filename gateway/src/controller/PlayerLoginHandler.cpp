@@ -7,19 +7,19 @@
 #include "discovery/PeerConn.h"
 #include "core/utils/snowflake.h"
 
-void PlayerLoginHandler::onInnerLoginRes(Channel *channel, InnerLoginResponse *res) {
+void PlayerLoginHandler::onInnerLoginRes(transport::Channel *channel, InnerLoginResponse *res) {
     INFO_LOG("----- on login res ={}", res->roleid(), res->sid());
 }
 
-void PlayerLoginHandler::onLoginReq(Channel *channel, LoginRequest *req) {
+void PlayerLoginHandler::onLoginReq(transport::Channel *channel, LoginRequest *req) {
     INFO_LOG("----- on login req ={}", req->roleid());
     auto it = new InnerLoginRequest(); // this may be use obj pool
     it->set_roleid(req->roleid());
-    it->set_sid(Snowflake::nextId());
-    PeerConn::sendMsg(SRV_TYPE_GAME, INNER_TO_GAME_LOGIN_REQ, it);
+    it->set_sid(core::Snowflake::nextId());
+    discovery::PeerConn::sendMsg(core::SRV_TYPE_GAME, INNER_TO_GAME_LOGIN_REQ, it);
 }
 
-void PlayerLoginHandler::onHeartBeat(Channel *channel, HeartBeatRequest *req) {
+void PlayerLoginHandler::onHeartBeat(transport::Channel *channel, HeartBeatRequest *req) {
     auto res = std::make_shared<HeartBeatResponse>();
     res->set_servertime(7567);
     channel->sendMsg(HEART_BEAT_RESPONSE, res);

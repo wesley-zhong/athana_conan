@@ -2,6 +2,8 @@
 #include "ParseUrl.h"
 #include "http_parser.h"
 
+namespace core {
+
 
 ParseUrl::ParseUrl()
 {
@@ -37,3 +39,5 @@ std::string_view ParseUrl::getParam()
 {
 	return std::string_view(m_buff + m_url->field_data[UF_QUERY].off, m_url->field_data[UF_QUERY].len);
 }
+
+} // namespace core

@@ -4,6 +4,8 @@
 #include "Dispatcher.h"
 #include "core/log/XLog.h"
 
+namespace transport {
+
 void Dispatcher::processMsg(int msgId, int64_t playerId,Channel* channel, const void *body, int len) {
     auto func = msgMap[msgId];
     if (func == nullptr) {
@@ -12,3 +14,5 @@ void Dispatcher::processMsg(int msgId, int64_t playerId,Channel* channel, const 
     }
    // func->msgFunction(playerId, channel, body, len);
 }
+
+} // namespace transport

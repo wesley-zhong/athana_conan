@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+namespace core {
+
 class XFile
 {
 public:
@@ -23,3 +25,5 @@ public:
 	static int listFiles(const char * dir, std::vector<std::string> & vec_file);
 };
 
+
+} // namespace core

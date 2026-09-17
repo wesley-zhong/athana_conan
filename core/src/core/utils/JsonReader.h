@@ -2,6 +2,8 @@
 
 #include <string>
 
+namespace core {
+
 namespace jwEngine
 {
 	class JBaseObj;
@@ -46,3 +48,5 @@ namespace jwEngine
 		static JBaseObj * reader(JsonBuff * buff);
 	};
 }
+
+} // namespace core

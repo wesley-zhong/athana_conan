@@ -12,11 +12,11 @@ public:
     static void registMsgHandler();
 
 private:
-    static void onInnerLoginRes(Channel *channel, InnerLoginResponse *res);
+    static void onInnerLoginRes(transport::Channel *channel, InnerLoginResponse *res);
 
-    static void onLoginReq(Channel *channel, LoginRequest *req);
+    static void onLoginReq(transport::Channel *channel, LoginRequest *req);
 
-    static void onHeartBeat(Channel *channel, HeartBeatRequest *res);
+    static void onHeartBeat(transport::Channel *channel, HeartBeatRequest *res);
 };
 
 #endif

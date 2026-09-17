@@ -2,7 +2,7 @@
 #define GAME_ROLE_HPP_
 #include "core/common/ObjectPool.hpp"
 #include "core/log/XLog.h"
-class Player :public  ObjPool::PoolObjClass<Player>
+class Player :public  core::ObjPool::PoolObjClass<Player>
 {
 private:
    uint32_t  pid;

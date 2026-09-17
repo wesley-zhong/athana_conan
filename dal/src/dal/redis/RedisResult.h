@@ -2,9 +2,11 @@
 
 #include "core/log/XLog.h"
 #include "core/common/BaseType.h"
-#include "DBResult.h"
+#include "../db/DBResult.h"
 #include "hiredis/hiredis.h"
 #include <string>
+
+namespace dal {
 
 // class BasePacket;
 // struct redisReply;
@@ -49,4 +51,6 @@ private:
 	redisReply * m_reply;
 	uint32 pos;
 };
+
+} // namespace dal
 

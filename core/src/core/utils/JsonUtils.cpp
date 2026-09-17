@@ -4,6 +4,8 @@
 
 #include "JsonUtils.h"
 
+namespace core {
+
 bool JsonUtils::DeserializeNodeInfo(const std::string &jsonStr, NodeInfo &node) {
     rapidjson::Document doc;
     if (doc.Parse(jsonStr.c_str()).HasParseError()) {
@@ -78,3 +80,5 @@ std::string JsonUtils::SerializeNodeInfo( NodeInfo*node) {
     return buffer.GetString();
 
 }
+
+} // namespace core

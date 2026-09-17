@@ -9,6 +9,8 @@
 #include <unordered_map>
 #include <vector>
 
+namespace core {
+
 enum ServerType {
     SRV_TYPE_LOGIN = 1,
     SRV_TYPE_GATE,
@@ -28,5 +30,7 @@ struct NodeInfo {
     std::unordered_map<std::string, std::string> meta_data;
     int64_t keep_alive_lease_id;
 };
+
+} // namespace core
 
 #endif //ATHENA_NODEINFO_H

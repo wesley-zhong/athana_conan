@@ -3,3 +3,7 @@
 //
 
 #include "Encoder.h"
+
+namespace transport {
+
+} // namespace transport

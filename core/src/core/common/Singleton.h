@@ -2,6 +2,8 @@
 #ifndef SRC_UTILS_SINGLETON_H_
 #define SRC_UTILS_SINGLETON_H_
 
+namespace core {
+
 template <class T>
 class Singleton
 {
@@ -21,5 +23,7 @@ protected:
     Singleton &operator=(Singleton const &) {}
 };
 template <class T> T* Singleton<T> ::_instance = new T();
+} // namespace core
+
 #endif // SRC_UTILS_SINGLETON_H_
 

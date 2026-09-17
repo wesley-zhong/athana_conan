@@ -37,11 +37,11 @@ int main(int argc, char **argv) {
     std::signal(SIGTERM, handleSignal);
     std::signal(SIGINT, handleSignal);
 
-    xLogInitLog(LogLevel::LL_INFO, "../logs/client.log");
+    core::xLogInitLog(core::LogLevel::LL_INFO, "../logs/client.log");
 
     ClientNetWorkHandler::initAllMsgRegister();
     ClientNetWorkHandler::startThread(2);
-    TcpClient tcp_client;
+    transport::TcpClient tcp_client;
     tcp_client.setChannelIdleTime(3000, 5000);
     tcp_client.onConnected = ClientNetWorkHandler::onConnect;
     tcp_client.onRead = ClientNetWorkHandler::onMsg;

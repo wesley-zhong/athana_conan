@@ -5,13 +5,13 @@
 
 #include <string>
 #include "MysqlResult.h"
-#include  "RedisResult.h"
+#include  "../redis/RedisResult.h"
 #include "DB_Interface_mysql.h"
 #include "hiredis/hiredis.h"
-#include "DB_Interface_redis.h"
+#include "../redis/DB_Interface_redis.h"
 #include "dal/mongodb/MongClientManager.h"
 
-namespace Dal {
+namespace dal {
     template<typename T>
     T *initDB(const char *host, unsigned int port, const char *dbname, const char *user, const char *pswd
     ) {

@@ -7,6 +7,8 @@
 
 #include <vector>
 
+namespace core {
+
 namespace actor {
 
     ActorSystem &ActorSystem::instance() {
@@ -47,3 +49,5 @@ namespace actor {
     }
 
 }
+
+} // namespace core

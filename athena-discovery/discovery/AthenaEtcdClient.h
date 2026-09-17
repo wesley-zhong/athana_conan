@@ -21,6 +21,8 @@
 #include "etcd/v3/Transaction.hpp"
 #include "etcd/v3/action_constants.hpp"
 
+namespace discovery {
+
 class AthenaEtcdClient {
 public:
     AthenaEtcdClient(std::string ip);
@@ -60,5 +62,7 @@ private:
     std::atomic<bool> monitorRunning{false};
 };
 
+
+} // namespace discovery
 
 #endif //ATHENA_ATHENAETCDCLIENT_H

@@ -1,6 +1,7 @@
 #ifndef ATHENA_RINGBYTEBUF_H
 #define ATHENA_RINGBYTEBUF_H
 
+
 #pragma once
 
 #include <cstdint>
@@ -10,6 +11,8 @@
 #include <mutex>
 #include <memory>
 #include <stdexcept>
+
+namespace core {
 
 // RingByteBuf: SPSC (Single-Producer Single-Consumer) 场景下高效的环形字节缓冲区。
 // - 容量强制/自动调整为 2 的幂次方，使用位运算（& mask）替代取模（% cap）。
@@ -77,5 +80,7 @@ private:
     std::atomic<size_t> head_{0};     // 读索引
     std::atomic<size_t> tail_{0};     // 写索引
 };
+
+} // namespace core
 
 #endif // ATHENA_RINGBYTEBUF_H

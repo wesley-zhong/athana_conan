@@ -3,6 +3,9 @@
 #include <string_view>
 
 struct http_parser_url;
+
+namespace core {
+
 class ParseUrl
 {
 public:
@@ -18,3 +21,5 @@ private:
 	struct http_parser_url * m_url;
 	const char * m_buff;
 };
+
+} // namespace core

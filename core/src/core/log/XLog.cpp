@@ -3,6 +3,8 @@
 #include "spdlog/async.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/sinks/rotating_file_sink.h"
+
+namespace core {
 //spdlog::logger *pSpdLog = nullptr;
 void xLogInitLog(LogLevel logLevel, const std::string &logFileName)
 {
@@ -42,3 +44,5 @@ void xLogInitLog(LogLevel logLevel, const std::string &logFileName)
 	spdlog::flush_every(std::chrono::seconds(3));
 	// spdlog::set_pattern("[%H:%M:%S %z] [%n] [%^---%L---%$] [thread %t] %v");
 }
+
+} // namespace core

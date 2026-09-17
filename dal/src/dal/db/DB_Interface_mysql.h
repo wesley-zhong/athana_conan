@@ -6,6 +6,8 @@
 class MysqlResult;
 class SqlPrepare;
 
+namespace dal {
+
 class DBInterfaceMysql : public DB_Interface {
 public:
     DBInterfaceMysql(const char *host, unsigned int port, const char *dbname, const char *user, const char *pswd = "");
@@ -42,6 +44,8 @@ namespace MySQL {
     void libraryEnd();
 
     char const *getLibraryVersion();
-};
+}
+
+} // namespace dal
 
 #endif

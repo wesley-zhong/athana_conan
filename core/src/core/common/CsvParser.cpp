@@ -2,6 +2,8 @@
 #include <fstream>
 #include "../log/XLog.h"
 
+namespace core {
+
 
 CsvParser::CsvParser(const char * file, int startline, char sep) :
 	_sep(sep)
@@ -69,3 +71,5 @@ int CsvParser::row()
 {
 	return _content.size();
 }
+
+} // namespace core

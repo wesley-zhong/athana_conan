@@ -7,6 +7,8 @@
 * @version   0.1
 ************************************************************************/
 
+namespace core {
+
 class HttpParam
 {
 public:
@@ -23,3 +25,5 @@ private:
 	std::map<std::string_view, std::string_view> params;
 };
 
+
+} // namespace core

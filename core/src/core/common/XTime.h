@@ -7,11 +7,14 @@
 #include "Platform.h"
 #include "BaseType.h"
 
+
 #ifdef SYSTEM_WIN
 #include <Windows.h>
 #else
 #include <sys/time.h>
 #endif // SYSTEM_WIN
+
+namespace core {
 
 
 class XTime
@@ -38,5 +41,7 @@ public:
 
 	static uint32 iclock();
 };
+
+} // namespace core
 
 #endif

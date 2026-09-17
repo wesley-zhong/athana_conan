@@ -16,23 +16,23 @@ void GatewayServerNetWorkHandler::initAllMsgRegister() {
 }
 
 void GatewayServerNetWorkHandler::startLogicThread(int threadNum) {
-    auto &sys = actor::ActorSystem::instance();
+    auto &sys = core::actor::ActorSystem::instance();
     for (int i = 0; i < threadNum; ++i) {
-        if (actor::Actor *a = sys.spawn<actor::Actor>("gateway-logic-" + std::to_string(i))) {
+        if (core::actor::Actor *a = sys.spawn<core::actor::Actor>("gateway-logic-" + std::to_string(i))) {
             logicActors.push_back(a->id());
         }
     }
 }
 
-void GatewayServerNetWorkHandler::onConnect(Channel *channel) {
+void GatewayServerNetWorkHandler::onConnect(transport::Channel *channel) {
     INFO_LOG("++++++++  on new connection ={}", channel->getAddr());
 }
 
 //|---4 msgLen|----4 msgId|-----4 playeId |------ 4 crc| ------ body|
-void GatewayServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
+void GatewayServerNetWorkHandler::onMsg(transport::Channel *channel, void *buff, int len) {
     uint8 *data = static_cast<uint8 *>(buff);
     data = data + 4;
-    int msgId = ByteUtils::readInt32(data);
+    int msgId = transport::ByteUtils::readInt32(data);
     int playerId = 0;
     len -= 8;
 
@@ -46,7 +46,7 @@ void GatewayServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     INFO_LOG("=== on read   channel ={} len ={} msgId={}", channel->getAddr(), len, msgId);
 
     //first check all msg_id valid
-    MsgFunction *msg_function = Dispatcher::Instance()->findMsgFuncion(msgId);
+    transport::MsgFunction *msg_function = transport::Dispatcher::Instance()->findMsgFuncion(msgId);
     if (msg_function == nullptr) {
         proxyMsgToGame(channel, (char *) buff, len);
         ERR_LOG(" msgId ={} not found process function", msgId);
@@ -54,26 +54,26 @@ void GatewayServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     }
 
     void *msg = msg_function->parseParam((char *) data + 4, len);
-    actor::ActorSystem::instance().execute(logicActors[2 % logicActors.size()],
+    core::actor::ActorSystem::instance().execute(logicActors[2 % logicActors.size()],
                                            [playerId, msg_function, channel, msg]() {
                                                msg_function->invoke(playerId, channel, msg);
                                            });
 }
 
 
-void GatewayServerNetWorkHandler::onClosed(Channel *channel) {
+void GatewayServerNetWorkHandler::onClosed(transport::Channel *channel) {
     INFO_LOG("connection ={}  closed ", channel->getAddr());
 
 }
 
-void GatewayServerNetWorkHandler::onEventTrigger(Channel *channel, TriggerEventEnum reason) {
-    if (reason == READ_IDLE) {
+void GatewayServerNetWorkHandler::onEventTrigger(transport::Channel *channel, transport::TriggerEventEnum reason) {
+    if (reason == transport::READ_IDLE) {
         INFO_LOG("========== onEventTrigger ={}    READ_IDLE  should close it  ", channel->getAddr());
         channel->close();
     }
 }
 
-void GatewayServerNetWorkHandler::proxyMsgToGame(Channel *channel, char *buff, int len) {
+void GatewayServerNetWorkHandler::proxyMsgToGame(transport::Channel *channel, char *buff, int len) {
 }
 
 

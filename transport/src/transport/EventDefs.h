@@ -7,6 +7,8 @@
 #include "core/common/BaseType.h"
 #include "ByteUtils.h"
 
+namespace transport {
+
 enum TriggerEventEnum {
     READ_IDLE,
     WRITE_IDLE,
@@ -65,5 +67,7 @@ struct InnerPktHeader {
 };
 
 
+
+} // namespace transport
 
 #endif //ATHENA_EVENTDEFS_H

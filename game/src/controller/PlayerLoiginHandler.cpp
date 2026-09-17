@@ -11,7 +11,7 @@ void PlayerLoginHandler::registMsgHandler() {
 }
 
 
-void PlayerLoginHandler::onInnerLogin(Channel *channel, InnerLoginRequest *request) {
+void PlayerLoginHandler::onInnerLogin(transport::Channel *channel, InnerLoginRequest *request) {
     INFO_LOG(" ON INNER LOGIN sid = {} roleId ={} channel ={}", request->sid(), request->roleid(),
              channel->getAddr());
 

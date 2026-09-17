@@ -10,6 +10,8 @@
 #include "core/common/XTime.h"
 #include "core/common/XAssert.h"
 
+namespace core {
+
 // Twitter Snowflake 雪花算法
 //
 // 64 bit ID 布局:
@@ -106,5 +108,7 @@ private:
     int64 sequence_;
     std::mutex mutex_;
 };
+
+} // namespace core
 
 #endif //ATHENA_SNOWFLAKE_H

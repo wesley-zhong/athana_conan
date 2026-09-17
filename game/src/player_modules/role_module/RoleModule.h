@@ -16,7 +16,7 @@ class Player;
 class RoleModule : public Module<RoleDO>
 {
 public:
-    explicit RoleModule(Player* player) : Module(player, Dal::DAO<RoleDAO>())
+    explicit RoleModule(Player* player) : Module(player, dao_), dao_()
     {
     }
 
@@ -25,6 +25,9 @@ public:
     void onLogin() override;
 
     void onLogout() override;
+
+private:
+    RoleDAO dao_;
 };
 
 

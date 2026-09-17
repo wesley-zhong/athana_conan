@@ -6,7 +6,9 @@
 #include "core/log/XLog.h"
 #include "core/common/RandomUtil.h"
 
-void PeerConn::saveNode(std::unique_ptr<NodeInfo> nodeInfo) {
+namespace discovery {
+
+void PeerConn::saveNode(std::unique_ptr<core::NodeInfo> nodeInfo) {
     if (!nodeInfo) return;
 
     const auto &serviceId = nodeInfo->service_id;
@@ -67,7 +69,7 @@ void PeerConn::removeNode(const std::string &nodeKey) {
     INFO_LOG("Successfully removed node: {}", nodeKey);
 }
 
-void PeerConn::saveNodeChannel(const std::string &serviceId, Channel *channel) {
+void PeerConn::saveNodeChannel(const std::string &serviceId, transport::Channel *channel) {
     if (serviceId.empty() || channel == nullptr) {
         return;
     }
@@ -95,7 +97,7 @@ void PeerConn::saveNodeChannel(const std::string &serviceId, Channel *channel) {
     }
 }
 
-Channel *PeerConn::getRandomChannel(const std::string &serviceId) {
+transport::Channel *PeerConn::getRandomChannel(const std::string &serviceId) {
     // 1. 查找节点
     auto it = node_id_nodes.find(serviceId);
     if (it == node_id_nodes.end()) {
@@ -117,7 +119,7 @@ Channel *PeerConn::getRandomChannel(const std::string &serviceId) {
     // 4. 生成随机索引
     // 使用 thread_local 保证随机数引擎在线程间安全且只初始化一次
 
-    int32 randomIndex = RandomUtil::getInt(0, channels.size());
+    int32 randomIndex = core::RandomUtil::getInt(0, channels.size());
 
     return channels[randomIndex];
 }
@@ -136,7 +138,9 @@ bool PeerConn::sendMsg(int serverType, int msgId, google::protobuf::Message *msg
 
 }
 
-bool PeerConn::sendMsg(Channel *channel, int msgId, google::protobuf::Message *msg) {
+bool PeerConn::sendMsg(transport::Channel *channel, int msgId, google::protobuf::Message *msg) {
     channel->sendMsg(msgId, msg);
     return true;
 }
+
+} // namespace discovery

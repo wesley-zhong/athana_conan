@@ -4,6 +4,8 @@
 #include <cstring>
 #include <type_traits>
 
+namespace core {
+
 // -----------------------------
 // 平台端序检测
 // -----------------------------
@@ -61,6 +63,7 @@ namespace Endian {
     inline uint16_t fromNetwork16(uint16_t v) { return swap16(v); }
     inline uint32_t fromNetwork32(uint32_t v) { return swap32(v); }
     inline uint64_t fromNetwork64(uint64_t v) { return swap64(v); }
+
 #endif
 
     // =============================
@@ -84,3 +87,5 @@ namespace Endian {
         return value;
     }
 }
+
+} // namespace core

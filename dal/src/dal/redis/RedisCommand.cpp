@@ -4,6 +4,7 @@
 #include <cstring>
 #include "RedisCommand.h"
 
+namespace dal {
 
 RedisCommand::RedisCommand(const char *cmd)
 {
@@ -94,3 +95,4 @@ const char * RedisCommand::tostr()
 	const char * ret = (const char *)(m_param[0].data());
 	return ret;
 }
+} // namespace dal

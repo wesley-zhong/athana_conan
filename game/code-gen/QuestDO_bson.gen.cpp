@@ -5,7 +5,7 @@
 bsoncxx::document::value QuestDO::toBson() const {
     bsoncxx::builder::stream::document doc{};
     {
-        auto __view = BsonSerializable::toBson().view();
+        auto __view = dal::BsonSerializable::toBson().view();
         for (auto&& e : __view) {
             doc << e.key() << e.get_value();
         }
@@ -17,7 +17,7 @@ bsoncxx::document::value QuestDO::toBson() const {
 }
 
 void QuestDO::fromBson(bsoncxx::document::view v) {
-    BsonSerializable::fromBson(v);
+    dal::BsonSerializable::fromBson(v);
     if (auto e = v["_id"])
         _id = e.get_int64();
     // unsupported field type: std::vector<int64_t> questIdsFinished

@@ -8,6 +8,8 @@
 #include "EventLoop.h"
 #include "core/common/ObjectPool.hpp"
 
+namespace transport {
+
 void Channel::onRead(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf) {
     if (nread > 0) {
         recv_buffer->advanceWriteIndex(nread);
@@ -105,7 +107,7 @@ void Channel::doUvSend() {
     auto *req = new uv_write_t;
     uv_buf_t buf = uv_buf_init((char *) sendPtr, needSendLen);
 
-    WritePack *write_pack = ObjPool::GetPool<WritePack>().acquirePtr();//new WritePack();
+    WritePack *write_pack = core::ObjPool::GetPool<WritePack>().acquirePtr();//new WritePack();
     write_pack->_channel = this;
     write_pack->sendSize = needSendLen;
     req->data = write_pack;
@@ -129,7 +131,7 @@ void Channel::doUvSend() {
                  }
 
                  // 4. 无论成功与否，必须释放本次请求相关的内存
-                 ObjPool::GetPool<WritePack>().release(write_pack);
+                 core::ObjPool::GetPool<WritePack>().release(write_pack);
                  free(req1);
              });
 }
@@ -155,12 +157,12 @@ std::string Channel::getAddrString(const struct sockaddr_storage &addr) {
     if (addr.ss_family == AF_INET) {
         struct sockaddr_in *addr4 = (struct sockaddr_in *) &addr;
         uv_ip4_name(addr4, ip, sizeof(ip));
-        port = Endian::fromNetwork16(addr4->sin_port);
+        port = core::Endian::fromNetwork16(addr4->sin_port);
         ss << ip << ":" << port;
     } else if (addr.ss_family == AF_INET6) {
         struct sockaddr_in6 *addr6 = (struct sockaddr_in6 *) &addr;
         uv_ip6_name(addr6, ip, sizeof(ip));
-        port = Endian::fromNetwork16(addr6->sin6_port);
+        port = core::Endian::fromNetwork16(addr6->sin6_port);
         ss << ip << ":" << port;
     } else {
         fprintf(stderr, "Unknown address family\n");
@@ -180,3 +182,5 @@ uint64_t Channel::nowTime() {
 char *Channel::getEventPackBuff(int needLen) {
     return _eventLoop->getPacketBuff(needLen);
 }
+
+} // namespace transport

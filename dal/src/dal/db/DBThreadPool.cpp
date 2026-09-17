@@ -3,11 +3,12 @@
 #include "mysql.h"
 #include "DB_Interface_mysql.h"
 #include "hiredis/hiredis.h"
-#include "DB_Interface_redis.h"
+#include "../redis/DB_Interface_redis.h"
 #include "SqlPrepare.h"
 #include <functional>
 #include "DBThreadPool.h"
 
+namespace dal {
 
 DBTask::DBTask()
 {
@@ -177,3 +178,5 @@ const DBConfig *DBThreadPool::getConfig()
 {
 	return &m_config;
 }
+
+} // namespace dal

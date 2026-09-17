@@ -3,11 +3,11 @@
 #include <string>
 #include "core/common/BaseType.h"
 
-class Lua_CsvParser : public CsvParser
+class Lua_CsvParser : public core::CsvParser
 {
 public:
 	Lua_CsvParser(const char * file, int startline = 1, char sep = '\t'):
-		CsvParser(file, startline, sep)
+		core::CsvParser(file, startline, sep)
 	{
 	
 	}
@@ -28,7 +28,7 @@ public:
 
 void luabind_csvpar(sol::state & lua)
 {
-	lua.new_usertype<Lua_CsvParser>("CsvParser",
+	lua.new_usertype<Lua_CsvParser>("core::CsvParser",
 		sol::constructors<Lua_CsvParser(const char *, int, char)>(),
 		"getInt8", &Lua_CsvParser::getInt8,
 		"getUint8", &Lua_CsvParser::getUint8,

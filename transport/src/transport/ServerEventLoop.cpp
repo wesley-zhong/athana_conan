@@ -4,6 +4,8 @@
 
 #include "ServerEventLoop.h"
 
+namespace transport {
+
 void uv_on_new_connection(uv_stream_t *server, int status) {
     if (status < 0) {
         ERR_LOG("Accept error:{}", uv_strerror(status));
@@ -59,3 +61,5 @@ void ServerEventLoop::run() {
     INFO_LOG("#### server  bind socket port ={}", bindPort);
     doRun();
 }
+
+} // namespace transport

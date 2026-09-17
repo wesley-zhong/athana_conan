@@ -6,6 +6,8 @@
 #include "NetInterface.h"
 #include "EventDefs.h"
 #include "Channel.h"
+
+namespace transport {
 void IdleStateHandler::onTimer(Channel *channel, uint64 now) {
     if (max_write_idle_time > 0) {
         if (channel->last_send_time + max_write_idle_time < now) {
@@ -23,3 +25,5 @@ void IdleStateHandler::onTimer(Channel *channel, uint64 now) {
 void IdleStateHandler::triggerEvent(Channel *channel, TriggerEventEnum reason) {
     netInterface->triggerEvent(channel, reason);
 }
+
+} // namespace transport

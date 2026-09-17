@@ -7,6 +7,8 @@
 
 #include "core/log/XLog.h"
 
+namespace discovery {
+
 
 void AthenaDiscovery::keepAlive(const std::string &key, const std::string &value) {
     client->keepAlive(key, value);
@@ -18,18 +20,20 @@ void AthenaDiscovery::watchKeys(const std::vector<std::string> &keys,
 }
 
 void AthenaDiscovery::registerServer() {
-    std::string jsonStr = JsonUtils::SerializeNodeInfo(mySelf.get());
+    std::string jsonStr = core::JsonUtils::SerializeNodeInfo(mySelf.get());
     keepAlive(mySelf->service_id, jsonStr);
 }
 
-std::vector<std::unique_ptr<NodeInfo >> AthenaDiscovery::getServerNode(const std::string &key) {
+std::vector<std::unique_ptr<core::NodeInfo >> AthenaDiscovery::getServerNode(const std::string &key) {
     std::map<std::string, std::string> keyValues = client->getPrefix(key);
-    std::vector<std::unique_ptr<NodeInfo >> nodeVec;
+    std::vector<std::unique_ptr<core::NodeInfo >> nodeVec;
     for (const auto &[key, value]: keyValues) {
-        auto nodeInfo = std::make_unique<NodeInfo>();
-        bool ret = JsonUtils::DeserializeNodeInfo(value, *nodeInfo);
+        auto nodeInfo = std::make_unique<core::NodeInfo>();
+        bool ret = core::JsonUtils::DeserializeNodeInfo(value, *nodeInfo);
         INFO_LOG("++++++++++++  GET KEY ={}  value ={}  parse ret ={}", key, value, ret);
         nodeVec.push_back(std::move(nodeInfo));
     }
     return nodeVec;
 }
+
+} // namespace discovery

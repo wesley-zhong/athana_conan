@@ -9,29 +9,29 @@
 #include "discovery/AthenaDiscovery.h"
 #include "discovery/PeerConn.h"
 
-void SystemMsgHandler::onShakHandReq(Channel *channel, InnerServerHandShakeReq *req) {
+void SystemMsgHandler::onShakHandReq(transport::Channel *channel, InnerServerHandShakeReq *req) {
     INFO_LOG("receive shake req hand msg ={} innherHeaderId = {}", channel->getAddr(), req->service_id());
-    auto shNodeInfo = std::make_unique<NodeInfo>();
+    auto shNodeInfo = std::make_unique<core::NodeInfo>();
     shNodeInfo->type = req->server_type();
     shNodeInfo->service_name = req->service_name();
     shNodeInfo->service_id = req->service_id();
 
-    PeerConn::saveNode(std::move(shNodeInfo));
-    PeerConn::saveNodeChannel(req->service_id(), channel);
+    discovery::PeerConn::saveNode(std::move(shNodeInfo));
+    discovery::PeerConn::saveNodeChannel(req->service_id(), channel);
 
     auto res = std::make_shared<InnerServerHandShakeRes>();
-    std::shared_ptr<NodeInfo> mySelf = AthenaDiscovery::Instance()->getMySelf();
+    std::shared_ptr<core::NodeInfo> mySelf = discovery::AthenaDiscovery::Instance()->getMySelf();
     res->set_service_id(mySelf->service_id);
     res->set_service_name(mySelf->service_name);
     channel->sendMsg(INNER_SERVER_HAND_SHAKE_RES, res);
 }
 
-void SystemMsgHandler::onShakHandResponse(Channel *channel, InnerServerHandShakeRes *res) {
+void SystemMsgHandler::onShakHandResponse(transport::Channel *channel, InnerServerHandShakeRes *res) {
     INFO_LOG("receive shake  reshand msg ={} innherHeaderId = {}", channel->getAddr(), res->service_id());
 }
 
 
-void SystemMsgHandler::onInnerHeartBeatReq(Channel *channel, InnerHeartBeatRequest *req) {
+void SystemMsgHandler::onInnerHeartBeatReq(transport::Channel *channel, InnerHeartBeatRequest *req) {
     auto res = std::make_shared<InnerHeartBeatResponse>();
     res->set_time(9999);
 
@@ -39,7 +39,7 @@ void SystemMsgHandler::onInnerHeartBeatReq(Channel *channel, InnerHeartBeatReque
     channel->sendMsg(INNER_HEART_BEAT_RES, res);
 }
 
-void SystemMsgHandler::onInnerHeartBeatRes(Channel *channel, InnerHeartBeatResponse *res) {
+void SystemMsgHandler::onInnerHeartBeatRes(transport::Channel *channel, InnerHeartBeatResponse *res) {
 }
 
 void SystemMsgHandler::registMsg() {

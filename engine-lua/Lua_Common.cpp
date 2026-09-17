@@ -15,11 +15,11 @@ public:
 void luabind_common(sol::state & lua)
 {
 	// file
-	lua["writeFile"] = &XFile::writeFile;
-	lua["isExist"] = &XFile::isExist;
-	lua["mkdir"] = &XFile::mkdir;
-	lua["rmdir"] = &XFile::rmdir;
-	lua["createDir"] = &XFile::createDirectory;
+	lua["writeFile"] = &core::XFile::writeFile;
+	lua["isExist"] = &core::XFile::isExist;
+	lua["mkdir"] = &core::XFile::mkdir;
+	lua["rmdir"] = &core::XFile::rmdir;
+	lua["createDir"] = &core::XFile::createDirectory;
 
 	// log
 	lua["infoLog"] = &Lua_XLog::info_log;
@@ -32,17 +32,17 @@ void luabind_common(sol::state & lua)
 //		"stop", &UTimer::stop);
 
 	// tool
-	lua["sleep"] = &Tools::sleep;
-	lua["gbk_utf8"] = &Tools::gbkToUtf8;
-	lua["utf8_gbk"] = &Tools::utf8ToGbk;
-	lua["srand"] = &Tools::srand;
-	lua["random"] = &Tools::random;
+	lua["sleep"] = &core::Tools::sleep;
+	lua["gbk_utf8"] = &core::Tools::gbkToUtf8;
+	lua["utf8_gbk"] = &core::Tools::utf8ToGbk;
+	lua["srand"] = &core::Tools::srand;
+	lua["random"] = &core::Tools::random;
 
 	// time
-	lua["isLeapYear"] = &XTime::isLeapYear;
-	lua["yearMonthDays"] = &XTime::yearMonthDays;
-	lua["milliStamp"] = &XTime::milliStamp;
-	lua["microStamp"] = &XTime::microStamp;
-	lua["stamp"] = &XTime::stamp;
-	lua["iclock"] = &XTime::iclock;
+	lua["isLeapYear"] = &core::XTime::isLeapYear;
+	lua["yearMonthDays"] = &core::XTime::yearMonthDays;
+	lua["milliStamp"] = &core::XTime::milliStamp;
+	lua["microStamp"] = &core::XTime::microStamp;
+	lua["stamp"] = &core::XTime::stamp;
+	lua["iclock"] = &core::XTime::iclock;
 }

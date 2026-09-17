@@ -2,6 +2,8 @@
 #define XLOG_H_
 #include "spdlog/spdlog.h"
 
+namespace core {
+
 #define LOG_MAX_SIZE 1073741824
 enum LogLevel
 {
@@ -17,5 +19,7 @@ void xLogInitLog(LogLevel logLevel, const std::string &fileName);
 #define INFO_LOG(...)  SPDLOG_INFO (__VA_ARGS__)
 #define WARN_LOG(...) SPDLOG_WARN(__VA_ARGS__)
 #define ERR_LOG(...) SPDLOG_ERROR(__VA_ARGS__)
+
+} // namespace core
 
 #endif

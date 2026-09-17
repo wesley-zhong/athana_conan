@@ -3,3 +3,7 @@
 //
 
 #include "Decoder.h"
+
+namespace transport {
+
+} // namespace transport

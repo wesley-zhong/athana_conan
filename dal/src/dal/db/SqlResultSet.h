@@ -3,6 +3,11 @@
 #include <stdio.h>
 #include <iostream>
 #include <cstring>
+#include <vector>
+#include "core/common/BaseType.h"
+#include "DBResult.h"
+
+namespace dal {
 
 class SqlField
 {
@@ -49,10 +54,6 @@ private:
 	int m_len;
 };
 
-#include <vector>
-#include "core/common/BaseType.h"
-#include "DBResult.h"
-
 class BasePacket;
 class SqlResultSet : public DBResult
 {
@@ -94,4 +95,6 @@ private:
 	int64 m_rowCount;
 	int32 m_fieldCount;
 };
+
+} // namespace dal
 

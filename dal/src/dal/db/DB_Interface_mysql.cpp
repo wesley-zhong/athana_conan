@@ -6,6 +6,8 @@
 #include "MysqlResult.h"
 #include "SqlPrepare.h"
 
+namespace dal {
+
 DBInterfaceMysql::DBInterfaceMysql(const char *host, unsigned int port, const char *dbname, const char *user,
                                    const char *pswd
 ) : DB_Interface(host, port) {
@@ -113,4 +115,6 @@ namespace MySQL {
     char const *getLibraryVersion() {
         return MYSQL_SERVER_VERSION;
     }
-};
+}
+
+} // namespace dal

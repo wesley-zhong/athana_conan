@@ -7,8 +7,8 @@
 #include <vector>
 #include "core/actor/ActorSystem.h"
 #include "transport/EventDefs.h"
-struct MsgFunction;
-class Channel;
+namespace transport { struct MsgFunction; }
+namespace transport { class Channel; }
 
 
 class GameServerNetWorkHandler {
@@ -17,14 +17,14 @@ public:
 
     static void startLogicThread(int threadNum);
 
-    static void onNewConnect(Channel *channel);
+    static void onNewConnect(transport::Channel *channel);
 
 
-    static void onMsg(Channel *channel, void *buff, int len);
+    static void onMsg(transport::Channel *channel, void *buff, int len);
 
-    static void onClosed(Channel *channel);
+    static void onClosed(transport::Channel *channel);
 
-    static void onEventTrigger(Channel *channel, TriggerEventEnum reason);
+    static void onEventTrigger(transport::Channel *channel, transport::TriggerEventEnum reason);
 
     static std::vector<uint64> logicActors; // 逻辑 actor id 列表，onMsg 按 hash 路由
 };

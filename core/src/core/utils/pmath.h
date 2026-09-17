@@ -1,5 +1,7 @@
 #ifndef PMATCH_H_
 #define PMATCH_H_
+
+namespace core {
 int nextPowerOfTwo(int x) {
   if (x == 0) return 1;
   x--;
@@ -11,4 +13,6 @@ int nextPowerOfTwo(int x) {
   x++;
   return x;
 }
+} // namespace core
+
 #endif

@@ -2,6 +2,10 @@
 #define _BASE64_H_
 #include <string>
 
+namespace core {
+
 std::string base64_encode(unsigned char const* , unsigned int len);
 std::string base64_decode(std::string const& s);
+} // namespace core
+
 #endif

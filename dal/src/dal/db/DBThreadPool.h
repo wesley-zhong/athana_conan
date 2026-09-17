@@ -4,6 +4,8 @@
 #include "core/actor/Actor.h"
 #include "core/common/ObjectPool.hpp"
 
+namespace dal {
+
 struct DBConfig {
     std::string device = "mysql"; // mysql or redis
     std::string ip = "local";
@@ -37,7 +39,7 @@ protected:
     std::string _error;
 };
 
-class DBSqlTask : public DBTask, public ObjPool::PoolObjClass<DBSqlTask> {
+class DBSqlTask : public DBTask, public core::ObjPool::PoolObjClass<DBSqlTask> {
 public:
     DBSqlTask(std::shared_ptr<SqlPrepare> pre, std::shared_ptr<SqlResultSet> result);
 
@@ -74,7 +76,7 @@ private:
 };
 
 // DB 线程 actor：一个 actor 一个线程 + 一条 DB 连接，该线程上的任务串行执行
-class DBThread : public actor::Actor {
+class DBThread : public core::actor::Actor {
 public:
     explicit DBThread(const DBConfig &config);
 
@@ -115,3 +117,5 @@ private:
     DBConfig m_config;
     std::vector<DBThread *> _threads;
 };
+
+} // namespace dal

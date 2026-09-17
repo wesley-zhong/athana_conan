@@ -7,6 +7,8 @@
 #include <iostream>
 #include "core/log/XLog.h"
 
+namespace discovery {
+
 using namespace etcd;
 
 // 构造函数：将 string_view 组合成连接字符串
@@ -161,3 +163,5 @@ std::map<std::string, std::string> AthenaEtcdClient::getKeysWithValues(std::stri
     }
     return result;
 }
+
+} // namespace discovery

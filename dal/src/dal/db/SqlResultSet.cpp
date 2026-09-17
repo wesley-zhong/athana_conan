@@ -2,6 +2,8 @@
 #include "SqlResultSet.h"
 #include "core/log/XLog.h"
 
+namespace dal {
+
 static void allocateResultBuffer(MYSQL_BIND* bind, MYSQL_FIELD* field)
 {
 	if (field)
@@ -308,3 +310,4 @@ std::string_view SqlResultSet::getStrview() // lua call
 	std::string_view val(field->data(), field->length());
 	return val;
 }
+} // namespace dal

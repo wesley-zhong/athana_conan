@@ -13,6 +13,8 @@ using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_array;
 using bsoncxx::builder::basic::make_document;
 
+namespace dal {
+
 class MongClientManager {
 public:
     static int init(const std::string &ip, const std::string &userName, const std::string &password);
@@ -21,6 +23,8 @@ public:
 
     static mongocxx::pool *pool;
 };
+
+} // namespace dal
 
 
 #endif //ATHENA_MONGCLIENTINSTANCE_H

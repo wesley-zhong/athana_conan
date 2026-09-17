@@ -38,6 +38,7 @@ void Player::saveDataToDB()
 
 void Player::onLogin()
 {
+    hashCode = pid;
     moduleContainer->forEach([](BaseModule* module)
     {
         module->onLogin();

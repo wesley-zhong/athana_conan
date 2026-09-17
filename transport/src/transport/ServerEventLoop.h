@@ -6,6 +6,8 @@
 #define ATHENA_SERVEREVENTLOOP_H
 #include "EventLoop.h"
 
+namespace transport {
+
 class ServerEventLoop : public EventLoop {
 public:
     ServerEventLoop(NetInterface *tcpInterFace, EventTrigger *event_trigger) : EventLoop(tcpInterFace, event_trigger) {
@@ -24,5 +26,7 @@ private:
     int bindPort;
 };
 
+
+} // namespace transport
 
 #endif //ATHENA_SERVEREVENTLOOP_H

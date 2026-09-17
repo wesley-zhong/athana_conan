@@ -8,6 +8,8 @@
 #include "transport/EventLoop.h"
 #include "NetInterface.h"
 
+namespace transport {
+
 
 class TcpClient : public NetInterface {
 public:
@@ -55,5 +57,7 @@ private:
     EventTrigger *event_trigger;
 };
 
+
+} // namespace transport
 
 #endif //ATHENA_TCPCLIENT_H

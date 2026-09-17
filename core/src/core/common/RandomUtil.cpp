@@ -3,3 +3,7 @@
 //
 
 #include "RandomUtil.h"
+
+namespace core {
+
+} // namespace core

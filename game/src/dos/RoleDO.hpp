@@ -11,7 +11,7 @@
 
 #include "dal/mongodb/BsonSerializable .h"
 #include "core/common/BaseType.h"
-class RoleDO : public BsonSerializable {
+class RoleDO : public dal::BsonSerializable {
 public:
     int64_t _id;
     std::string name;

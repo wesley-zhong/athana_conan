@@ -17,6 +17,8 @@
 #include "rapidjson/prettywriter.h"
 #include "core/common/NodeInfo.h"
 
+namespace core {
+
 class JsonUtils {
 public:
     static std::string SerializeNodeInfo( NodeInfo *node);
@@ -25,5 +27,7 @@ public:
 
 };
 
+
+} // namespace core
 
 #endif //ATHENA_JSONUTILS_H

@@ -8,6 +8,8 @@
 ************************************************************************/
 #include "core/common/BaseType.h"
 
+namespace dal {
+
 class RedisCommand
 {
 public:
@@ -44,4 +46,6 @@ private:
 	std::vector<std::vector<uint8>> m_param;
 	std::vector<int> m_len;
 };
+
+} // namespace dal
 

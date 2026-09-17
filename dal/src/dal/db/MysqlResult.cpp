@@ -1,5 +1,7 @@
 #include "MysqlResult.h"
 
+namespace dal {
+
 MysqlResult::MysqlResult()
 {
 	pResult = NULL;
@@ -49,3 +51,4 @@ const char * MysqlResult::getData(int & len) {
 const char * MysqlResult::getData() {
 	return aRow[pos++];
 }
+} // namespace dal

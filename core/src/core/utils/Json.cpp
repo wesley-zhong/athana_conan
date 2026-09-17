@@ -1,5 +1,7 @@
 #include "Json.h"
 
+namespace core {
+
 using namespace jwEngine;
 
 void writeDepth(std::string & str, int depth)
@@ -376,3 +378,5 @@ void JSonObj::write(std::string & str, bool layout, int depth)
 	if (layout) writeDepth(str, depth);
 	str.append("}");
 }
+
+} // namespace core

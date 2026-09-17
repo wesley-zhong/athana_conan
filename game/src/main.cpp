@@ -42,23 +42,23 @@ void handleSignal(int signum) {
 int main(int argc, char **argv) {
     std::signal(SIGTERM, handleSignal);
     std::signal(SIGINT, handleSignal);
-    xLogInitLog(LogLevel::LL_INFO, "../logs/game.log");
+    core::xLogInitLog(core::LogLevel::LL_INFO, "../logs/game.log");
 
     std::filesystem::path cur_path = std::filesystem::current_path();
     INFO_LOG("+++  cur path: {}", cur_path.string());
-    bool success = AthenaConfig::instance().load("config/game.toml");
+    bool success = core::AthenaConfig::instance().load("config/game.toml");
     if (!success) {
         ERR_LOG("config ={} load failed", cur_path.string() + "/config/game.toml");
         return -1;
     }
 
-    success = Discovery::initWithConf(AthenaConfig::instance());
+    success = Discovery::initWithConf(core::AthenaConfig::instance());
     if (!success) {
         ERR_LOG("initWithConf  faild");
         return -2;
     }
     //init
-    success = Snowflake::init(AthenaConfig::instance().get("server", "worker-id", 0));
+    success = core::Snowflake::init(core::AthenaConfig::instance().get("server", "worker-id", 0));
     if (!success) {
         ERR_LOG("Snowflake init failed");
         return -3;
@@ -66,38 +66,38 @@ int main(int argc, char **argv) {
     INFO_LOG("Snowflake init ok");
 
     // connect db
-    std::string redisIp = AthenaConfig::instance().get("redis", "ip", "localhost");
-    int redisPort = AthenaConfig::instance().get("redis", "port", 6379);
-    std::string redisUser = AthenaConfig::instance().get("redis", "username", "");
-    std::string redisPassword = AthenaConfig::instance().get("redis", "password", "");
-    success = Dal::Cache::init(redisIp, redisPort, "", redisUser, redisPassword);
+    std::string redisIp = core::AthenaConfig::instance().get("redis", "ip", "localhost");
+    int redisPort = core::AthenaConfig::instance().get("redis", "port", 6379);
+    std::string redisUser = core::AthenaConfig::instance().get("redis", "username", "");
+    std::string redisPassword = core::AthenaConfig::instance().get("redis", "password", "");
+    success = dal::Cache::init(redisIp, redisPort, "", redisUser, redisPassword);
     if (!success) {
         ERR_LOG("Redis init failed, addr={}:{}", redisIp, redisPort);
         return -4;
     }
     INFO_LOG("Redis init ok, addr={}:{}", redisIp, redisPort);
-    RedisResult redisResult;
-    Dal::Cache::execute(&redisResult, "set ol:100064913 889abc");
-    RedisResult redisResult1;
-    Dal::Cache::execute(&redisResult1, "get ol:100064913");
+    dal::RedisResult redisResult;
+    dal::Cache::execute(&redisResult, "set ol:100064913 889abc");
+    dal::RedisResult redisResult1;
+    dal::Cache::execute(&redisResult1, "get ol:100064913");
     INFO_LOG("OUT STRING ={}", redisResult1.getStream());
 
-    //    Dal::DB::init(ip,3306,"gm_tool", "root","MyUN#FoyT!EtLnh7");
-    //    MysqlResult db_result;
-    //    Dal::DB::execute(&db_result, "select * from  user");
+    //    dal::DB::init(ip,3306,"gm_tool", "root","MyUN#FoyT!EtLnh7");
+    //    dal::MysqlResult db_result;
+    //    dal::DB::execute(&db_result, "select * from  user");
 
-    std::string mongDBAddr = AthenaConfig::instance().get("mongodb", "ip", "localhost:27017");
-    std::string userName = AthenaConfig::instance().get("mongodb", "username", "admin");
-    std::string password = AthenaConfig::instance().get("mongodb", "password", "admin");
+    std::string mongDBAddr = core::AthenaConfig::instance().get("mongodb", "ip", "localhost:27017");
+    std::string userName = core::AthenaConfig::instance().get("mongodb", "username", "admin");
+    std::string password = core::AthenaConfig::instance().get("mongodb", "password", "admin");
 
-    success = Dal::MongoDB::init(mongDBAddr, userName, password);
+    success = dal::MongoDB::init(mongDBAddr, userName, password);
     if (!success) {
         ERR_LOG("MongoDB init failed, addr={}, user={}", mongDBAddr, userName);
         return -5;
     }
     INFO_LOG("MongoDB init ok, addr={}", mongDBAddr);
 
-    int serverPort = AthenaConfig::instance().get("server", "tcp-port", 0);
+    int serverPort = core::AthenaConfig::instance().get("server", "tcp-port", 0);
     INFO_LOG("#### bind server port:{}", serverPort);
 
     // init all functions call
@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
     GameServerNetWorkHandler::startLogicThread(3);
 
     //start server
-    AthenaTcpServer tcp_server;
+    transport::AthenaTcpServer tcp_server;
     tcp_server.setChannelIdleTime(10000, 0);
     tcp_server.onNewConnection = GameServerNetWorkHandler::onNewConnect;
     tcp_server.onRead = GameServerNetWorkHandler::onMsg;
@@ -118,10 +118,11 @@ int main(int argc, char **argv) {
     RoleDO roleDo;
     roleDo.name = "kkkk_name_2";
     roleDo._id = 99999;
-    bool ret = Dal::DAO<RoleDAO>().update(roleDo);
+    RoleDAO roleDao;
+    bool ret = roleDao.update(roleDo);
     INFO_LOG("ROLE DO ID ={} updated ret ={}", roleDo._id, ret);
     int64 userId = 99999;
-    std::optional<RoleDO> pRoleDO = Dal::DAO<RoleDAO>().find_one(userId);
+    std::optional<RoleDO> pRoleDO = roleDao.find_one(userId);
     if (pRoleDO) {
         RoleDO &roleDo = pRoleDO.value();
         INFO_LOG(" role id ={} name ={}", roleDo._id, roleDo.name);

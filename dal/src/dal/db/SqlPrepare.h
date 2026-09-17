@@ -7,6 +7,8 @@
 * @version   0.1
 ************************************************************************/
 
+namespace dal {
+
 class BasePacket;
 class DBResult;
 class SqlPrepare
@@ -48,3 +50,5 @@ private:
 private:
 	int m_widx;  // write
 };
+
+} // namespace dal

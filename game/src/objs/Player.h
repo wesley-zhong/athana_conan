@@ -5,8 +5,9 @@
 #include "transport/Channel.h"
 #include "module/Module.h"
 #include "module/ModuleContainer.h"
+#include "core/actor/Actor.h"
 
-class Player : public ObjPool::PoolObjClass<Player>
+class Player : public core::ObjPool::PoolObjClass<Player>
 {
     /* data */
 public:
@@ -14,7 +15,7 @@ public:
     {
     };
 
-    Player(uint32_t pid, Channel* channel)
+    Player(uint32_t pid, transport::Channel* channel)
     {
         this->pid = pid;
         this->channel = channel;
@@ -38,7 +39,7 @@ public:
 
     ~Player()
     {
-        INFO_LOG("------ CALL  ~GameRole");
+        INFO_LOG("------ CALL  ~Player");
     };
 
     void sendMsg(int msgId, std::shared_ptr<google::protobuf::Message> msg);
@@ -52,9 +53,9 @@ public:
     void loadDataFormDB();
 
     // call on logic thread
-    void  onLogin();
+    void onLogin();
 
-    void  onLogout();
+    void onLogout();
 
     void saveDataToDB();
 
@@ -63,20 +64,37 @@ public:
         this->pid = pid;
     }
 
-    void setChannel(Channel* channel)
+    void setChannel(transport::Channel* channel)
     {
         this->channel = channel;
     }
 
-    Channel* getChannel()
+    transport::Channel* getChannel()
     {
         return this->channel;
     }
 
+    void setHashCode(uint32_t hashCode)
+    {
+        this->hashCode = hashCode;
+    }
+
+    uint32_t getHashCode() const
+    {
+        return this->hashCode;
+    }
+
+    void execute(std::function<void()> func) const
+    {
+        actor_->execute(func);
+    }
+
 private:
+    uint32_t hashCode;
     uint32_t pid;
-    Channel* channel;
+    transport::Channel* channel;
     ModuleContainer* moduleContainer = new ModuleContainer();
+    core::actor::Actor*  actor_;
 };
 
 #endif

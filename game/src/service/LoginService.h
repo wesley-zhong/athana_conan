@@ -10,11 +10,18 @@
 #include "transport/Channel.h"
 #include "PlayerMgr.h"
 
-class LoginService {
+class LoginService
+{
 public:
-    static void onPlayerLogin(Channel *channel, InnerLoginRequest *req);
+    static void onPlayerLogin(transport::Channel* channel, InnerLoginRequest* req);
 
-    static void onPlayerDisconnect(uint64 playerId, InnerPlayerDisconnectRequest *req);
+    static void onPlayerDisconnect(uint64 playerId, InnerPlayerDisconnectRequest* req);
+
+
+    static Player* findPlayer(uint64 playerId)
+    {
+        return playerMgr->getPlayer(playerId);
+    }
 
 private:
     inline static std::unique_ptr<PlayerMgr> playerMgr = std::make_unique<PlayerMgr>();

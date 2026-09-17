@@ -11,23 +11,25 @@
 #include "core/common/NodeInfo.h"
 #include "transport/Channel.h"
 
+namespace discovery {
+
 struct NodeChannelInfo {
-    std::unique_ptr<NodeInfo> nodeInfo;
-    std::vector<Channel *> channels;
+    std::unique_ptr<core::NodeInfo> nodeInfo;
+    std::vector<transport::Channel *> channels;
 };
 
 class PeerConn {
 public:
-    static void saveNode(std::unique_ptr<NodeInfo> nodeInfo);
+    static void saveNode(std::unique_ptr<core::NodeInfo> nodeInfo);
 
     static void removeNode(const std::string &nodeKey);
 
-    static void saveNodeChannel(const std::string &serviceId, Channel *channel);
+    static void saveNodeChannel(const std::string &serviceId, transport::Channel *channel);
 
-    Channel *getRandomChannel(const std::string &srviceId);
+    transport::Channel *getRandomChannel(const std::string &srviceId);
 
 
-    static bool sendMsg(Channel *channel, int msgId, google::protobuf::Message *msg);
+    static bool sendMsg(transport::Channel *channel, int msgId, google::protobuf::Message *msg);
 
     static bool sendMsg(int serverType, int msgId, google::protobuf::Message *msg);
 
@@ -37,5 +39,7 @@ private:
     static std::unordered_map<int, std::vector<std::shared_ptr<NodeChannelInfo>>> node_type_nodes;
 };
 
+
+} // namespace discovery
 
 #endif //ATHENA_PEERCONN_H

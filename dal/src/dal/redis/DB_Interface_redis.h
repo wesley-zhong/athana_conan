@@ -7,7 +7,9 @@
 * @version   0.1
 ************************************************************************/
 
-#include "DB_Interface.h"
+#include "../db/DB_Interface.h"
+namespace dal {
+
 class RedisCommand;
 class DBInterfaceRedis : public DB_Interface
 {
@@ -27,4 +29,6 @@ public:
 protected:
 	redisContext * m_context;
 };
+
+} // namespace dal
 

@@ -2,6 +2,8 @@
 
 #include <atomic>
 
+namespace core {
+
 class SpinLock
 {
 public:
@@ -41,3 +43,5 @@ protected:
 private:
 	SpinLock& operator=(const SpinLock& src);
 };
+
+} // namespace core

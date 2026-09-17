@@ -4,6 +4,8 @@
 #include "BaseType.h"
 #include <functional>
 
+namespace core {
+
 class Timer
 {
 	struct TimerNode
@@ -36,3 +38,5 @@ private:
 	static struct Heap::heap gRootHeap;
 };
 
+
+} // namespace core

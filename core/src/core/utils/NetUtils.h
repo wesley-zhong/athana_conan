@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 
+
 #ifdef _WIN32
     #include <winsock2.h>
     #include <ws2tcpip.h>
@@ -20,6 +21,8 @@
     #include <unistd.h>
 #endif
 
+
+namespace core {
 class NetUtils {
 public:
     static std::vector<std::string> getLocalIPs() {
@@ -74,4 +77,6 @@ public:
         return ips;
     }
 };
+} // namespace core
+
 #endif //ATHENA_NETUTILS_H

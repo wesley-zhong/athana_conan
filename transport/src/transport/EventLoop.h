@@ -14,6 +14,8 @@
 #include "core/common/BaseType.h"
 #include "IdleStateHandler.h"
 
+namespace transport {
+
 
 class NetInterface;
 
@@ -104,12 +106,14 @@ private:
     uv_async_t uv_async_write; // used by biz threads to notify reactor for pending writes
     uv_async_t uv_async_connect;
     std::mutex write_mtx;
-    TQueue<VOID_FUN> _waitTasks;
+    core::TQueue<VOID_FUN> _waitTasks;
     std::thread t;
     NetInterface *_netInterface;
     EventTrigger *_eventTrigger;
     char *maxPackBody;
     int maxPackBodyLen;
 };
+
+} // namespace transport
 
 #endif //ATHENA_EVENTLOOP_H

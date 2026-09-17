@@ -16,6 +16,8 @@
 #include "../common/BaseType.h"
 #include "../log/XLog.h"
 
+namespace core {
+
 namespace actor {
 
     // 一个 actor 一个线程，一个线程一条无锁信箱队列（moodycamel）。
@@ -91,3 +93,5 @@ namespace actor {
     };
 
 }
+
+} // namespace core

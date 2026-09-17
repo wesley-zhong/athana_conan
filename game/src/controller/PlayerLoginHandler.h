@@ -8,7 +8,7 @@ public:
     static void registMsgHandler();
 
 private:
-    static void onInnerLogin(Channel *channel, InnerLoginRequest *req);
+    static void onInnerLogin(transport::Channel *channel, InnerLoginRequest *req);
 
     static void onPlayerDisconnected(uint64 playerId, InnerPlayerDisconnectRequest *req);
 };

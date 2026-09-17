@@ -2,6 +2,8 @@
 #include "Json.h"
 #include <cstring>
 
+namespace core {
+
 using namespace jwEngine;
 
 JsonBuff::~JsonBuff(){
@@ -275,3 +277,5 @@ std::string JsonReader::write(JBaseObj * obj, bool layout)
 	obj->write(str, layout);
 	return str;
 }
+
+} // namespace core

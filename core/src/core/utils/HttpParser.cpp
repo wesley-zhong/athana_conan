@@ -1,4 +1,7 @@
 #include "HttpParser.h"
+#include <stdio.h>
+
+namespace core {
 
 HttpSettings::HttpSettings()
 {
@@ -27,7 +30,6 @@ void HttpParser::zero()
 	llhttp_init(this, HTTP_REQUEST, &http_settings);
 }
 
-#include <stdio.h>
 bool HttpParser::parser(const char* buf, int len)
 {
 	enum llhttp_errno err = llhttp_execute(this, buf, len);
@@ -39,3 +41,5 @@ bool HttpParser::parser(const char* buf, int len)
 
 	return true;
 }
+
+} // namespace core

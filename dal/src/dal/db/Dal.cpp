@@ -3,7 +3,7 @@
 //
 #include "Dal.hpp"
 
-namespace Dal::DB {
+namespace dal::DB {
     DBInterfaceMysql *mysql = nullptr;
 
     bool init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
@@ -17,7 +17,7 @@ namespace Dal::DB {
     }
 }
 
-namespace Dal::Cache {
+namespace dal::Cache {
     DBInterfaceRedis *redis = nullptr;
 
     bool init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
@@ -32,7 +32,7 @@ namespace Dal::Cache {
     }
 }
 
-namespace Dal::MongoDB {
+namespace dal::MongoDB {
     bool init(const std::string &ip, const std::string &username,
               const std::string &password) {
         return MongClientManager::init(ip, username, password) == 0;

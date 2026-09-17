@@ -6,6 +6,8 @@
 #define ATHENA_BYTEUTILS_H
 #include "core/common/BaseType.h"
 
+namespace transport {
+
 
 class ByteUtils {
 public:
@@ -18,5 +20,7 @@ public:
     static void writeInt16(void *body, uint16 value);
 };
 
+
+} // namespace transport
 
 #endif //ATHENA_BYTEUTILS_H

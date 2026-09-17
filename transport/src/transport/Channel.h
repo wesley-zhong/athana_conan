@@ -9,6 +9,8 @@
 #include "core/common/ByteBuffer.h"
 #include "ByteUtils.h"
 
+namespace transport {
+
 class EventLoop;
 class Channel;
 
@@ -45,8 +47,8 @@ public:
     Channel(EventLoop *event_loop, uv_tcp_t *client, uv_os_sock_t fd) : _eventLoop(event_loop),
                                                                         client(client), fd((uint64) fd),
                                                                         writing(false), closed(false) {
-        recv_buffer = new ByteBuffer();
-        send_buff = new ByteBuffer();
+        recv_buffer = new core::ByteBuffer();
+        send_buff = new core::ByteBuffer();
         heartbeat_timer.data = this;
     }
 
@@ -112,8 +114,8 @@ public:
     void doUvSend();
 
 
-    ByteBuffer *recv_buffer;
-    ByteBuffer *send_buff;
+    core::ByteBuffer *recv_buffer;
+    core::ByteBuffer *send_buff;
 
     EventLoop *_eventLoop;
     uint64 last_recv_time;
@@ -134,5 +136,7 @@ private:
     bool closed; // connection closed
 };
 
+
+} // namespace transport
 
 #endif //ATHENA_CHANNEL_H

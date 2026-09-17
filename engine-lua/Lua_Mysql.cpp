@@ -9,7 +9,7 @@
 
 class Lua_SqlResult {
 public:
-    Lua_SqlResult(std::shared_ptr<SqlResultSet> result) : m_result(result) {
+    Lua_SqlResult(std::shared_ptr<dal::SqlResultSet> result) : m_result(result) {
     }
 
     //get
@@ -24,7 +24,7 @@ public:
     float getFloat() { return m_result->getFloat(); }
     double getDouble() { return m_result->getDouble(); }
     std::string getString() { return m_result->getString(); }
-    int readBlob(BasePacket *packet) { return m_result->readBlob(packet); }
+    int readBlob(dal::BasePacket *packet) { return m_result->readBlob(packet); }
     std::string_view getData() { return m_result->getStrview(); } // lua call
 
     bool emptyField(int idx) { return m_result->emptyField(idx); }
@@ -35,24 +35,24 @@ public:
     }
 
 private:
-    std::shared_ptr<SqlResultSet> m_result;
+    std::shared_ptr<dal::SqlResultSet> m_result;
 };
 
 class Lua_SqlCommand {
 public:
-    Lua_SqlCommand(const char *sql) : m_sqlPre(new SqlPrepare(sql)) {
+    Lua_SqlCommand(const char *sql) : m_sqlPre(new dal::SqlPrepare(sql)) {
     }
 
     ~Lua_SqlCommand() {
     }
 
-    void addToPool(DBThreadPool *pool, std::function<void(int32, const char *, Lua_SqlResult *)> backfunc) {
-        auto dbTask = new DBSqlTask(m_sqlPre, std::unique_ptr<SqlResultSet>());
+    void addToPool(dal::DBThreadPool *pool, std::function<void(int32, const char *, Lua_SqlResult *)> backfunc) {
+        auto dbTask = new dal::DBSqlTask(m_sqlPre, std::unique_ptr<dal::SqlResultSet>());
 
         auto  dbTaskNew =
 
         // back func
-        dbTask->backfunc = [backfunc](int32 errno_, const char *err, std::shared_ptr<SqlResultSet> result) {
+        dbTask->backfunc = [backfunc](int32 errno_, const char *err, std::shared_ptr<dal::SqlResultSet> result) {
             if (backfunc != nullptr) {
                 Lua_SqlResult _result(result);
                 backfunc(errno_, err, &_result);
@@ -73,42 +73,42 @@ public:
     void pushFloat(float value) { m_sqlPre->pushFloat(value); }
     void pushDouble(double value) { m_sqlPre->pushDouble(value); }
     void pushString(std::string value) { m_sqlPre->pushString(value); }
-    void pushBlob(BasePacket *packet) { m_sqlPre->pushBlob(packet); }
+    void pushBlob(dal::BasePacket *packet) { m_sqlPre->pushBlob(packet); }
     void pushData(std::string_view sv) { m_sqlPre->pushData(sv); } // lua call
 
 private:
-    std::shared_ptr<SqlPrepare> m_sqlPre;
+    std::shared_ptr<dal::SqlPrepare> m_sqlPre;
 };
 
 
 void luabind_mysql(sol::state &lua) {
     {
-        lua["mysql_thread_safe"] = &MySQL::threadSafe;
-        lua["mysql_library_init"] = &MySQL::libraryInit;
-        lua["mysql_library_end"] = &MySQL::libraryEnd;
-        lua["mysql_version"] = &MySQL::getLibraryVersion;
+        lua["mysql_thread_safe"] = &dal::MySQL::threadSafe;
+        lua["mysql_library_init"] = &dal::MySQL::libraryInit;
+        lua["mysql_library_end"] = &dal::MySQL::libraryEnd;
+        lua["mysql_version"] = &dal::MySQL::getLibraryVersion;
     }
 
-    lua.new_usertype<DBConfig>("DBConfig",
-                               "device", &DBConfig::device,
-                               "ip", &DBConfig::ip,
-                               "port", &DBConfig::port,
-                               "dbname", &DBConfig::dbname,
-                               "user", &DBConfig::user,
-                               "pswd", &DBConfig::pswd);
+    lua.new_usertype<dal::DBConfig>("DBConfig",
+                               "device", &dal::DBConfig::device,
+                               "ip", &dal::DBConfig::ip,
+                               "port", &dal::DBConfig::port,
+                               "dbname", &dal::DBConfig::dbname,
+                               "user", &dal::DBConfig::user,
+                               "pswd", &dal::DBConfig::pswd);
 
-    lua.new_usertype<DBThreadPool>("DBThreadPool",
-                                   sol::constructors<DBThreadPool(DBConfig)>(),
-                                   "create", &DBThreadPool::create,
-                                   "exit", &DBThreadPool::exit
+    lua.new_usertype<dal::DBThreadPool>("DBThreadPool",
+                                   sol::constructors<dal::DBThreadPool(dal::DBConfig)>(),
+                                   "create", &dal::DBThreadPool::create,
+                                   "exit", &dal::DBThreadPool::exit
     );
 
     lua.new_usertype<Lua_SqlCommand>("SqlCommand",
-                                     sol::constructors<DBThreadPool(const char *)>(),
+                                     sol::constructors<dal::DBThreadPool(const char *)>(),
                                      "pushInt8", &Lua_SqlCommand::pushInt8,
                                      "pushUint8", &Lua_SqlCommand::pushUint8,
                                      "pushInt16", &Lua_SqlCommand::pushInt16,
-                                     "pushUint16", &Lua_SqlCommand::pushUint16,
+                                     "pushUint32", &Lua_SqlCommand::pushUint32,
                                      "pushInt32", &Lua_SqlCommand::pushInt32,
                                      "pushUint32", &Lua_SqlCommand::pushUint32,
                                      "pushInt64", &Lua_SqlCommand::pushInt64,

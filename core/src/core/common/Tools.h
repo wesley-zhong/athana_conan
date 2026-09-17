@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+
+namespace core {
 class Tools
 {
 public:
@@ -16,3 +18,5 @@ public:
 	static int random(int begin, int end);
 };
 
+
+} // namespace core

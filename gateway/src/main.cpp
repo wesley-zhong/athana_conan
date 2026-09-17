@@ -44,18 +44,18 @@ void handleSignal(int signum) {
 int main(int argc, char **argv) {
     std::signal(SIGTERM, handleSignal);
     std::signal(SIGINT, handleSignal);
-    xLogInitLog(LogLevel::LL_INFO, "../logs/gateway.log");
+    core::xLogInitLog(core::LogLevel::LL_INFO, "../logs/gateway.log");
 
     std::filesystem::path cur_path = std::filesystem::current_path();
     INFO_LOG("+++  cur path: {}", cur_path.string());
-    bool success = AthenaConfig::instance().load("config/gateway.toml");
+    bool success = core::AthenaConfig::instance().load("config/gateway.toml");
     if (!success) {
         ERR_LOG("config ={} load failed", cur_path.string() + "/config/gateway.toml");
         return -1;
     }
 
     // snowflake init
-    success = Snowflake::init(AthenaConfig::instance().get("server", "worker-id", 0));
+    success = core::Snowflake::init(core::AthenaConfig::instance().get("server", "worker-id", 0));
     if (!success) {
         ERR_LOG("Snowflake init failed");
         return -2;
@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
     //tcp client
     GateClientNetWorkHandler::initAllMsgRegister();
     GateClientNetWorkHandler::startLogicThread(2);
-    TcpClient tcp_client;
+    transport::TcpClient tcp_client;
     tcp_client.onConnected = GateClientNetWorkHandler::onNewConnect;
     tcp_client.onClosed = GateClientNetWorkHandler::onClosed;
     tcp_client.onRead = GateClientNetWorkHandler::onMsg;
@@ -74,18 +74,18 @@ int main(int argc, char **argv) {
 
     tcp_client.start();
 
-    success = Discovery::initWithConf(AthenaConfig::instance(), tcp_client);
+    success = Discovery::initWithConf(core::AthenaConfig::instance(), tcp_client);
     if (!success) {
         ERR_LOG("initWithConf  faild");
         return -3;
     }
 
-    int serverPort = AthenaConfig::instance().get("server", "tcp-port", 0);
+    int serverPort = core::AthenaConfig::instance().get("server", "tcp-port", 0);
     INFO_LOG("#### bind server port:{}", serverPort);
     // tcp server
     GatewayServerNetWorkHandler::initAllMsgRegister();
     GatewayServerNetWorkHandler::startLogicThread(2);
-    AthenaTcpServer tcp_server;
+    transport::AthenaTcpServer tcp_server;
 
     tcp_server.onNewConnection = GatewayServerNetWorkHandler::onConnect;
     tcp_server.onRead = GatewayServerNetWorkHandler::onMsg;

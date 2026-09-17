@@ -16,10 +16,10 @@ class Module : public BaseModule
 {
 protected:
     DO* dataDO_;
-    DAO<DO> dao_;
+    dal::DAO<DO> dao_;
 
 public:
-    Module(Player* player, DAO<DO>& dao) : BaseModule(player), dataDO_(nullptr), dao_(dao)
+    Module(Player* player, dal::DAO<DO>& dao) : BaseModule(player), dataDO_(nullptr), dao_(dao)
     {
     }
 

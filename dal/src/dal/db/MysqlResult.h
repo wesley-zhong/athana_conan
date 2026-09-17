@@ -7,6 +7,8 @@
 #include <sstream>
 #include "DBResult.h"
 
+namespace dal {
+
 class MysqlResult : public DBResult
 {
 public:
@@ -44,5 +46,7 @@ private:
 	uint32 pos;
 	unsigned long *lengths;
 };
+
+} // namespace dal
 
 #endif

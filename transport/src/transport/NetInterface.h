@@ -6,6 +6,8 @@
 #define ATHENA_NETINTERFACE_H
 #include "NetInterface.h"
 #include "transport/EventDefs.h"
+
+namespace transport {
 class Channel;
 
 class NetInterface {
@@ -20,5 +22,7 @@ public:
 
     virtual void triggerEvent(Channel *channel, TriggerEventEnum reason) =0;
 };
+
+} // namespace transport
 
 #endif //ATHENA_NETINTERFACE_H

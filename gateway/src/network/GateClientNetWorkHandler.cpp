@@ -21,35 +21,35 @@ void GateClientNetWorkHandler::initAllMsgRegister()
 
 void GateClientNetWorkHandler::startLogicThread(int threadNum)
 {
-    auto &sys = actor::ActorSystem::instance();
+    auto &sys = core::actor::ActorSystem::instance();
     for (int i = 0; i < threadNum; ++i) {
-        if (actor::Actor *a = sys.spawn<actor::Actor>("gate-logic-" + std::to_string(i))) {
+        if (core::actor::Actor *a = sys.spawn<core::actor::Actor>("gate-logic-" + std::to_string(i))) {
             logicActors.push_back(a->id());
         }
     }
 }
 
-void GateClientNetWorkHandler::onNewConnect(Channel* channel, int status)
+void GateClientNetWorkHandler::onNewConnect(transport::Channel* channel, int status)
 {
     INFO_LOG("on new connection ={}", channel->getAddr());
     auto req = std::make_shared<InnerServerHandShakeReq>();
-    std::shared_ptr<NodeInfo> shNodeInfo = AthenaDiscovery::Instance()->getMySelf();
+    std::shared_ptr<core::NodeInfo> shNodeInfo = discovery::AthenaDiscovery::Instance()->getMySelf();
     req->set_service_id(shNodeInfo->service_id);
     req->set_service_name(shNodeInfo->service_name);
     req->set_server_type(shNodeInfo->type);
     channel->sendMsg(INNER_SERVER_HAND_SHAKE_REQ, req);
 }
 
-void GateClientNetWorkHandler::onMsg(Channel* channel, void* buff, int len)
+void GateClientNetWorkHandler::onMsg(transport::Channel* channel, void* buff, int len)
 {
     uint8* data = static_cast<uint8*>(buff);
     data += 4;
-    int msgId = ByteUtils::readInt32(data);
+    int msgId = transport::ByteUtils::readInt32(data);
     int playerId = 999;
     data += 4;
     len -= 8;
     // INFO_LOG("=== on read   channel ={}  msgId={}  len ={}", channel->getAddr(), msgId, len);
-    MsgFunction* msg_function = Dispatcher::Instance()->findMsgFuncion(msgId);
+    transport::MsgFunction* msg_function = transport::Dispatcher::Instance()->findMsgFuncion(msgId);
     if (msg_function == nullptr)
     {
         ERR_LOG("msgId ={} not found process function", msgId);
@@ -57,16 +57,16 @@ void GateClientNetWorkHandler::onMsg(Channel* channel, void* buff, int len)
     }
 
     void* msg = msg_function->parseParam(data, len);
-    actor::ActorSystem::instance().execute(logicActors[2 % logicActors.size()],
+    core::actor::ActorSystem::instance().execute(logicActors[2 % logicActors.size()],
                                            [playerId, msg_function, channel, msg]()
                                            {
                                                msg_function->invoke(playerId, channel, msg);
                                            });
 }
 
-void GateClientNetWorkHandler::onEventTrigger(Channel* channel, TriggerEventEnum reason)
+void GateClientNetWorkHandler::onEventTrigger(transport::Channel* channel, transport::TriggerEventEnum reason)
 {
-    if (reason == WRITE_IDLE)
+    if (reason == transport::WRITE_IDLE)
     {
         auto msg = std::make_shared<InnerHeartBeatRequest>();
         msg->set_time(8888);
@@ -75,14 +75,14 @@ void GateClientNetWorkHandler::onEventTrigger(Channel* channel, TriggerEventEnum
         return;
     }
     //    // this should be closed
-    if (reason == READ_IDLE)
+    if (reason == transport::READ_IDLE)
     {
         INFO_LOG("========== onEventTrigger ={}   reason ={} idle should closed ", channel->getAddr(), (int)reason);
     }
 }
 
 
-void GateClientNetWorkHandler::onClosed(Channel* channel)
+void GateClientNetWorkHandler::onClosed(transport::Channel* channel)
 {
     INFO_LOG("connection ={}  closed ", channel->getAddr());
 }

@@ -6,6 +6,8 @@
 #include "RingByteBuf.h"
 #include "core/log/XLog.h"
 
+namespace core {
+
 class ByteBuffer {
 public:
     static size_t const DEFAULT_SIZE = 0x1000;
@@ -108,5 +110,7 @@ public:
 private:
     RingByteBuf *_storage;
 };
+
+} // namespace core
 
 #endif

@@ -2,6 +2,8 @@
 #include "hiredis//hiredis.h"
 #include <sstream>
 
+namespace dal {
+
 RedisResult::RedisResult()
 {
 	m_reply = NULL;
@@ -97,3 +99,4 @@ std::string_view RedisResult::getStream()
 	const char * p = getData(len);
 	return std::string_view(p, len);
 }
+} // namespace dal

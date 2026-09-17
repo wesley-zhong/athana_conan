@@ -6,10 +6,10 @@
 #include "ProtoInner.pb.h"
 
 
-void PlayerLoginHandler::onLoginRes(Channel *channel, LoginResponse *res) {
+void PlayerLoginHandler::onLoginRes(transport::Channel *channel, LoginResponse *res) {
     INFO_LOG("----- on login res  roleId  ={}", res->roleid());
 }
 
-void PlayerLoginHandler::onHeartBeat(Channel *channel, HeartBeatResponse *res) {
+void PlayerLoginHandler::onHeartBeat(transport::Channel *channel, HeartBeatResponse *res) {
     INFO_LOG("----- on onHeartBeat  server time ={}", res->servertime());
 }

@@ -14,6 +14,8 @@
 #include "EventDefs.h"
 #include "ServerEventLoop.h"
 
+namespace transport {
+
 class AthenaTcpServer : public NetInterface {
 public:
     AthenaTcpServer() {
@@ -68,5 +70,7 @@ private:
     int bindPort;
 };
 
+
+} // namespace transport
 
 #endif //ATHENA_TCPSERVER_H

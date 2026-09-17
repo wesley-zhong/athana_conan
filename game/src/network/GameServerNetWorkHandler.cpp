@@ -16,22 +16,22 @@ void GameServerNetWorkHandler::initAllMsgRegister() {
 }
 
 void GameServerNetWorkHandler::startLogicThread(int threadNum) {
-    auto &sys = actor::ActorSystem::instance();
+    auto &sys = core::actor::ActorSystem::instance();
     for (int i = 0; i < threadNum; ++i) {
-        if (actor::Actor *a = sys.spawn<actor::Actor>("game-logic-" + std::to_string(i))) {
+        if (core::actor::Actor *a = sys.spawn<core::actor::Actor>("game-logic-" + std::to_string(i))) {
             logicActors.push_back(a->id());
         }
     }
 }
 
-void GameServerNetWorkHandler::onNewConnect(Channel *channel) {
+void GameServerNetWorkHandler::onNewConnect(transport::Channel *channel) {
     INFO_LOG("on new connection ={}", channel->getAddr());
 }
 
-void GameServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
+void GameServerNetWorkHandler::onMsg(transport::Channel *channel, void *buff, int len) {
     uint8 *data = static_cast<uint8 *>(buff);
     data += 4;
-    int msgId = ByteUtils::readInt32(data);
+    int msgId = transport::ByteUtils::readInt32(data);
     int playerId = 999;
     data += 4;
     len -= 8;
@@ -39,25 +39,25 @@ void GameServerNetWorkHandler::onMsg(Channel *channel, void *buff, int len) {
     if (msgId != -3) {
         INFO_LOG("  === on read   channel ={} msgId ={}  len ={} ", channel->getAddr(), msgId, len);
     }
-    MsgFunction *msg_function = Dispatcher::Instance()->findMsgFuncion(msgId);
+    transport::MsgFunction *msg_function = transport::Dispatcher::Instance()->findMsgFuncion(msgId);
     if (msg_function == nullptr) {
         ERR_LOG(" msgId ={} not found process function", msgId);
         return;
     }
 
     void *msg = msg_function->parseParam(data, len);
-    actor::ActorSystem::instance().execute(logicActors[2 % logicActors.size()],
+    core::actor::ActorSystem::instance().execute(logicActors[2 % logicActors.size()],
                                            [playerId, msg_function, channel, msg]() {
                                                msg_function->invoke(playerId, channel, msg);
                                            });
 }
 
 
-void GameServerNetWorkHandler::onClosed(Channel *channel) {
+void GameServerNetWorkHandler::onClosed(transport::Channel *channel) {
     INFO_LOG("connection ={}  closed ", channel->getAddr());
 }
 
-void GameServerNetWorkHandler::onEventTrigger(Channel *channel, TriggerEventEnum reason) {
+void GameServerNetWorkHandler::onEventTrigger(transport::Channel *channel, transport::TriggerEventEnum reason) {
     INFO_LOG("====onEventTrigger ={}   reason ={} ", channel->getAddr(), (int)reason);
 }
 

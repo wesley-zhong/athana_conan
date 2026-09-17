@@ -5,9 +5,13 @@
 #ifndef ATHENA_DECODER_H
 #define ATHENA_DECODER_H
 
+namespace transport {
+
 
 class Decoder {
 };
 
+
+} // namespace transport
 
 #endif //ATHENA_DECODER_H

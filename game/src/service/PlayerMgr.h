@@ -20,7 +20,7 @@ public:
     ~PlayerMgr() {
     }
 
-    Player *newPlayer(uint32_t pid, Channel *channel);
+    Player *newPlayer(uint32_t pid, transport::Channel *channel);
 
     void addPlayer(Player *player);
 

@@ -6,6 +6,8 @@ using namespace std;
 #include <winsock.h> // struct timeval
 #endif
 
+namespace core {
+
 namespace
 {
 	// Unix 纪元时间 (秒 + 微秒), 全部时间函数的统一来源
@@ -130,3 +132,5 @@ uint32 XTime::iclock()
 {
 	return (uint32)((double)std::clock() / CLOCKS_PER_SEC * 1000);
 }
+
+} // namespace core
