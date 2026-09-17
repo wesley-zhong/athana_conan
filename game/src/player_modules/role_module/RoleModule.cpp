@@ -12,6 +12,8 @@ void RoleModule::fromDO(RoleDO* dataObj)
     INFO_LOG("pid = {} on fromDO", owner->getPid());
     if (dataObj == nullptr)
     {
+        dataDO_ = new RoleDO();
+        dataDO_->_id = (owner->getPid());
     }
 }
 

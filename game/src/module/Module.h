@@ -14,13 +14,18 @@ class BaseDAO;
 template <typename DO>
 class Module : public BaseModule
 {
-private:
-    DO dataDO;
+protected:
+    DO* dataDO_;
     DAO<DO> dao_;
 
 public:
-    Module(Player* player, DAO<DO>& dao) : BaseModule(player), dao_(dao)
+    Module(Player* player, DAO<DO>& dao) : BaseModule(player), dataDO_(nullptr), dao_(dao)
     {
+    }
+
+    virtual ~Module()
+    {
+        delete dataDO_;
     }
 
     virtual void fromDO(DO* pDO) = 0;
@@ -30,19 +35,20 @@ public:
         auto ret = dao_.find_one(owner->getPid());
         if (!ret)
         {
+            // 没有库记录, 由子类创建默认 DO
             fromDO(nullptr);
             return;
         }
-        dataDO = ret.value();
-        fromDO(&dataDO);
+        dataDO_ = new DO(ret.value());
+        fromDO(dataDO_);
     }
     void saveDataToDB() override
     {
-        if (!is_dirty)
+        if (!is_dirty || dataDO_ == nullptr)
         {
             return;
         }
-        dao_.update(dataDO);
+        dao_.update(*dataDO_);
     }
 };
 
