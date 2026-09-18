@@ -4,15 +4,21 @@
 #pragma once
 
 #include <string>
-#include "MysqlResult.h"
-#include  "../redis/RedisResult.h"
-#include "DB_Interface_mysql.h"
-#include "hiredis/hiredis.h"
-#include "../redis/DB_Interface_redis.h"
+#include "db/MysqlResult.h"
+#include "redis/RedisResult.h"
+#include "db/DB_Interface_mysql.h"
+#include "redis/DB_Interface_redis.h"
 #include "dal/mongodb/MongClientManager.h"
 
 namespace dal
 {
+    template <typename T>
+    T& GetDAO()
+    {
+        static T dao;
+        return dao;
+    }
+
     template <typename T>
     T* initDB(const char* host, unsigned int port, const char* dbname, const char* user, const char* pswd
     )

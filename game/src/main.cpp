@@ -1,17 +1,18 @@
+// winsock2.h must come before windows.h (pulled in transitively below),
+// otherwise winsock.h/winsock2.h collide with redefinition errors on MSVC
+#if defined(_WIN32)
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#endif
+
 #include <chrono>
 #include "sol/sol.hpp"
-#include <iostream>
 #include <csignal>
-#include "core/common/RingBuffer.hpp"
 #include "core/log/XLog.h"
-#include "objs/Player.h"
-#include "core/common/ObjectPool.hpp"
 #include "core/utils/Snowflake.h"
-#include "dal/db/Dal.hpp"
+#include "dal/Dal.hpp"
 
 #if defined(_WIN32)
-
-#include <windows.h>
 
 #else
 
@@ -23,10 +24,8 @@
 #include "transport/AthenaTcpServer.h"
 
 #include "network/GameServerNetWorkHandler.h"
-#include "dal/mongodb/MongClientManager.h"
 #include "dao/RoleDAO.h"
 #include "dao/RoleCacheDAO.h"
-#include "dao/Dal.hpp"
 #include "core/common/AthenaConfig.h"
 #include "discovery/Discovery.h"
 
@@ -34,13 +33,15 @@ static std::atomic<bool> g_running(true);
 static std::condition_variable g_cv;
 static std::mutex g_mutex;
 
-void handleSignal(int signum) {
+void handleSignal(int signum)
+{
     INFO_LOG("Received signal {} exiting...", signum);
     g_running = false;
     g_cv.notify_all(); // 唤醒主线程
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv)
+{
     std::signal(SIGTERM, handleSignal);
     std::signal(SIGINT, handleSignal);
     core::xLogInitLog(core::LogLevel::LL_INFO, "../logs/game.log");
@@ -48,19 +49,22 @@ int main(int argc, char **argv) {
     std::filesystem::path cur_path = std::filesystem::current_path();
     INFO_LOG("+++  cur path: {}", cur_path.string());
     bool success = core::AthenaConfig::instance().load("config/game.toml");
-    if (!success) {
+    if (!success)
+    {
         ERR_LOG("config ={} load failed", cur_path.string() + "/config/game.toml");
         return -1;
     }
 
     success = Discovery::initWithConf(core::AthenaConfig::instance());
-    if (!success) {
+    if (!success)
+    {
         ERR_LOG("initWithConf  faild");
         return -2;
     }
     //init
     success = core::Snowflake::init(core::AthenaConfig::instance().get("server", "worker-id", 0));
-    if (!success) {
+    if (!success)
+    {
         ERR_LOG("Snowflake init failed");
         return -3;
     }
@@ -72,7 +76,8 @@ int main(int argc, char **argv) {
     std::string redisUser = core::AthenaConfig::instance().get("redis", "username", "");
     std::string redisPassword = core::AthenaConfig::instance().get("redis", "password", "");
     success = dal::Cache::init(redisIp, redisPort, "", redisUser, redisPassword);
-    if (!success) {
+    if (!success)
+    {
         ERR_LOG("Redis init failed, addr={}:{}", redisIp, redisPort);
         return -4;
     }
@@ -87,7 +92,8 @@ int main(int argc, char **argv) {
     std::string password = core::AthenaConfig::instance().get("mongodb", "password", "admin");
 
     success = dal::MongoDB::init(mongDBAddr, userName, password);
-    if (!success) {
+    if (!success)
+    {
         ERR_LOG("MongoDB init failed, addr={}, user={}", mongDBAddr, userName);
         return -5;
     }
@@ -119,8 +125,9 @@ int main(int argc, char **argv) {
     INFO_LOG("ROLE DO ID ={} updated ret ={}", roleDo._id, ret);
     int64 userId = 99999;
     std::optional<RoleDO> pRoleDO = roleDao.find_one(userId);
-    if (pRoleDO) {
-        RoleDO &roleDo = pRoleDO.value();
+    if (pRoleDO)
+    {
+        RoleDO& roleDo = pRoleDO.value();
         INFO_LOG(" role id ={} name ={}", roleDo._id, roleDo.name);
     }
 
@@ -132,9 +139,12 @@ int main(int argc, char **argv) {
     bool cacheRet = roleCache.update(cacheDo._id, cacheDo);
     INFO_LOG("REDIS DO id={} update ret={}", cacheDo._id, cacheRet);
     std::optional<RoleDO> cachedRole = roleCache.find_one(99999);
-    if (cachedRole) {
+    if (cachedRole)
+    {
         INFO_LOG("redis cache role id={} name={}", cachedRole->_id, cachedRole->name);
-    } else {
+    }
+    else
+    {
         ERR_LOG("redis cache role 99999 miss");
     }
 

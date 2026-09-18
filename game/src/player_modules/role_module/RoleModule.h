@@ -7,7 +7,7 @@
 
 #include "module/Module.h"
 #include "dos/RoleDO.hpp"
-#include "dao/Dal.hpp"
+#include "../../../../dal/src/dal/Dal.hpp"
 #include "dao/RoleDAO.h"
 
 class Player;
