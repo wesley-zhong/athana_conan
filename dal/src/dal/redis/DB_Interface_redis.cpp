@@ -1,4 +1,5 @@
 #include <string>
+#include <cstring>
 #include "hiredis/hiredis.h"
 #include "DB_Interface_redis.h"
 #include "core/log/XLog.h"

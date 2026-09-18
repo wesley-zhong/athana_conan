@@ -5,7 +5,12 @@
 #include <ws2tcpip.h>
 #endif
 
+#include <atomic>
 #include <chrono>
+#include <condition_variable>
+#include <mutex>
+#include <optional>
+#include <thread>
 #include "sol/sol.hpp"
 #include <csignal>
 #include "core/log/XLog.h"

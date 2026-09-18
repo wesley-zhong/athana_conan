@@ -1,5 +1,6 @@
 ﻿#include "mysql.h"
 #include "SqlResultSet.h"
+#include <cstring>
 #include "core/log/XLog.h"
 
 namespace dal

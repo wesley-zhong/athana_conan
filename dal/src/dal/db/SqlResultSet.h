@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <vector>
+#include <cstring>
 #include "core/common/BaseType.h"
 #include "DBResult.h"
 

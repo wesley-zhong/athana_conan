@@ -12,7 +12,7 @@
 #include "ProtoInner.pb.h"
 
 #include "core/common/ObjectPool.hpp"
-#include "dal/db/Dal.hpp"
+#include "../../dal/src/dal/Dal.hpp"
 #include "transport/AthenaTcpServer.h"
 
 #if defined(_WIN32)

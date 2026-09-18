@@ -9,6 +9,8 @@
 #include <optional>
 #include <vector>
 #include <type_traits>
+#include <cstring>
+#include <utility>
 #include "RedisSerializable.h"
 
 namespace dal

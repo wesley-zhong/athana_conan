@@ -1,5 +1,6 @@
 #include "core/common/BaseType.h"
 #include <string>
+#include <cstring>
 #include "mysql.h"
 
 #include "SqlPrepare.h"

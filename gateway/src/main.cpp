@@ -15,7 +15,7 @@
 
 #include "core/common/ObjectPool.hpp"
 #include "core/utils/Snowflake.h"
-#include "dal/db/Dal.hpp"
+#include "../../dal/src/dal/Dal.hpp"
 #include "discovery/Discovery.h"
 #include "network/GatewayServerNetWorkHandler.h"
 #include "transport/AthenaTcpServer.h"
