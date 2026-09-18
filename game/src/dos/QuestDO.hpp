@@ -11,7 +11,7 @@
 
 #include "dal/mongodb/BsonSerializable .h"
 #include "dal/redis/RedisSerializable.h"
-#include "core/common/BaseType.h"
+#include "common/BaseType.h"
 
 class QuestDO : public dal::BsonSerializable, public dal::RedisSerializable
 {

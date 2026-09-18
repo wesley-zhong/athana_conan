@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "core/log/XLog.h"
+#include "log/XLog.h"
 #include "sol/sol.hpp"
 //#include "pb.h"
 

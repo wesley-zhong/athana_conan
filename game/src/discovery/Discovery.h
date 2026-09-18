@@ -6,7 +6,7 @@
 #define  DISCOVERY_H
 
 #include "discovery/AthenaDiscovery.h"
-#include "core/common/AthenaConfig.h"
+#include "common/AthenaConfig.h"
 
 class Discovery {
 public:

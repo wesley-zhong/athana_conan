@@ -7,9 +7,9 @@ find_package(protobuf CONFIG REQUIRED)
 
 # 源码
 file(GLOB_RECURSE SRC_FILES
-        ${PROJECT_SOURCE_DIR}/src/*.cpp
-        ${PROJECT_SOURCE_DIR}/src/*.cc
-        ${PROJECT_SOURCE_DIR}/src/*.c
+        ${PROJECT_SOURCE_DIR}/*.cpp
+        ${PROJECT_SOURCE_DIR}/*.cc
+        ${PROJECT_SOURCE_DIR}/*.c
 
         ${SOLUTION_DIR}/code-gen/proto-gen/*.cpp
         ${SOLUTION_DIR}/code-gen/proto-gen/*.cc
@@ -22,7 +22,7 @@ add_executable(${PROJECT_NAME}
 
 # 统一头文件路径
 target_include_directories(${PROJECT_NAME} PRIVATE
-        ${PROJECT_SOURCE_DIR}/src
+        ${PROJECT_SOURCE_DIR}
         ${SOLUTION_DIR}/code-gen/proto-gen
 )
 target_link_directories(${PROJECT_NAME} PRIVATE ${SOLUTION_DIR}/libs)

@@ -1,7 +1,7 @@
 #include "sol/sol.hpp"
-#include "core/common/CsvParser.h"
+#include "common/CsvParser.h"
 #include <string>
-#include "core/common/BaseType.h"
+#include "common/BaseType.h"
 
 class Lua_CsvParser : public core::CsvParser
 {

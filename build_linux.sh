@@ -4,6 +4,10 @@ set -e
 
 BUILD_DIR="cmake-build-debug"
 TOOLCHAIN_FILE="${BUILD_DIR}/build/Debug/generators/conan_toolchain.cmake"
+# cppstd here only selects/validates conan dependency binaries (ABI is stable
+# across C++17/20 on both MSVC and libstdc++), keep it in sync with what the
+# cached packages were built with; the project itself is built with C++20 via
+# CMAKE_CXX_STANDARD in the root CMakeLists.txt
 CPPSTD=17
 JOBS=8
 

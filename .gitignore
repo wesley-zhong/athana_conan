@@ -4,3 +4,4 @@
 libs/macos/libcore.a
 /libs
 /bin
+__pycache__/

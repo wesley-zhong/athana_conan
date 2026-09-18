@@ -4,7 +4,7 @@
 
 #include "service/PlayerMgr.h"
 
-#include "core/common/ObjectPool.hpp"
+#include "common/ObjectPool.hpp"
 
 void PlayerMgr::addPlayer(Player *player) {
     players.insert({player->getPid(), player});

@@ -1,0 +1,142 @@
+//
+// Created by zhongweiqi on 2025/10/23.
+//
+
+#ifndef ATHENA_CHANNEL_H
+#define ATHENA_CHANNEL_H
+#include "google/protobuf/message.h"
+#include "uv.h"
+#include "common/ByteBuffer.h"
+#include "ByteUtils.h"
+
+namespace transport {
+
+class EventLoop;
+class Channel;
+
+struct SPackage {
+    int32 _msgId;
+    char *_body;
+    int32 _bodyLen;
+
+    void parseBody(char *body, int32 bodyLen) {
+        _msgId = ByteUtils::readInt32(body);
+        _body = body + sizeof(int32);
+    }
+};
+
+struct WritePack {
+    Channel *_channel;
+    int32 sendSize;
+    WritePack(){
+
+    }
+
+    ~WritePack(){
+        _channel = nullptr;
+        sendSize =0;
+    }
+    void consume();
+};
+
+class Channel {
+public:
+    // single packet max size: frame = 4B packLen + 4B msgId + body, aligned with ring capacity(4MB)
+    static constexpr int MAX_PACKET_SIZE = 4 * 1024 * 1024;
+
+    Channel(EventLoop *event_loop, uv_tcp_t *client, uv_os_sock_t fd) : _eventLoop(event_loop),
+                                                                        client(client), fd((uint64) fd),
+                                                                        writing(false), closed(false) {
+        recv_buffer = new core::ByteBuffer();
+        send_buff = new core::ByteBuffer();
+        heartbeat_timer.data = this;
+    }
+
+    void sendMsg(int msgId, std::shared_ptr<google::protobuf::Message> msg);
+
+    void initPackTime();
+
+    void sendMsg(int msgId, google::protobuf::Message *msg);
+
+    void onRead(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf);
+
+    uint64 getFd() const {
+        return fd;
+    }
+
+    EventLoop *event_loop();
+
+    void setUserData(void *userData) {
+        this->userData = userData;
+    }
+
+    void *getUserData() {
+        return this->userData;
+    }
+
+    uv_timer_t *getTimer() {
+        return &heartbeat_timer;
+    }
+
+    char *getEventPackBuff(int needLen);
+
+    uint64_t nowTime();
+
+    void close();
+
+    bool isClosed() const {
+        return closed;
+    }
+
+    std::string getAddr();
+
+    // peek next frame length without consuming:
+    // -1 incomplete, -2 illegal length(caller should close), else frame bytes = packLen + 4
+    int peekNextPackLen() const {
+        int readableBytes = (int) recv_buffer->storage().readableBytes();
+        if (readableBytes < 8) {
+            return -1;
+        }
+        uint32 packLen = recv_buffer->getInt32();
+        if (packLen > (uint32) (MAX_PACKET_SIZE - 4)) {
+            return -2;
+        }
+        if (packLen > readableBytes - 4) {
+            return -1;
+        }
+        return packLen + 4;
+    }
+
+    int getPack(char *outPacket, int packLen) const {
+        return (int) recv_buffer->readBytes(outPacket, packLen);
+    }
+
+    void doUvSend();
+
+
+    core::ByteBuffer *recv_buffer;
+    core::ByteBuffer *send_buff;
+
+    EventLoop *_eventLoop;
+    uint64 last_recv_time;
+    uint64 last_send_time;
+    uv_timer_t heartbeat_timer;
+    uv_tcp_t *client;
+
+private:
+    void eventLoopWrite(int msgId, std::shared_ptr<google::protobuf::Message> body);
+
+    void eventLoopWrite(int msgId, google::protobuf::Message *body);
+
+    std::string getAddrString(const struct sockaddr_storage &addr);
+
+    uint64 fd;
+    void *userData;
+    bool writing; // whether a uv_write is in-flight
+    bool closed; // connection closed
+};
+
+
+} // namespace transport
+
+#endif //ATHENA_CHANNEL_H

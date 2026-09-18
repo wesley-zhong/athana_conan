@@ -6,7 +6,7 @@
 #include "transport/Dispatcher.h"
 #include "controller/PlayerLoginHandler.h"
 #include "transport/Channel.h"
-#include "core/log/XLog.h"
+#include "log/XLog.h"
 #include "transport/ByteUtils.h"
 
 #include "ProtoInner.pb.h"

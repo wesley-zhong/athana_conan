@@ -3,8 +3,8 @@
 //
 
 #include "PeerConn.h"
-#include "core/log/XLog.h"
-#include "core/common/RandomUtil.h"
+#include "log/XLog.h"
+#include "common/RandomUtil.h"
 
 namespace discovery {
 

@@ -5,7 +5,7 @@
 #ifndef ATHENA_DO_H
 #define ATHENA_DO_H
 
-#include "core/common/BaseType.h"
+#include "common/BaseType.h"
 
 class DO {
 public:

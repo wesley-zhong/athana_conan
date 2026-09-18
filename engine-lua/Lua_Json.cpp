@@ -1,6 +1,6 @@
 #include "sol/sol.hpp"
-#include "core/utils/Json.h"
-#include "core/utils/JsonReader.h"
+#include "utils/Json.h"
+#include "utils/JsonReader.h"
 
 using namespace core::jwEngine;
 

@@ -8,7 +8,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include "core/common/NodeInfo.h"
+#include "common/NodeInfo.h"
 #include "transport/Channel.h"
 
 namespace discovery {

@@ -1,5 +1,5 @@
 #include "PlayerLoginHandler.h"
-#include "core/log/XLog.h"
+#include "log/XLog.h"
 #include "service/LoginService.h"
 #include "ProtoInner.pb.h"
 #include "transport/Dispatcher.h"

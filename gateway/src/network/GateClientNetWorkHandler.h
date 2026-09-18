@@ -5,7 +5,7 @@
 #ifndef ATHENA_NETWORKHANDLER_H
 #define ATHENA_NETWORKHANDLER_H
 #include <vector>
-#include "core/actor/ActorSystem.h"
+#include "actor/ActorSystem.h"
 #include "transport/EventDefs.h"
 namespace transport { class Channel; }
 

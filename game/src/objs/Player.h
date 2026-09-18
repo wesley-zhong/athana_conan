@@ -1,11 +1,11 @@
 #ifndef GAME_ROLE_HPP_
 #define GAME_ROLE_HPP_
-#include "core/common/ObjectPool.hpp"
-#include "core/log/XLog.h"
+#include "common/ObjectPool.hpp"
+#include "log/XLog.h"
 #include "transport/Channel.h"
 #include "module/Module.h"
 #include "module/ModuleContainer.h"
-#include "core/actor/Actor.h"
+#include "actor/Actor.h"
 
 class Player : public core::ObjPool::PoolObjClass<Player>
 {

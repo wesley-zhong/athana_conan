@@ -5,7 +5,7 @@
 #include "AthenaEtcdClient.h"
 
 #include <iostream>
-#include "core/log/XLog.h"
+#include "log/XLog.h"
 
 namespace discovery {
 

@@ -12,7 +12,7 @@
 
 #include "dal/mongodb/BsonSerializable .h"
 #include "dal/redis/RedisSerializable.h"
-#include "core/common/BaseType.h"
+#include "common/BaseType.h"
 class RoleDO : public dal::BsonSerializable, public dal::RedisSerializable {
 public:
     int64_t _id;

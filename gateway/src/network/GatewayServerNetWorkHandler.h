@@ -5,7 +5,7 @@
 #ifndef ATHENA_PLAYERNETWORKHANDLLER_H
 #define ATHENA_PLAYERNETWORKHANDLLER_H
 #include <vector>
-#include "core/actor/ActorSystem.h"
+#include "actor/ActorSystem.h"
 #include "transport/EventDefs.h"
 namespace transport { struct MsgFunction; }
 namespace transport { class Channel; }

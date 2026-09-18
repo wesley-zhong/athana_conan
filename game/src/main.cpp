@@ -13,8 +13,8 @@
 #include <thread>
 #include "sol/sol.hpp"
 #include <csignal>
-#include "core/log/XLog.h"
-#include "core/utils/Snowflake.h"
+#include "log/XLog.h"
+#include "utils/Snowflake.h"
 #include "dal/Dal.hpp"
 
 #if defined(_WIN32)
@@ -31,7 +31,7 @@
 #include "network/GameServerNetWorkHandler.h"
 #include "dao/RoleDAO.h"
 #include "dao/RoleCacheDAO.h"
-#include "core/common/AthenaConfig.h"
+#include "common/AthenaConfig.h"
 #include "discovery/Discovery.h"
 
 static std::atomic<bool> g_running(true);

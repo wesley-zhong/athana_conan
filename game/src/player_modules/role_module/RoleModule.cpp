@@ -3,7 +3,7 @@
 //
 
 #include "RoleModule.h"
-#include "core/log/XLog.h"
+#include "log/XLog.h"
 
 
 void RoleModule::fromDO(RoleDO* dataObj)

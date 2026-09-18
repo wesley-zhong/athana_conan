@@ -10,9 +10,9 @@
 #include <vector>
 #include <memory>
 #include "AthenaEtcdClient.h"
-#include "core/common/NodeInfo.h"
-#include "core/common/Singleton.h"
-#include "core/utils/NetUtils.h"
+#include "common/NodeInfo.h"
+#include "common/Singleton.h"
+#include "utils/NetUtils.h"
 
 namespace discovery {
 

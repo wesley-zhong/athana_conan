@@ -3,9 +3,9 @@
 //
 
 #include "AthenaDiscovery.h"
-#include "core/utils/JsonUtils.h"
+#include "utils/JsonUtils.h"
 
-#include "core/log/XLog.h"
+#include "log/XLog.h"
 
 namespace discovery {
 

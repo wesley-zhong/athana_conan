@@ -3,7 +3,7 @@
 //
 
 #include "LoginService.h"
-#include "core/log/XLog.h"
+#include "log/XLog.h"
 
 void LoginService::onPlayerLogin(transport::Channel* channel, InnerLoginRequest* req)
 {

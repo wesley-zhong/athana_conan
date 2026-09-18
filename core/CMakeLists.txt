@@ -14,7 +14,7 @@ add_library(${PROJECT_NAME} STATIC
 
 # 统一头文件路径，公开给下游（如 gateway）
 target_include_directories(${PROJECT_NAME} PUBLIC
-        ${PROJECT_SOURCE_DIR}/src
+        ${PROJECT_SOURCE_DIR}
         ${3RD}
 )
 

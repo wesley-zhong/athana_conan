@@ -8,7 +8,7 @@ project(athena VERSION 0.1.0 LANGUAGES C CXX)
 
 
 # C++ standard
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(3RD ${PROJECT_SOURCE_DIR}/3rd)
@@ -49,7 +49,7 @@ if(UNIX AND NOT APPLE)
 endif()
 
 if(MSVC)
-	add_compile_options(/std:c++17 /utf-8)
+	add_compile_options(/std:c++20 /utf-8)
 	add_compile_options(/Zc:__cplusplus /EHsc)
 	add_compile_definitions(NOMINMAX)
 	set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/win)

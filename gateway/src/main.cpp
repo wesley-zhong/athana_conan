@@ -6,16 +6,16 @@
 #include <iostream>
 #include <filesystem>
 #include <csignal>
-#include "core/common/RingBuffer.hpp"
-#include "core/log/XLog.h"
+#include "common/RingBuffer.hpp"
+#include "log/XLog.h"
 #include "transport/Dispatcher.h"
 
 #include "ProtoInner.pb.h"
-#include "core/common/AthenaConfig.h"
+#include "common/AthenaConfig.h"
 
-#include "core/common/ObjectPool.hpp"
-#include "core/utils/Snowflake.h"
-#include "../../dal/src/dal/Dal.hpp"
+#include "common/ObjectPool.hpp"
+#include "utils/Snowflake.h"
+#include "dal/Dal.hpp"
 #include "discovery/Discovery.h"
 #include "network/GatewayServerNetWorkHandler.h"
 #include "transport/AthenaTcpServer.h"

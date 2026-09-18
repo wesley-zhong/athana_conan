@@ -3,7 +3,7 @@
 //
 
 #include "SystemMsgHandler.h"
-#include "core/log/XLog.h"
+#include "log/XLog.h"
 #include "ProtoInner.pb.h"
 #include "transport/Dispatcher.h"
 #include "discovery/AthenaDiscovery.h"

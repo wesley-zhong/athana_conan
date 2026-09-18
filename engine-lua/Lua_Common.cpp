@@ -1,8 +1,8 @@
 #include "sol/sol.hpp"
-#include "core/log/XLog.h"
-#include "core/common/Tools.h"
-#include "core/common/XFile.h"
-#include "core/common/XTime.h"
+#include "log/XLog.h"
+#include "common/Tools.h"
+#include "common/XFile.h"
+#include "common/XTime.h"
 
 class Lua_XLog
 {

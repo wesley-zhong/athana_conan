@@ -7,7 +7,7 @@
 #
 #include <unordered_map>
 
-#include "core/common/BaseType.h"
+#include "common/BaseType.h"
 #include "objs/Player.h"
 #include "transport/Channel.h"
 
