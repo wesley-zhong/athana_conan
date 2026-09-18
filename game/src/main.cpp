@@ -25,6 +25,7 @@
 #include "network/GameServerNetWorkHandler.h"
 #include "dal/mongodb/MongClientManager.h"
 #include "dao/RoleDAO.h"
+#include "dao/RoleCacheDAO.h"
 #include "dao/Dal.hpp"
 #include "core/common/AthenaConfig.h"
 #include "discovery/Discovery.h"
@@ -76,11 +77,6 @@ int main(int argc, char **argv) {
         return -4;
     }
     INFO_LOG("Redis init ok, addr={}:{}", redisIp, redisPort);
-    dal::RedisResult redisResult;
-    dal::Cache::execute(&redisResult, "set ol:100064913 889abc");
-    dal::RedisResult redisResult1;
-    dal::Cache::execute(&redisResult1, "get ol:100064913");
-    INFO_LOG("OUT STRING ={}", redisResult1.getStream());
 
     //    dal::DB::init(ip,3306,"gm_tool", "root","MyUN#FoyT!EtLnh7");
     //    dal::MysqlResult db_result;
@@ -126,6 +122,20 @@ int main(int argc, char **argv) {
     if (pRoleDO) {
         RoleDO &roleDo = pRoleDO.value();
         INFO_LOG(" role id ={} name ={}", roleDo._id, roleDo.name);
+    }
+
+    // redis cache demo (mirrors the mongo DAO demo above)
+    RoleDO cacheDo;
+    cacheDo._id = 99999;
+    cacheDo.name = "redis_kkkk11";
+    RoleCacheDAO roleCache;
+    bool cacheRet = roleCache.update(cacheDo._id, cacheDo);
+    INFO_LOG("REDIS DO id={} update ret={}", cacheDo._id, cacheRet);
+    std::optional<RoleDO> cachedRole = roleCache.find_one(99999);
+    if (cachedRole) {
+        INFO_LOG("redis cache role id={} name={}", cachedRole->_id, cachedRole->name);
+    } else {
+        ERR_LOG("redis cache role 99999 miss");
     }
 
 

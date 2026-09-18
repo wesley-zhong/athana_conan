@@ -44,6 +44,6 @@ namespace dal
 
     private:
         std::vector<std::vector<uint8>> m_param;
-        std::vector<int> m_len;
+        std::vector<size_t> m_len;
     };
 } // namespace dal

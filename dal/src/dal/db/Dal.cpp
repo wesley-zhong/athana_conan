@@ -30,11 +30,6 @@ namespace dal::Cache
         redis = initDB<DBInterfaceRedis>(ip.c_str(), port, dbname.c_str(), username.c_str(), password.c_str());
         return redis != nullptr;
     }
-
-    int execute(DBResult* result, const std::string& cmd)
-    {
-        return redis->execute(result, cmd.c_str(), cmd.length());
-    }
 }
 
 namespace dal::MongoDB

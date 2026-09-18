@@ -11,8 +11,8 @@ bsoncxx::document::value QuestDO::toBson() const {
         }
     }
     doc << "_id" << _id;
- //   doc << "questIdsFinished" << questIdsFinished;
-   // doc << "curQuestIds" << curQuestIds;
+    // unsupported field type: std::vector<int64_t> questIdsFinished
+    // unsupported field type: std::vector<int64_t> curQuestIds
     return doc << bsoncxx::builder::stream::finalize;
 }
 

@@ -100,4 +100,9 @@ namespace dal
         const char* p = getData(len);
         return std::string_view(p, len);
     }
+
+    int RedisResult::replyType() const
+    {
+        return m_reply ? m_reply->type : -1;
+    }
 } // namespace dal

@@ -98,7 +98,7 @@ namespace dal
 
     const size_t* RedisCommand::argvlen()
     {
-        return (size_t*)m_len.data();
+        return m_len.data();
     }
 
     const char* RedisCommand::tostr()

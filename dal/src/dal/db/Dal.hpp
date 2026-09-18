@@ -43,8 +43,6 @@ namespace dal
 
         bool init(const std::string& ip, unsigned int port, const std::string& dbname, const std::string& username,
                   const std::string& password);
-
-        int execute(DBResult* result, const std::string& cmd);
     }
 
     namespace MongoDB
