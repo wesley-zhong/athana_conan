@@ -11,39 +11,45 @@
 #include "../redis/DB_Interface_redis.h"
 #include "dal/mongodb/MongClientManager.h"
 
-namespace dal {
-    template<typename T>
-    T *initDB(const char *host, unsigned int port, const char *dbname, const char *user, const char *pswd
-    ) {
-        T *obj = new T(host, port, dbname, user, pswd);
+namespace dal
+{
+    template <typename T>
+    T* initDB(const char* host, unsigned int port, const char* dbname, const char* user, const char* pswd
+    )
+    {
+        T* obj = new T(host, port, dbname, user, pswd);
         bool ret = obj->connect();
-        if (ret) {
+        if (ret)
+        {
             return obj;
         }
         return nullptr;
     }
 
-    namespace DB {
-        extern DBInterfaceMysql *mysql;
+    namespace DB
+    {
+        extern DBInterfaceMysql* mysql;
 
-        bool init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
-                  const std::string &password);
+        bool init(const std::string& ip, unsigned int port, const std::string& dbname, const std::string& username,
+                  const std::string& password);
 
         //  template<typename T_KEY, typename T_VALUE>  Todo  this should support string and long ,int  as key
-        int execute(DBResult *result, const std::string &cmd);
+        int execute(DBResult* result, const std::string& cmd);
     }
 
-    namespace Cache {
-        extern DBInterfaceRedis *redis;
+    namespace Cache
+    {
+        extern DBInterfaceRedis* redis;
 
-        bool init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
-                  const std::string &password);
+        bool init(const std::string& ip, unsigned int port, const std::string& dbname, const std::string& username,
+                  const std::string& password);
 
-        int execute(DBResult *result, const std::string &cmd);
+        int execute(DBResult* result, const std::string& cmd);
     }
-    namespace MongoDB {
-        bool init(const std::string &ip, const std::string &username,
-                  const std::string &password);
 
+    namespace MongoDB
+    {
+        bool init(const std::string& ip, const std::string& username,
+                  const std::string& password);
     }
 }

@@ -6,115 +6,133 @@
 #include "MysqlResult.h"
 #include "SqlPrepare.h"
 
-namespace dal {
+namespace dal
+{
+    DBInterfaceMysql::DBInterfaceMysql(const char* host, unsigned int port, const char* dbname, const char* user,
+                                       const char* pswd
+    ) : DB_Interface(host, port)
+    {
+        m_dbname = dbname;
+        m_user = user;
+        m_pswd = pswd;
 
-DBInterfaceMysql::DBInterfaceMysql(const char *host, unsigned int port, const char *dbname, const char *user,
-                                   const char *pswd
-) : DB_Interface(host, port) {
-    m_dbname = dbname;
-    m_user = user;
-    m_pswd = pswd;
-
-    if (!mysql_init(&mMysql_)) {
-        ERR_LOG("mysql init error!!");
-    }
-}
-
-DBInterfaceMysql::~DBInterfaceMysql() {
-    detach();
-}
-
-bool DBInterfaceMysql::connect() {
-    if (mysql_options(&mMysql_, MYSQL_SET_CHARSET_NAME, "utf8")) {
-        ERR_LOG("mysql_options(MYSQL_SET_CHARSET_NAME) Errno:{} failed: {}", getErrno(), getError());
-        return false;
-    }
-    // 关闭 SSL（兼容老版本客户端）
-    mysql_ssl_set(&mMysql_, NULL, NULL, NULL, NULL, NULL);
-    my_bool reconnect = 1;
-    if (mysql_options(&mMysql_, MYSQL_OPT_RECONNECT, &reconnect)) {
-        ERR_LOG("mysql_options(MYSQL_OPT_RECONNECT) Errno:{} failed: {}", getErrno(), getError());
-        return false;
+        if (!mysql_init(&mMysql_))
+        {
+            ERR_LOG("mysql init error!!");
+        }
     }
 
-    if (!mysql_real_connect(&mMysql_, m_ip.c_str(), m_user.c_str(), m_pswd.c_str(), m_dbname.c_str(), m_port, NULL,
-                            0)) {
-        ERR_LOG("mysql_real_connect Errno:{} error: {}  client info ={}  version ={}", getErrno(), getError(),
-                mysql_get_client_info(), mysql_get_client_version());
-        return false;
+    DBInterfaceMysql::~DBInterfaceMysql()
+    {
+        detach();
     }
 
-    return true;
-}
+    bool DBInterfaceMysql::connect()
+    {
+        if (mysql_options(&mMysql_, MYSQL_SET_CHARSET_NAME, "utf8"))
+        {
+            ERR_LOG("mysql_options(MYSQL_SET_CHARSET_NAME) Errno:{} failed: {}", getErrno(), getError());
+            return false;
+        }
+        // 关闭 SSL（兼容老版本客户端）
+        mysql_ssl_set(&mMysql_, NULL, NULL, NULL, NULL, NULL);
+        my_bool reconnect = 1;
+        if (mysql_options(&mMysql_, MYSQL_OPT_RECONNECT, &reconnect))
+        {
+            ERR_LOG("mysql_options(MYSQL_OPT_RECONNECT) Errno:{} failed: {}", getErrno(), getError());
+            return false;
+        }
 
-bool DBInterfaceMysql::detach() {
-    ::mysql_close(&mMysql_);
-    return true;
-}
+        if (!mysql_real_connect(&mMysql_, m_ip.c_str(), m_user.c_str(), m_pswd.c_str(), m_dbname.c_str(), m_port, NULL,
+                                0))
+        {
+            ERR_LOG("mysql_real_connect Errno:{} error: {}  client info ={}  version ={}", getErrno(), getError(),
+                    mysql_get_client_info(), mysql_get_client_version());
+            return false;
+        }
 
-int DBInterfaceMysql::execute(DBResult *result, const char *cmd, int len) {
-    int nResult = mysql_real_query(&mMysql_, cmd, (len <= 0 ? strlen(cmd) : len));
-    if (nResult != 0) {
-        ERR_LOG("mysql_real_query Errno:{} error: {}", getErrno(), getError());
-        return -1;
+        return true;
     }
 
-    MYSQL_RES *mysql_res = mysql_store_result(&mMysql_);
-    MysqlResult* dbResult = (MysqlResult*) result;
-    // if (mysql_res) {
-    //     uint32 nrows = (uint32) mysql_num_rows(mysql_res);
-    //     uint32 nfields = (uint32) mysql_num_fields(mysql_res);
-    //     dbResult->setResult(mysql_res)；
-    //     MYSQL_ROW arow;
-    //     while ((arow = mysql_fetch_row(mysql_res)) != nullptr) {
-    //         unsigned long *lengths = mysql_fetch_lengths(mysql_res);
-    //
-    //         for (uint32 i = 0; i < nfields; ++i) {
-    //             // arow[i], lengths[i]
-    //         }
-    //     }
-    //
-    //     mysql_free_result(mysql_res);
-    // } else {
-    // }
-
-    static_cast<MysqlResult *>(result)->setResult(mysql_res);
-    return 0;
-}
-
-const char *DBInterfaceMysql::getError() {
-    return mysql_error(&mMysql_);
-}
-
-int DBInterfaceMysql::getErrno() {
-    return mysql_errno(&mMysql_);
-}
-
-bool DBInterfaceMysql::ping() {
-    return mysql_ping(&mMysql_) == 0;
-}
-
-MYSQL *DBInterfaceMysql::mysql() {
-    return &mMysql_;
-}
-
-
-namespace MySQL {
-    int threadSafe() {
-        return mysql_thread_safe();
+    bool DBInterfaceMysql::detach()
+    {
+        ::mysql_close(&mMysql_);
+        return true;
     }
 
-    void libraryInit() {
-        mysql_library_init(-1, nullptr, nullptr);
+    int DBInterfaceMysql::execute(DBResult* result, const char* cmd, int len)
+    {
+        int nResult = mysql_real_query(&mMysql_, cmd, (len <= 0 ? strlen(cmd) : len));
+        if (nResult != 0)
+        {
+            ERR_LOG("mysql_real_query Errno:{} error: {}", getErrno(), getError());
+            return -1;
+        }
+
+        MYSQL_RES* mysql_res = mysql_store_result(&mMysql_);
+        MysqlResult* dbResult = (MysqlResult*)result;
+        // if (mysql_res) {
+        //     uint32 nrows = (uint32) mysql_num_rows(mysql_res);
+        //     uint32 nfields = (uint32) mysql_num_fields(mysql_res);
+        //     dbResult->setResult(mysql_res)；
+        //     MYSQL_ROW arow;
+        //     while ((arow = mysql_fetch_row(mysql_res)) != nullptr) {
+        //         unsigned long *lengths = mysql_fetch_lengths(mysql_res);
+        //
+        //         for (uint32 i = 0; i < nfields; ++i) {
+        //             // arow[i], lengths[i]
+        //         }
+        //     }
+        //
+        //     mysql_free_result(mysql_res);
+        // } else {
+        // }
+
+        static_cast<MysqlResult*>(result)->setResult(mysql_res);
+        return 0;
     }
 
-    void libraryEnd() {
-        mysql_library_end();
+    const char* DBInterfaceMysql::getError()
+    {
+        return mysql_error(&mMysql_);
     }
 
-    char const *getLibraryVersion() {
-        return MYSQL_SERVER_VERSION;
+    int DBInterfaceMysql::getErrno()
+    {
+        return mysql_errno(&mMysql_);
     }
-}
 
+    bool DBInterfaceMysql::ping()
+    {
+        return mysql_ping(&mMysql_) == 0;
+    }
+
+    MYSQL* DBInterfaceMysql::mysql()
+    {
+        return &mMysql_;
+    }
+
+
+    namespace MySQL
+    {
+        int threadSafe()
+        {
+            return mysql_thread_safe();
+        }
+
+        void libraryInit()
+        {
+            mysql_library_init(-1, nullptr, nullptr);
+        }
+
+        void libraryEnd()
+        {
+            mysql_library_end();
+        }
+
+        char const* getLibraryVersion()
+        {
+            return MYSQL_SERVER_VERSION;
+        }
+    }
 } // namespace dal

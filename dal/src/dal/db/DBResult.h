@@ -1,20 +1,23 @@
 #pragma once
 
-namespace dal {
-
-class DBResult
+namespace dal
 {
-public:
-	DBResult() {};
-	virtual ~DBResult() {};
-	virtual bool isEmpty() = 0;
-	virtual bool fetch() = 0;
-	virtual uint32 getRowCount() = 0;
-	virtual uint32 getFieldsCount() = 0;
+    class DBResult
+    {
+    public:
+        DBResult()
+        {
+        };
 
-	virtual const char * getData(int & len) = 0;
-	virtual const char * getData() = 0;
-};
+        virtual ~DBResult()
+        {
+        };
+        virtual bool isEmpty() = 0;
+        virtual bool fetch() = 0;
+        virtual uint32 getRowCount() = 0;
+        virtual uint32 getFieldsCount() = 0;
 
+        virtual const char* getData(int& len) = 0;
+        virtual const char* getData() = 0;
+    };
 } // namespace dal
-

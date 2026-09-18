@@ -3,14 +3,15 @@
 #include <bsoncxx/builder/stream/document.hpp>
 using namespace bsoncxx::builder::stream;
 
-namespace dal {
+namespace dal
+{
+    bsoncxx::document::value BsonSerializable::toBson() const
+    {
+        document doc{};
+        return doc << finalize;
+    }
 
-bsoncxx::document::value BsonSerializable::toBson() const {
-    document doc{};
-    return doc << finalize;
-}
-
-void  BsonSerializable::fromBson(bsoncxx::document::view v) {
-};
-
+    void BsonSerializable::fromBson(bsoncxx::document::view v)
+    {
+    };
 } // namespace dal

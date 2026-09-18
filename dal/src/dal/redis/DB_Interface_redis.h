@@ -8,27 +8,27 @@
 ************************************************************************/
 
 #include "../db/DB_Interface.h"
-namespace dal {
 
-class RedisCommand;
-class DBInterfaceRedis : public DB_Interface
+namespace dal
 {
-public:
-	DBInterfaceRedis(const char * ip, unsigned int port,const char *dbname, const char *user, const char *pswd);
-	~DBInterfaceRedis();
+    class RedisCommand;
 
-	virtual bool connect();
-	virtual bool detach();
-	virtual int execute(DBResult * result, const char * cmd, int len = 0);
-	virtual const char * getError();
-	virtual int getErrno();
-	virtual bool ping();
+    class DBInterfaceRedis : public DB_Interface
+    {
+    public:
+        DBInterfaceRedis(const char* ip, unsigned int port, const char* dbname, const char* user, const char* pswd);
+        ~DBInterfaceRedis();
 
-	int execute(RedisCommand * command, DBResult * result);
+        virtual bool connect();
+        virtual bool detach();
+        virtual int execute(DBResult* result, const char* cmd, int len = 0);
+        virtual const char* getError();
+        virtual int getErrno();
+        virtual bool ping();
 
-protected:
-	redisContext * m_context;
-};
+        int execute(RedisCommand* command, DBResult* result);
 
+    protected:
+        redisContext* m_context;
+    };
 } // namespace dal
-

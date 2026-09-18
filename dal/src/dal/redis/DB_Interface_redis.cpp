@@ -6,126 +6,128 @@
 #include <vector>
 #include "RedisCommand.h"
 
-namespace dal {
-
-DBInterfaceRedis::DBInterfaceRedis(const char * ip, unsigned int port,const char *dbname, const char *user, const char *pswd) : DB_Interface(ip, port)
+namespace dal
 {
-	m_context = NULL;
-}
+    DBInterfaceRedis::DBInterfaceRedis(const char* ip, unsigned int port, const char* dbname, const char* user,
+                                       const char* pswd) : DB_Interface(ip, port)
+    {
+        m_context = NULL;
+    }
 
-DBInterfaceRedis::~DBInterfaceRedis()
-{
-	detach();
-}
+    DBInterfaceRedis::~DBInterfaceRedis()
+    {
+        detach();
+    }
 
-bool DBInterfaceRedis::connect()
-{
-	redisContext *c = redisConnect(m_ip.c_str(), (int)m_port);
-	if (c->err)
-	{
-		ERR_LOG("DBInterfaceRedis::attach: errno=%d, error=%s\n", c->err, c->errstr);
+    bool DBInterfaceRedis::connect()
+    {
+        redisContext* c = redisConnect(m_ip.c_str(), (int)m_port);
+        if (c->err)
+        {
+            ERR_LOG("DBInterfaceRedis::attach: errno=%d, error=%s\n", c->err, c->errstr);
 
-		redisFree(c);
-		return false;
-	}
+            redisFree(c);
+            return false;
+        }
 
-	// TODO command: auth password
-	// TODO command: select idx
+        // TODO command: auth password
+        // TODO command: select idx
 
-	m_context = c;
-	return true;
-}
+        m_context = c;
+        return true;
+    }
 
-bool DBInterfaceRedis::detach()
-{
-	if (m_context)
-	{
-		redisFree(m_context);
-		m_context = NULL;
-	}
+    bool DBInterfaceRedis::detach()
+    {
+        if (m_context)
+        {
+            redisFree(m_context);
+            m_context = NULL;
+        }
 
-	return true;
-}
+        return true;
+    }
 
-int DBInterfaceRedis::
-execute(DBResult *result, const char *cmd, int len)
-{
-	redisReply *pRedisReply = (redisReply *)redisCommand(m_context, cmd);
-	if (m_context->err)
-	{
-		ERR_LOG("DBInterfaceRedis::query: cmd=%s, errno=%d, error=%s\n", cmd, m_context->err, m_context->errstr);
-		return -1;
-	}
-	// freeReplyObject(pRedisReply);
+    int DBInterfaceRedis::
+    execute(DBResult* result, const char* cmd, int len)
+    {
+        redisReply* pRedisReply = (redisReply*)redisCommand(m_context, cmd);
+        if (m_context->err)
+        {
+            ERR_LOG("DBInterfaceRedis::query: cmd=%s, errno=%d, error=%s\n", cmd, m_context->err, m_context->errstr);
+            return -1;
+        }
+        // freeReplyObject(pRedisReply);
 
-	static_cast<RedisResult *>(result)->setResult(pRedisReply);
-	return 0;
-}
+        static_cast<RedisResult*>(result)->setResult(pRedisReply);
+        return 0;
+    }
 
-const char *DBInterfaceRedis::getError()
-{
-	if (m_context == NULL)
-		return "pRedisContext_ is NULL";
+    const char* DBInterfaceRedis::getError()
+    {
+        if (m_context == NULL)
+            return "pRedisContext_ is NULL";
 
-	return m_context->errstr;
-}
+        return m_context->errstr;
+    }
 
-int DBInterfaceRedis::getErrno()
-{
-	if (m_context == NULL)
-		return 0;
+    int DBInterfaceRedis::getErrno()
+    {
+        if (m_context == NULL)
+            return 0;
 
-	return m_context->err;
-}
+        return m_context->err;
+    }
 
-bool DBInterfaceRedis::ping()
-{
-	if (!m_context)
-		return false;
+    bool DBInterfaceRedis::ping()
+    {
+        if (!m_context)
+            return false;
 
-	redisReply *pRedisReply = (redisReply *)redisCommand(m_context, "ping");
+        redisReply* pRedisReply = (redisReply*)redisCommand(m_context, "ping");
 
-	if (NULL == pRedisReply)
-	{
-		ERR_LOG("DBInterfaceRedis::ping: errno=%d, error=%s\n",
-				m_context->err, m_context->errstr);
-		return false;
-	}
+        if (NULL == pRedisReply)
+        {
+            ERR_LOG("DBInterfaceRedis::ping: errno=%d, error=%s\n",
+                    m_context->err, m_context->errstr);
+            return false;
+        }
 
-	if (!(pRedisReply->type == REDIS_REPLY_STATUS && strcmp(pRedisReply->str, "PONG") == 0))
-	{
-		ERR_LOG("DBInterfaceRedis::ping: errno=%d, error=%s\n",
-				m_context->err, pRedisReply->str);
+        if (!(pRedisReply->type == REDIS_REPLY_STATUS && strcmp(pRedisReply->str, "PONG") == 0))
+        {
+            ERR_LOG("DBInterfaceRedis::ping: errno=%d, error=%s\n",
+                    m_context->err, pRedisReply->str);
 
-		freeReplyObject(pRedisReply);
-		return false;
-	}
+            freeReplyObject(pRedisReply);
+            return false;
+        }
 
-	freeReplyObject(pRedisReply);
-	return true;
-}
+        freeReplyObject(pRedisReply);
+        return true;
+    }
 
-int DBInterfaceRedis::execute(RedisCommand* command, DBResult* result)
-{
-	std::vector<char *> temp;
-	redisReply *pRedisReply = NULL;
+    int DBInterfaceRedis::execute(RedisCommand* command, DBResult* result)
+    {
+        std::vector<char*> temp;
+        redisReply* pRedisReply = NULL;
 
-	if (command->length() > 1)
-	{
-		pRedisReply = (redisReply *)redisCommandArgv(m_context, command->length(), command->argv(temp), command->argvlen());
-	}
-	else
-	{
-		pRedisReply = (redisReply *)redisCommand(m_context, command->tostr());
-	}
+        if (command->length() > 1)
+        {
+            pRedisReply = (redisReply*)redisCommandArgv(m_context, command->length(), command->argv(temp),
+                                                        command->argvlen());
+        }
+        else
+        {
+            pRedisReply = (redisReply*)redisCommand(m_context, command->tostr());
+        }
 
-	if (m_context->err)
-	{
-		return -1;
-	}
-	// freeReplyObject(pRedisReply);
+        if (m_context->err)
+        {
+            return -1;
+        }
+        // freeReplyObject(pRedisReply);
 
-	static_cast<RedisResult *>(result)->setResult(pRedisReply);
-	return 0;
-}
+        static_cast<RedisResult*>(result)->setResult(pRedisReply);
+        return 0;
+    }
 } // namespace dal

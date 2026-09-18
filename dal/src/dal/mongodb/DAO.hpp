@@ -18,84 +18,99 @@ using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_array;
 using bsoncxx::builder::basic::make_document;
 
-namespace dal {
+namespace dal
+{
+    template <typename DO_T>
+    class DAO
+    {
+    public:
+        DAO(std::string dbName, std::string table)
+        {
+            this->dbName = dbName;
+            this->tableName = table;
+        }
 
-template<typename DO_T>
-class DAO {
-public:
-    DAO(std::string dbName, std::string table) {
-        this->dbName = dbName;
-        this->tableName = table;
-    }
 
+        std::optional<DO_T> find_one(int64 id)
+        {
+            auto client = MongClientManager::getClient();
+            return this->find_oneImp(client, id);
+        }
 
-    std::optional<DO_T> find_one(int64 id) {
-        auto client = MongClientManager::getClient();
-        return this->find_oneImp(client, id);
-    }
+        bool update(const DO_T& obj)
+        {
+            auto client = MongClientManager::getClient();
+            return update(client, obj);
+        }
 
-    bool update(const DO_T &obj) {
-        auto client = MongClientManager::getClient();
-        return update(client, obj);
-    }
+        void bulk_update(DO_T& dos ...)
+        {
+        }
 
-    void bulk_update(DO_T &dos ...) {
-    }
+        void bulk_update(const std::vector<DO_T>& dos)
+        {
+            // collection.update_many(make_document(kvp("i", make_document(kvp("$gt", 0)))),
+            //                   make_document(kvp("$set", make_document(kvp("foo", "buzz")))));
+            // tbl_coll.update_many()
+        }
 
-    void bulk_update(const std::vector<DO_T> &dos) {
-        // collection.update_many(make_document(kvp("i", make_document(kvp("$gt", 0)))),
-        //                   make_document(kvp("$set", make_document(kvp("foo", "buzz")))));
-        // tbl_coll.update_many()
-    }
-
-private:
-    std::optional<DO_T> find_oneImp(mongocxx::pool::entry &client, int64 id) {
-        try {
-            auto find_one_result = (*client)[dbName][tableName].find_one(make_document(kvp("_id", id)));
-            if (!find_one_result) {
+    private:
+        std::optional<DO_T> find_oneImp(mongocxx::pool::entry& client, int64 id)
+        {
+            try
+            {
+                auto find_one_result = (*client)[dbName][tableName].find_one(make_document(kvp("_id", id)));
+                if (!find_one_result)
+                {
+                    return std::nullopt;
+                }
+                DO_T doObj;
+                doObj.fromBson(find_one_result->view());
+                return doObj;
+            }
+            catch (const std::exception& e)
+            {
+                // Log the error: e.what()
+                ERR_LOG("xxxxxxxxxxxxx ERROR {}", e.what());
                 return std::nullopt;
             }
-            DO_T doObj;
-            doObj.fromBson(find_one_result->view());
-            return doObj;
-        } catch (const std::exception &e) {
-            // Log the error: e.what()
-            ERR_LOG("xxxxxxxxxxxxx ERROR {}",e.what());
-            return std::nullopt;
         }
-    }
 
 
-    bool update(mongocxx::pool::entry &client, const DO_T &obj) {
-        try {
-            mongocxx::options::replace opts;
-            opts.upsert(true);
+        bool update(mongocxx::pool::entry& client, const DO_T& obj)
+        {
+            try
+            {
+                mongocxx::options::replace opts;
+                opts.upsert(true);
 
-            // 返回值仅在写入被 acknowledged 时才有值
-            auto result = (*client)[dbName][tableName].replace_one(
+                // 返回值仅在写入被 acknowledged 时才有值
+                auto result = (*client)[dbName][tableName].replace_one(
                     make_document(kvp("_id", obj._id)),
                     obj.toBson(),
                     opts
-            );
-            if (!result) {
-                ERR_LOG("Mongo update not acknowledged, db={}, table={}, id={}",
-                        dbName, tableName, obj._id);
+                );
+                if (!result)
+                {
+                    ERR_LOG("Mongo update not acknowledged, db={}, table={}, id={}",
+                            dbName, tableName, obj._id);
+                    return false;
+                }
+                INFO_LOG("Mongo update ok, db={}, table={}, id={}, matched={}, modified={}",
+                         dbName, tableName, obj._id,
+                         result->matched_count(), result->modified_count());
+                return true;
+            }
+            catch (const mongocxx::exception& e)
+            {
+                ERR_LOG("Mongo update failed, id={}, err={}", obj._id, e.what());
                 return false;
             }
-            INFO_LOG("Mongo update ok, db={}, table={}, id={}, matched={}, modified={}",
-                     dbName, tableName, obj._id,
-                     result->matched_count(), result->modified_count());
-            return true;
-        } catch (const mongocxx::exception &e) {
-            ERR_LOG("Mongo update failed, id={}, err={}", obj._id, e.what());
-            return false;
         }
-    }
 
-    std::string dbName;
-    std::string tableName;
-};
-
+        std::string dbName;
+        std::string tableName;
+    };
 } // namespace dal
 
 #endif //ATHENA_DAO_H

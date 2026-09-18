@@ -11,21 +11,23 @@
 static mongocxx::instance mongoXXinstance{};
 
 
-namespace dal {
+namespace dal
+{
+    int MongClientManager::init(const std::string& ip, const std::string& userName, const std::string& password)
+    {
+        std::string s = fmt::format(
+            "mongodb://{}:{}@{}/?authSource=admin&connectTimeoutMS=2000&serverSelectionTimeoutMS=5000", userName,
+            password,
+            ip);
+        mongocxx::uri uri(s);
+        pool = new mongocxx::pool(uri);
+        return 0;
+    }
 
-int MongClientManager::init(const std::string &ip, const std::string &userName, const std::string &password) {
-    std::string s = fmt::format(
-        "mongodb://{}:{}@{}/?authSource=admin&connectTimeoutMS=2000&serverSelectionTimeoutMS=5000", userName, password,
-        ip);
-    mongocxx::uri uri(s);
-    pool = new mongocxx::pool(uri);
-    return 0;
-}
+    mongocxx::pool::entry MongClientManager::getClient()
+    {
+        return pool->acquire();
+    }
 
-mongocxx::pool::entry MongClientManager::getClient() {
-    return pool->acquire();
-}
-
-mongocxx::pool *MongClientManager::pool = nullptr;
-
+    mongocxx::pool* MongClientManager::pool = nullptr;
 } // namespace dal

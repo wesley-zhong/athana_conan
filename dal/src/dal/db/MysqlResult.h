@@ -7,46 +7,44 @@
 #include <sstream>
 #include "DBResult.h"
 
-namespace dal {
-
-class MysqlResult : public DBResult
+namespace dal
 {
-public:
-	MysqlResult();
-	~MysqlResult();
+    class MysqlResult : public DBResult
+    {
+    public:
+        MysqlResult();
+        ~MysqlResult();
 
-	void setResult(MYSQL_RES * result);
+        void setResult(MYSQL_RES* result);
 
-	virtual bool isEmpty();
-	virtual bool fetch();
-	virtual uint32 getRowCount();
-	virtual uint32 getFieldsCount();
-	
-	virtual const char * getData(int & len);
-	virtual const char * getData();
+        virtual bool isEmpty();
+        virtual bool fetch();
+        virtual uint32 getRowCount();
+        virtual uint32 getFieldsCount();
 
-	template<typename T>
-	MysqlResult & operator >> (T & t)
-	{
-		if (pos >= getFieldsCount())
-		{
-			ERR_LOG("mysql row count upper limit");
-			return *this;
-		}
-		std::istringstream ins(aRow[pos]);
-		ins >> t;
-		pos++;
-		return *this;
-	}
+        virtual const char* getData(int& len);
+        virtual const char* getData();
 
-private:
+        template <typename T>
+        MysqlResult& operator >>(T& t)
+        {
+            if (pos >= getFieldsCount())
+            {
+                ERR_LOG("mysql row count upper limit");
+                return *this;
+            }
+            std::istringstream ins(aRow[pos]);
+            ins >> t;
+            pos++;
+            return *this;
+        }
 
-	MYSQL_RES * pResult;
-	MYSQL_ROW aRow;
-	uint32 pos;
-	unsigned long *lengths;
-};
-
+    private:
+        MYSQL_RES* pResult;
+        MYSQL_ROW aRow;
+        uint32 pos;
+        unsigned long* lengths;
+    };
 } // namespace dal
 
 #endif

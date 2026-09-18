@@ -3,38 +3,45 @@
 //
 #include "Dal.hpp"
 
-namespace dal::DB {
-    DBInterfaceMysql *mysql = nullptr;
+namespace dal::DB
+{
+    DBInterfaceMysql* mysql = nullptr;
 
-    bool init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
-              const std::string &password) {
+    bool init(const std::string& ip, unsigned int port, const std::string& dbname, const std::string& username,
+              const std::string& password)
+    {
         mysql = initDB<DBInterfaceMysql>(ip.c_str(), port, dbname.c_str(), username.c_str(), password.c_str());
         return mysql != nullptr;
     }
 
-    int execute(DBResult *result, const std::string &cmd) {
+    int execute(DBResult* result, const std::string& cmd)
+    {
         return mysql->execute(result, cmd.c_str(), cmd.length());
     }
 }
 
-namespace dal::Cache {
-    DBInterfaceRedis *redis = nullptr;
+namespace dal::Cache
+{
+    DBInterfaceRedis* redis = nullptr;
 
-    bool init(const std::string &ip, unsigned int port, const std::string &dbname, const std::string &username,
-              const std::string &password) {
+    bool init(const std::string& ip, unsigned int port, const std::string& dbname, const std::string& username,
+              const std::string& password)
+    {
         redis = initDB<DBInterfaceRedis>(ip.c_str(), port, dbname.c_str(), username.c_str(), password.c_str());
         return redis != nullptr;
-
     }
 
-    int execute(DBResult *result, const std::string &cmd) {
+    int execute(DBResult* result, const std::string& cmd)
+    {
         return redis->execute(result, cmd.c_str(), cmd.length());
     }
 }
 
-namespace dal::MongoDB {
-    bool init(const std::string &ip, const std::string &username,
-              const std::string &password) {
+namespace dal::MongoDB
+{
+    bool init(const std::string& ip, const std::string& username,
+              const std::string& password)
+    {
         return MongClientManager::init(ip, username, password) == 0;
     }
 }

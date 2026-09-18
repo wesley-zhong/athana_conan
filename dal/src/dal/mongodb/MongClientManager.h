@@ -13,17 +13,17 @@ using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_array;
 using bsoncxx::builder::basic::make_document;
 
-namespace dal {
+namespace dal
+{
+    class MongClientManager
+    {
+    public:
+        static int init(const std::string& ip, const std::string& userName, const std::string& password);
 
-class MongClientManager {
-public:
-    static int init(const std::string &ip, const std::string &userName, const std::string &password);
+        static mongocxx::pool::entry getClient();
 
-    static mongocxx::pool::entry getClient();
-
-    static mongocxx::pool *pool;
-};
-
+        static mongocxx::pool* pool;
+    };
 } // namespace dal
 
 

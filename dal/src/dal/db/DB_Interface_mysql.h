@@ -6,46 +6,48 @@
 class MysqlResult;
 class SqlPrepare;
 
-namespace dal {
+namespace dal
+{
+    class DBInterfaceMysql : public DB_Interface
+    {
+    public:
+        DBInterfaceMysql(const char* host, unsigned int port, const char* dbname, const char* user,
+                         const char* pswd = "");
 
-class DBInterfaceMysql : public DB_Interface {
-public:
-    DBInterfaceMysql(const char *host, unsigned int port, const char *dbname, const char *user, const char *pswd = "");
+        ~DBInterfaceMysql();
 
-    ~DBInterfaceMysql();
+        virtual bool connect();
 
-    virtual bool connect();
+        virtual bool detach();
 
-    virtual bool detach();
+        virtual int execute(DBResult* result, const char* cmd, int len = 0);
 
-    virtual int execute(DBResult *result, const char *cmd, int len = 0);
+        virtual const char* getError();
 
-    virtual const char *getError();
+        virtual int getErrno();
 
-    virtual int getErrno();
+        virtual bool ping();
 
-    virtual bool ping();
+        MYSQL* mysql();
 
-    MYSQL *mysql();
+    protected:
+        MYSQL mMysql_;
 
-protected:
-    MYSQL mMysql_;
+        std::string m_dbname;
+        std::string m_user;
+        std::string m_pswd;
+    };
 
-    std::string m_dbname;
-    std::string m_user;
-    std::string m_pswd;
-};
+    namespace MySQL
+    {
+        int threadSafe();
 
-namespace MySQL {
-    int threadSafe();
+        void libraryInit();
 
-    void libraryInit();
+        void libraryEnd();
 
-    void libraryEnd();
-
-    char const *getLibraryVersion();
-}
-
+        char const* getLibraryVersion();
+    }
 } // namespace dal
 
 #endif
