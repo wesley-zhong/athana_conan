@@ -6,6 +6,7 @@
 #include "transport/Dispatcher.h"
 #include "../controller/PlayerLoginHandler.h"
 #include "transport/Channel.h"
+#include "transport/EventLoop.h"
 #include "log/XLog.h"
 #include "transport/ByteUtils.h"
 #include "ProtoInner.pb.h"
@@ -54,9 +55,18 @@ void GatewayServerNetWorkHandler::onMsg(transport::Channel *channel, void *buff,
     }
 
     void *msg = msg_function->parseParam((char *) data + 4, len);
+    if (msg == nullptr) {
+        ERR_LOG("parse msg failed, msgId ={}", msgId);
+        return;
+    }
+    // actor 任务异步执行，channel 必须用 shared_ptr 持有，防止连接关闭后被释放
+    std::shared_ptr<transport::Channel> channel_ptr = channel->event_loop()->channelPtr(channel);
+    if (channel_ptr == nullptr) {
+        return;
+    }
     core::actor::ActorSystem::instance().execute(logicActors[2 % logicActors.size()],
-                                           [playerId, msg_function, channel, msg]() {
-                                               msg_function->invoke(playerId, channel, msg);
+                                           [playerId, msg_function, channel_ptr, msg]() {
+                                               msg_function->invoke(playerId, channel_ptr.get(), msg);
                                            });
 }
 

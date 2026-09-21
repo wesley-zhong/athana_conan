@@ -5,6 +5,8 @@
 #ifndef ATHENA_PEERCONN_H
 #define ATHENA_PEERCONN_H
 
+#include <memory>
+#include <mutex>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -15,7 +17,9 @@ namespace discovery {
 
 struct NodeChannelInfo {
     std::unique_ptr<core::NodeInfo> nodeInfo;
-    std::vector<transport::Channel *> channels;
+    // channel 可能从任意业务线程使用，统一用 shared_ptr 持有；
+    // channel 关闭时由各服务 onClosed 回调 removeNodeChannel 摘除
+    std::vector<std::shared_ptr<transport::Channel> > channels;
 };
 
 class PeerConn {
@@ -26,15 +30,21 @@ public:
 
     static void saveNodeChannel(const std::string &serviceId, transport::Channel *channel);
 
-    transport::Channel *getRandomChannel(const std::string &srviceId);
+    // 连接关闭时摘除登记，避免 getRandomChannel 返回已关闭的 channel
+    static void removeNodeChannel(transport::Channel *channel);
+
+    static std::shared_ptr<transport::Channel> getRandomChannel(const std::string &serviceId);
 
 
-    static bool sendMsg(transport::Channel *channel, int msgId, google::protobuf::Message *msg);
+    static bool sendMsg(std::shared_ptr<transport::Channel> channel, int msgId,
+                        std::shared_ptr<google::protobuf::Message> msg);
 
-    static bool sendMsg(int serverType, int msgId, google::protobuf::Message *msg);
+    static bool sendMsg(int serverType, int msgId, std::shared_ptr<google::protobuf::Message> msg);
 
 
 private:
+    // 全部接口可能被网络线程与业务线程并发调用
+    static std::mutex mutex_;
     static std::unordered_map<std::string, std::shared_ptr<NodeChannelInfo >> node_id_nodes;
     static std::unordered_map<int, std::vector<std::shared_ptr<NodeChannelInfo>>> node_type_nodes;
 };

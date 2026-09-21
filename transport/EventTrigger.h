@@ -12,9 +12,16 @@ class Channel;
 
 class EventTrigger {
 public:
+    virtual ~EventTrigger() = default;
+
     virtual void onTimer(Channel *channel, uint64 now) =0;
 
     virtual void triggerEvent(Channel *channel, TriggerEventEnum reason) = 0;
+
+    // 心跳定时器周期(ms)，由 EventLoop::startHeartbeatTimer 使用
+    virtual uint64 timerIntervalMs() const {
+        return 5000;
+    }
 };
 
 

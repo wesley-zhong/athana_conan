@@ -4,6 +4,9 @@
 
 #ifndef ATHENA_CHANNEL_H
 #define ATHENA_CHANNEL_H
+#include <atomic>
+#include <memory>
+#include <string>
 #include "google/protobuf/message.h"
 #include "uv.h"
 #include "common/ByteBuffer.h"
@@ -14,57 +17,40 @@ namespace transport {
 class EventLoop;
 class Channel;
 
-struct SPackage {
-    int32 _msgId;
-    char *_body;
-    int32 _bodyLen;
-
-    void parseBody(char *body, int32 bodyLen) {
-        _msgId = ByteUtils::readInt32(body);
-        _body = body + sizeof(int32);
-    }
-};
-
 struct WritePack {
     Channel *_channel;
     int32 sendSize;
-    WritePack(){
-
-    }
-
-    ~WritePack(){
-        _channel = nullptr;
-        sendSize =0;
-    }
-    void consume();
 };
 
+// 一条连接的封装。生命周期约定：
+// - 只能在 EventLoop(loop 线程) 内创建，EventLoop 通过 shared_ptr 注册表持有；
+// - 跨线程(业务线程/actor 任务/PeerConn)持有必须用 EventLoop::channelPtr() 返回的
+//   shared_ptr，裸指针只允许在 loop 线程回调内使用；
+// - close() 线程安全：仅标记关闭并入队，真正的 uv_close/通知/释放都在 loop 线程完成；
+// - 析构只释放堆内存(ByteBuffer)，uv 句柄的收尾全部在 closeInLoop 的 close 回调里完成，
+//   因此最后一个 shared_ptr 在任意线程释放都是安全的。
 class Channel {
 public:
-    // single packet max size: frame = 4B packLen + 4B msgId + body, aligned with ring capacity(4MB)
+    // single packet max size: frame = 4B packLen + 4B msgId + body
     static constexpr int MAX_PACKET_SIZE = 4 * 1024 * 1024;
 
-    Channel(EventLoop *event_loop, uv_tcp_t *client, uv_os_sock_t fd) : _eventLoop(event_loop),
-                                                                        client(client), fd((uint64) fd),
-                                                                        writing(false), closed(false) {
-        recv_buffer = new core::ByteBuffer();
-        send_buff = new core::ByteBuffer();
-        heartbeat_timer.data = this;
-    }
+    // 只能在 loop 线程调用（uv handle 已绑定该 loop）
+    Channel(EventLoop *event_loop, uv_tcp_t *client);
+    ~Channel();
 
+    Channel(const Channel &) = delete;
+    Channel &operator=(const Channel &) = delete;
+
+    // 线程安全：序列化与落盘都在 loop 线程完成，msg 由 shared_ptr 延长生命周期
     void sendMsg(int msgId, std::shared_ptr<google::protobuf::Message> msg);
 
     void initPackTime();
 
-    void sendMsg(int msgId, google::protobuf::Message *msg);
-
     void onRead(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf);
 
-    uint64 getFd() const {
-        return fd;
+    EventLoop *event_loop() {
+        return _eventLoop;
     }
-
-    EventLoop *event_loop();
 
     void setUserData(void *userData) {
         this->userData = userData;
@@ -82,13 +68,20 @@ public:
 
     uint64_t nowTime();
 
+    // 线程安全：标记关闭并入队清理；幂等
     void close();
 
     bool isClosed() const {
-        return closed;
+        return closed_.load(std::memory_order_acquire);
     }
 
-    std::string getAddr();
+    // 构造时缓存的本端/对端地址，关闭后仍可安全打印
+    std::string getAddr() const {
+        return addr_;
+    }
+
+    // loop 线程：连接建立后刷新地址（出站连接构造时尚未 connect，无法取 peer）
+    void refreshAddr();
 
     // peek next frame length without consuming:
     // -1 incomplete, -2 illegal length(caller should close), else frame bytes = packLen + 4
@@ -124,16 +117,24 @@ public:
     uv_tcp_t *client;
 
 private:
-    void eventLoopWrite(int msgId, std::shared_ptr<google::protobuf::Message> body);
+    friend class EventLoop;
 
-    void eventLoopWrite(int msgId, google::protobuf::Message *body);
+    void eventLoopWrite(int msgId, const std::shared_ptr<google::protobuf::Message> &body);
 
-    std::string getAddrString(const struct sockaddr_storage &addr);
+    void closeInLoop();
 
-    uint64 fd;
+    // loop 线程：一个 uv 句柄(tcp/timer)的 close 回调完成后回收，两个都完成才解除注册表持有
+    void onHandleClosed(uv_handle_t *handle);
+
+    static std::string getAddrString(const struct sockaddr_storage &addr);
+
+    std::string computeAddr();
+
     void *userData;
-    bool writing; // whether a uv_write is in-flight
-    bool closed; // connection closed
+    std::atomic<bool> closed_{false};
+    bool tcp_closed_ = false;
+    bool timer_closed_ = false;
+    std::string addr_;
 };
 
 

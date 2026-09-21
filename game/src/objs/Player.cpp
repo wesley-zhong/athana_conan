@@ -11,6 +11,10 @@
 
 void Player::sendMsg(int msgId, std::shared_ptr<google::protobuf::Message> msg)
 {
+    if (channel == nullptr)
+    {
+        return;
+    }
     channel->sendMsg(msgId, msg);
 }
 

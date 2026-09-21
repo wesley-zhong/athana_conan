@@ -12,6 +12,8 @@ class Channel;
 
 class NetInterface {
 public:
+    virtual ~NetInterface() = default;
+
     virtual void on_connected(Channel *channel, int status) =0;
 
     virtual void on_new_connection(Channel *channel) =0;

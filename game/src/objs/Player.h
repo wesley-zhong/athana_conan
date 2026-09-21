@@ -3,6 +3,7 @@
 #include "common/ObjectPool.hpp"
 #include "log/XLog.h"
 #include "transport/Channel.h"
+#include "transport/EventLoop.h"
 #include "module/Module.h"
 #include "module/ModuleContainer.h"
 #include "actor/Actor.h"
@@ -18,7 +19,7 @@ public:
     Player(uint32_t pid, transport::Channel* channel)
     {
         this->pid = pid;
-        this->channel = channel;
+        setChannel(channel);
     }
 
     void initModules();
@@ -66,12 +67,21 @@ public:
 
     void setChannel(transport::Channel* channel)
     {
-        this->channel = channel;
+        // 转为 shared_ptr 持有：连接关闭后 channel 会被回收，
+        // Player 作为长生命周期对象不能持有裸指针
+        if (channel != nullptr && channel->event_loop() != nullptr)
+        {
+            this->channel = channel->event_loop()->channelPtr(channel);
+        }
+        else
+        {
+            this->channel = nullptr;
+        }
     }
 
     transport::Channel* getChannel()
     {
-        return this->channel;
+        return this->channel.get();
     }
 
     void setHashCode(uint32_t hashCode)
@@ -90,11 +100,11 @@ public:
     }
 
 private:
-    uint32_t hashCode;
-    uint32_t pid;
-    transport::Channel* channel;
+    uint32_t hashCode = 0;
+    uint32_t pid = 0;
+    std::shared_ptr<transport::Channel> channel;
     ModuleContainer* moduleContainer = new ModuleContainer();
-    core::actor::Actor*  actor_;
+    core::actor::Actor*  actor_ = nullptr;
 };
 
 #endif

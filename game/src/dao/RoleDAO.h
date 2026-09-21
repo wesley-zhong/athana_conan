@@ -5,13 +5,13 @@
 #ifndef ATHENA_ROLEDAO_H
 #define ATHENA_ROLEDAO_H
 
-#include "dal/mongodb/DAO.hpp"
+#include "dal/mongodb/MongodbDAO.hpp"
 #include "dos/RoleDO.hpp"
 
 
-class RoleDAO : public dal::DAO<RoleDO> {
+class RoleDAO : public dal::MongodbDAO<RoleDO> {
 public:
-    RoleDAO() : DAO("game", "role") {
+    RoleDAO() : MongodbDAO("game", "role") {
     }
 };
 

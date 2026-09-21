@@ -6,12 +6,14 @@
 #include "transport/Dispatcher.h"
 #include "controller/PlayerLoginHandler.h"
 #include "transport/Channel.h"
+#include "transport/EventLoop.h"
 #include "log/XLog.h"
 #include "transport/ByteUtils.h"
 
 #include "ProtoInner.pb.h"
 #include "SystemMsgHandler.h"
 #include "discovery/AthenaDiscovery.h"
+#include "discovery/PeerConn.h"
 
 void GateClientNetWorkHandler::initAllMsgRegister()
 {
@@ -57,10 +59,21 @@ void GateClientNetWorkHandler::onMsg(transport::Channel* channel, void* buff, in
     }
 
     void* msg = msg_function->parseParam(data, len);
+    if (msg == nullptr)
+    {
+        ERR_LOG("parse msg failed, msgId ={}", msgId);
+        return;
+    }
+    // actor 任务异步执行，channel 必须用 shared_ptr 持有，防止连接关闭后被释放
+    std::shared_ptr<transport::Channel> channel_ptr = channel->event_loop()->channelPtr(channel);
+    if (channel_ptr == nullptr)
+    {
+        return;
+    }
     core::actor::ActorSystem::instance().execute(logicActors[2 % logicActors.size()],
-                                           [playerId, msg_function, channel, msg]()
+                                           [playerId, msg_function, channel_ptr, msg]()
                                            {
-                                               msg_function->invoke(playerId, channel, msg);
+                                               msg_function->invoke(playerId, channel_ptr.get(), msg);
                                            });
 }
 
@@ -85,6 +98,8 @@ void GateClientNetWorkHandler::onEventTrigger(transport::Channel* channel, trans
 void GateClientNetWorkHandler::onClosed(transport::Channel* channel)
 {
     INFO_LOG("connection ={}  closed ", channel->getAddr());
+    // 与 game 的连接断开时摘除登记，避免后续消息发往已关闭的连接
+    discovery::PeerConn::removeNodeChannel(channel);
 }
 
 

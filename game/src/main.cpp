@@ -119,7 +119,11 @@ int main(int argc, char** argv)
     tcp_server.onClosed = GameServerNetWorkHandler::onClosed;
     tcp_server.onEventTrigger = GameServerNetWorkHandler::onEventTrigger;
 
-    tcp_server.bind(serverPort).start(1);
+    if (!tcp_server.bind(serverPort).start(1))
+    {
+        ERR_LOG("tcp server start failed, port ={}", serverPort);
+        return -6;
+    }
     //
 
     RoleDO roleDo;

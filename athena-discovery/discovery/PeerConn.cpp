@@ -3,10 +3,15 @@
 //
 
 #include "PeerConn.h"
+#include "transport/EventLoop.h"
 #include "log/XLog.h"
 #include "common/RandomUtil.h"
 
 namespace discovery {
+
+std::mutex PeerConn::mutex_;
+std::unordered_map<std::string, std::shared_ptr<NodeChannelInfo>> PeerConn::node_id_nodes;
+std::unordered_map<int, std::vector<std::shared_ptr<NodeChannelInfo>>> PeerConn::node_type_nodes;
 
 void PeerConn::saveNode(std::unique_ptr<core::NodeInfo> nodeInfo) {
     if (!nodeInfo) return;
@@ -16,6 +21,7 @@ void PeerConn::saveNode(std::unique_ptr<core::NodeInfo> nodeInfo) {
 
     // 2. 使用 try_emplace 进行一次查找并尝试插入
     // 只有在 key 不存在时才会执行构造和插入，避免了先 find 再 insert 的双重开销
+    std::lock_guard<std::mutex> lk(mutex_);
     auto [idIt, inserted] = node_id_nodes.try_emplace(serviceId, nullptr);
 
     if (!inserted) {
@@ -36,7 +42,8 @@ void PeerConn::saveNode(std::unique_ptr<core::NodeInfo> nodeInfo) {
 }
 
 void PeerConn::removeNode(const std::string &nodeKey) {
-// 1. 先在 ID 映射表中查找
+    // 1. 先在 ID 映射表中查找
+    std::lock_guard<std::mutex> lk(mutex_);
     auto itId = node_id_nodes.find(nodeKey);
     if (itId == node_id_nodes.end()) {
         return; // 节点不存在，直接返回
@@ -73,7 +80,16 @@ void PeerConn::saveNodeChannel(const std::string &serviceId, transport::Channel 
     if (serviceId.empty() || channel == nullptr) {
         return;
     }
+    // 从 loop 注册表取 shared_ptr 持有，避免登记已释放的裸指针
+    std::shared_ptr<transport::Channel> shared = channel->event_loop()
+                                                     ? channel->event_loop()->channelPtr(channel)
+                                                     : nullptr;
+    if (shared == nullptr) {
+        WARN_LOG("saveNodeChannel failed: channel not live, serviceId ={}", serviceId);
+        return;
+    }
 
+    std::lock_guard<std::mutex> lk(mutex_);
     // 1. 查找对应的节点信息
     auto it = node_id_nodes.find(serviceId);
     if (it == node_id_nodes.end()) {
@@ -85,11 +101,11 @@ void PeerConn::saveNodeChannel(const std::string &serviceId, transport::Channel 
 
     // 2. 检查该 channel 是否已经存在于 vector 中（防止重复添加）
     auto &vec = nodeChannelInfo->channels;
-    auto channelIt = std::find(vec.begin(), vec.end(), channel);
+    auto channelIt = std::find(vec.begin(), vec.end(), shared);
 
     if (channelIt == vec.end()) {
         // 3. 不存在则添加
-        vec.push_back(channel);
+        vec.push_back(std::move(shared));
         INFO_LOG("Channel added to serviceId: {}, total channels: {}",
                  serviceId, vec.size());
     } else {
@@ -97,7 +113,22 @@ void PeerConn::saveNodeChannel(const std::string &serviceId, transport::Channel 
     }
 }
 
-transport::Channel *PeerConn::getRandomChannel(const std::string &serviceId) {
+void PeerConn::removeNodeChannel(transport::Channel *channel) {
+    if (channel == nullptr) {
+        return;
+    }
+    std::lock_guard<std::mutex> lk(mutex_);
+    for (auto &kv: node_id_nodes) {
+        auto &vec = kv.second->channels;
+        vec.erase(std::remove_if(vec.begin(), vec.end(),
+                                 [channel](const std::shared_ptr<transport::Channel> &c) {
+                                     return c.get() == channel;
+                                 }), vec.end());
+    }
+}
+
+std::shared_ptr<transport::Channel> PeerConn::getRandomChannel(const std::string &serviceId) {
+    std::lock_guard<std::mutex> lk(mutex_);
     // 1. 查找节点
     auto it = node_id_nodes.find(serviceId);
     if (it == node_id_nodes.end()) {
@@ -118,28 +149,39 @@ transport::Channel *PeerConn::getRandomChannel(const std::string &serviceId) {
 
     // 4. 生成随机索引
     // 使用 thread_local 保证随机数引擎在线程间安全且只初始化一次
-
-    int32 randomIndex = core::RandomUtil::getInt(0, channels.size());
+    // uniform_int_distribution 闭区间：上界必须是 size-1，否则越界
+    int32 randomIndex = core::RandomUtil::getInt(0, (int32) channels.size() - 1);
 
     return channels[randomIndex];
 }
 
-std::unordered_map<std::string, std::shared_ptr<NodeChannelInfo>> PeerConn::node_id_nodes;
-std::unordered_map<int, std::vector<std::shared_ptr<NodeChannelInfo>>> PeerConn::node_type_nodes;
-
-bool PeerConn::sendMsg(int serverType, int msgId, google::protobuf::Message *msg) {
-    auto it = node_type_nodes.find(serverType);
-    if (it == node_type_nodes.end()) {
-        return false;
+bool PeerConn::sendMsg(int serverType, int msgId, std::shared_ptr<google::protobuf::Message> msg) {
+    std::shared_ptr<transport::Channel> channel;
+    {
+        std::lock_guard<std::mutex> lk(mutex_);
+        auto it = node_type_nodes.find(serverType);
+        if (it == node_type_nodes.end() || it->second.empty()) {
+            WARN_LOG("sendMsg failed: no node of type ={}", serverType);
+            return false;
+        }
+        //TODO 负载均衡
+        auto &node = it->second[0];
+        if (node->channels.empty()) {
+            WARN_LOG("sendMsg failed: node type ={} has no channel", serverType);
+            return false;
+        }
+        channel = node->channels[0];
     }
-    //TODO
-    auto channel = it->second[0]->channels[0];
-    return sendMsg(channel, msgId, msg);
+    return sendMsg(std::move(channel), msgId, std::move(msg));
 
 }
 
-bool PeerConn::sendMsg(transport::Channel *channel, int msgId, google::protobuf::Message *msg) {
-    channel->sendMsg(msgId, msg);
+bool PeerConn::sendMsg(std::shared_ptr<transport::Channel> channel, int msgId,
+                       std::shared_ptr<google::protobuf::Message> msg) {
+    if (channel == nullptr || msg == nullptr) {
+        return false;
+    }
+    channel->sendMsg(msgId, std::move(msg));
     return true;
 }
 

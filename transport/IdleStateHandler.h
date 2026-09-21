@@ -4,6 +4,7 @@
 
 #ifndef ATHENA_IDLESTATEHANDLER_H
 #define ATHENA_IDLESTATEHANDLER_H
+#include <algorithm>
 #include "common/BaseType.h"
 
 #include "EventTrigger.h"
@@ -21,6 +22,18 @@ public:
     void triggerEvent(Channel *channel, TriggerEventEnum reason) override;
 
     void onTimer(Channel *channel, uint64 now) override;
+
+    // 取两个空闲阈值中较小的正值为定时周期
+    uint64 timerIntervalMs() const override {
+        uint64 interval = 5000;
+        if (max_write_idle_time > 0) {
+            interval = std::min(interval, max_write_idle_time);
+        }
+        if (max_read_idle_time > 0) {
+            interval = std::min(interval, max_read_idle_time);
+        }
+        return interval;
+    }
 
 private:
     NetInterface *netInterface;

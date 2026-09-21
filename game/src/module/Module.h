@@ -6,7 +6,7 @@
 #define ATHENA_MODULE_H
 
 #include "BaseModule.h"
-#include "dal/mongodb/DAO.hpp"
+#include "dal/mongodb/MongodbDAO.hpp"
 #include "gateway/src/objs/Player.h"
 
 class BaseDAO;
@@ -16,10 +16,13 @@ class Module : public BaseModule
 {
 protected:
     DO* dataDO_;
-    dal::DAO<DO> dao_;
+    // 引用成员：子类构造时把自己尚未构造完的 dao_ 绑定进来（见 RoleModule）。
+    // 若为值成员，基类构造会在子类 dao_ 构造前拷贝它，拷到未初始化的 std::string
+    // 会抛 std::length_error("string too long")。
+    dal::MongodbDAO<DO>& dao_;
 
 public:
-    Module(Player* player, dal::DAO<DO>& dao) : BaseModule(player), dataDO_(nullptr), dao_(dao)
+    Module(Player* player, dal::MongodbDAO<DO>& dao) : BaseModule(player), dataDO_(nullptr), dao_(dao)
     {
     }
 

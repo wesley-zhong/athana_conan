@@ -93,7 +93,11 @@ int main(int argc, char **argv) {
     tcp_server.onEventTrigger = GatewayServerNetWorkHandler::onEventTrigger;
 
     tcp_server.setChannelIdleTime(5000, 0);
-    tcp_server.bind(serverPort).start(1);
+    if (!tcp_server.bind(serverPort).start(2))
+    {
+        ERR_LOG("tcp server start failed, port ={}", serverPort);
+        return -4;
+    }
 
 
 

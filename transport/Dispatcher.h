@@ -47,9 +47,15 @@ private:
 template<typename T>
 void Dispatcher::registerMsgHandler(int msgId, std::function<void(int64_t, T *)> msgFuc) {
     auto *msgFunction = new MsgFunction();
-    msgFunction->parseParam = [](void *body, int len) {
+    msgFunction->parseParam = [](void *body, int len) -> T * {
+        if (body == nullptr || len <= 0) {
+            return nullptr;
+        }
         T *msg = core::ObjPool::AcquirePtr<T>();
-        msg->ParseFromArray(body, len);
+        if (!msg->ParseFromArray(body, len)) {
+            core::ObjPool::Release<T>(msg);
+            return nullptr;
+        }
         return msg;
     };
     msgFunction->invoke = [msgFuc](int64_t playerId, Channel *channel, void *msg) {
@@ -62,9 +68,15 @@ void Dispatcher::registerMsgHandler(int msgId, std::function<void(int64_t, T *)>
 template<typename T>
 void Dispatcher::registerMsgHandler(int msgId, std::function<void(Channel *, T *)> msgFuc) {
     auto *msgFunction = new MsgFunction();
-    msgFunction->parseParam = [](void *body, int len) {
+    msgFunction->parseParam = [](void *body, int len) -> T * {
+        if (body == nullptr || len <= 0) {
+            return nullptr;
+        }
         T *msg = core::ObjPool::AcquirePtr<T>();
-        msg->ParseFromArray(body, len);
+        if (!msg->ParseFromArray(body, len)) {
+            core::ObjPool::Release<T>(msg);
+            return nullptr;
+        }
         return msg;
     };
     msgFunction->invoke = [msgFuc](int64_t playerId, Channel *channel, void *msg) {

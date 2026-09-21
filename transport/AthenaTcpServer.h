@@ -4,7 +4,6 @@
 
 #ifndef ATHENA_TCPSERVER_H
 #define ATHENA_TCPSERVER_H
-#include <atomic>
 #include <memory>
 #include <vector>
 #include "EventLoop.h"
@@ -16,22 +15,29 @@
 
 namespace transport {
 
+// netty 风格的多 reactor server：1 个 boss(ServerEventLoop) 负责监听/accept，
+// N 个 worker(EventLoop) 负责连接的读写，连接通过 ipc pipe 由 boss 派发到 worker。
 class AthenaTcpServer : public NetInterface {
 public:
-    AthenaTcpServer() {
-    }
+    AthenaTcpServer() = default;
 
-    ~AthenaTcpServer() {
-    }
-
+    ~AthenaTcpServer() override;
 
     AthenaTcpServer &bind(int port);
 
-    void start(int eventLoopNum);
+    // eventLoopNum = worker 数量（不含 boss）
+    // 返回 false 表示启动失败（worker 就绪超时或业务端口 bind/listen 失败），
+    // 失败时内部已停止全部 loop，调用方应退出进程而非继续对外提供服务
+    bool start(int eventLoopNum);
 
+    // 优雅停机：关闭所有连接与监听，等待全部 loop 线程退出；幂等
     void stop();
 
-    void onAccept(uv_stream_t *server, int status);
+    // channel 是否仍存活（channelPtr 拿到 shared_ptr 前的快速校验；
+    // 对可能已释放的裸指针调用仍有风险，跨线程持有请用 channelPtr）
+    bool isLive(Channel *channel) {
+        return channel != nullptr && channel->event_loop() != nullptr && channel->event_loop()->isLive(channel);
+    }
 
     void on_connected(Channel *channel, int status) override {
     }
@@ -64,10 +70,10 @@ public:
     std::function<void(Channel *, TriggerEventEnum reason)> onEventTrigger;
 
 private:
-    std::atomic<size_t> next_reactor{0};
-    std::vector<std::shared_ptr<ServerEventLoop> > event_loops_;
-    EventTrigger *event_trigger;
-    int bindPort;
+    std::shared_ptr<ServerEventLoop> boss_;
+    std::vector<std::shared_ptr<EventLoop> > workers_;
+    EventTrigger *event_trigger = nullptr;
+    int bindPort = 0;
 };
 
 

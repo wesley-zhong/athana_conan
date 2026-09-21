@@ -13,7 +13,7 @@ void PlayerLoginHandler::onInnerLoginRes(transport::Channel *channel, InnerLogin
 
 void PlayerLoginHandler::onLoginReq(transport::Channel *channel, LoginRequest *req) {
     INFO_LOG("----- on login req ={}", req->roleid());
-    auto it = new InnerLoginRequest(); // this may be use obj pool
+    auto it = std::make_shared<InnerLoginRequest>();
     it->set_roleid(req->roleid());
     it->set_sid(core::Snowflake::nextId());
     discovery::PeerConn::sendMsg(core::SRV_TYPE_GAME, INNER_TO_GAME_LOGIN_REQ, it);

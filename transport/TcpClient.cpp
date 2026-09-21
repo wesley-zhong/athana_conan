@@ -10,6 +10,12 @@ namespace transport {
 TcpClient::TcpClient() {
 }
 
+TcpClient::~TcpClient() {
+    // EventLoop 析构会先 stop + join loop 线程
+    delete loop;
+    loop = nullptr;
+}
+
 
 void TcpClient::connect(const std::string &ip, int port) const {
     loop->asyncConnect(ip, port);

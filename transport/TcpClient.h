@@ -15,8 +15,7 @@ class TcpClient : public NetInterface {
 public:
     TcpClient();
 
-    ~TcpClient() {
-    }
+    ~TcpClient() override;
 
     void start();
 
