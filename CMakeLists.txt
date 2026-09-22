@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 3.16)
 
 project(athena VERSION 0.1.0 LANGUAGES C CXX)
 
+# 显式声明 CMP0111(NEW)：导入目标缺 IMPORTED_LOCATION 时在生成期报错，
+# 而不是静默生成 <TARGET>-NOTFOUND 到链接命令里。放在 add_subdirectory 之前，
+# 以 DEFAULT 变量形式传播——子模块各自的 cmake_minimum_required 重置策略时也生效
+set(CMAKE_POLICY_DEFAULT_CMP0111 NEW)
+
 # Conan 2.x 自动生成的依赖文件
 # 注意：官方只推荐 include conandeps.cmake
 #include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
