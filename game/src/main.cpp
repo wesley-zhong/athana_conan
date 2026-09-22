@@ -136,8 +136,8 @@ int main(int argc, char** argv)
     std::optional<RoleDO> pRoleDO = roleDao.find_one(userId);
     if (pRoleDO)
     {
-        RoleDO& roleDo = pRoleDO.value();
-        INFO_LOG(" role id ={} name ={}", roleDo._id, roleDo.name);
+        const RoleDO& foundRole = pRoleDO.value();
+        INFO_LOG(" role id ={} name ={}", foundRole._id, foundRole.name);
     }
 
     // redis cache demo (mirrors the mongo DAO demo above)

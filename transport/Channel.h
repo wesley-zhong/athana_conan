@@ -52,8 +52,8 @@ public:
         return _eventLoop;
     }
 
-    void setUserData(void *userData) {
-        this->userData = userData;
+    void setUserData(void *data) {
+        this->userData = data;
     }
 
     void *getUserData() {
@@ -86,7 +86,7 @@ public:
     // peek next frame length without consuming:
     // -1 incomplete, -2 illegal length(caller should close), else frame bytes = packLen + 4
     int peekNextPackLen() const {
-        int readableBytes = (int) recv_buffer->storage().readableBytes();
+        auto readableBytes = (int) recv_buffer->storage().readableBytes();
         if (readableBytes < 8) {
             return -1;
         }
@@ -94,10 +94,10 @@ public:
         if (packLen > (uint32) (MAX_PACKET_SIZE - 4)) {
             return -2;
         }
-        if (packLen > readableBytes - 4) {
+        if (packLen > (uint32) (readableBytes - 4)) {
             return -1;
         }
-        return packLen + 4;
+        return (int) packLen + 4;
     }
 
     int getPack(char *outPacket, int packLen) const {

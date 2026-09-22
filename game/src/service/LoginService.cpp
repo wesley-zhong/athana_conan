@@ -7,14 +7,16 @@
 
 void LoginService::onPlayerLogin(transport::Channel* channel, InnerLoginRequest* req)
 {
-    Player* existPlayer = playerMgr->getPlayer(req->roleid());
+    // proto roleId 为 int64，Player 体系用 uint32，此处收窄是有意为之
+    auto playerId = (uint32) req->roleid();
+    Player* existPlayer = playerMgr->getPlayer(playerId);
     if (existPlayer != nullptr)
     {
         existPlayer->setChannel(channel);
     }
     else
     {
-        existPlayer = playerMgr->newPlayer(req->roleid(), channel);
+        existPlayer = playerMgr->newPlayer(playerId, channel);
         existPlayer->initModules();
 
         //first load data from db
@@ -34,7 +36,7 @@ void LoginService::onPlayerLogin(transport::Channel* channel, InnerLoginRequest*
     existPlayer->saveDataToDB();
 }
 
-void LoginService::onPlayerDisconnect(uint64 playerId, InnerPlayerDisconnectRequest* req)
+void LoginService::onPlayerDisconnect(uint32 playerId, InnerPlayerDisconnectRequest* req)
 {
     Player* existPlayer = playerMgr->getPlayer(playerId);
     if (existPlayer == nullptr)

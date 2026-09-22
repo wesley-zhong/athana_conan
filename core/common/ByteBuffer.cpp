@@ -22,7 +22,7 @@ RingByteBuf *ByteBuffer::createBuffer() {
 
 
 int ByteBuffer::getNextPackLen() {
-    int readableBytes = _storage->readableBytes();
+    auto readableBytes = (int) _storage->readableBytes();
     if (readableBytes < 8) {
         return -1;
     }
@@ -31,10 +31,10 @@ int ByteBuffer::getNextPackLen() {
     _storage->peek(&packLen, 4);
     packLen = Endian::fromNetwork<uint32>(packLen);
    // INFO_LOG("--------------  try get pack len={} all bytes={}", packLen,  readableBytes);
-    if (packLen > readableBytes - 4) {
+    if (packLen > (uint32) (readableBytes - 4)) {
         return -1;
     }
-    return packLen + 4;
+    return (int) packLen + 4;
 }
 
 } // namespace core

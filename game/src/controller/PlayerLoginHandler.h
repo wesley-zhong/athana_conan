@@ -10,7 +10,7 @@ public:
 private:
     static void onInnerLogin(transport::Channel *channel, InnerLoginRequest *req);
 
-    static void onPlayerDisconnected(uint64 playerId, InnerPlayerDisconnectRequest *req);
+    static void onPlayerDisconnected(uint32 playerId, InnerPlayerDisconnectRequest *req);
 };
 
 #endif

@@ -11,9 +11,11 @@
 
 class Discovery {
 public:
-    static bool initWithConf(core::AthenaConfig &conf, transport::TcpClient &tcpClient);
+    static bool initWithConf(const core::AthenaConfig &conf, const transport::TcpClient &tcpClient);
 
-    static void onWatchKeyChange(const std::string_view &key, const std::string_view &value);
+    static void onWatchKeyChange(etcd::Event::EventType eventType, const std::string_view &key, const std::string_view &value);
+private:
+    const static  transport::TcpClient* ownTcpClient;
 };
 
 

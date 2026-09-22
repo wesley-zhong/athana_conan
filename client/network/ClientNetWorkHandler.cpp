@@ -28,10 +28,11 @@ void ClientNetWorkHandler::startThread(int threadNum) {
     }
 }
 
-int id  =100;
+// 测试用自增登录 id；concurrentqueue 内部局部变量 id 会隐藏全局名，改名规避 C4459
+int next_login_id = 100;
 void ClientNetWorkHandler::onConnect(transport::Channel *channel, int status) {
     auto login = std::make_shared<LoginRequest>();
-    login->set_roleid(id++);
+    login->set_roleid(next_login_id++);
     channel->sendMsg(LOGIN_REQUEST, login);
 }
 

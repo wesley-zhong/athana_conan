@@ -10,9 +10,9 @@
 
 namespace transport {
 
-Channel::Channel(EventLoop *event_loop, uv_tcp_t *client) : _eventLoop(event_loop), client(client),
-                                                            last_recv_time(0), last_send_time(0),
-                                                            userData(nullptr) {
+Channel::Channel(EventLoop *event_loop, uv_tcp_t *tcp) : _eventLoop(event_loop), client(tcp),
+                                                        last_recv_time(0), last_send_time(0),
+                                                        userData(nullptr) {
     recv_buffer = new core::ByteBuffer();
     send_buff = new core::ByteBuffer();
     heartbeat_timer.data = this;
@@ -45,7 +45,7 @@ void Channel::refreshAddr() {
     addr_ = computeAddr();
 }
 
-void Channel::onRead(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf) {
+void Channel::onRead(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf) {
     if (nread > 0) {
         recv_buffer->advanceWriteIndex(nread);
         last_recv_time = nowTime();
@@ -163,11 +163,11 @@ void Channel::doUvSend() {
         return;
     }
     auto *req = new uv_write_t;
-    uv_buf_t buf = uv_buf_init((char *) sendPtr, needSendLen);
+    uv_buf_t buf = uv_buf_init((char *) sendPtr, (unsigned) needSendLen);
 
     WritePack *write_pack = core::ObjPool::GetPool<WritePack>().acquirePtr();
     write_pack->_channel = this;
-    write_pack->sendSize = needSendLen;
+    write_pack->sendSize = (int32) needSendLen;
     req->data = write_pack;
     int ret = uv_write(req, (uv_stream_t *) client, &buf, 1,
                        [](uv_write_t *req1, int status) {

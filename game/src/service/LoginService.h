@@ -15,10 +15,10 @@ class LoginService
 public:
     static void onPlayerLogin(transport::Channel* channel, InnerLoginRequest* req);
 
-    static void onPlayerDisconnect(uint64 playerId, InnerPlayerDisconnectRequest* req);
+    static void onPlayerDisconnect(uint32 playerId, InnerPlayerDisconnectRequest* req);
 
 
-    static Player* findPlayer(uint64 playerId)
+    static Player* findPlayer(uint32 playerId)
     {
         return playerMgr->getPlayer(playerId);
     }

@@ -15,7 +15,7 @@ void AthenaDiscovery::keepAlive(const std::string &key, const std::string &value
 }
 
 void AthenaDiscovery::watchKeys(const std::vector<std::string> &keys,
-                                std::function<void(const std::string_view &, const std::string_view &)> watchKeysCB) {
+                                std::function<void(etcd::Event::EventType,const std::string_view &, const std::string_view &)> watchKeysCB) {
     client->watchKeys(keys, watchKeysCB);
 }
 
@@ -27,10 +27,10 @@ void AthenaDiscovery::registerServer() {
 std::vector<std::unique_ptr<core::NodeInfo >> AthenaDiscovery::getServerNode(const std::string &key) {
     std::map<std::string, std::string> keyValues = client->getPrefix(key);
     std::vector<std::unique_ptr<core::NodeInfo >> nodeVec;
-    for (const auto &[key, value]: keyValues) {
+    for (const auto &[k, value]: keyValues) {
         auto nodeInfo = std::make_unique<core::NodeInfo>();
         bool ret = core::JsonUtils::DeserializeNodeInfo(value, *nodeInfo);
-        INFO_LOG("++++++++++++  GET KEY ={}  value ={}  parse ret ={}", key, value, ret);
+        INFO_LOG("++++++++++++  GET KEY ={}  value ={}  parse ret ={}", k, value, ret);
         nodeVec.push_back(std::move(nodeInfo));
     }
     return nodeVec;

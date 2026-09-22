@@ -6,7 +6,6 @@
 #define ATHENA_DISCOVERY_H
 
 #include <string>
-#include <unordered_map>
 #include <vector>
 #include <memory>
 #include "AthenaEtcdClient.h"
@@ -14,46 +13,51 @@
 #include "common/Singleton.h"
 #include "utils/NetUtils.h"
 
-namespace discovery {
+namespace discovery
+{
+    class AthenaDiscovery : public core::Singleton<AthenaDiscovery>
+    {
+    public:
+        AthenaDiscovery()
+        {
+        }
 
+        void setEtcdClient(AthenaEtcdClient* etcdClient)
+        {
+            this->client = etcdClient;
+        }
 
-class AthenaDiscovery : public core::Singleton<AthenaDiscovery> {
-public:
-    AthenaDiscovery() {
-    }
+        void setMySelfInfo(std::shared_ptr<core::NodeInfo> me)
+        {
+            mySelf = me;
+            std::string localIp = core::NetUtils::getLocalIPs()[0];
+            mySelf->service_id = mySelf->service_name + "/" + localIp + ":" + std::to_string(mySelf->port);
+        }
 
-    void setEtcdClient(AthenaEtcdClient *client) {
-        this->client = client;
-    }
+        void registerServer();
 
-    void setMySelfInfo(std::shared_ptr<core::NodeInfo> me) {
-        mySelf = me;
-        std::string localIp = core::NetUtils::getLocalIPs()[0];
-        mySelf->service_id = mySelf->service_name + "/" + localIp + ":" + std::to_string(mySelf->port);
-    }
+        void keepAlive(const std::string& key, const std::string& myName);
 
-    void registerServer();
+        void watchKeys(const std::vector<std::string>& keysm,
+                       std::function<void(etcd::Event::EventType, const std::string_view&, const std::string_view&)>
+                       watchKeysCB);
 
-    void keepAlive(const std::string &key, const std::string &myName);
+        std::vector<std::unique_ptr<core::NodeInfo>> getServerNode(const std::string& key);
 
-    void watchKeys(const std::vector<std::string> &keysm,
-                   std::function<void(const std::string_view &, const std::string_view &)> watchKeysCB);
+        std::shared_ptr<core::NodeInfo> getMySelf()
+        {
+            return mySelf;
+        }
 
-    std::vector<std::unique_ptr<core::NodeInfo >> getServerNode(const std::string &key);
+        ~AthenaDiscovery()
+        {
+            delete client;
+        }
 
-    std::shared_ptr<core::NodeInfo> getMySelf() {
-        return mySelf;
-    }
-
-    ~AthenaDiscovery() {
-        delete client;
-    }
-
-private:
-    AthenaEtcdClient *client;
-    std::shared_ptr<core::NodeInfo> mySelf;
-};
-
+    private:
+        AthenaEtcdClient* client;
+        std::shared_ptr<core::NodeInfo> mySelf;
+    };
 } // namespace discovery
 
 #endif //ATHENA_DISCOVERY_H

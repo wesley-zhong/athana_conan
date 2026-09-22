@@ -72,19 +72,33 @@ namespace Endian {
     template<typename T>
     inline T toNetwork(T value) {
         static_assert(std::is_integral<T>::value, "toNetwork only supports integer types");
-        if constexpr (sizeof(T) == 2) return static_cast<T>(toNetwork16(static_cast<uint16_t>(value)));
-        if constexpr (sizeof(T) == 4) return static_cast<T>(toNetwork32(static_cast<uint32_t>(value)));
-        if constexpr (sizeof(T) == 8) return static_cast<T>(toNetwork64(static_cast<uint64_t>(value)));
-        return value;
+        if constexpr (sizeof(T) == 2) {
+            return static_cast<T>(toNetwork16(static_cast<uint16_t>(value)));
+        } else if constexpr (sizeof(T) == 4) {
+            return static_cast<T>(toNetwork32(static_cast<uint32_t>(value)));
+        } else if constexpr (sizeof(T) == 8) {
+            return static_cast<T>(toNetwork64(static_cast<uint64_t>(value)));
+        } else {
+            static_assert(sizeof(T) == 2 || sizeof(T) == 4 || sizeof(T) == 8,
+                          "toNetwork only supports 16/32/64 bit integers");
+            return value;
+        }
     }
 
     template<typename T>
     inline T fromNetwork(T value) {
         static_assert(std::is_integral<T>::value, "fromNetwork only supports integer types");
-        if constexpr (sizeof(T) == 2) return static_cast<T>(fromNetwork16(static_cast<uint16_t>(value)));
-        if constexpr (sizeof(T) == 4) return static_cast<T>(fromNetwork32(static_cast<uint32_t>(value)));
-        if constexpr (sizeof(T) == 8) return static_cast<T>(fromNetwork64(static_cast<uint64_t>(value)));
-        return value;
+        if constexpr (sizeof(T) == 2) {
+            return static_cast<T>(fromNetwork16(static_cast<uint16_t>(value)));
+        } else if constexpr (sizeof(T) == 4) {
+            return static_cast<T>(fromNetwork32(static_cast<uint32_t>(value)));
+        } else if constexpr (sizeof(T) == 8) {
+            return static_cast<T>(fromNetwork64(static_cast<uint64_t>(value)));
+        } else {
+            static_assert(sizeof(T) == 2 || sizeof(T) == 4 || sizeof(T) == 8,
+                          "fromNetwork only supports 16/32/64 bit integers");
+            return value;
+        }
     }
 }
 

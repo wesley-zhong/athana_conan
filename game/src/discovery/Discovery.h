@@ -10,9 +10,9 @@
 
 class Discovery {
 public:
-    static bool initWithConf(core::AthenaConfig &conf);
+    static bool initWithConf(const core::AthenaConfig &conf);
 
-    static void onWatchKeyChange(const std::string_view &key, const std::string_view &value);
+    static void onWatchKeyChange(etcd::Event::EventType eventType, const std::string_view &key, const std::string_view &value);
 };
 
 

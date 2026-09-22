@@ -60,18 +60,18 @@ public:
 
     void saveDataToDB();
 
-    void setPid(uint32_t pid)
+    void setPid(uint32_t id)
     {
-        this->pid = pid;
+        this->pid = id;
     }
 
-    void setChannel(transport::Channel* channel)
+    void setChannel(transport::Channel* ch)
     {
         // 转为 shared_ptr 持有：连接关闭后 channel 会被回收，
         // Player 作为长生命周期对象不能持有裸指针
-        if (channel != nullptr && channel->event_loop() != nullptr)
+        if (ch != nullptr && ch->event_loop() != nullptr)
         {
-            this->channel = channel->event_loop()->channelPtr(channel);
+            this->channel = ch->event_loop()->channelPtr(ch);
         }
         else
         {
@@ -84,9 +84,9 @@ public:
         return this->channel.get();
     }
 
-    void setHashCode(uint32_t hashCode)
+    void setHashCode(uint32_t code)
     {
-        this->hashCode = hashCode;
+        this->hashCode = code;
     }
 
     uint32_t getHashCode() const

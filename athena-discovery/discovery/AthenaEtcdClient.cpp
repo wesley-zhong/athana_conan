@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include "log/XLog.h"
-
+#include "etcd/Value.hpp"
 namespace discovery {
 
 using namespace etcd;
@@ -61,7 +61,7 @@ std::map<std::string, std::string> AthenaEtcdClient::getPrefix(const std::string
 
 // 监听 Key 的变化
 void AthenaEtcdClient::watchKeys(const std::vector<std::string> &keys,
-                                 std::function<void(const std::string_view &, const std::string_view &)> callback) {
+                                 std::function<void(etcd::Event::EventType, const std::string_view &, const std::string_view &)> callback) {
     for (auto const &key: keys) {
         std::string k(key);
         // Watcher 会在后台线程运行回调
@@ -69,7 +69,7 @@ void AthenaEtcdClient::watchKeys(const std::vector<std::string> &keys,
             if (resp.is_ok()) {
                 // 将结果转回 string_view 传给回调
                 for (auto const &event: resp.events()) {
-                    callback(event.kv().key(), event.kv().as_string());
+                    callback(event.event_type(),event.kv().key(), event.kv().as_string());
                 }
             }
         }, true);
