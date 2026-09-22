@@ -25,7 +25,7 @@ public:
 
     // 取两个空闲阈值中较小的正值为定时周期
     uint64 timerIntervalMs() const override {
-        uint64 interval = 5000;
+        uint64 interval = 2000;
         if (max_write_idle_time > 0) {
             interval = std::min(interval, max_write_idle_time);
         }

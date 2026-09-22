@@ -319,7 +319,7 @@ void EventLoop::startHeartbeatTimer(Channel *channel) {
         return;
     }
     channel->initPackTime();
-    uint64 interval = _eventTrigger != nullptr ? _eventTrigger->timerIntervalMs() : 5000;
+    uint64 interval = _eventTrigger != nullptr ? _eventTrigger->timerIntervalMs() : 3000;
     erro = uv_timer_start(channel->getTimer(), uv_on_timer, interval, interval);
     if (erro != 0) {
         ERR_LOG("XXXXXXXXX  uv_timer_start erro ret ={}", erro);

@@ -6,23 +6,18 @@
 #include <iostream>
 #include <filesystem>
 #include <csignal>
-#include "common/RingBuffer.hpp"
 #include "log/XLog.h"
 #include "transport/Dispatcher.h"
 
 #include "ProtoInner.pb.h"
 #include "common/AthenaConfig.h"
 
-#include "common/ObjectPool.hpp"
 #include "utils/Snowflake.h"
-#include "dal/Dal.hpp"
 #include "discovery/Discovery.h"
 #include "network/GatewayServerNetWorkHandler.h"
 #include "transport/AthenaTcpServer.h"
 
 #if defined(_WIN32)
-
-#include <windows.h>
 
 #else
 #include <unistd.h>
@@ -35,13 +30,15 @@ static std::atomic<bool> g_running(true);
 static std::condition_variable g_cv;
 static std::mutex g_mutex;
 
-void handleSignal(int signum) {
+void handleSignal(int signum)
+{
     INFO_LOG("Received signal {} exiting...", signum);
     g_running = false;
     g_cv.notify_all(); // 唤醒主线程
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv)
+{
     std::signal(SIGTERM, handleSignal);
     std::signal(SIGINT, handleSignal);
     core::xLogInitLog(core::LogLevel::LL_INFO, "../logs/gateway.log");
@@ -49,14 +46,16 @@ int main(int argc, char **argv) {
     std::filesystem::path cur_path = std::filesystem::current_path();
     INFO_LOG("+++  cur path: {}", cur_path.string());
     bool success = core::AthenaConfig::instance().load("config/gateway.toml");
-    if (!success) {
+    if (!success)
+    {
         ERR_LOG("config ={} load failed", cur_path.string() + "/config/gateway.toml");
         return -1;
     }
 
     // snowflake init
     success = core::Snowflake::init(core::AthenaConfig::instance().get("server", "worker-id", 0));
-    if (!success) {
+    if (!success)
+    {
         ERR_LOG("Snowflake init failed");
         return -2;
     }
@@ -69,13 +68,14 @@ int main(int argc, char **argv) {
     tcp_client.onConnected = GateClientNetWorkHandler::onNewConnect;
     tcp_client.onClosed = GateClientNetWorkHandler::onClosed;
     tcp_client.onRead = GateClientNetWorkHandler::onMsg;
-    tcp_client.onTriggerEvent  = GateClientNetWorkHandler::onEventTrigger;
-    tcp_client.setChannelIdleTime(5000, 6000);
+    tcp_client.onTriggerEvent = GateClientNetWorkHandler::onEventTrigger;
+    tcp_client.setChannelIdleTime(3000, 9000);
 
     tcp_client.start();
 
     success = Discovery::initWithConf(core::AthenaConfig::instance(), tcp_client);
-    if (!success) {
+    if (!success)
+    {
         ERR_LOG("initWithConf  faild");
         return -3;
     }
@@ -92,13 +92,12 @@ int main(int argc, char **argv) {
     tcp_server.onClosed = GatewayServerNetWorkHandler::onClosed;
     tcp_server.onEventTrigger = GatewayServerNetWorkHandler::onEventTrigger;
 
-    tcp_server.setChannelIdleTime(5000, 0);
+    tcp_server.setChannelIdleTime(9000, 3000);
     if (!tcp_server.bind(serverPort).start(2))
     {
         ERR_LOG("tcp server start failed, port ={}", serverPort);
         return -4;
     }
-
 
 
     // 💡 主线程阻塞等待，无限期休眠（CPU 占用≈0）

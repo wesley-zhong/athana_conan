@@ -84,7 +84,7 @@ void GateClientNetWorkHandler::onEventTrigger(transport::Channel* channel, trans
         auto msg = std::make_shared<InnerHeartBeatRequest>();
         msg->set_time(8888);
         channel->sendMsg(INNER_HEART_BEAT_REQ, msg);
-        // INFO_LOG("heart beat = -----------------");
+      //  INFO_LOG("heart beat = -----------------{}", channel->getAddr());
         return;
     }
     //    // this should be closed

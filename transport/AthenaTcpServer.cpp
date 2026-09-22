@@ -100,7 +100,7 @@ void AthenaTcpServer::triggerEvent(Channel *channel, TriggerEventEnum reason) {
 }
 
 //only support one
-AthenaTcpServer &AthenaTcpServer::setChannelIdleTime(uint64 idle_write_time, uint64 idle_read_time) {
+AthenaTcpServer &AthenaTcpServer::setChannelIdleTime(uint64 idle_read_time , uint64 idle_write_time) {
     event_trigger = new IdleStateHandler(this, idle_write_time, idle_read_time);
     return *this;
 }

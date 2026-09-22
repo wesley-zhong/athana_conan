@@ -35,10 +35,11 @@ void SystemMsgHandler::onShakHandResponse(transport::Channel *channel, InnerServ
 void SystemMsgHandler::onInnerHeartBeatReq(transport::Channel *channel, InnerHeartBeatRequest *req) {
     auto res = std::make_shared<InnerHeartBeatRequest>();
     channel->sendMsg(INNER_HEART_BEAT_RES, res);
+
 }
 
 void SystemMsgHandler::onInnerHeartBeatRes(transport::Channel *channel, InnerHeartBeatResponse *res) {
-    //  INFO_LOG("#### receive   on Inner HeartBeatRes msg ={} time = {}", channel->getAddr(), res->time());
+      INFO_LOG("#### receive   on Inner HeartBeatRes msg ={} time = {}", channel->getAddr(), res->time());
 }
 
 void SystemMsgHandler::registMsg() {
