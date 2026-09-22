@@ -39,7 +39,7 @@ void SystemMsgHandler::onInnerHeartBeatReq(transport::Channel *channel, InnerHea
 }
 
 void SystemMsgHandler::onInnerHeartBeatRes(transport::Channel *channel, InnerHeartBeatResponse *res) {
-      INFO_LOG("#### receive   on Inner HeartBeatRes msg ={} time = {}", channel->getAddr(), res->time());
+     // INFO_LOG("#### receive   on Inner HeartBeatRes msg ={} time = {}", channel->getAddr(), res->time());
 }
 
 void SystemMsgHandler::registMsg() {
