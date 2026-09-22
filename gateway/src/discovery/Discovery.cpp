@@ -8,7 +8,7 @@
 #include "utils/NetUtils.h"
 #include "discovery/PeerConn.h"
 #include "core/utils/JsonUtils.h"
-#include "core/common/nodeInfo.h"
+#include "core/common/NodeInfo.h"
 
 bool Discovery::initWithConf(const core::AthenaConfig& conf, const transport::TcpClient& tcpClient)
 {
