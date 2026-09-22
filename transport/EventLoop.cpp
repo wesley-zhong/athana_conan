@@ -56,7 +56,8 @@ void EventLoop::uv_alloc_cb(uv_handle_t *h, size_t s, uv_buf_t *buf) {
     size_t lineWritAbleLen = 0;
     uint8 *writePtr = channel->recv_buffer->linearWriteablePtr(&lineWritAbleLen);
     buf->base = (char *) writePtr;
-    buf->len = (ULONG) lineWritAbleLen;
+    // uv_buf_t::len 在 Win32 是 ULONG、POSIX 是 size_t，跟随平台类型转换避免截断警告
+    buf->len = static_cast<decltype(buf->len)>(lineWritAbleLen);
     if (lineWritAbleLen == 0) {
         // ring 已满且没有可解析的完整包：包长非法(超大包)或对端恶意刷数据，关闭连接
         ERR_LOG("recv ring full, close it addr ={}", channel->getAddr());
