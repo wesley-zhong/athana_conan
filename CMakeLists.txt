@@ -13,10 +13,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(3RD ${PROJECT_SOURCE_DIR}/3rd)
 set(CODE_GEN ${PROJECT_SOURCE_DIR}/code-gen)
-set(SOLUTION_DIR ./)
 
 
 # Dependencies from Conan
+# find_package 在此统一执行一次；子模块通过 target_link_libraries 引用
+# 导入目标（传递依赖），不再各自 find_package
 find_package(spdlog REQUIRED)
 find_package(mongocxx REQUIRED)
 find_package(libmysqlclient REQUIRED)
@@ -37,20 +38,19 @@ endif()
 
 # Platform compile settings
 if(APPLE)
-	add_definitions("-Wall -g")
+	add_compile_options(-Wall -g)
 	set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/macos)
 	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/libs/macos)
 endif()
 
 if(UNIX AND NOT APPLE)
-	add_definitions("-Wall -g")
+	add_compile_options(-Wall -g)
 	set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/linux)
 	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/libs/linux)
 endif()
 
 if(MSVC)
-	add_compile_options(/std:c++20 /utf-8)
-	add_compile_options(/Zc:__cplusplus /EHsc)
+	add_compile_options(/std:c++20 /utf-8 /Zc:__cplusplus /EHsc)
 	add_compile_definitions(NOMINMAX)
 	set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/win)
 	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/libs/win)
