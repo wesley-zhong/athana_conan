@@ -43,19 +43,20 @@ endif()
 
 # Platform compile settings
 if(APPLE)
-	add_compile_options(-Wall -g)
+	add_compile_options(-Wall -Wextra -Wno-unused-parameter -g)
 	set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/macos)
 	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/libs/macos)
 endif()
 
 if(UNIX AND NOT APPLE)
-	add_compile_options(-Wall -g)
+	add_compile_options(-Wall -Wextra -Wno-unused-parameter -g)
 	set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/linux)
 	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/libs/linux)
 endif()
 
 if(MSVC)
-	add_compile_options(/std:c++20 /utf-8 /Zc:__cplusplus /EHsc)
+	# /W4 + 关闭 C4100(未引用形参)，与 Linux 的 -Wno-unused-parameter 对齐；conan_toolchain 已注入 /MP
+	add_compile_options(/std:c++20 /utf-8 /Zc:__cplusplus /EHsc /W4 /wd4100)
 	add_compile_definitions(NOMINMAX)
 	set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin/win)
 	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/libs/win)
