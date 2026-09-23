@@ -67,10 +67,28 @@ void Channel::sendMsg(int msgId, std::shared_ptr<google::protobuf::Message> msg)
     if (self == nullptr || isClosed()) {
         return;
     }
-    _eventLoop->push([self, msgId, msg]() {
+    _eventLoop->executeOnEventLoop([self, msgId, msg]() {
         self->eventLoopWrite(msgId, msg);
     });
-    _eventLoop->async_write_task();
+}
+
+void Channel::sendRawMsg(int msgId, const char *data, int len) {
+    if (data == nullptr || len <= 0) {
+        return;
+    }
+    // body 按值捕获进任务，跨线程投递期间数据保持存活
+    std::string body(data, (size_t) len);
+    sendRawMsg(msgId, std::move(body));
+}
+
+void Channel::sendRawMsg(int msgId, std::string body) {
+    std::shared_ptr<Channel> self = _eventLoop->channelPtr(this);
+    if (self == nullptr || isClosed()) {
+        return;
+    }
+    _eventLoop->executeOnEventLoop([self, msgId, body = std::move(body)]() {
+        self->eventLoopRawWrite(msgId, body);
+    });
 }
 
 void Channel::initPackTime() {
@@ -85,10 +103,9 @@ void Channel::close() {
     if (self == nullptr) {
         return;
     }
-    _eventLoop->push([self]() {
+    _eventLoop->executeOnEventLoop([self]() {
         self->closeInLoop();
     });
-    _eventLoop->async_write_task();
 }
 
 void Channel::closeInLoop() {
@@ -148,6 +165,34 @@ void Channel::eventLoopWrite(int msgId, const std::shared_ptr<google::protobuf::
     last_send_time = nowTime();
 
     // do send
+    if (needCallSend) {
+        doUvSend();
+    }
+}
+
+void Channel::eventLoopRawWrite(int msgId, const std::string &body) {
+    if (closed_) {
+        return;
+    }
+    bool needCallSend = send_buff->storage().readableBytes() == 0;
+
+    int64 bodyLen = (int64) body.size();
+    int64 frameLen = bodyLen + 2 * sizeof(int32); // 4B packLen + 4B msgId + body
+    if (frameLen > MAX_PACKET_SIZE) {
+        ERR_LOG(" msgId = {} frame too large frameLen ={}, drop it", msgId, frameLen);
+        return;
+    }
+    if (send_buff->storage().writableBytes() < (size_t) frameLen) {
+        ERR_LOG("send buff full, msgId ={} frameLen ={}, drop it", msgId, frameLen);
+        return;
+    }
+    int32 len = (int32) bodyLen;
+    send_buff->writeInt32(len + 4);
+    send_buff->writeInt32(msgId);
+    // writeBytes 参数是 char*（非 const），body.data() 返回 const char*，这里只是拷贝不改内容
+    send_buff->writeBytes(const_cast<char *>(body.data()), len);
+    last_send_time = nowTime();
+
     if (needCallSend) {
         doUvSend();
     }

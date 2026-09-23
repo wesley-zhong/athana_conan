@@ -155,6 +155,40 @@ std::shared_ptr<transport::Channel> PeerConn::getRandomChannel(const std::string
     return channels[randomIndex];
 }
 
+std::shared_ptr<transport::Channel> PeerConn::getChannelByServiceId(const std::string &serviceId) {
+    std::lock_guard<std::mutex> lk(mutex_);
+    auto it = node_id_nodes.find(serviceId);
+    if (it == node_id_nodes.end()) {
+        return nullptr;
+    }
+    auto &channels = it->second->channels;
+    // 取该节点最近一条可用连接；已关闭的连接由 onClosed -> removeNodeChannel 摘除
+    for (auto rit = channels.rbegin(); rit != channels.rend(); ++rit) {
+        if (!(*rit)->isClosed()) {
+            return *rit;
+        }
+    }
+    return nullptr;
+}
+
+std::vector<std::shared_ptr<transport::Channel>> PeerConn::getChannelsByType(int serverType) {
+    std::vector<std::shared_ptr<transport::Channel>> result;
+    std::lock_guard<std::mutex> lk(mutex_);
+    auto it = node_type_nodes.find(serverType);
+    if (it == node_type_nodes.end()) {
+        return result;
+    }
+    for (auto &node: it->second) {
+        for (auto &channel: node->channels) {
+            // 快速过滤已关闭的连接，避免拿到马上要失效的 channel
+            if (!channel->isClosed()) {
+                result.push_back(channel);
+            }
+        }
+    }
+    return result;
+}
+
 bool PeerConn::sendMsg(int serverType, int msgId, std::shared_ptr<google::protobuf::Message> msg) {
     std::shared_ptr<transport::Channel> channel;
     {

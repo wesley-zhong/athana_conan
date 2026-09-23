@@ -19,6 +19,6 @@ void PlayerLoginHandler::onInnerLogin(transport::Channel *channel, InnerLoginReq
 }
 
 
-void PlayerLoginHandler::onPlayerDisconnected(uint32 playerId, InnerPlayerDisconnectRequest *req) {
+void PlayerLoginHandler::onPlayerDisconnected(int64_t playerId, InnerPlayerDisconnectRequest *req) {
     LoginService::onPlayerDisconnect(playerId, req);
 }

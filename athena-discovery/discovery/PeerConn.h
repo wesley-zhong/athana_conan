@@ -35,6 +35,12 @@ public:
 
     static std::shared_ptr<transport::Channel> getRandomChannel(const std::string &serviceId);
 
+    // 按 service_id 定点取 channel（router 转发场景：目标节点已由调用方算出）
+    static std::shared_ptr<transport::Channel> getChannelByServiceId(const std::string &serviceId);
+
+    // 对某类型下全部节点广播（router 转发场景：目标 player 不在本 router 管辖，扩散给同类节点）
+    static std::vector<std::shared_ptr<transport::Channel>> getChannelsByType(int serverType);
+
 
     static bool sendMsg(std::shared_ptr<transport::Channel> channel, int msgId,
                         std::shared_ptr<google::protobuf::Message> msg);

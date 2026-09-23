@@ -1,5 +1,5 @@
 //
-// Created by zhongweiqi on 2025/10/20.
+// Created by zhongweiqi on 2026/9/23.
 //
 
 #include <chrono>
@@ -14,7 +14,7 @@
 
 #include "utils/Snowflake.h"
 #include "discovery/Discovery.h"
-#include "network/GatewayServerNetWorkHandler.h"
+#include "network/RouterServerNetWorkHandler.h"
 #include "transport/AthenaTcpServer.h"
 
 #if defined(_WIN32)
@@ -24,7 +24,7 @@
 #endif
 
 #include "transport/TcpClient.h"
-#include "network/GateClientNetWorkHandler.h"
+#include "network/RouterClientNetWorkHandler.h"
 
 static std::atomic<bool> g_running(true);
 static std::condition_variable g_cv;
@@ -41,19 +41,20 @@ int main(int argc, char** argv)
 {
     std::signal(SIGTERM, handleSignal);
     std::signal(SIGINT, handleSignal);
-    core::xLogInitLog(core::LogLevel::LL_INFO, "../logs/gateway.log");
+    core::xLogInitLog(core::LogLevel::LL_INFO, "../logs/router.log");
 
     std::filesystem::path cur_path = std::filesystem::current_path();
     INFO_LOG("+++  cur path: {}", cur_path.string());
-    bool success = core::AthenaConfig::instance().load("config/gateway.toml");
+    bool success = core::AthenaConfig::instance().load("config/router.toml");
     if (!success)
     {
-        ERR_LOG("config ={} load failed", cur_path.string() + "/config/gateway.toml");
+        ERR_LOG("config ={} load failed", cur_path.string() + "/config/router.toml");
         return -1;
     }
+    auto &config = core::AthenaConfig::instance();
 
     // snowflake init
-    success = core::Snowflake::init(core::AthenaConfig::instance().get("server", "worker-id", 0));
+    success = core::Snowflake::init(config.get("server", "worker-id", 0));
     if (!success)
     {
         ERR_LOG("Snowflake init failed");
@@ -61,15 +62,14 @@ int main(int argc, char** argv)
     }
     INFO_LOG("Snowflake init ok");
 
-    auto &config = core::AthenaConfig::instance();
-
     //tcp client
-    GateClientNetWorkHandler::initAllMsgRegister();
+    RouterClientNetWorkHandler::initAllMsgRegister();
+    RouterClientNetWorkHandler::startLogicThread(config.get("client", "logic-thread", 2));
     transport::TcpClient tcp_client;
-    tcp_client.onConnected = GateClientNetWorkHandler::onNewConnect;
-    tcp_client.onClosed = GateClientNetWorkHandler::onClosed;
-    tcp_client.onRead = GateClientNetWorkHandler::onMsg;
-    tcp_client.onTriggerEvent = GateClientNetWorkHandler::onEventTrigger;
+    tcp_client.onConnected = RouterClientNetWorkHandler::onNewConnect;
+    tcp_client.onClosed = RouterClientNetWorkHandler::onClosed;
+    tcp_client.onRead = RouterClientNetWorkHandler::onMsg;
+    tcp_client.onTriggerEvent = RouterClientNetWorkHandler::onEventTrigger;
     tcp_client.setChannelIdleTime(config.get("client", "idle-write-time", 3000),
                                   config.get("client", "idle-read-time", 9000));
 
@@ -82,18 +82,18 @@ int main(int argc, char** argv)
         return -3;
     }
 
-    int serverPort = core::AthenaConfig::instance().get("server", "tcp-port", 0);
+    int serverPort = config.get("server", "tcp-port", 0);
     INFO_LOG("#### bind server port:{}", serverPort);
     // tcp server
-    GatewayServerNetWorkHandler::initAllMsgRegister();
-    GatewayServerNetWorkHandler::startLogicThread(config.get("server", "io-thread", 1),
-                                                  config.get("server", "logic-thread", 2));
+    RouterServerNetWorkHandler::initAllMsgRegister();
+    RouterServerNetWorkHandler::startLogicThread(config.get("server", "io-thread", 1),
+                                                 config.get("server", "logic-thread", 2));
     transport::AthenaTcpServer tcp_server;
 
-    tcp_server.onNewConnection = GatewayServerNetWorkHandler::onConnect;
-    tcp_server.onRead = GatewayServerNetWorkHandler::onMsg;
-    tcp_server.onClosed = GatewayServerNetWorkHandler::onClosed;
-    tcp_server.onEventTrigger = GatewayServerNetWorkHandler::onEventTrigger;
+    tcp_server.onNewConnection = RouterServerNetWorkHandler::onConnect;
+    tcp_server.onRead = RouterServerNetWorkHandler::onMsg;
+    tcp_server.onClosed = RouterServerNetWorkHandler::onClosed;
+    tcp_server.onEventTrigger = RouterServerNetWorkHandler::onEventTrigger;
 
     tcp_server.setChannelIdleTime(config.get("server", "idle-read-time", 9000),
                                   config.get("server", "idle-write-time", 3000));

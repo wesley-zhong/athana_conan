@@ -28,7 +28,7 @@ void async_stop_cb(uv_async_t *handler);
 
 
 // 单个 reactor。除 async_send 相关接口外，所有句柄操作都发生在本 loop 线程。
-// 跨线程投递只有两种方式：push(task) + async_write_task() 唤醒；channelPtr() 取 shared_ptr。
+// 跨线程投递只有两种方式：executeOnEventLoop(task)（入队 + 唤醒）；channelPtr() 取 shared_ptr。
 class EventLoop {
 public:
     EventLoop(NetInterface *tcpInterFace, EventTrigger *event_trigger);
@@ -37,8 +37,10 @@ public:
 
     void execute();
 
-    void push(VOID_FUN func) {
+    // 任意线程：投递任务到 loop 线程执行。push + 唤醒总是成对出现，合并成一个接口防止漏唤醒
+    void executeOnEventLoop(VOID_FUN func) {
         _waitTasks.push(std::move(func));
+        wakeAsync(&uv_async_write);
     }
 
     void onNewConnection(Channel *channel);
@@ -66,18 +68,6 @@ public:
 
     // 等待 loop 线程退出（与 start() 配对）
     void join();
-
-    void async_write_task() {
-        wakeAsync(&uv_async_write);
-    }
-
-    void async_accept_task() {
-        wakeAsync(&uv_async_accept);
-    }
-
-    void async_connect_task() {
-        wakeAsync(&uv_async_connect);
-    }
 
     uv_loop_t *uv_loop() {
         return _loop;

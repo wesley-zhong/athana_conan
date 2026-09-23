@@ -1,3 +1,3 @@
 # athena
 
- conan install .  --output-folder=cmake-build-debug  --build=missing  -s build_type=Debug -s compiler.cppstd=17
+ conan install .  --output-folder=cmake-build-debug  --build=missing  -s build_type=Debug -s compiler.cppstd=20

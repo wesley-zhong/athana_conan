@@ -92,7 +92,7 @@ bool ServerEventLoop::initIpcServers() {
 
 void ServerEventLoop::startListen() {
     // 等全部 worker 就绪后再监听业务端口，保证 accept 到的连接一定能派发出去
-    push([this]() {
+    executeOnEventLoop([this]() {
         int ret = uv_tcp_init(_loop, &server_);
         if (ret != 0) {
             ERR_LOG("uv_tcp_init failed: {}", uv_err_name(ret));
@@ -119,7 +119,6 @@ void ServerEventLoop::startListen() {
         listen_ok_.store(true, std::memory_order_release);
         INFO_LOG("#### server listening port ={} (boss + {} workers)", bindPort_, worker_num_);
     });
-    async_write_task();
 }
 
 // boss：accept 到新连接后派发给 worker

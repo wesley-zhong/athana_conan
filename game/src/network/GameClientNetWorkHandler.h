@@ -2,13 +2,13 @@
 // Created by zhongweiqi on 2025/10/28.
 //
 
-#ifndef ATHENA_GATEWAY_NETWORKHANDLER_H
-#define ATHENA_GATEWAY_NETWORKHANDLER_H
-
+#ifndef ATHENA_GAME_CLIENTNETWORKHANDLER_H
+#define ATHENA_GAME_CLIENTNETWORKHANDLER_H
 #include "transport/EventDefs.h"
+
 namespace transport { class Channel; }
 
-class GateClientNetWorkHandler {
+class GameClientNetWorkHandler {
 public:
     static void initAllMsgRegister();
 
@@ -22,4 +22,4 @@ public:
 };
 
 
-#endif //ATHENA_GATEWAY_NETWORKHANDLER_H
+#endif //ATHENA_GAME_CLIENTNETWORKHANDLER_H

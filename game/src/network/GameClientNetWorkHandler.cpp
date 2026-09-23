@@ -2,7 +2,7 @@
 // Created by zhongweiqi on 2025/10/28.
 //
 
-#include "GateClientNetWorkHandler.h"
+#include "GameClientNetWorkHandler.h"
 #include "transport/Dispatcher.h"
 #include "controller/PlayerLoginHandler.h"
 #include "transport/Channel.h"
@@ -14,15 +14,15 @@
 #include "SystemMsgHandler.h"
 #include "discovery/AthenaDiscovery.h"
 #include "discovery/PeerConn.h"
-#include "gate_actor/GateActor.h"
-
-void GateClientNetWorkHandler::initAllMsgRegister()
+#include "game/src/game_actor/GameActor.h"
+#include "game_actor/GameActor.h"
+void GameClientNetWorkHandler::initAllMsgRegister()
 {
     SystemMsgHandler::registMsg();
     PlayerLoginHandler::registMsgHandler();
 }
 
-void GateClientNetWorkHandler::onNewConnect(transport::Channel* channel, int status)
+void GameClientNetWorkHandler::onNewConnect(transport::Channel* channel, int status)
 {
     INFO_LOG("on new connection ={}", channel->getAddr());
     auto req = std::make_shared<InnerServerHandShakeReq>();
@@ -33,7 +33,7 @@ void GateClientNetWorkHandler::onNewConnect(transport::Channel* channel, int sta
     channel->sendMsg(INNER_SERVER_HAND_SHAKE_REQ, req);
 }
 
-void GateClientNetWorkHandler::onMsg(transport::Channel* channel, void* buff, int len)
+void GameClientNetWorkHandler::onMsg(transport::Channel* channel, void* buff, int len)
 {
     uint8* data = static_cast<uint8*>(buff);
     data += 4;
@@ -62,13 +62,13 @@ void GateClientNetWorkHandler::onMsg(transport::Channel* channel, void* buff, in
         return;
     }
     int hashCode = (int)((uintptr_t)channel);
-    GateActor::execute(LOGIC, hashCode, [playerId, msg_function, channel_ptr, msg]()
+    GameActor::execute(LOGIC, hashCode, [playerId, msg_function, channel_ptr, msg]()
                                            {
                                                msg_function->invoke(playerId, channel_ptr.get(), msg);
                                            });
 }
 
-void GateClientNetWorkHandler::onEventTrigger(transport::Channel* channel, transport::TriggerEventEnum reason)
+void GameClientNetWorkHandler::onEventTrigger(transport::Channel* channel, transport::TriggerEventEnum reason)
 {
     if (reason == transport::WRITE_IDLE)
     {
@@ -86,7 +86,7 @@ void GateClientNetWorkHandler::onEventTrigger(transport::Channel* channel, trans
 }
 
 
-void GateClientNetWorkHandler::onClosed(transport::Channel* channel)
+void GameClientNetWorkHandler::onClosed(transport::Channel* channel)
 {
     INFO_LOG("connection ={}  closed ", channel->getAddr());
     // 与 game 的连接断开时摘除登记，避免后续消息发往已关闭的连接

@@ -12,7 +12,7 @@ std::string RoleDO::toString() const {
     __w.Key("_id");
     __w.Int64(_id);
     __w.Key("name");
-    __w.String(name.c_str(), name.size());
+    __w.String(name.c_str(), static_cast<rapidjson::SizeType>(name.size()));
     __w.EndObject();
     return std::string(__sb.GetString(), __sb.GetSize());
 }

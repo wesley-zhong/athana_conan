@@ -18,7 +18,7 @@ idle-write-time = 0
 
 [discover]
 server_nodes = "http://localhost:2379;http://localhost:2379"
-watch-servers = ["mmo-world.V1"]
+watch-servers = ["c_router.V1"]
 
 [mongodb]
 ip = "localhost:27017"

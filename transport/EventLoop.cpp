@@ -126,7 +126,7 @@ void EventLoop::uv_on_timer(uv_timer_t *timer) {
 
 void EventLoop::asyncConnect(const std::string &ip, int port) {
     EventLoop *event_loop = this;
-    push([ip, port, event_loop]() {
+    executeOnEventLoop([ip, port, event_loop]() {
         INFO_LOG("------------- do connect idp ={} port ={}", ip, port);
         sockaddr_in dest;
         int ret = uv_ip4_addr(ip.c_str(), port, &dest);
@@ -155,7 +155,6 @@ void EventLoop::asyncConnect(const std::string &ip, int port) {
             channel->close();
         }
     });
-    async_connect_task();
 }
 
 void EventLoop::onNewConnection(Channel *channel) {
@@ -358,7 +357,7 @@ void EventLoop::releaseChannel(Channel *channel) {
 
 void EventLoop::connectIpc(const std::string &pipe_name) {
     ipc_pipe_name_ = pipe_name;
-    push([this, pipe_name]() {
+    executeOnEventLoop([this, pipe_name]() {
         int ret = uv_pipe_init(_loop, &ipc_pipe_, 1);
         if (ret != 0) {
             ERR_LOG("uv_pipe_init failed: {}", uv_err_name(ret));
@@ -369,7 +368,6 @@ void EventLoop::connectIpc(const std::string &pipe_name) {
         ipc_connect_req_.data = this;
         uv_pipe_connect(&ipc_connect_req_, &ipc_pipe_, pipe_name.c_str(), uv_ipc_connect_cb);
     });
-    async_write_task(); // 唤醒 loop 执行上面的任务
 }
 
 void EventLoop::uv_ipc_connect_cb(uv_connect_t *req, int status) {

@@ -44,6 +44,12 @@ public:
     // 线程安全：序列化与落盘都在 loop 线程完成，msg 由 shared_ptr 延长生命周期
     void sendMsg(int msgId, std::shared_ptr<google::protobuf::Message> msg);
 
+    // 线程安全：按帧协议原样发送裸字节（router 中转场景：不反序列化直接转发 body）
+    void sendRawMsg(int msgId, const char *data, int len);
+
+    // 线程安全：同上，body 直接按值转移，避免一次拷贝
+    void sendRawMsg(int msgId, std::string body);
+
     void initPackTime();
 
     void onRead(uv_stream_t *client, ssize_t nread, const uv_buf_t *buf);
@@ -120,6 +126,8 @@ private:
     friend class EventLoop;
 
     void eventLoopWrite(int msgId, const std::shared_ptr<google::protobuf::Message> &body);
+
+    void eventLoopRawWrite(int msgId, const std::string &body);
 
     void closeInLoop();
 

@@ -14,7 +14,8 @@ from codegen_common import TypeDef, normalize_type, collect_types
 def json_set_stmts(cxx_type: str, var: str) -> Optional[List[str]]:
     t = normalize_type(cxx_type)
     if t in ("std::string", "string"):
-        return [f"__w.String({var}.c_str(), {var}.size());"]
+        # rapidjson String 的长度参数是 SizeType(uint)，size_t 是 64 位，显式收窄避免 C4267
+        return [f"__w.String({var}.c_str(), static_cast<rapidjson::SizeType>({var}.size()));"]
     if t in ("int32_t", "int"):
         return [f"__w.Int({var});"]
     if t in ("int64_t", "long", "longlong"):

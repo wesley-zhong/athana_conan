@@ -116,6 +116,32 @@ struct InnerServerHandShakeReqDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InnerServerHandShakeReqDefaultTypeInternal _InnerServerHandShakeReq_default_instance_;
 
+inline constexpr InnerRouteTransfer::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : dest_service_id_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        body_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        player_id_{::int64_t{0}},
+        inner_msg_id_{0},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR InnerRouteTransfer::InnerRouteTransfer(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct InnerRouteTransferDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR InnerRouteTransferDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~InnerRouteTransferDefaultTypeInternal() {}
+  union {
+    InnerRouteTransfer _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InnerRouteTransferDefaultTypeInternal _InnerRouteTransfer_default_instance_;
+
 inline constexpr InnerPlayerDisconnectResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : sid_{::int64_t{0}},
@@ -495,6 +521,18 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::KickOutResponse, _impl_.reason_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::InnerRouteTransfer, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::InnerRouteTransfer, _impl_.player_id_),
+        PROTOBUF_FIELD_OFFSET(::InnerRouteTransfer, _impl_.dest_service_id_),
+        PROTOBUF_FIELD_OFFSET(::InnerRouteTransfer, _impl_.inner_msg_id_),
+        PROTOBUF_FIELD_OFFSET(::InnerRouteTransfer, _impl_.body_),
 };
 
 static const ::_pbi::MigrationSchema
@@ -514,6 +552,7 @@ static const ::_pbi::MigrationSchema
         {122, -1, -1, sizeof(::InnerServerHandShakeRes)},
         {133, -1, -1, sizeof(::KickOutRequest)},
         {144, -1, -1, sizeof(::KickOutResponse)},
+        {153, -1, -1, sizeof(::InnerRouteTransfer)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::_InnerHead_default_instance_._instance,
@@ -531,6 +570,7 @@ static const ::_pb::Message* const file_default_instances[] = {
     &::_InnerServerHandShakeRes_default_instance_._instance,
     &::_KickOutRequest_default_instance_._instance,
     &::_KickOutResponse_default_instance_._instance,
+    &::_InnerRouteTransfer_default_instance_._instance,
 };
 const char descriptor_table_protodef_ProtoInner_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
@@ -557,28 +597,32 @@ const char descriptor_table_protodef_ProtoInner_2eproto[] ABSL_ATTRIBUTE_SECTION
     "ervice_id\030\002 \001(\t\022\016\n\006areaId\030\003 \001(\005\"=\n\016KickO"
     "utRequest\022\016\n\006roleId\030\001 \001(\003\022\013\n\003sid\030\002 \001(\003\022\016"
     "\n\006reason\030\003 \001(\005\"!\n\017KickOutResponse\022\016\n\006rea"
-    "son\030\001 \001(\005*\335\002\n\016InnerProtoCode\022\021\n\rINNER_IN"
-    "VALID\020\000\022(\n\033INNER_SERVER_HAND_SHAKE_REQ\020\377"
-    "\377\377\377\377\377\377\377\377\001\022(\n\033INNER_SERVER_HAND_SHAKE_RES"
-    "\020\376\377\377\377\377\377\377\377\377\001\022!\n\024INNER_HEART_BEAT_REQ\020\375\377\377\377"
-    "\377\377\377\377\377\001\022!\n\024INNER_HEART_BEAT_RES\020\374\377\377\377\377\377\377\377\377"
-    "\001\022(\n\033INNER_PLAYER_DISCONNECT_REQ\020\372\377\377\377\377\377\377"
-    "\377\377\001\022(\n\033INNER_PLAYER_DISCONNECT_RES\020\371\377\377\377\377"
-    "\377\377\377\377\001\022$\n\027INNER_TO_GAME_LOGIN_REQ\020\366\377\377\377\377\377\377"
-    "\377\377\001\022$\n\027INNER_TO_GAME_LOGIN_RES\020\365\377\377\377\377\377\377\377\377"
-    "\001B\033\n\016com.game.protoZ\t/protoGenb\006proto3"
+    "son\030\001 \001(\005\"d\n\022InnerRouteTransfer\022\021\n\tplaye"
+    "r_id\030\001 \001(\003\022\027\n\017dest_service_id\030\002 \001(\t\022\024\n\014i"
+    "nner_msg_id\030\003 \001(\005\022\014\n\004body\030\004 \001(\014*\200\003\n\016Inne"
+    "rProtoCode\022\021\n\rINNER_INVALID\020\000\022(\n\033INNER_S"
+    "ERVER_HAND_SHAKE_REQ\020\377\377\377\377\377\377\377\377\377\001\022(\n\033INNER"
+    "_SERVER_HAND_SHAKE_RES\020\376\377\377\377\377\377\377\377\377\001\022!\n\024INN"
+    "ER_HEART_BEAT_REQ\020\375\377\377\377\377\377\377\377\377\001\022!\n\024INNER_HE"
+    "ART_BEAT_RES\020\374\377\377\377\377\377\377\377\377\001\022(\n\033INNER_PLAYER_"
+    "DISCONNECT_REQ\020\372\377\377\377\377\377\377\377\377\001\022(\n\033INNER_PLAYE"
+    "R_DISCONNECT_RES\020\371\377\377\377\377\377\377\377\377\001\022$\n\027INNER_TO_"
+    "GAME_LOGIN_REQ\020\366\377\377\377\377\377\377\377\377\001\022$\n\027INNER_TO_GA"
+    "ME_LOGIN_RES\020\365\377\377\377\377\377\377\377\377\001\022!\n\024INNER_ROUTE_T"
+    "RANSFER\020\354\377\377\377\377\377\377\377\377\001B\033\n\016com.game.protoZ\t/p"
+    "rotoGenb\006proto3"
 };
 static ::absl::once_flag descriptor_table_ProtoInner_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_ProtoInner_2eproto = {
     false,
     false,
-    1318,
+    1455,
     descriptor_table_protodef_ProtoInner_2eproto,
     "ProtoInner.proto",
     &descriptor_table_ProtoInner_2eproto_once,
     nullptr,
     0,
-    15,
+    16,
     schemas,
     file_default_instances,
     TableStruct_ProtoInner_2eproto::offsets,
@@ -590,7 +634,7 @@ const ::google::protobuf::EnumDescriptor* InnerProtoCode_descriptor() {
   return file_level_enum_descriptors_ProtoInner_2eproto[0];
 }
 PROTOBUF_CONSTINIT const uint32_t InnerProtoCode_internal_data_[] = {
-    196597u, 32u, 1004u, };
+    131052u, 32u, 1028864u, };
 bool InnerProtoCode_IsValid(int value) {
   return ::_pbi::ValidateEnum(value, InnerProtoCode_internal_data_);
 }
@@ -3792,6 +3836,291 @@ void KickOutResponse::InternalSwap(KickOutResponse* PROTOBUF_RESTRICT other) {
 }
 
 ::google::protobuf::Metadata KickOutResponse::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class InnerRouteTransfer::_Internal {
+ public:
+};
+
+InnerRouteTransfer::InnerRouteTransfer(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:InnerRouteTransfer)
+}
+inline PROTOBUF_NDEBUG_INLINE InnerRouteTransfer::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::InnerRouteTransfer& from_msg)
+      : dest_service_id_(arena, from.dest_service_id_),
+        body_(arena, from.body_),
+        _cached_size_{0} {}
+
+InnerRouteTransfer::InnerRouteTransfer(
+    ::google::protobuf::Arena* arena,
+    const InnerRouteTransfer& from)
+    : ::google::protobuf::Message(arena) {
+  InnerRouteTransfer* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, player_id_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, player_id_),
+           offsetof(Impl_, inner_msg_id_) -
+               offsetof(Impl_, player_id_) +
+               sizeof(Impl_::inner_msg_id_));
+
+  // @@protoc_insertion_point(copy_constructor:InnerRouteTransfer)
+}
+inline PROTOBUF_NDEBUG_INLINE InnerRouteTransfer::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : dest_service_id_(arena),
+        body_(arena),
+        _cached_size_{0} {}
+
+inline void InnerRouteTransfer::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, player_id_),
+           0,
+           offsetof(Impl_, inner_msg_id_) -
+               offsetof(Impl_, player_id_) +
+               sizeof(Impl_::inner_msg_id_));
+}
+InnerRouteTransfer::~InnerRouteTransfer() {
+  // @@protoc_insertion_point(destructor:InnerRouteTransfer)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void InnerRouteTransfer::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.dest_service_id_.Destroy();
+  _impl_.body_.Destroy();
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+InnerRouteTransfer::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(InnerRouteTransfer, _impl_._cached_size_),
+              false,
+          },
+          &InnerRouteTransfer::MergeImpl,
+          &InnerRouteTransfer::kDescriptorMethods,
+          &descriptor_table_ProtoInner_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 4, 0, 42, 2> InnerRouteTransfer::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    4, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967280,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    4,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_InnerRouteTransfer_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::InnerRouteTransfer>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // bytes body = 4;
+    {::_pbi::TcParser::FastBS1,
+     {34, 63, 0, PROTOBUF_FIELD_OFFSET(InnerRouteTransfer, _impl_.body_)}},
+    // int64 player_id = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(InnerRouteTransfer, _impl_.player_id_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(InnerRouteTransfer, _impl_.player_id_)}},
+    // string dest_service_id = 2;
+    {::_pbi::TcParser::FastUS1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(InnerRouteTransfer, _impl_.dest_service_id_)}},
+    // int32 inner_msg_id = 3;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(InnerRouteTransfer, _impl_.inner_msg_id_), 63>(),
+     {24, 63, 0, PROTOBUF_FIELD_OFFSET(InnerRouteTransfer, _impl_.inner_msg_id_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // int64 player_id = 1;
+    {PROTOBUF_FIELD_OFFSET(InnerRouteTransfer, _impl_.player_id_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt64)},
+    // string dest_service_id = 2;
+    {PROTOBUF_FIELD_OFFSET(InnerRouteTransfer, _impl_.dest_service_id_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // int32 inner_msg_id = 3;
+    {PROTOBUF_FIELD_OFFSET(InnerRouteTransfer, _impl_.inner_msg_id_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    // bytes body = 4;
+    {PROTOBUF_FIELD_OFFSET(InnerRouteTransfer, _impl_.body_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kBytes | ::_fl::kRepAString)},
+  }},
+  // no aux_entries
+  {{
+    "\22\0\17\0\0\0\0\0"
+    "InnerRouteTransfer"
+    "dest_service_id"
+  }},
+};
+
+PROTOBUF_NOINLINE void InnerRouteTransfer::Clear() {
+// @@protoc_insertion_point(message_clear_start:InnerRouteTransfer)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.dest_service_id_.ClearToEmpty();
+  _impl_.body_.ClearToEmpty();
+  ::memset(&_impl_.player_id_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.inner_msg_id_) -
+      reinterpret_cast<char*>(&_impl_.player_id_)) + sizeof(_impl_.inner_msg_id_));
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+::uint8_t* InnerRouteTransfer::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:InnerRouteTransfer)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // int64 player_id = 1;
+  if (this->_internal_player_id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt64ToArrayWithField<1>(
+            stream, this->_internal_player_id(), target);
+  }
+
+  // string dest_service_id = 2;
+  if (!this->_internal_dest_service_id().empty()) {
+    const std::string& _s = this->_internal_dest_service_id();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "InnerRouteTransfer.dest_service_id");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
+  }
+
+  // int32 inner_msg_id = 3;
+  if (this->_internal_inner_msg_id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt32ToArrayWithField<3>(
+            stream, this->_internal_inner_msg_id(), target);
+  }
+
+  // bytes body = 4;
+  if (!this->_internal_body().empty()) {
+    const std::string& _s = this->_internal_body();
+    target = stream->WriteBytesMaybeAliased(4, _s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:InnerRouteTransfer)
+  return target;
+}
+
+::size_t InnerRouteTransfer::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:InnerRouteTransfer)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // string dest_service_id = 2;
+  if (!this->_internal_dest_service_id().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_dest_service_id());
+  }
+
+  // bytes body = 4;
+  if (!this->_internal_body().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::BytesSize(
+                                    this->_internal_body());
+  }
+
+  // int64 player_id = 1;
+  if (this->_internal_player_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+        this->_internal_player_id());
+  }
+
+  // int32 inner_msg_id = 3;
+  if (this->_internal_inner_msg_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_inner_msg_id());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+
+void InnerRouteTransfer::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<InnerRouteTransfer*>(&to_msg);
+  auto& from = static_cast<const InnerRouteTransfer&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:InnerRouteTransfer)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_dest_service_id().empty()) {
+    _this->_internal_set_dest_service_id(from._internal_dest_service_id());
+  }
+  if (!from._internal_body().empty()) {
+    _this->_internal_set_body(from._internal_body());
+  }
+  if (from._internal_player_id() != 0) {
+    _this->_impl_.player_id_ = from._impl_.player_id_;
+  }
+  if (from._internal_inner_msg_id() != 0) {
+    _this->_impl_.inner_msg_id_ = from._impl_.inner_msg_id_;
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void InnerRouteTransfer::CopyFrom(const InnerRouteTransfer& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:InnerRouteTransfer)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void InnerRouteTransfer::InternalSwap(InnerRouteTransfer* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.dest_service_id_, &other->_impl_.dest_service_id_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.body_, &other->_impl_.body_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(InnerRouteTransfer, _impl_.inner_msg_id_)
+      + sizeof(InnerRouteTransfer::_impl_.inner_msg_id_)
+      - PROTOBUF_FIELD_OFFSET(InnerRouteTransfer, _impl_.player_id_)>(
+          reinterpret_cast<char*>(&_impl_.player_id_),
+          reinterpret_cast<char*>(&other->_impl_.player_id_));
+}
+
+::google::protobuf::Metadata InnerRouteTransfer::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // @@protoc_insertion_point(namespace_scope)

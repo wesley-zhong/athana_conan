@@ -34,9 +34,10 @@ void LoginService::onPlayerLogin(transport::Channel* channel, InnerLoginRequest*
     //existPlayer->saveDataToDB();
 }
 
-void LoginService::onPlayerDisconnect(uint32 playerId, InnerPlayerDisconnectRequest* req)
+void LoginService::onPlayerDisconnect(int64_t playerId, InnerPlayerDisconnectRequest* req)
 {
-    Player* existPlayer = playerMgr->getPlayer(playerId);
+    // Dispatcher 统一以 int64_t 传 playerId；Player 体系用 uint32，此处收窄是有意为之
+    Player* existPlayer = playerMgr->getPlayer((uint32)playerId);
     if (existPlayer == nullptr)
     {
         INFO_LOG("player id ={} disconnected not founded", playerId);

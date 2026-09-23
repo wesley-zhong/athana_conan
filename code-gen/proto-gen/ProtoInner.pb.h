@@ -83,6 +83,9 @@ extern InnerPlayerDisconnectRequestDefaultTypeInternal _InnerPlayerDisconnectReq
 class InnerPlayerDisconnectResponse;
 struct InnerPlayerDisconnectResponseDefaultTypeInternal;
 extern InnerPlayerDisconnectResponseDefaultTypeInternal _InnerPlayerDisconnectResponse_default_instance_;
+class InnerRouteTransfer;
+struct InnerRouteTransferDefaultTypeInternal;
+extern InnerRouteTransferDefaultTypeInternal _InnerRouteTransfer_default_instance_;
 class InnerServerHandShakeReq;
 struct InnerServerHandShakeReqDefaultTypeInternal;
 extern InnerServerHandShakeReqDefaultTypeInternal _InnerServerHandShakeReq_default_instance_;
@@ -110,6 +113,7 @@ enum InnerProtoCode : int {
   INNER_PLAYER_DISCONNECT_RES = -7,
   INNER_TO_GAME_LOGIN_REQ = -10,
   INNER_TO_GAME_LOGIN_RES = -11,
+  INNER_ROUTE_TRANSFER = -20,
   InnerProtoCode_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   InnerProtoCode_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -118,7 +122,7 @@ enum InnerProtoCode : int {
 
 bool InnerProtoCode_IsValid(int value);
 extern const uint32_t InnerProtoCode_internal_data_[];
-constexpr InnerProtoCode InnerProtoCode_MIN = static_cast<InnerProtoCode>(-11);
+constexpr InnerProtoCode InnerProtoCode_MIN = static_cast<InnerProtoCode>(-20);
 constexpr InnerProtoCode InnerProtoCode_MAX = static_cast<InnerProtoCode>(0);
 constexpr int InnerProtoCode_ARRAYSIZE = 0 + 1;
 const ::google::protobuf::EnumDescriptor*
@@ -128,13 +132,7 @@ const std::string& InnerProtoCode_Name(T value) {
   static_assert(std::is_same<T, InnerProtoCode>::value ||
                     std::is_integral<T>::value,
                 "Incorrect type passed to InnerProtoCode_Name().");
-  return InnerProtoCode_Name(static_cast<InnerProtoCode>(value));
-}
-template <>
-inline const std::string& InnerProtoCode_Name(InnerProtoCode value) {
-  return ::google::protobuf::internal::NameOfDenseEnum<InnerProtoCode_descriptor,
-                                                 -11, 0>(
-      static_cast<int>(value));
+  return ::google::protobuf::internal::NameOfEnum(InnerProtoCode_descriptor(), value);
 }
 inline bool InnerProtoCode_Parse(absl::string_view name, InnerProtoCode* value) {
   return ::google::protobuf::internal::ParseNamedEnum<InnerProtoCode>(
@@ -942,6 +940,225 @@ class InnerServerHandShakeReq final : public ::google::protobuf::Message
     ::int32_t areaid_;
     ::int32_t server_type_;
     ::int32_t id_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_ProtoInner_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InnerRouteTransfer final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:InnerRouteTransfer) */ {
+ public:
+  inline InnerRouteTransfer() : InnerRouteTransfer(nullptr) {}
+  ~InnerRouteTransfer() override;
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR InnerRouteTransfer(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline InnerRouteTransfer(const InnerRouteTransfer& from) : InnerRouteTransfer(nullptr, from) {}
+  inline InnerRouteTransfer(InnerRouteTransfer&& from) noexcept
+      : InnerRouteTransfer(nullptr, std::move(from)) {}
+  inline InnerRouteTransfer& operator=(const InnerRouteTransfer& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InnerRouteTransfer& operator=(InnerRouteTransfer&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+#ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+#endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const InnerRouteTransfer& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InnerRouteTransfer* internal_default_instance() {
+    return reinterpret_cast<const InnerRouteTransfer*>(
+        &_InnerRouteTransfer_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 15;
+  friend void swap(InnerRouteTransfer& a, InnerRouteTransfer& b) { a.Swap(&b); }
+  inline void Swap(InnerRouteTransfer* other) {
+    if (other == this) return;
+#ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr && GetArena() == other->GetArena()) {
+#else   // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+#endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InnerRouteTransfer* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InnerRouteTransfer* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return ::google::protobuf::Message::DefaultConstruct<InnerRouteTransfer>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const InnerRouteTransfer& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const InnerRouteTransfer& from) { InnerRouteTransfer::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() final;
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(InnerRouteTransfer* other);
+ private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() { return "InnerRouteTransfer"; }
+
+ protected:
+  explicit InnerRouteTransfer(::google::protobuf::Arena* arena);
+  InnerRouteTransfer(::google::protobuf::Arena* arena, const InnerRouteTransfer& from);
+  InnerRouteTransfer(::google::protobuf::Arena* arena, InnerRouteTransfer&& from) noexcept
+      : InnerRouteTransfer(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::Message::ClassData* GetClassData() const final;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kDestServiceIdFieldNumber = 2,
+    kBodyFieldNumber = 4,
+    kPlayerIdFieldNumber = 1,
+    kInnerMsgIdFieldNumber = 3,
+  };
+  // string dest_service_id = 2;
+  void clear_dest_service_id() ;
+  const std::string& dest_service_id() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_dest_service_id(Arg_&& arg, Args_... args);
+  std::string* mutable_dest_service_id();
+  PROTOBUF_NODISCARD std::string* release_dest_service_id();
+  void set_allocated_dest_service_id(std::string* value);
+
+  private:
+  const std::string& _internal_dest_service_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_dest_service_id(
+      const std::string& value);
+  std::string* _internal_mutable_dest_service_id();
+
+  public:
+  // bytes body = 4;
+  void clear_body() ;
+  const std::string& body() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_body(Arg_&& arg, Args_... args);
+  std::string* mutable_body();
+  PROTOBUF_NODISCARD std::string* release_body();
+  void set_allocated_body(std::string* value);
+
+  private:
+  const std::string& _internal_body() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_body(
+      const std::string& value);
+  std::string* _internal_mutable_body();
+
+  public:
+  // int64 player_id = 1;
+  void clear_player_id() ;
+  ::int64_t player_id() const;
+  void set_player_id(::int64_t value);
+
+  private:
+  ::int64_t _internal_player_id() const;
+  void _internal_set_player_id(::int64_t value);
+
+  public:
+  // int32 inner_msg_id = 3;
+  void clear_inner_msg_id() ;
+  ::int32_t inner_msg_id() const;
+  void set_inner_msg_id(::int32_t value);
+
+  private:
+  ::int32_t _internal_inner_msg_id() const;
+  void _internal_set_inner_msg_id(::int32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:InnerRouteTransfer)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      2, 4, 0,
+      42, 2>
+      _table_;
+
+  static constexpr const void* _raw_default_instance_ =
+      &_InnerRouteTransfer_default_instance_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const InnerRouteTransfer& from_msg);
+    ::google::protobuf::internal::ArenaStringPtr dest_service_id_;
+    ::google::protobuf::internal::ArenaStringPtr body_;
+    ::int64_t player_id_;
+    ::int32_t inner_msg_id_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -3892,6 +4109,154 @@ inline ::int32_t KickOutResponse::_internal_reason() const {
 inline void KickOutResponse::_internal_set_reason(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.reason_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// InnerRouteTransfer
+
+// int64 player_id = 1;
+inline void InnerRouteTransfer::clear_player_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.player_id_ = ::int64_t{0};
+}
+inline ::int64_t InnerRouteTransfer::player_id() const {
+  // @@protoc_insertion_point(field_get:InnerRouteTransfer.player_id)
+  return _internal_player_id();
+}
+inline void InnerRouteTransfer::set_player_id(::int64_t value) {
+  _internal_set_player_id(value);
+  // @@protoc_insertion_point(field_set:InnerRouteTransfer.player_id)
+}
+inline ::int64_t InnerRouteTransfer::_internal_player_id() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.player_id_;
+}
+inline void InnerRouteTransfer::_internal_set_player_id(::int64_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.player_id_ = value;
+}
+
+// string dest_service_id = 2;
+inline void InnerRouteTransfer::clear_dest_service_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.dest_service_id_.ClearToEmpty();
+}
+inline const std::string& InnerRouteTransfer::dest_service_id() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:InnerRouteTransfer.dest_service_id)
+  return _internal_dest_service_id();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void InnerRouteTransfer::set_dest_service_id(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.dest_service_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:InnerRouteTransfer.dest_service_id)
+}
+inline std::string* InnerRouteTransfer::mutable_dest_service_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_dest_service_id();
+  // @@protoc_insertion_point(field_mutable:InnerRouteTransfer.dest_service_id)
+  return _s;
+}
+inline const std::string& InnerRouteTransfer::_internal_dest_service_id() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.dest_service_id_.Get();
+}
+inline void InnerRouteTransfer::_internal_set_dest_service_id(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.dest_service_id_.Set(value, GetArena());
+}
+inline std::string* InnerRouteTransfer::_internal_mutable_dest_service_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.dest_service_id_.Mutable( GetArena());
+}
+inline std::string* InnerRouteTransfer::release_dest_service_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:InnerRouteTransfer.dest_service_id)
+  return _impl_.dest_service_id_.Release();
+}
+inline void InnerRouteTransfer::set_allocated_dest_service_id(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.dest_service_id_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.dest_service_id_.IsDefault()) {
+          _impl_.dest_service_id_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:InnerRouteTransfer.dest_service_id)
+}
+
+// int32 inner_msg_id = 3;
+inline void InnerRouteTransfer::clear_inner_msg_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.inner_msg_id_ = 0;
+}
+inline ::int32_t InnerRouteTransfer::inner_msg_id() const {
+  // @@protoc_insertion_point(field_get:InnerRouteTransfer.inner_msg_id)
+  return _internal_inner_msg_id();
+}
+inline void InnerRouteTransfer::set_inner_msg_id(::int32_t value) {
+  _internal_set_inner_msg_id(value);
+  // @@protoc_insertion_point(field_set:InnerRouteTransfer.inner_msg_id)
+}
+inline ::int32_t InnerRouteTransfer::_internal_inner_msg_id() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.inner_msg_id_;
+}
+inline void InnerRouteTransfer::_internal_set_inner_msg_id(::int32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.inner_msg_id_ = value;
+}
+
+// bytes body = 4;
+inline void InnerRouteTransfer::clear_body() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.body_.ClearToEmpty();
+}
+inline const std::string& InnerRouteTransfer::body() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:InnerRouteTransfer.body)
+  return _internal_body();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void InnerRouteTransfer::set_body(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.body_.SetBytes(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:InnerRouteTransfer.body)
+}
+inline std::string* InnerRouteTransfer::mutable_body() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_body();
+  // @@protoc_insertion_point(field_mutable:InnerRouteTransfer.body)
+  return _s;
+}
+inline const std::string& InnerRouteTransfer::_internal_body() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.body_.Get();
+}
+inline void InnerRouteTransfer::_internal_set_body(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.body_.Set(value, GetArena());
+}
+inline std::string* InnerRouteTransfer::_internal_mutable_body() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.body_.Mutable( GetArena());
+}
+inline std::string* InnerRouteTransfer::release_body() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:InnerRouteTransfer.body)
+  return _impl_.body_.Release();
+}
+inline void InnerRouteTransfer::set_allocated_body(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.body_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.body_.IsDefault()) {
+          _impl_.body_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:InnerRouteTransfer.body)
 }
 
 #ifdef __GNUC__

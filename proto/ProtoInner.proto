@@ -19,6 +19,8 @@ enum InnerProtoCode {
     INNER_TO_GAME_LOGIN_REQ = -10;
     INNER_TO_GAME_LOGIN_RES = -11;
 
+    INNER_ROUTE_TRANSFER = -20;
+
 }
 
 message InnerHead {
@@ -101,6 +103,14 @@ message KickOutRequest {
 
 message KickOutResponse {
     int32 reason = 1;
+}
+
+// game 之间经 router 中转的业务消息：router 原样转发 inner_msg_id + body
+message InnerRouteTransfer {
+    int64 player_id = 1;       // 目标 game 上的玩家/对象 id，用于路由定位
+    string dest_service_id = 2; // 目标节点 service_id，空则按 player_id 哈希
+    int32 inner_msg_id = 3;     // 被转发的原始消息 id
+    bytes body = 4;             // 被转发的原始消息序列化体
 }
 
 
