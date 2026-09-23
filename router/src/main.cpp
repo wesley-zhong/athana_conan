@@ -24,7 +24,6 @@
 #endif
 
 #include "transport/TcpClient.h"
-#include "network/RouterClientNetWorkHandler.h"
 
 static std::atomic<bool> g_running(true);
 static std::condition_variable g_cv;
