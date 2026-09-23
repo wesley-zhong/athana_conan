@@ -61,20 +61,8 @@ int main(int argc, char** argv)
     }
     INFO_LOG("Snowflake init ok");
 
-    //tcp client
-    RouterClientNetWorkHandler::initAllMsgRegister();
-    RouterClientNetWorkHandler::startLogicThread(config.get("client", "logic-thread", 2));
-    transport::TcpClient tcp_client;
-    tcp_client.onConnected = RouterClientNetWorkHandler::onNewConnect;
-    tcp_client.onClosed = RouterClientNetWorkHandler::onClosed;
-    tcp_client.onRead = RouterClientNetWorkHandler::onMsg;
-    tcp_client.onTriggerEvent = RouterClientNetWorkHandler::onEventTrigger;
-    tcp_client.setChannelIdleTime(config.get("client", "idle-write-time", 3000),
-                                  config.get("client", "idle-read-time", 9000));
 
-    tcp_client.start();
-
-    success = Discovery::initWithConf(core::AthenaConfig::instance(), tcp_client);
+    success = Discovery::initWithConf(core::AthenaConfig::instance());
     if (!success)
     {
         ERR_LOG("initWithConf  faild");

@@ -7,12 +7,10 @@
 #include "discovery/AthenaEtcdClient.h"
 #include "utils/NetUtils.h"
 #include "discovery/PeerConn.h"
-#include "core/utils/JsonUtils.h"
 #include "core/common/NodeInfo.h"
 
-bool Discovery::initWithConf(const core::AthenaConfig& conf, const transport::TcpClient& tcpClient)
+bool Discovery::initWithConf(const core::AthenaConfig& conf)
 {
-    ownTcpClient = &tcpClient;
     const auto myself = std::make_shared<core::NodeInfo>();
     myself->service_name = conf.get<std::string>("server", "name", std::string("None"));
     myself->port = conf.get<int>("server", "tcp-port", 8080);
@@ -29,25 +27,6 @@ bool Discovery::initWithConf(const core::AthenaConfig& conf, const transport::Tc
         return false;
     }
     discovery::AthenaDiscovery::Instance()->setEtcdClient(etcd_client);
-
-    if (auto watchKeys = conf.getArray<std::string>("discover", "watch-servers"); !watchKeys.empty())
-    {
-        discovery::AthenaDiscovery::Instance()->watchKeys(watchKeys, onWatchKeyChange);
-        for (const auto& key : watchKeys)
-        {
-            auto serverNodes = discovery::AthenaDiscovery::Instance()->getServerNode(key);
-            if (serverNodes.empty())
-            {
-                continue;
-            }
-            for (auto& node : serverNodes)
-            {
-                tcpClient.connect(node->ip, node->port);
-                discovery::PeerConn::saveNode(std::move(node));
-            }
-        }
-    }
-
     discovery::AthenaDiscovery::Instance()->registerServer();
     return true;
 }
@@ -60,17 +39,7 @@ void Discovery::onWatchKeyChange(etcd::Event::EventType eventType, const std::st
     auto watchedServer = core::AthenaConfig::instance().getArray<std::string>("discover", "watch-servers");
     if (eventType == etcd::Event::EventType::PUT)
     {
-        if (auto it = std::ranges::find(watchedServer, keyPre); it != watchedServer.end())
-        {
-            auto nodeInfo = std::make_unique<core::NodeInfo>();
-            bool ret = core::JsonUtils::DeserializeNodeInfo(std::string(value), *nodeInfo);
-            INFO_LOG("++++++++++++  GET KEY ={}  value ={}  parse ret ={}", key, value, ret);
-            if (ret)
-            {
-                ownTcpClient->connect(nodeInfo->ip, nodeInfo->port);
-                discovery::PeerConn::saveNode(std::move(nodeInfo));
-            }
-        }
+        INFO_LOG("++++++++++++  GET KEY ={}  value ={}  parse ret ={}", key, value, ret);
         return;
     }
 
@@ -83,5 +52,3 @@ void Discovery::onWatchKeyChange(etcd::Event::EventType eventType, const std::st
         return;
     }
 }
-
-const transport::TcpClient* Discovery::ownTcpClient = nullptr;
