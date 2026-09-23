@@ -6,7 +6,15 @@ tcp-port = 27081
 group-id = 0
 worker-id = 1
 max-player-count = 20000
+# GameActor IO/LOGIC/DB 线程数
 io-thread = 1
+logic-thread = 2
+db-thread = 1
+# tcp server 网络 event loop（worker）数，不含 boss
+event-loop-num = 1
+# 连接空闲超时（毫秒）：读空闲超时判定对端失联，写空闲超时触发心跳；0 表示不检测
+idle-read-time = 10000
+idle-write-time = 0
 
 [discover]
 server_nodes = "http://localhost:2379;http://localhost:2379"

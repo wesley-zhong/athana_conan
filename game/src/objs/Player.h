@@ -16,9 +16,10 @@ public:
     {
     };
 
-    Player(uint32_t pid, transport::Channel* channel)
+    Player(uint32_t pid, uint64 sid, transport::Channel* channel)
     {
         this->pid = pid;
+        this->sid = sid;
         setChannel(channel);
     }
 
@@ -34,8 +35,10 @@ public:
     {
         this->pid = player.pid;
         this->channel = player.channel;
+        this->sid = player.sid;
         player.channel = nullptr;
         player.pid = 0;
+        player.sid = 0;
     }
 
     ~Player()
@@ -102,6 +105,7 @@ public:
 private:
     uint32_t hashCode = 0;
     uint32_t pid = 0;
+    uint64  sid= 0;// session id
     std::shared_ptr<transport::Channel> channel;
     ModuleContainer* moduleContainer = new ModuleContainer();
     core::actor::Actor*  actor_ = nullptr;

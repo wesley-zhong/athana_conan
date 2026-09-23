@@ -108,18 +108,22 @@ int main(int argc, char** argv)
     INFO_LOG("#### bind server port:{}", serverPort);
 
     // init all functions call
+    auto &config = core::AthenaConfig::instance();
     GameServerNetWorkHandler::initAllMsgRegister();
-    GameServerNetWorkHandler::startLogicThread(3);
+    GameServerNetWorkHandler::startLogicThread(config.get("server", "io-thread", 1),
+                                                config.get("server", "logic-thread", 2),
+                                                config.get("server", "db-thread", 1));
 
     //start server
     transport::AthenaTcpServer tcp_server;
-    tcp_server.setChannelIdleTime(10000, 0);
+    tcp_server.setChannelIdleTime(config.get("server", "idle-read-time", 10000),
+                                  config.get("server", "idle-write-time", 0));
     tcp_server.onNewConnection = GameServerNetWorkHandler::onNewConnect;
     tcp_server.onRead = GameServerNetWorkHandler::onMsg;
     tcp_server.onClosed = GameServerNetWorkHandler::onClosed;
     tcp_server.onEventTrigger = GameServerNetWorkHandler::onEventTrigger;
 
-    if (!tcp_server.bind(serverPort).start(1))
+    if (!tcp_server.bind(serverPort).start(config.get("server", "event-loop-num", 1)))
     {
         ERR_LOG("tcp server start failed, port ={}", serverPort);
         return -6;

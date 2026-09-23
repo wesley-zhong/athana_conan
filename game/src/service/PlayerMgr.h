@@ -12,30 +12,35 @@
 #include "transport/Channel.h"
 
 
-class PlayerMgr {
+class PlayerMgr
+{
 public:
-    PlayerMgr() {
+    PlayerMgr()
+    {
     }
 
-    ~PlayerMgr() {
+    ~PlayerMgr()
+    {
     }
 
-    Player *newPlayer(uint32_t pid, transport::Channel *channel);
+    Player* newPlayer(uint32_t pid, uint64 sid, transport::Channel* channel);
 
-    void addPlayer(Player *player);
+    void addPlayer(Player* player);
 
-    void removePlayer(Player *player);
+    void removePlayer(Player* player);
 
-    Player *getPlayer(uint32 playerId) {
+    Player* getPlayer(uint32 playerId)
+    {
         auto it = players.find(playerId);
-        if (it == players.end()) {
+        if (it == players.end())
+        {
             return nullptr;
         }
         return it->second;
     }
 
 private:
-    std::unordered_map<uint32, Player *> players;
+    std::unordered_map<uint32, Player*> players;
 };
 
 

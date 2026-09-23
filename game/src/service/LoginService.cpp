@@ -8,7 +8,7 @@
 void LoginService::onPlayerLogin(transport::Channel* channel, InnerLoginRequest* req)
 {
     // proto roleId 为 int64，Player 体系用 uint32，此处收窄是有意为之
-    auto playerId = (uint32) req->roleid();
+    uint32 playerId = (uint32)req->roleid();
     Player* existPlayer = playerMgr->getPlayer(playerId);
     if (existPlayer != nullptr)
     {
@@ -16,24 +16,22 @@ void LoginService::onPlayerLogin(transport::Channel* channel, InnerLoginRequest*
     }
     else
     {
-        existPlayer = playerMgr->newPlayer(playerId, channel);
+        existPlayer = playerMgr->newPlayer(playerId, req->sid(), channel);
         existPlayer->initModules();
-
         //first load data from db
         existPlayer->loadDataFormDB();
         // second call on login logic process
-        existPlayer->onLogin();
-
-
-        playerMgr->addPlayer(existPlayer);
     }
+    existPlayer->onLogin();
+    playerMgr->addPlayer(existPlayer);
+    //return client req
     auto res = std::make_shared<InnerLoginResponse>();
     res->set_roleid(req->roleid());
     res->set_sid(req->sid());
     channel->sendMsg(INNER_TO_GAME_LOGIN_RES, res);
 
     // only for test
-    existPlayer->saveDataToDB();
+    //existPlayer->saveDataToDB();
 }
 
 void LoginService::onPlayerDisconnect(uint32 playerId, InnerPlayerDisconnectRequest* req)

@@ -15,7 +15,7 @@ class GameServerNetWorkHandler {
 public:
     static void initAllMsgRegister();
 
-    static void startLogicThread(int threadNum);
+    static void startLogicThread(int ioThread,int logicThread, int dbThread);
 
     static void onNewConnect(transport::Channel *channel);
 
@@ -25,7 +25,5 @@ public:
     static void onClosed(transport::Channel *channel);
 
     static void onEventTrigger(transport::Channel *channel, transport::TriggerEventEnum reason);
-
-    static std::vector<uint64> logicActors; // 逻辑 actor id 列表，onMsg 按 hash 路由
 };
 #endif //ATHENA_NETWORKHANDLER_H

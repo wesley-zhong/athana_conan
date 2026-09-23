@@ -4,6 +4,7 @@
 
 #include <chrono>
 #include <iostream>
+#include <filesystem>
 #include <csignal>
 #include "common/RingBuffer.hpp"
 #include "log/XLog.h"
@@ -20,6 +21,7 @@
 #else
 #include <unistd.h>
 #endif
+#include "common/AthenaConfig.h"
 #include "transport/TcpClient.h"
 #include "network/ClientNetWorkHandler.h"
 
@@ -39,10 +41,20 @@ int main(int argc, char **argv) {
 
     core::xLogInitLog(core::LogLevel::LL_INFO, "../logs/client.log");
 
+    std::filesystem::path cur_path = std::filesystem::current_path();
+    bool success = core::AthenaConfig::instance().load("config/client.toml");
+    if (!success)
+    {
+        ERR_LOG("config ={} load failed", cur_path.string() + "/config/client.toml");
+        return -1;
+    }
+    auto &config = core::AthenaConfig::instance();
+
     ClientNetWorkHandler::initAllMsgRegister();
-    ClientNetWorkHandler::startThread(2);
+    ClientNetWorkHandler::startThread(config.get("client", "logic-thread", 2));
     transport::TcpClient tcp_client;
-    tcp_client.setChannelIdleTime(3000, 5000);
+    tcp_client.setChannelIdleTime(config.get("client", "idle-write-time", 3000),
+                                  config.get("client", "idle-read-time", 5000));
     tcp_client.onConnected = ClientNetWorkHandler::onConnect;
     tcp_client.onRead = ClientNetWorkHandler::onMsg;
     tcp_client.onTriggerEvent = ClientNetWorkHandler::onEventTrigger;
@@ -56,9 +68,12 @@ int main(int argc, char **argv) {
 
 
     // AthenaTcpClient athena_tcp_client;
-     for (int i = 0; i < 1; ++i) {
-          tcp_client.connect("172.18.2.93", 37081);
-     }
+    std::string serverIp = config.getString("server", "ip", "127.0.0.1");
+    int serverPort = config.get("server", "port", 0);
+    int connectCount = config.get("server", "connect-count", 1);
+    for (int i = 0; i < connectCount; ++i) {
+        tcp_client.connect(serverIp, serverPort);
+    }
     // 💡 主线程阻塞等待，无限期休眠（CPU 占用≈0）
     {
         std::unique_lock<std::mutex> lock(g_mutex);

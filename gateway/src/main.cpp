@@ -61,15 +61,18 @@ int main(int argc, char** argv)
     }
     INFO_LOG("Snowflake init ok");
 
+    auto &config = core::AthenaConfig::instance();
+
     //tcp client
     GateClientNetWorkHandler::initAllMsgRegister();
-    GateClientNetWorkHandler::startLogicThread(2);
+    GateClientNetWorkHandler::startLogicThread(config.get("client", "logic-thread", 2));
     transport::TcpClient tcp_client;
     tcp_client.onConnected = GateClientNetWorkHandler::onNewConnect;
     tcp_client.onClosed = GateClientNetWorkHandler::onClosed;
     tcp_client.onRead = GateClientNetWorkHandler::onMsg;
     tcp_client.onTriggerEvent = GateClientNetWorkHandler::onEventTrigger;
-    tcp_client.setChannelIdleTime(3000, 9000);
+    tcp_client.setChannelIdleTime(config.get("client", "idle-write-time", 3000),
+                                  config.get("client", "idle-read-time", 9000));
 
     tcp_client.start();
 
@@ -84,7 +87,8 @@ int main(int argc, char** argv)
     INFO_LOG("#### bind server port:{}", serverPort);
     // tcp server
     GatewayServerNetWorkHandler::initAllMsgRegister();
-    GatewayServerNetWorkHandler::startLogicThread(2);
+    GatewayServerNetWorkHandler::startLogicThread(config.get("server", "io-thread", 1),
+                                                  config.get("server", "logic-thread", 2));
     transport::AthenaTcpServer tcp_server;
 
     tcp_server.onNewConnection = GatewayServerNetWorkHandler::onConnect;
@@ -92,8 +96,9 @@ int main(int argc, char** argv)
     tcp_server.onClosed = GatewayServerNetWorkHandler::onClosed;
     tcp_server.onEventTrigger = GatewayServerNetWorkHandler::onEventTrigger;
 
-    tcp_server.setChannelIdleTime(9000, 3000);
-    if (!tcp_server.bind(serverPort).start(2))
+    tcp_server.setChannelIdleTime(config.get("server", "idle-read-time", 9000),
+                                  config.get("server", "idle-write-time", 3000));
+    if (!tcp_server.bind(serverPort).start(config.get("server", "event-loop-num", 2)))
     {
         ERR_LOG("tcp server start failed, port ={}", serverPort);
         return -4;

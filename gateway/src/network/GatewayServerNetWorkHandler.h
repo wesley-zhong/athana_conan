@@ -15,7 +15,7 @@ class GatewayServerNetWorkHandler {
 public:
     static void initAllMsgRegister();
 
-    static void startLogicThread(int threadNum);
+    static void startLogicThread(int ioThreadNum, int logicThreadNum);
 
     static void onConnect(transport::Channel *channel);
 
@@ -26,8 +26,6 @@ public:
     static void onEventTrigger(transport::Channel *channel, transport::TriggerEventEnum reason);
 
     static void proxyMsgToGame(transport::Channel *channel, char *buff, int len);
-
-    static std::vector<uint64> logicActors; // 逻辑 actor id 列表，onMsg 按 hash 路由
 };
 
 

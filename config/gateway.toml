@@ -6,7 +6,20 @@ tcp-port = 37081
 group-id = 0
 worker-id = 2
 max-player-count = 20000
+# GateActor IO/LOGIC 线程数
 io-thread = 1
+logic-thread = 2
+# tcp server 网络 event loop（worker）数，不含 boss
+event-loop-num = 2
+# 连接空闲超时（毫秒）：读空闲超时判定对端失联，写空闲超时触发心跳
+idle-read-time = 9000
+idle-write-time = 3000
+
+[client]
+# 内部 tcp client（连接 discovery/其他服务）逻辑线程数与空闲超时（毫秒）
+logic-thread = 2
+idle-read-time = 9000
+idle-write-time = 3000
 
 [discover]
 server_nodes = "http://localhost:2379;http://localhost:2379"
