@@ -9,4 +9,4 @@ idle-write-time = 3000
 # 要连接的对端服务地址与并发连接数
 ip = "172.18.2.93"
 port = 37081
-connect-count = 1
+connect-count = 1000
