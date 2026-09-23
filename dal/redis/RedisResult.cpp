@@ -35,7 +35,7 @@ namespace dal
 
     uint32 RedisResult::getRowCount()
     {
-        return m_reply->str ? 1 : m_reply->elements;
+        return m_reply->str ? 1 : static_cast<uint32>(m_reply->elements);
     }
 
     uint32 RedisResult::getFieldsCount()
@@ -49,12 +49,12 @@ namespace dal
         // key or list
         if (m_reply->str)
         {
-            len = m_reply->len;
+            len = static_cast<int>(m_reply->len);
             str = m_reply->str;
         }
         else
         {
-            len = m_reply->element[pos]->len;
+            len = static_cast<int>(m_reply->element[pos]->len);
             str = m_reply->element[pos]->str;
         }
 

@@ -202,7 +202,7 @@ void JArray::remove(int idx)
 
 int JArray::size()
 {
-	return items.size();
+	return static_cast<int>(items.size());
 }
 JArray * JArray::createArray()
 {
@@ -227,7 +227,8 @@ void JArray::write(std::string & str, bool layout, int depth)
 {
 	str.append("[");
 	if (layout) str.append("\n");
-	int count = 0, maxcount = items.size();;
+	int count = 0;
+	int maxcount = static_cast<int>(items.size());
 	for (auto & obj : items)
 	{
 		if (layout) writeDepth(str, depth + 1);
@@ -360,7 +361,8 @@ void JSonObj::write(std::string & str, bool layout, int depth)
 {
 	str.append("{");
 	if (layout) str.append("\n");
-	int count = 0, maxcount = maps.size();
+	int count = 0;
+	int maxcount = static_cast<int>(maps.size());
 	for (auto &[key, obj] : maps)
 	{
 		if (layout) writeDepth(str, depth + 1);

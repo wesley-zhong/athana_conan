@@ -20,7 +20,7 @@ ParseUrl::~ParseUrl()
 	}
 }
 
-int ParseUrl::parse(const char* buf, int len)
+int ParseUrl::parse(const char* buf, size_t len)
 {
 	m_buff = buf;
 	return http_parser_parse_url(buf, len, 0, m_url);

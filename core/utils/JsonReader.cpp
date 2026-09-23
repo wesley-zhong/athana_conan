@@ -229,13 +229,9 @@ JBaseObj * JsonReader::reader(JsonBuff * buff)
 	case '{':
 		buff->go();
 		return readObj(buff);
-		break;
 	default:
 		return readBase(buff);
-		break;
 	}
-
-	return nullptr;
 }
 
 JBaseObj * JsonReader::parser(JsonBuff * buff)

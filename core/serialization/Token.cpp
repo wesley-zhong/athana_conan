@@ -12,11 +12,6 @@ static bool isLetter(char c)
 	return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 }
 
-static bool isSpace(char c)
-{
-	return (c == ' ' || c == '\n' || c == '\t' || c == '\r');
-}
-
 static bool isVarChar(char c)
 {
 	return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || (c == '_');
@@ -91,7 +86,7 @@ int Token::read_num()
 	__m_name = std::string(start_p, __m_pBuffer->currPointer() - start_p);
 	if (isfloat)
 	{
-		__m_f = atof(__m_name.c_str());
+		__m_f = static_cast<float>(atof(__m_name.c_str()));
 		return eKw_DECIMALS;
 	}
 	else
@@ -208,8 +203,6 @@ int Token::symbol()
 			return curr;
 		}
 	}
-
-	return 0;
 }
 
 

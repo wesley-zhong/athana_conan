@@ -12,7 +12,7 @@ public:
 	ParseUrl();
 	~ParseUrl();
 
-	int parse(const char * buf, int len);
+	int parse(const char * buf, size_t len);
 	bool haveParam();
 	std::string_view getPath();
 	std::string_view getParam();

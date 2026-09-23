@@ -11,6 +11,17 @@ set(CMAKE_POLICY_DEFAULT_CMP0111 NEW)
 # 注意：官方只推荐 include conandeps.cmake
 #include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
 
+# 兜底：未通过 CMAKE_TOOLCHAIN_FILE 使用 conan_toolchain.cmake 时（如 CLion 默认
+# profile 没配 toolchain file），find_package 找不到任何 conan 依赖。
+# 这里手动把 conan 生成物目录加入搜索路径（conan install 的 output-folder 即构建目录）
+if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+    if(EXISTS ${CMAKE_BINARY_DIR}/build/generators)
+        list(PREPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/build/generators)
+    elseif(EXISTS ${CMAKE_BINARY_DIR}/generators)
+        list(PREPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/generators)
+    endif()
+endif()
+
 
 # C++ standard
 set(CMAKE_CXX_STANDARD 20)

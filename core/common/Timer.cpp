@@ -64,8 +64,8 @@ Timer::~Timer()
 void Timer::start(std::function<void()> cb, uint64_t timeout, uint64_t repeat)
 {
 	m_cb = cb;
-	m_time = timeout + XTime::iclock();
-	m_repeat = repeat;
+	m_time = static_cast<uint32>(timeout + XTime::iclock());
+	m_repeat = static_cast<uint32>(repeat);
 	Heap::CHeap::heap_insert(&gRootHeap, (struct Heap::heap_node *)m_node, (Heap::heap_compare_fn)compare_fn);
 }
 void Timer::stop()

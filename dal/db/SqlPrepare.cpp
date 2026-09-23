@@ -140,7 +140,7 @@ namespace dal
     {
         MYSQL_BIND* pBind = &m_paramBind[m_widx++];
 
-        int len = value.length();
+        int len = static_cast<int>(value.length());
 
         pBind->buffer_length = *pBind->length = len;
         pBind->buffer_type = MYSQL_TYPE_STRING;
@@ -154,7 +154,7 @@ namespace dal
 
     void SqlPrepare::pushData(std::string_view sv)
     {
-        write((void*)sv.data(), sv.size());
+        write(const_cast<char*>(sv.data()), static_cast<int>(sv.size()));
     }
 
     void SqlPrepare::write(void* pData, int len)
@@ -183,7 +183,7 @@ namespace dal
             return -1;
         }
 
-        if (mysql_stmt_param_count(m_stmt) != m_count)
+        if (static_cast<int>(mysql_stmt_param_count(m_stmt)) != m_count)
         {
             ERR_LOG("mysql_stmt_param_count(m_stmt) != m_count");
             assert(0);

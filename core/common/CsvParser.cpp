@@ -69,7 +69,7 @@ void CsvParser::parseContent(std::string & line)
 
 int CsvParser::row()
 {
-	return _content.size();
+	return static_cast<int>(_content.size());
 }
 
 } // namespace core

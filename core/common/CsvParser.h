@@ -10,7 +10,7 @@ namespace core {
 class CsvRow
 {
 public:
-	unsigned int size(void) const{ return _values.size(); }
+	unsigned int size(void) const{ return static_cast<unsigned int>(_values.size()); }
 	void push(const std::string & title){ _values.push_back(title); }
 
 	template<typename T>

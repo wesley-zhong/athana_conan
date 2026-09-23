@@ -62,7 +62,8 @@ namespace dal
 
     int DBInterfaceMysql::execute(DBResult* result, const char* cmd, int len)
     {
-        int nResult = mysql_real_query(&mMysql_, cmd, (len <= 0 ? strlen(cmd) : len));
+        unsigned long queryLen = (len <= 0 ? static_cast<unsigned long>(strlen(cmd)) : static_cast<unsigned long>(len));
+        int nResult = mysql_real_query(&mMysql_, cmd, queryLen);
         if (nResult != 0)
         {
             ERR_LOG("mysql_real_query Errno:{} error: {}", getErrno(), getError());
@@ -70,7 +71,6 @@ namespace dal
         }
 
         MYSQL_RES* mysql_res = mysql_store_result(&mMysql_);
-        MysqlResult* dbResult = (MysqlResult*)result;
         // if (mysql_res) {
         //     uint32 nrows = (uint32) mysql_num_rows(mysql_res);
         //     uint32 nfields = (uint32) mysql_num_fields(mysql_res);

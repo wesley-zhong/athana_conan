@@ -16,7 +16,7 @@ namespace dal::DB
 
     int execute(DBResult* result, const std::string& cmd)
     {
-        return mysql->execute(result, cmd.c_str(), cmd.length());
+        return mysql->execute(result, cmd.c_str(), static_cast<int>(cmd.length()));
     }
 }
 

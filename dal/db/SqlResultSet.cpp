@@ -133,7 +133,7 @@ namespace dal
         }
 
         // delete
-        for (int i = 0; i < pFieldCount; ++i)
+        for (uint32 i = 0; i < pFieldCount; ++i)
         {
             MYSQL_BIND* pBind = &resultBind[i];
             if (pBind->buffer) delete [] (char*)pBind->buffer;
@@ -163,7 +163,7 @@ namespace dal
 
     uint32 SqlResultSet::getRowCount()
     {
-        return m_rowCount;
+        return static_cast<uint32>(m_rowCount);
     }
 
     uint32 SqlResultSet::getFieldsCount()

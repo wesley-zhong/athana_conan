@@ -58,7 +58,7 @@ return 0;
 int XFile::createDirectory(const char * dir)
 {
 	std::string path = dir;
-	int len = path.length();
+	int len = static_cast<int>(path.length());
 	char tmpDirPath[256] = { 0 };
 	for (int i = 0; i < len; i++)
 	{
@@ -129,9 +129,9 @@ int XFile::listFiles(const char * dir, std::vector<std::string> & vec_file)
 #ifdef SYSTEM_WIN
 	_finddata_t FileInfo;
 	std::string strfind = folderPath + "\\*";
-	long Handle = _findfirst(strfind.c_str(), &FileInfo);
+	intptr_t Handle = _findfirst(strfind.c_str(), &FileInfo);
 
-	if (Handle == -1L)
+	if (Handle == -1)
 	{
 		return -1;
 	}

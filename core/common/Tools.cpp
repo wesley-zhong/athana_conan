@@ -14,8 +14,8 @@ void Tools::encrypt(char *buf, char *key) {
     char *p = buf;
     char *pKey = key;
 
-    unsigned int bufLen = strlen(buf);
-    unsigned int keyLen = strlen(pKey);
+    unsigned int bufLen = static_cast<unsigned int>(strlen(buf));
+    unsigned int keyLen = static_cast<unsigned int>(strlen(pKey));
 
     for (unsigned int i = 0; i < bufLen; i++) {
         *p ^= pKey[i % keyLen];
@@ -71,7 +71,8 @@ int Tools::binarySearch(int arr[], int len, int findX) {
 }
 
 
-static int iconv_convert(const char *src_str, size_t src_len, char *dst_str, size_t dst_len,
+// Windows 分支走 MultiByteToWideChar 注释实现，iconv_convert 仅在非 SYSTEM_WIN 下被引用
+[[maybe_unused]] static int iconv_convert(const char *src_str, size_t src_len, char *dst_str, size_t dst_len,
                          const char *from_charset = "gbk", const char *to_charset = "utf8") {
     // iconv_t cd;
     // char **pin = (char **)&src_str;

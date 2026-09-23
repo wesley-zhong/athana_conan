@@ -8,7 +8,7 @@ namespace dal
 {
     RedisCommand::RedisCommand(const char* cmd)
     {
-        append((const uint8*)cmd, strlen(cmd));
+        append((const uint8*)cmd, static_cast<int>(strlen(cmd)));
     }
 
     void RedisCommand::pushInt8(int8 value)
@@ -63,13 +63,13 @@ namespace dal
 
     void RedisCommand::pushString(std::string value)
     {
-        append((const uint8*)value.c_str(), value.size());
+        append((const uint8*)value.c_str(), static_cast<int>(value.size()));
     }
 
 
     void RedisCommand::pushData(std::string_view sv)
     {
-        append((const uint8*)sv.data(), sv.size());
+        append((const uint8*)sv.data(), static_cast<int>(sv.size()));
     }
 
     void RedisCommand::append(const uint8* p, int len)
@@ -83,7 +83,7 @@ namespace dal
 
     int RedisCommand::length()
     {
-        return m_len.size();
+        return static_cast<int>(m_len.size());
     }
 
     const char** RedisCommand::argv(std::vector<char*>& vec)

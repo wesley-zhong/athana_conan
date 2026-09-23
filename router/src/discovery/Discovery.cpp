@@ -35,7 +35,6 @@ void Discovery::onWatchKeyChange(etcd::Event::EventType eventType, const std::st
                                  const std::string_view& value)
 {
     INFO_LOG("================= on watched key ={} value ={} event={} ", key, value, static_cast<int>(eventType));
-    auto keyPre = key.substr(0, key.find_first_of('/'));
     auto watchedServer = core::AthenaConfig::instance().getArray<std::string>("discover", "watch-servers");
     if (eventType == etcd::Event::EventType::PUT)
     {
@@ -45,10 +44,9 @@ void Discovery::onWatchKeyChange(etcd::Event::EventType eventType, const std::st
 
     if (eventType == etcd::Event::EventType::DELETE_)
     {
-        if (auto it = std::ranges::find(watchedServer, key); it != watchedServer.end())
+        if (const auto it = std::ranges::find(watchedServer, key); it != watchedServer.end())
         {
             // 节点下线：等 etcd lease 过期摘除 key；连接由对端关闭/心跳超时回收
         }
-        return;
     }
 }

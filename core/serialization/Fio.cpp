@@ -18,7 +18,12 @@ FBuffer::~FBuffer()
 
 bool FBuffer::load(const char * path)
 {
+#ifdef _WIN32
+	FILE *pf = nullptr;
+	fopen_s(&pf, path, "rb");
+#else
 	FILE *pf = fopen(path, "rb");
+#endif
 	if (!pf)
 		return false;
 	fseek(pf, 0, SEEK_END);
@@ -60,19 +65,19 @@ char FBuffer::next()
 
 std::string getFileNameByFilePath(const std::string filepath)
 {
-	int l_idx = filepath.rfind('\\');
+	size_t l_idx = filepath.rfind('\\');
 	if (l_idx == std::string::npos)
 	{
 		l_idx = filepath.rfind('/');
 	}
 
-	int r_idx = filepath.rfind('.');
+	size_t r_idx = filepath.rfind('.');
 	return filepath.substr(l_idx + 1, r_idx - l_idx - 1);
 }
 
 std::string getFileDir(const std::string filepath)
 {
-	int l_idx = filepath.rfind('\\');
+	size_t l_idx = filepath.rfind('\\');
 	if (l_idx == std::string::npos)
 	{
 		l_idx = filepath.rfind('/');
