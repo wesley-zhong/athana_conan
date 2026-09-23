@@ -39,7 +39,7 @@ void Discovery::onWatchKeyChange(etcd::Event::EventType eventType, const std::st
     auto watchedServer = core::AthenaConfig::instance().getArray<std::string>("discover", "watch-servers");
     if (eventType == etcd::Event::EventType::PUT)
     {
-        INFO_LOG("++++++++++++  GET KEY ={}  value ={}  parse ret ={}", key, value, ret);
+        INFO_LOG("++++++++++++  GET KEY ={}  value ={} ", key, value);
         return;
     }
 
