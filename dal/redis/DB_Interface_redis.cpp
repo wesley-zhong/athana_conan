@@ -25,7 +25,7 @@ namespace dal
         redisContext* c = redisConnect(m_ip.c_str(), (int)m_port);
         if (c->err)
         {
-            ERR_LOG("DBInterfaceRedis::attach: errno=%d, error=%s\n", c->err, c->errstr);
+            ERR_LOG("DBInterfaceRedis::attach: errno={}, error={}", c->err, c->errstr);
 
             redisFree(c);
             return false;
