@@ -73,7 +73,7 @@ int main(int argc, char** argv)
     tcp_client.setChannelIdleTime(config.get("client", "idle-write-time", 3000),
                                   config.get("client", "idle-read-time", 9000));
 
-    tcp_client.start();
+    tcp_client.start(config.get("client", "event-loop-num", 1));
 
     success = Discovery::initWithConf(core::AthenaConfig::instance(), tcp_client);
     if (!success)

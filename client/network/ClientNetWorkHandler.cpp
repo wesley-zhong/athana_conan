@@ -37,7 +37,7 @@ void ClientNetWorkHandler::onConnect(transport::Channel *channel, int status) {
 }
 
 void ClientNetWorkHandler::onMsg(transport::Channel *channel, void *buff, int len) {
-    INFO_LOG("  === ------------on read len={} ", len);
+    INFO_LOG("  === ------------on read len={} remote addr ={} ", len, channel->getAddr());
     uint8 *data = static_cast<uint8 *>(buff);
     data = data + 4;
     int msgId = transport::ByteUtils::readInt32(data);

@@ -11,5 +11,5 @@ void PlayerLoginHandler::onLoginRes(transport::Channel *channel, LoginResponse *
 }
 
 void PlayerLoginHandler::onHeartBeat(transport::Channel *channel, HeartBeatResponse *res) {
-    INFO_LOG("----- on onHeartBeat  server time ={}", res->servertime());
+   // INFO_LOG("----- on onHeartBeat  server time ={}", res->servertime());
 }

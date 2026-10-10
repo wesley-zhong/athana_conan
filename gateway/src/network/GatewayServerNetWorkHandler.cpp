@@ -28,7 +28,7 @@ void GatewayServerNetWorkHandler::onConnect(transport::Channel* channel)
     INFO_LOG("++++++++  on new connection ={}", channel->getAddr());
 }
 
-//|---4 msgLen|----4 msgId|-----4 playeId |------ 4 crc| ------ body|
+//|---4 msgLen|----4 msgId|-----4 playerId |------ 4 crc| ------ body|
 void GatewayServerNetWorkHandler::onMsg(transport::Channel* channel, void* buff, int len)
 {
     uint8* data = static_cast<uint8*>(buff);
@@ -68,11 +68,6 @@ void GatewayServerNetWorkHandler::onMsg(transport::Channel* channel, void* buff,
     {
         return;
     }
-    // core::actor::ActorSystem::instance().execute(logicActors[2 % logicActors.size()],
-    //                                              [playerId, msg_function, channel_ptr, msg]()
-    //                                              {
-    //                                                  msg_function->invoke(playerId, channel_ptr.get(), msg);
-    //                                              });
 
     int msgThreadHashCode = 1;
     GateActor::execute(LOGIC, msgThreadHashCode, [playerId, msg_function, channel_ptr, msg]()

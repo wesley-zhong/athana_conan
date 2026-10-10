@@ -1,12 +1,14 @@
 [client]
 # 逻辑线程数
 logic-thread = 2
+# tcp client 网络 event loop 数（多 reactor，出站连接 round-robin 分摊）
+event-loop-num = 2
 # 连接空闲超时（毫秒）：读空闲超时判定对端失联，写空闲超时触发心跳
 idle-read-time = 5000
 idle-write-time = 3000
 
 [server]
 # 要连接的对端服务地址与并发连接数
-ip = "172.18.2.93"
+ip = "172.18.8.47"
 port = 37081
 connect-count = 1000

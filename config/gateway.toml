@@ -18,6 +18,8 @@ idle-write-time = 3000
 [client]
 # 内部 tcp client（连接 discovery/其他服务）逻辑线程数与空闲超时（毫秒）
 logic-thread = 2
+# tcp client 网络 event loop 数（多 reactor，出站连接 round-robin 分摊）
+event-loop-num = 2
 idle-read-time = 9000
 idle-write-time = 3000
 
