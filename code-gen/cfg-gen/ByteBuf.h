@@ -950,7 +950,7 @@ namespace luban
 
 		static char toHex(int num)
 		{
-			return num < 10 ? '0' + num : 'A' + num - 10;
+			return static_cast<char>(num < 10 ? '0' + num : 'A' + num - 10);
 		}
 	};
 }
