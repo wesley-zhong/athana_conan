@@ -1,0 +1,10 @@
+1.安装python
+https://www.python.org/ftp/python/3.13.5/python-3.13.5-amd64.exe
+
+2.安装依赖
+pip install pandas openpyxl
+
+3.执行
+python tablelist.py
+
+4.伟大无需多言
