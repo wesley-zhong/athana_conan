@@ -61,7 +61,7 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    Cfg::init("game-data-gen/excel-json/" );
+    Cfg::init("game-data-gen/bytes/" );
 
     success = Discovery::initWithConf(core::AthenaConfig::instance());
     if (!success)

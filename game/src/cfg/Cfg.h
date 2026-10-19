@@ -11,7 +11,7 @@ class Cfg
 {
 public:
     static cfg::Tables* Tables;
-    static void init(const std::string& filePath);
+    static int init(const std::string& filePath);
 };
 
 

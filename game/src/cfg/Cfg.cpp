@@ -3,18 +3,31 @@
 //
 
 #include "Cfg.h"
+#include "log/XLog.h"
 
-void Cfg::init(const std::string& filePath)
+int Cfg::init(const std::string& filePath)
 {
-     Tables = new cfg::Tables();
-    if (Tables->load([filePath](::luban::ByteBuf& buf, const std::string& s) { return buf.loadFromFile(filePath + s + ".json"); }))
+    Tables = new cfg::Tables();
+    if (Tables->load([filePath](::luban::ByteBuf& buf, const std::string& s)
     {
-        std::cout << "== load succ == " << std::endl;
-    }
-    else
+        bool ret = buf.loadFromFile(filePath + s + ".bytes");
+        if (ret)
+        {
+            INFO_LOG("----- load:  {}     success:", filePath + s);
+        }
+        else
+        {
+            INFO_LOG("----- load: {}      failed", filePath + s);
+        }
+        return ret;
+    }))
     {
-        std::cout << "== load fail == " << std::endl;
+        INFO_LOG("#########  LOAD SUCCESS ");
+        return true;
     }
+
+    INFO_LOG("== load fail == ");
+    return false;
 }
 
-  cfg::Tables*  Cfg::Tables = nullptr;
+cfg::Tables* Cfg::Tables = nullptr;
