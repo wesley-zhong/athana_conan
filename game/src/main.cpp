@@ -1,7 +1,6 @@
 // winsock2.h must come before windows.h (pulled in transitively below),
 // otherwise winsock.h/winsock2.h collide with redefinition errors on MSVC
 #if defined(_WIN32)
-#include <winsock2.h>
 #include <ws2tcpip.h>
 #endif
 
@@ -61,7 +60,12 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    Cfg::init("game-data-gen/bytes/" );
+    success = Cfg::init("game-data-gen/bytes/");
+    if (!success)
+    {
+        ERR_LOG(" XXXXXXXXXXXXXX game data init failed ");
+        return -2;
+    }
 
     success = Discovery::initWithConf(core::AthenaConfig::instance());
     if (!success)
@@ -111,11 +115,11 @@ int main(int argc, char** argv)
     INFO_LOG("#### bind server port:{}", serverPort);
 
     // init all functions call
-    auto &config = core::AthenaConfig::instance();
+    auto& config = core::AthenaConfig::instance();
     GameServerNetWorkHandler::initAllMsgRegister();
     GameServerNetWorkHandler::startLogicThread(config.get("server", "io-thread", 1),
-                                                config.get("server", "logic-thread", 2),
-                                                config.get("server", "db-thread", 1));
+                                               config.get("server", "logic-thread", 2),
+                                               config.get("server", "db-thread", 1));
 
     //start server
     transport::AthenaTcpServer tcp_server;
