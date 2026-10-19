@@ -33,6 +33,7 @@
 #include "dao/RoleCacheDAO.h"
 #include "common/AthenaConfig.h"
 #include "discovery/Discovery.h"
+#include "cfg/Cfg.h"
 
 static std::atomic<bool> g_running(true);
 static std::condition_variable g_cv;
@@ -59,6 +60,8 @@ int main(int argc, char** argv)
         ERR_LOG("config ={} load failed", cur_path.string() + "/config/game.toml");
         return -1;
     }
+
+    Cfg::init("game-data-gen/excel-json/" );
 
     success = Discovery::initWithConf(core::AthenaConfig::instance());
     if (!success)

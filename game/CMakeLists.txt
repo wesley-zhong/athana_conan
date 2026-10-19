@@ -18,6 +18,14 @@ file(GLOB_RECURSE SRC_FILES
         ${SOLUTION_DIR}/code-gen/proto-gen/*.cpp
         ${SOLUTION_DIR}/code-gen/proto-gen/*.cc
         ${SOLUTION_DIR}/code-gen/proto-gen/*.c
+
+        ${SOLUTION_DIR}/code-gen/cfg-gen/*.cpp
+        ${SOLUTION_DIR}/code-gen/cfg-gen/*.cc
+        ${SOLUTION_DIR}/code-gen/cfg-gen/*.c
+
+        ${SOLUTION_DIR}/code-gen/luban/*.cpp
+        ${SOLUTION_DIR}/code-gen/luban/*.cc
+        ${SOLUTION_DIR}/code-gen/luban/*.c
 )
 # 生成可执行文件
 add_executable(${PROJECT_NAME} ${SRC_FILES})
@@ -26,6 +34,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         ${PROJECT_SOURCE_DIR}/src
         ${PROJECT_SOURCE_DIR}/src/dos
         ${CODE_GEN}/proto-gen
+        ${CODE_GEN}/cfg-gen
+        ${CODE_GEN}/luban
 )
 # 链接操作
 
