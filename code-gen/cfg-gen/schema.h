@@ -6375,11 +6375,11 @@ namespace cfg {
  
 
 
- struct AbnormalNeedCond; 
  struct AttackDataOpt; 
- struct Buff; 
- struct BuffCond; 
- struct BuffEffect; 
+namespace buff { struct AbnormalNeedCond; }
+namespace buff { struct Buff; }
+namespace buff { struct BuffCond; }
+namespace buff { struct BuffEffect; }
  struct BuffEffectOpt; 
  struct AddAvatarBuffTag; 
  struct BuffDoHurt; 
@@ -6473,6 +6473,40 @@ namespace worldLevel { struct WorldLevelTypeDesc; }
 
 
 
+/**
+ * atkdata字段操作
+ */
+struct AttackDataOpt : public luban::CfgBean 
+{
+    static bool deserializeAttackDataOpt(::luban::ByteBuf& _buf, AttackDataOpt*& _out);
+
+    virtual ~AttackDataOpt() {}
+
+    bool deserialize(::luban::ByteBuf& _buf);
+
+    /**
+     * attackDataId列表
+     */
+    ::luban::Vector<::luban::int32> attackDataIds;
+    /**
+     * 技能字段
+     */
+    ESkillProp skillProp;
+    /**
+     * 数量
+     */
+    ::luban::int32 count;
+
+    static constexpr int __ID__ = -1911888095;
+
+    int getTypeId() const override { return __ID__; }
+};
+
+
+
+
+namespace buff {
+
 struct AbnormalNeedCond : public luban::CfgBean 
 {
     static bool deserializeAbnormalNeedCond(::luban::ByteBuf& _buf, AbnormalNeedCond*& _out);
@@ -6511,49 +6545,15 @@ struct AbnormalNeedCond : public luban::CfgBean
      */
     ::luban::int32 DarkAbnormalLayer;
 
-    static constexpr int __ID__ = 1254014304;
+    static constexpr int __ID__ = -1127439973;
 
     int getTypeId() const override { return __ID__; }
 };
 
+}
 
 
-
-
-
-/**
- * atkdata字段操作
- */
-struct AttackDataOpt : public luban::CfgBean 
-{
-    static bool deserializeAttackDataOpt(::luban::ByteBuf& _buf, AttackDataOpt*& _out);
-
-    virtual ~AttackDataOpt() {}
-
-    bool deserialize(::luban::ByteBuf& _buf);
-
-    /**
-     * attackDataId列表
-     */
-    ::luban::Vector<::luban::int32> attackDataIds;
-    /**
-     * 技能字段
-     */
-    ESkillProp skillProp;
-    /**
-     * 数量
-     */
-    ::luban::int32 count;
-
-    static constexpr int __ID__ = -1911888095;
-
-    int getTypeId() const override { return __ID__; }
-};
-
-
-
-
-
+namespace buff {
 
 struct Buff : public luban::CfgBean 
 {
@@ -6735,15 +6735,15 @@ struct Buff : public luban::CfgBean
     ::luban::Vector<TriggerEvent*> RemoveTriggerEvents;
     ::luban::Vector<TriggerEvent*> TriggerEvents;
 
-    static constexpr int __ID__ = 2081907;
+    static constexpr int __ID__ = 9300270;
 
     int getTypeId() const override { return __ID__; }
 };
 
+}
 
 
-
-
+namespace buff {
 
 struct BuffCond : public luban::CfgBean 
 {
@@ -6766,15 +6766,15 @@ struct BuffCond : public luban::CfgBean
      */
     EffectCondition* Condtion;
 
-    static constexpr int __ID__ = -1458407883;
+    static constexpr int __ID__ = -937835152;
 
     int getTypeId() const override { return __ID__; }
 };
 
+}
 
 
-
-
+namespace buff {
 
 struct BuffEffect : public luban::CfgBean 
 {
@@ -6798,12 +6798,12 @@ struct BuffEffect : public luban::CfgBean
      */
     ::luban::int32 CoolDown;
 
-    static constexpr int __ID__ = -1321924636;
+    static constexpr int __ID__ = 732263519;
 
     int getTypeId() const override { return __ID__; }
 };
 
-
+}
 
 
 
@@ -10507,14 +10507,14 @@ class TbSkillLevelValueGroup
 }
 
 
-
+namespace buff {
 
 
 class TbBuff
 {
     private:
-    ::luban::HashMap<::luban::int32, Buff*> _dataMap;
-    ::luban::Vector<Buff*> _dataList;
+    ::luban::HashMap<::luban::int32, buff::Buff*> _dataMap;
+    ::luban::Vector<buff::Buff*> _dataList;
     
     public:
     ~TbBuff()
@@ -10531,18 +10531,18 @@ class TbBuff
         if (!_buf.readSize(n)) return false;
         for(; n > 0 ; --n)
         {
-            Buff* _v;
-            if(!Buff::deserializeBuff(_buf, _v)) return false;
+            buff::Buff* _v;
+            if(!buff::Buff::deserializeBuff(_buf, _v)) return false;
             _dataList.push_back(_v);
             _dataMap[_v->CnfId] = _v;
         }
         return true;
     }
 
-    const ::luban::HashMap<::luban::int32, Buff*>& getDataMap() const { return _dataMap; }
-    const ::luban::Vector<Buff*>& getDataList() const { return _dataList; }
+    const ::luban::HashMap<::luban::int32, buff::Buff*>& getDataMap() const { return _dataMap; }
+    const ::luban::Vector<buff::Buff*>& getDataList() const { return _dataList; }
 
-    Buff* get(::luban::int32 key)
+    buff::Buff* get(::luban::int32 key)
     { 
         auto it = _dataMap.find(key);
         return it != _dataMap.end() ? it->second : nullptr;
@@ -10550,17 +10550,17 @@ class TbBuff
 
 };
 
+}
 
 
-
-
+namespace buff {
 
 
 class TbBuffEffect
 {
     private:
-    ::luban::HashMap<::luban::int32, BuffEffect*> _dataMap;
-    ::luban::Vector<BuffEffect*> _dataList;
+    ::luban::HashMap<::luban::int32, buff::BuffEffect*> _dataMap;
+    ::luban::Vector<buff::BuffEffect*> _dataList;
     
     public:
     ~TbBuffEffect()
@@ -10577,18 +10577,18 @@ class TbBuffEffect
         if (!_buf.readSize(n)) return false;
         for(; n > 0 ; --n)
         {
-            BuffEffect* _v;
-            if(!BuffEffect::deserializeBuffEffect(_buf, _v)) return false;
+            buff::BuffEffect* _v;
+            if(!buff::BuffEffect::deserializeBuffEffect(_buf, _v)) return false;
             _dataList.push_back(_v);
             _dataMap[_v->effectID] = _v;
         }
         return true;
     }
 
-    const ::luban::HashMap<::luban::int32, BuffEffect*>& getDataMap() const { return _dataMap; }
-    const ::luban::Vector<BuffEffect*>& getDataList() const { return _dataList; }
+    const ::luban::HashMap<::luban::int32, buff::BuffEffect*>& getDataMap() const { return _dataMap; }
+    const ::luban::Vector<buff::BuffEffect*>& getDataList() const { return _dataList; }
 
-    BuffEffect* get(::luban::int32 key)
+    buff::BuffEffect* get(::luban::int32 key)
     { 
         auto it = _dataMap.find(key);
         return it != _dataMap.end() ? it->second : nullptr;
@@ -10596,17 +10596,17 @@ class TbBuffEffect
 
 };
 
+}
 
 
-
-
+namespace buff {
 
 
 class TbBuffCond
 {
     private:
-    ::luban::HashMap<::luban::int32, BuffCond*> _dataMap;
-    ::luban::Vector<BuffCond*> _dataList;
+    ::luban::HashMap<::luban::int32, buff::BuffCond*> _dataMap;
+    ::luban::Vector<buff::BuffCond*> _dataList;
     
     public:
     ~TbBuffCond()
@@ -10623,18 +10623,18 @@ class TbBuffCond
         if (!_buf.readSize(n)) return false;
         for(; n > 0 ; --n)
         {
-            BuffCond* _v;
-            if(!BuffCond::deserializeBuffCond(_buf, _v)) return false;
+            buff::BuffCond* _v;
+            if(!buff::BuffCond::deserializeBuffCond(_buf, _v)) return false;
             _dataList.push_back(_v);
             _dataMap[_v->CnfId] = _v;
         }
         return true;
     }
 
-    const ::luban::HashMap<::luban::int32, BuffCond*>& getDataMap() const { return _dataMap; }
-    const ::luban::Vector<BuffCond*>& getDataList() const { return _dataList; }
+    const ::luban::HashMap<::luban::int32, buff::BuffCond*>& getDataMap() const { return _dataMap; }
+    const ::luban::Vector<buff::BuffCond*>& getDataList() const { return _dataList; }
 
-    BuffCond* get(::luban::int32 key)
+    buff::BuffCond* get(::luban::int32 key)
     { 
         auto it = _dataMap.find(key);
         return it != _dataMap.end() ? it->second : nullptr;
@@ -10642,17 +10642,17 @@ class TbBuffCond
 
 };
 
+}
 
 
-
-
+namespace buff {
 
 
 class TbAbnormalNeedCond
 {
     private:
-    ::luban::HashMap<::luban::int32, AbnormalNeedCond*> _dataMap;
-    ::luban::Vector<AbnormalNeedCond*> _dataList;
+    ::luban::HashMap<::luban::int32, buff::AbnormalNeedCond*> _dataMap;
+    ::luban::Vector<buff::AbnormalNeedCond*> _dataList;
     
     public:
     ~TbAbnormalNeedCond()
@@ -10669,18 +10669,18 @@ class TbAbnormalNeedCond
         if (!_buf.readSize(n)) return false;
         for(; n > 0 ; --n)
         {
-            AbnormalNeedCond* _v;
-            if(!AbnormalNeedCond::deserializeAbnormalNeedCond(_buf, _v)) return false;
+            buff::AbnormalNeedCond* _v;
+            if(!buff::AbnormalNeedCond::deserializeAbnormalNeedCond(_buf, _v)) return false;
             _dataList.push_back(_v);
             _dataMap[_v->ID] = _v;
         }
         return true;
     }
 
-    const ::luban::HashMap<::luban::int32, AbnormalNeedCond*>& getDataMap() const { return _dataMap; }
-    const ::luban::Vector<AbnormalNeedCond*>& getDataList() const { return _dataList; }
+    const ::luban::HashMap<::luban::int32, buff::AbnormalNeedCond*>& getDataMap() const { return _dataMap; }
+    const ::luban::Vector<buff::AbnormalNeedCond*>& getDataList() const { return _dataList; }
 
-    AbnormalNeedCond* get(::luban::int32 key)
+    buff::AbnormalNeedCond* get(::luban::int32 key)
     { 
         auto it = _dataMap.find(key);
         return it != _dataMap.end() ? it->second : nullptr;
@@ -10688,7 +10688,7 @@ class TbAbnormalNeedCond
 
 };
 
-
+}
 
 
 namespace sys {
@@ -11173,10 +11173,10 @@ class Tables
      skilldata::TbSkillLevel TbSkillLevel;
      skilldata::TbSkillLevelValue TbSkillLevelValue;
      skilldata::TbSkillLevelValueGroup TbSkillLevelValueGroup;
-     TbBuff TbBuff;
-     TbBuffEffect TbBuffEffect;
-     TbBuffCond TbBuffCond;
-     TbAbnormalNeedCond TbAbnormalNeedCond;
+     buff::TbBuff TbBuff;
+     buff::TbBuffEffect TbBuffEffect;
+     buff::TbBuffCond TbBuffCond;
+     buff::TbAbnormalNeedCond TbAbnormalNeedCond;
      sys::TbInitCnf TbInitCnf;
      sys::TbInstruction TbInstruction;
      sys::TbCommonUnlock TbCommonUnlock;
@@ -11249,16 +11249,16 @@ class Tables
         if (!loader(buf, "skilldata_tbskilllevelvaluegroup")) return false;
         if (!TbSkillLevelValueGroup.load(buf)) return false;
         buf.clear();
-        if (!loader(buf, "tbbuff")) return false;
+        if (!loader(buf, "buff_tbbuff")) return false;
         if (!TbBuff.load(buf)) return false;
         buf.clear();
-        if (!loader(buf, "tbbuffeffect")) return false;
+        if (!loader(buf, "buff_tbbuffeffect")) return false;
         if (!TbBuffEffect.load(buf)) return false;
         buf.clear();
-        if (!loader(buf, "tbbuffcond")) return false;
+        if (!loader(buf, "buff_tbbuffcond")) return false;
         if (!TbBuffCond.load(buf)) return false;
         buf.clear();
-        if (!loader(buf, "tbabnormalneedcond")) return false;
+        if (!loader(buf, "buff_tbabnormalneedcond")) return false;
         if (!TbAbnormalNeedCond.load(buf)) return false;
         buf.clear();
         if (!loader(buf, "sys_tbinitcnf")) return false;

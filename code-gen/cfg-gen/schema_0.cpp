@@ -12,28 +12,6 @@
 namespace cfg {
 
 
-bool AbnormalNeedCond::deserialize(::luban::ByteBuf& _buf)
-{
-
-    if(!_buf.readInt(ID)) return false;
-    if(!_buf.readInt(LogicGateType)) return false;
-    if(!_buf.readInt(IceAbnormalLayer)) return false;
-    if(!_buf.readInt(FireAbnormalLayer)) return false;
-    if(!_buf.readInt(WindAbnormalLayer)) return false;
-    if(!_buf.readInt(ThunderAbnormalLayer)) return false;
-    if(!_buf.readInt(LightAbnormalLayer)) return false;
-    if(!_buf.readInt(DarkAbnormalLayer)) return false;
-
-    return true;
-}
-
-bool AbnormalNeedCond::deserializeAbnormalNeedCond(::luban::ByteBuf& _buf, AbnormalNeedCond*& _out)
-{
-    _out = LUBAN_NEW(AbnormalNeedCond);
-    return _out->deserialize(_buf);
-}
-
-
 bool AttackDataOpt::deserialize(::luban::ByteBuf& _buf)
 {
 
@@ -51,7 +29,29 @@ bool AttackDataOpt::deserializeAttackDataOpt(::luban::ByteBuf& _buf, AttackDataO
 }
 
 
-bool Buff::deserialize(::luban::ByteBuf& _buf)
+bool buff::AbnormalNeedCond::deserialize(::luban::ByteBuf& _buf)
+{
+
+    if(!_buf.readInt(ID)) return false;
+    if(!_buf.readInt(LogicGateType)) return false;
+    if(!_buf.readInt(IceAbnormalLayer)) return false;
+    if(!_buf.readInt(FireAbnormalLayer)) return false;
+    if(!_buf.readInt(WindAbnormalLayer)) return false;
+    if(!_buf.readInt(ThunderAbnormalLayer)) return false;
+    if(!_buf.readInt(LightAbnormalLayer)) return false;
+    if(!_buf.readInt(DarkAbnormalLayer)) return false;
+
+    return true;
+}
+
+bool buff::AbnormalNeedCond::deserializeAbnormalNeedCond(::luban::ByteBuf& _buf, buff::AbnormalNeedCond*& _out)
+{
+    _out = LUBAN_NEW(buff::AbnormalNeedCond);
+    return _out->deserialize(_buf);
+}
+
+
+bool buff::Buff::deserialize(::luban::ByteBuf& _buf)
 {
 
     if(!_buf.readInt(CnfId)) return false;
@@ -103,14 +103,14 @@ bool Buff::deserialize(::luban::ByteBuf& _buf)
     return true;
 }
 
-bool Buff::deserializeBuff(::luban::ByteBuf& _buf, Buff*& _out)
+bool buff::Buff::deserializeBuff(::luban::ByteBuf& _buf, buff::Buff*& _out)
 {
-    _out = LUBAN_NEW(Buff);
+    _out = LUBAN_NEW(buff::Buff);
     return _out->deserialize(_buf);
 }
 
 
-bool BuffCond::deserialize(::luban::ByteBuf& _buf)
+bool buff::BuffCond::deserialize(::luban::ByteBuf& _buf)
 {
 
     if(!_buf.readInt(CnfId)) return false;
@@ -120,14 +120,14 @@ bool BuffCond::deserialize(::luban::ByteBuf& _buf)
     return true;
 }
 
-bool BuffCond::deserializeBuffCond(::luban::ByteBuf& _buf, BuffCond*& _out)
+bool buff::BuffCond::deserializeBuffCond(::luban::ByteBuf& _buf, buff::BuffCond*& _out)
 {
-    _out = LUBAN_NEW(BuffCond);
+    _out = LUBAN_NEW(buff::BuffCond);
     return _out->deserialize(_buf);
 }
 
 
-bool BuffEffect::deserialize(::luban::ByteBuf& _buf)
+bool buff::BuffEffect::deserialize(::luban::ByteBuf& _buf)
 {
 
     if(!_buf.readInt(effectID)) return false;
@@ -138,9 +138,9 @@ bool BuffEffect::deserialize(::luban::ByteBuf& _buf)
     return true;
 }
 
-bool BuffEffect::deserializeBuffEffect(::luban::ByteBuf& _buf, BuffEffect*& _out)
+bool buff::BuffEffect::deserializeBuffEffect(::luban::ByteBuf& _buf, buff::BuffEffect*& _out)
 {
-    _out = LUBAN_NEW(BuffEffect);
+    _out = LUBAN_NEW(buff::BuffEffect);
     return _out->deserialize(_buf);
 }
 
