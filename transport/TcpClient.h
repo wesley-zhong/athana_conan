@@ -65,7 +65,8 @@ public:
 private:
     // start 后只读，stop 时清空；connect 与 stop 不可并发
     std::vector<std::unique_ptr<EventLoop>> loops;
-    EventTrigger *event_trigger = nullptr;
+    // setChannelIdleTime 创建，随 client 析构自动释放（IdleStateHandler 完整类型见 EventLoop.h）
+    std::unique_ptr<EventTrigger> event_trigger;
     mutable std::atomic<size_t> next_loop{0};
 };
 

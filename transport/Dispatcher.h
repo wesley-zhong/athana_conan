@@ -30,9 +30,8 @@ public:
     template<typename T>
     void registerMsgHandler(int msgId, std::function<void(Channel *, T *)> msgFuc);
 
-    void processMsg(int msgId, int64_t playerId, Channel *channel, const void *body, int len);
-
-    MsgFunction *findMsgFuncion(int msgId) {
+    // 按消息 id 查找注册的处理函数；未注册返回 nullptr（不修改 map）
+    MsgFunction *findMsgFunction(int msgId) {
         auto it = msgMap.find(msgId);
         if (it != msgMap.end()) {
             return it->second;

@@ -107,6 +107,16 @@ public:
 protected:
     int initAsynEvent();
 
+    // run() 初始化失败时调用：解除 start() 的 cv_.wait，避免启动线程永久阻塞。
+    // running_ 在此被置 true，语义是“线程已到终点”，不代表 loop 可用
+    void notifyStartAborted() {
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            running_ = true;
+        }
+        cv_.notify_all();
+    }
+
     void doRun();
 
     // loop 线程：stop 触发后关闭本 loop 的句柄；派生类先关闭自己的句柄再调基类

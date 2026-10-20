@@ -32,6 +32,10 @@ public:
     // 全部 worker 就绪后调用：在 loop 线程执行真正的 bind/listen
     void startListen();
 
+    // 阻塞等待 bind/listen 结果（成功失败都会通知，见 startListen）；超时返回 false。
+    // 返回 true 仅当监听成功
+    bool waitListeningOk(int timeout_ms);
+
     // 业务端口是否监听成功（bind/listen 失败或 worker 就绪超时未监听时为 false）。
     // 线程安全：startListen 的 bind/listen 都在 loop 线程执行完后才可能读到 true
     bool listeningOk() const {
@@ -44,6 +48,9 @@ protected:
 private:
     // loop 线程：为每个 worker 创建一个 ipc pipe server 并 listen
     bool initIpcServers();
+
+    // loop 线程：bind/listen 出结果（无论成败）后唤醒等待的主线程
+    void notifyListenDone();
 
     int indexOfPipeServer(uv_pipe_t *pipe) const;
 
@@ -70,6 +77,11 @@ private:
     std::mutex ready_mtx_;
     std::condition_variable ready_cv_;
     size_t next_worker_ = 0;
+    // bind/listen 结果通知：startListen 的 lambda 无论成败都置 listen_done_ 并唤醒，
+    // 主线程用 waitListeningOk 等待，取代轮询
+    std::mutex listen_mtx_;
+    std::condition_variable listen_cv_;
+    bool listen_done_ = false;
 };
 
 

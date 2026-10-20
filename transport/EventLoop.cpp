@@ -186,11 +186,15 @@ char *EventLoop::getPacketBuff(int needLen) {
 }
 
 int EventLoop::initAsynEvent() {
-    uv_loop_init(_loop);
+    int ret = uv_loop_init(_loop);
+    if (ret != 0) {
+        ERR_LOG("uv_loop_init failed ret ={}: {}", ret, uv_strerror(ret));
+        return ret;
+    }
     // store reactor pointer in loop->data for later retrieval in read callbacks
     _loop->data = this;
 
-    int ret = uv_async_init(_loop, &uv_async_write, async_write_cb);
+    ret = uv_async_init(_loop, &uv_async_write, async_write_cb);
     if (ret != 0) {
         ERR_LOG("uv_async_init  async_write  ret ={} ", ret);
         return ret;
@@ -222,7 +226,13 @@ int EventLoop::initAsynEvent() {
 
 
 void EventLoop::run() {
-    initAsynEvent();
+    if (initAsynEvent() != 0) {
+        // 初始化失败绝不能进 doRun（uv_run 一个坏 loop 是未定义行为），
+        // 通知启动线程后直接退出线程
+        ERR_LOG("initAsynEvent failed, loop thread exit");
+        notifyStartAborted();
+        return;
+    }
     // 启动 libuv 事件循环
     doRun();
 }
@@ -258,14 +268,22 @@ void EventLoop::doRun() {
 void EventLoop::execute() {
     VOID_FUN task;
     while (pop(task)) {
-        task();
+        // 单个任务抛异常不能带崩 reactor 线程：记日志后继续排干队列
+        try {
+            task();
+        } catch (const std::exception &e) {
+            ERR_LOG("event loop task exception: {}", e.what());
+        } catch (...) {
+            ERR_LOG("event loop task exception: unknown");
+        }
     }
 }
 
 
 void EventLoop::start() {
     t = std::thread(&EventLoop::run, this);
-    // 等待子线程开始执行
+    // 等待子线程就绪：run() 无论成败都会置 running_ 并 notify（失败路径也会走到这），
+    // 不会永久阻塞；running_ 只表示“线程已启动到可判定状态”，不保证 loop 可用
     std::unique_lock<std::mutex> lock(mutex_);
     cv_.wait(lock, [this] { return running_; });
 }

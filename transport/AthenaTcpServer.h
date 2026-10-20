@@ -72,7 +72,8 @@ public:
 private:
     std::shared_ptr<ServerEventLoop> boss_;
     std::vector<std::shared_ptr<EventLoop> > workers_;
-    EventTrigger *event_trigger = nullptr;
+    // setChannelIdleTime 创建，随 server 析构自动释放（IdleStateHandler 完整类型见 EventLoop.h）
+    std::unique_ptr<EventTrigger> event_trigger;
     int bindPort = 0;
 };
 

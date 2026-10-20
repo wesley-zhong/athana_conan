@@ -41,9 +41,17 @@ bool ServerEventLoop::waitWorkersReady(int timeout_ms) {
 }
 
 void ServerEventLoop::run() {
-    initAsynEvent();
+    if (initAsynEvent() != 0) {
+        // uv loop 都没建起来，后续一切免谈；先解除 start() 的等待再退出线程
+        ERR_LOG("boss initAsynEvent failed, boss loop thread exit");
+        notifyStartAborted();
+        return;
+    }
     if (!initIpcServers()) {
-        ERR_LOG("boss init ipc servers failed, worker dispatch unavailable");
+        // ipc pipe 建失败意味着 worker 派发通道不可用，accept 进来的连接只能全丢。
+        // 继续跑 loop 只是个黑洞端口，这里选择记录后停机（waitWorkersReady 会超时失败）
+        ERR_LOG("boss init ipc servers failed, worker dispatch unavailable, shutting down");
+        stop();
     }
     doRun();
 }
@@ -55,6 +63,15 @@ int ServerEventLoop::indexOfPipeServer(uv_pipe_t *pipe) const {
         }
     }
     return -1;
+}
+
+// loop 线程：bind/listen 出结果（无论成败）后唤醒等待的主线程
+void ServerEventLoop::notifyListenDone() {
+    {
+        std::lock_guard<std::mutex> lk(listen_mtx_);
+        listen_done_ = true;
+    }
+    listen_cv_.notify_all();
 }
 
 bool ServerEventLoop::initIpcServers() {
@@ -91,11 +108,13 @@ bool ServerEventLoop::initIpcServers() {
 }
 
 void ServerEventLoop::startListen() {
-    // 等全部 worker 就绪后再监听业务端口，保证 accept 到的连接一定能派发出去
+    // 等全部 worker 就绪后再监听业务端口，保证 accept 到的连接一定能派发出去。
+    // 无论成败都要置 listen_done_ 并唤醒，否则 waitListeningOk 会等到超时
     executeOnEventLoop([this]() {
         int ret = uv_tcp_init(_loop, &server_);
         if (ret != 0) {
             ERR_LOG("uv_tcp_init failed: {}", uv_err_name(ret));
+            notifyListenDone();
             return;
         }
         server_.data = this;
@@ -103,22 +122,33 @@ void ServerEventLoop::startListen() {
         ret = uv_ip4_addr("0.0.0.0", bindPort_, &addr);
         if (ret != 0) {
             ERR_LOG("uv_ip4_addr failed: {}", uv_err_name(ret));
+            notifyListenDone();
             return;
         }
         ret = uv_tcp_bind(&server_, reinterpret_cast<const sockaddr *>(&addr), 0);
         if (ret != 0) {
             ERR_LOG("#### server bind port ={} failed: {}", bindPort_, uv_err_name(ret));
+            notifyListenDone();
             return;
         }
         ret = uv_listen((uv_stream_t *) &server_, 1024, uv_on_new_connection);
         if (ret != 0) {
             ERR_LOG("#### server listen port ={} failed: {}", bindPort_, uv_err_name(ret));
+            notifyListenDone();
             return;
         }
         listening_ = true;
         listen_ok_.store(true, std::memory_order_release);
         INFO_LOG("#### server listening port ={} (boss + {} workers)", bindPort_, worker_num_);
+        notifyListenDone();
     });
+}
+
+bool ServerEventLoop::waitListeningOk(int timeout_ms) {
+    std::unique_lock<std::mutex> lk(listen_mtx_);
+    return listen_cv_.wait_for(lk, std::chrono::milliseconds(timeout_ms), [this] {
+        return listen_done_;
+    }) && listen_ok_.load(std::memory_order_acquire);
 }
 
 // boss：accept 到新连接后派发给 worker
