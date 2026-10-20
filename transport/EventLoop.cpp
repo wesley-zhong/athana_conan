@@ -315,7 +315,7 @@ void EventLoop::onStopTriggered() {
         std::lock_guard<std::mutex> lk(live_mtx_);
         snapshot.reserve(channels_.size());
         for (auto &kv: channels_) {
-            snapshot.push_back(kv.first);
+            snapshot.push_back(kv.second.get());
         }
     }
     for (Channel *ch: snapshot) {
@@ -349,12 +349,16 @@ void EventLoop::startHeartbeatTimer(Channel *channel) {
 
 void EventLoop::registerChannel(std::shared_ptr<Channel> channel) {
     std::lock_guard<std::mutex> lk(live_mtx_);
-    channels_[channel.get()] = std::move(channel);
+    channels_[channel->getId()] = std::move(channel);
 }
 
 std::shared_ptr<Channel> EventLoop::channelPtr(Channel *channel) {
+    return channelById(channel->getId());
+}
+
+std::shared_ptr<Channel> EventLoop::channelById(uint32 id) {
     std::lock_guard<std::mutex> lk(live_mtx_);
-    auto it = channels_.find(channel);
+    auto it = channels_.find(id);
     if (it == channels_.end()) {
         return nullptr;
     }
@@ -362,14 +366,13 @@ std::shared_ptr<Channel> EventLoop::channelPtr(Channel *channel) {
 }
 
 bool EventLoop::isLive(Channel *channel) {
-    std::lock_guard<std::mutex> lk(live_mtx_);
-    return channels_.count(channel) > 0;
+    return channelById(channel->getId()) != nullptr;
 }
 
 void EventLoop::releaseChannel(Channel *channel) {
     // loop 线程：tcp/timer close 回调都完成后调用；最后一个 shared_ptr 在此析构
     std::lock_guard<std::mutex> lk(live_mtx_);
-    channels_.erase(channel);
+    channels_.erase(channel->getId());
 }
 
 // ===== worker ipc（boss/worker 多 reactor 的句柄传递通道）=====

@@ -88,13 +88,17 @@ public:
         return _eventTrigger;
     }
 
-    // ===== channel 注册表 =====
+    // ===== channel 注册表（键 = Channel::getId()）=====
     // loop 线程：登记新建 channel（EventLoop 持有 shared_ptr，直到 close 序列完成）
     void registerChannel(std::shared_ptr<Channel> channel);
-    // 任意线程：取回持有中的 shared_ptr；channel 已关闭回收时返回空
+    // 任意线程：取回持有中的 shared_ptr；channel 已关闭回收时返回空。
+    // channel 必须仍有效（成员调用/loop 线程回调内）
     std::shared_ptr<Channel> channelPtr(Channel *channel);
-    // 任意线程：channel 是否仍在注册表中（对已释放的裸指针调用仍有 UAF 风险，
-    // 优先使用 channelPtr 拿 shared_ptr）
+    // 任意线程：按连接 id 取回 shared_ptr。id 是值类型，持有/查询都无悬垂风险，
+    // 长生命周期对象（Player/PeerConn/业务缓存）跨线程引用 channel 的推荐方式
+    std::shared_ptr<Channel> channelById(uint32 id);
+    // 任意线程：channel 是否仍在注册表中。键已是 id，这里会解引用 channel 取 id，
+    // 对已释放指针调用是 UAF——长期引用请存 id 用 channelById 判空
     bool isLive(Channel *channel);
 
     // ===== worker 模式（boss/worker 多 reactor）=====
@@ -171,7 +175,10 @@ private:
     uv_async_t uv_async_stop;
 
     std::mutex live_mtx_;
-    std::unordered_map<Channel *, std::shared_ptr<Channel> > channels_;
+    // 键 = Channel::getId() 而非指针：旧 channel 释放后地址可能被新 channel 复用，
+    // 指针键会把 stale 查询误配到新连接；id 键只查不到（返回空）。id 在 2^32
+    // 回绕前进程内唯一（见 Channel::generateId）
+    std::unordered_map<uint32, std::shared_ptr<Channel> > channels_;
     core::TQueue<VOID_FUN> _waitTasks;
     std::thread t;
     NetInterface *_netInterface;

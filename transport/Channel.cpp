@@ -30,7 +30,8 @@ namespace transport
     Channel::Channel(EventLoop* event_loop, uv_tcp_t* tcp,
                      size_t recvBuffSize, size_t sendBuffSize) : _eventLoop(event_loop), client(tcp),
                                                                   last_recv_time(0), last_send_time(0),
-                                                                  userData(nullptr)
+                                                                  userData(nullptr),
+                                                                  id(generateId())
     {
         // 收发 ring 分开设容，容量可配（默认 64K，内部向上取 2 的幂，64K → 实际 128K）。
         // 容量必须 ≥ 该连接最大帧长（协议上限 MAX_PACKET_SIZE+8）：recv 小于最大入站帧时
@@ -46,6 +47,14 @@ namespace transport
     {
         delete recv_buffer;
         delete send_buff;
+    }
+
+    // next_id 从 1 起发（先自增再取），0 永不发出去，保留为“无效 id”哨兵。
+    // fetch_add 放任回绕：进程生命周期内建立 2^32 条连接才会重号，届时老连接
+    // 早已回收；如需严格不重，这里换成 (n % max) + 1 之类的策略即可
+    uint32 Channel::generateId()
+    {
+        return next_id.fetch_add(1, std::memory_order_relaxed) + 1;
     }
 
     std::string Channel::computeAddr()

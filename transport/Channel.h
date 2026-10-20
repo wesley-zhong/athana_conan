@@ -24,8 +24,8 @@ struct WritePack {
 
 // 一条连接的封装。生命周期约定：
 // - 只能在 EventLoop(loop 线程) 内创建，EventLoop 通过 shared_ptr 注册表持有；
-// - 跨线程(业务线程/actor 任务/PeerConn)持有必须用 EventLoop::channelPtr() 返回的
-//   shared_ptr，裸指针只允许在 loop 线程回调内使用；
+// - 跨线程(业务线程/actor 任务/PeerConn)持有必须用 EventLoop::channelPtr()/channelById()
+//   返回的 shared_ptr，裸指针只允许在 loop 线程回调内使用；长期引用存 getId() 更安全；
 // - close() 线程安全：仅标记关闭并入队，真正的 uv_close/通知/释放都在 loop 线程完成；
 // - 析构只释放堆内存(ByteBuffer)，uv 句柄的收尾全部在 closeInLoop 的 close 回调里完成，
 //   因此最后一个 shared_ptr 在任意线程释放都是安全的。
@@ -92,6 +92,11 @@ public:
         return addr_;
     }
 
+    // 连接唯一 id：generateId() 生成，进程内唯一，0 保留为无效值
+    uint32 getId() const {
+        return id;
+    }
+
     // loop 线程：连接建立后刷新地址（出站连接构造时尚未 connect，无法取 peer）
     void refreshAddr();
 
@@ -128,6 +133,7 @@ public:
     uv_timer_t heartbeat_timer;
     uv_tcp_t *client;
 
+
 private:
     friend class EventLoop;
 
@@ -141,6 +147,7 @@ private:
     void onHandleClosed(uv_handle_t *handle);
 
     static std::string getAddrString(const struct sockaddr_storage &addr);
+    static uint32 generateId();
 
     std::string computeAddr();
 
@@ -149,6 +156,9 @@ private:
     bool tcp_closed_ = false;
     bool timer_closed_ = false;
     std::string addr_;
+    uint32 id;
+    // inline 变量（C++17）：类内初始化的静态成员须标 inline 才能过 MSVC C2864
+    inline static std::atomic<uint32> next_id{0};
 };
 
 
