@@ -6,6 +6,7 @@
 #include "transport/Dispatcher.h"
 #include "controller/PlayerLoginHandler.h"
 #include "transport/Channel.h"
+#include "transport/Decoder.h"
 #include "transport/EventLoop.h"
 #include "log/XLog.h"
 #include "transport/ByteUtils.h"
@@ -35,34 +36,28 @@ void GameClientNetWorkHandler::onNewConnect(transport::Channel* channel, int sta
 
 void GameClientNetWorkHandler::onMsg(transport::Channel* channel, void* buff, int len)
 {
-    uint8* data = static_cast<uint8*>(buff);
-    data += 4;
-    int msgId = transport::ByteUtils::readInt32(data);
-    int playerId = 999;
-    data += 4;
-    len -= 8;
-    // INFO_LOG("=== on read   channel ={}  msgId={}  len ={}", channel->getAddr(), msgId, len);
-    transport::MsgFunction* msg_function = transport::Dispatcher::Instance()->findMsgFuncion(msgId);
-    if (msg_function == nullptr)
+    // 拆帧头 + 查注册表 + 反序列化 + 取 channel shared_ptr，集中在 Decoder
+    transport::DecodedMsg decoded;
+    transport::Decoder::parseHeader(buff, len, &decoded);
+    switch (transport::Decoder::decodeMsg(channel, &decoded))
     {
-        ERR_LOG("msgId ={} not found process function", msgId);
-        return;
+        case transport::DecodeResult::NOT_REGISTERED:
+            ERR_LOG("msgId ={} not found process function", decoded.msgId);
+            return;
+        case transport::DecodeResult::PARSE_FAILED:
+        case transport::DecodeResult::BAD_HEADER:
+        case transport::DecodeResult::CHANNEL_GONE:
+            return;
+        case transport::DecodeResult::OK:
+            break;
     }
+    // INFO_LOG("=== on read   channel ={}  msgId={}  len ={}", channel->getAddr(), decoded.msgId, decoded.bodyLen);
 
-    void* msg = msg_function->parseParam(data, len);
-    if (msg == nullptr)
-    {
-        ERR_LOG("parse msg failed, msgId ={}", msgId);
-        return;
-    }
-    // actor 任务异步执行，channel 必须用 shared_ptr 持有，防止连接关闭后被释放
-    std::shared_ptr<transport::Channel> channel_ptr = channel->event_loop()->channelPtr(channel);
-    if (channel_ptr == nullptr)
-    {
-        return;
-    }
     int hashCode = (int)((uintptr_t)channel);
-    GameActor::execute(LOGIC, hashCode, [playerId, msg_function, channel_ptr, msg]()
+    GameActor::execute(LOGIC, hashCode, [playerId = decoded.playerId,
+                                         msg_function = decoded.msg_function,
+                                         channel_ptr = decoded.channel_ptr,
+                                         msg = decoded.msg]()
                                            {
                                                msg_function->invoke(playerId, channel_ptr.get(), msg);
                                            });

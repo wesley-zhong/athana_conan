@@ -6,11 +6,14 @@
 #include "transport/Dispatcher.h"
 #include "../controller/PlayerLoginHandler.h"
 #include "transport/Channel.h"
+#include "transport/Decoder.h"
 #include "transport/EventLoop.h"
 #include "log/XLog.h"
 #include "transport/ByteUtils.h"
 #include "ProtoMsgId.pb.h"
 #include "gate_actor/GateActor.h"
+#include "discovery/PeerConn.h"
+#include "common/NodeInfo.h"
 
 
 void GatewayServerNetWorkHandler::initAllMsgRegister()
@@ -31,13 +34,10 @@ void GatewayServerNetWorkHandler::onConnect(transport::Channel* channel)
 //|---4 msgLen|----4 msgId|-----4 playerId |------ 4 crc| ------ body|
 void GatewayServerNetWorkHandler::onMsg(transport::Channel* channel, void* buff, int len)
 {
-    uint8* data = static_cast<uint8*>(buff);
-    data = data + 4;
-    int msgId = transport::ByteUtils::readInt32(data);
-    int playerId = 0;
-    len -= 8;
-
-    if (msgId == HEART_BEAT_PUSH)
+    // 拆帧头 + 查注册表 + 反序列化 + 取 channel shared_ptr，集中在 Decoder
+    transport::DecodedMsg decoded;
+    transport::Decoder::parseHeader(buff, len, &decoded);
+    if (decoded.msgId == HEART_BEAT_PUSH)
     {
         auto res = std::make_shared<HeartBeatResponse>();
         res->set_servertime(8888);
@@ -45,32 +45,30 @@ void GatewayServerNetWorkHandler::onMsg(transport::Channel* channel, void* buff,
         channel->sendMsg(HEART_BEAT_RESPONSE, res);
         return;
     }
-    INFO_LOG("=== on read   channel ={} len ={} msgId={}", channel->getAddr(), len, msgId);
+    INFO_LOG("=== on read   channel ={} len ={} msgId={}", channel->getAddr(), decoded.bodyLen, decoded.msgId);
 
-    //first check all msg_id valid
-    transport::MsgFunction* msg_function = transport::Dispatcher::Instance()->findMsgFuncion(msgId);
-    if (msg_function == nullptr)
+    switch (transport::Decoder::decodeMsg(channel, &decoded))
     {
-        proxyMsgToGame(channel, (char*)buff, len);
-        ERR_LOG(" msgId ={} not found process function", msgId);
-        return;
+        case transport::DecodeResult::NOT_REGISTERED:
+            // 网关未注册的 msgId 转发给 game 处理（proxyMsgToGame 内部拷贝后再跨线程）
+            proxyMsgToGame(channel, (char*)buff, len);
+            ERR_LOG(" msgId ={} not found process function", decoded.msgId);
+            return;
+        case transport::DecodeResult::PARSE_FAILED:
+        case transport::DecodeResult::BAD_HEADER:
+        case transport::DecodeResult::CHANNEL_GONE:
+            return;
+        case transport::DecodeResult::OK:
+            break;
     }
 
-    void* msg = msg_function->parseParam((char*)data + 4, len);
-    if (msg == nullptr)
-    {
-        ERR_LOG("parse msg failed, msgId ={}", msgId);
-        return;
-    }
-    // actor 任务异步执行，channel 必须用 shared_ptr 持有，防止连接关闭后被释放
-    std::shared_ptr<transport::Channel> channel_ptr = channel->event_loop()->channelPtr(channel);
-    if (channel_ptr == nullptr)
-    {
-        return;
-    }
-
-    int msgThreadHashCode = 1;
-    GateActor::execute(LOGIC, msgThreadHashCode, [playerId, msg_function, channel_ptr, msg]()
+    // TODO(route): 未注册转发的 msgId 在这里原样转发给 game；
+    // buff 是 loop 线程共享的 scratch（下个包就会复用），转发必须同步拷贝
+    int msgThreadHashCode = (int)((uintptr_t)channel);
+    GateActor::execute(LOGIC, msgThreadHashCode, [playerId = decoded.playerId,
+                                                  msg_function = decoded.msg_function,
+                                                  channel_ptr = decoded.channel_ptr,
+                                                  msg = decoded.msg]()
     {
         msg_function->invoke(playerId, channel_ptr.get(), msg);
     });
@@ -93,4 +91,23 @@ void GatewayServerNetWorkHandler::onEventTrigger(transport::Channel* channel, tr
 
 void GatewayServerNetWorkHandler::proxyMsgToGame(transport::Channel* channel, char* buff, int len)
 {
+    // buff 指向完整帧（packLen + msgId + body）的起点；len 已被 onMsg 减去 8，
+    // 这里补回。EventLoop 的 scratch 只在本次 onMsg 内有效，先拷贝再跨线程投递
+    int frameLen = len + 8;
+    std::string frame(buff, (size_t)frameLen);
+
+    // 选取目标 game 节点：目前按服务发现广播扩散，由目标节点按 playerId 判定归属
+    auto channels = discovery::PeerConn::getChannelsByType(core::SRV_TYPE_GAME);
+    if (channels.empty())
+    {
+        ERR_LOG("proxy msg to game failed: no game node live, frameLen ={}", frameLen);
+        return;
+    }
+    for (auto& destChannel : channels)
+    {
+        // sendRawMsg 内部会再次封帧，这里拆出 body（去掉 8B 帧头）原样转发
+        const char* body = frame.data() + 8;
+        int bodyLen = frameLen - 8;
+        destChannel->sendRawMsg(transport::ByteUtils::readInt32(frame.data() + 4), body, bodyLen);
+    }
 }

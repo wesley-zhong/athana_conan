@@ -11,6 +11,12 @@ ByteBuffer::ByteBuffer() {
     _storage = createBuffer();
 }
 
+// 指定容量：ring 内部会向上取 2 的幂。收包侧可用小容量（溢出即关连接），
+// 发包侧必须 ≥ 最大帧长，否则装不下的帧会被静默丢弃
+ByteBuffer::ByteBuffer(size_t reserve) {
+    _storage = new RingByteBuf(reserve);
+}
+
 
 ByteBuffer::~ByteBuffer() {
     delete _storage;

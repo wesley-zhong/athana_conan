@@ -5,6 +5,7 @@
 #include "RouterServerNetWorkHandler.h"
 #include "transport/Dispatcher.h"
 #include "transport/Channel.h"
+#include "transport/Decoder.h"
 #include "transport/EventLoop.h"
 #include "log/XLog.h"
 #include "transport/ByteUtils.h"
@@ -36,33 +37,26 @@ void RouterServerNetWorkHandler::onConnect(transport::Channel* channel)
 //|---4 msgLen|----4 msgId|-----4 playeId |------ 4 crc| ------ body|
 void RouterServerNetWorkHandler::onMsg(transport::Channel* channel, void* buff, int len)
 {
-    uint8* data = static_cast<uint8*>(buff);
-    data = data + 4;
-    int msgId = transport::ByteUtils::readInt32(data);
-    len -= 8;
-
-    transport::MsgFunction* msg_function = transport::Dispatcher::Instance()->findMsgFuncion(msgId);
-    if (msg_function == nullptr)
+    // 拆帧头 + 查注册表 + 反序列化 + 取 channel shared_ptr，集中在 Decoder
+    transport::DecodedMsg decoded;
+    transport::Decoder::parseHeader(buff, len, &decoded);
+    switch (transport::Decoder::decodeMsg(channel, &decoded))
     {
-        ERR_LOG(" msgId ={} not found process function", msgId);
-        return;
-    }
-
-    void* msg = msg_function->parseParam((char*)data + 4, len);
-    if (msg == nullptr)
-    {
-        ERR_LOG("parse msg failed, msgId ={}", msgId);
-        return;
-    }
-    // actor 任务异步执行，channel 必须用 shared_ptr 持有，防止连接关闭后被释放
-    std::shared_ptr<transport::Channel> channel_ptr = channel->event_loop()->channelPtr(channel);
-    if (channel_ptr == nullptr)
-    {
-        return;
+        case transport::DecodeResult::NOT_REGISTERED:
+            ERR_LOG(" msgId ={} not found process function", decoded.msgId);
+            return;
+        case transport::DecodeResult::PARSE_FAILED:
+        case transport::DecodeResult::BAD_HEADER:
+        case transport::DecodeResult::CHANNEL_GONE:
+            return;
+        case transport::DecodeResult::OK:
+            break;
     }
 
     int hashCode = (int)((uintptr_t)channel);
-    RouterActor::execute(LOGIC, hashCode, [msg_function, channel_ptr, msg]()
+    RouterActor::execute(LOGIC, hashCode, [msg_function = decoded.msg_function,
+                                           channel_ptr = decoded.channel_ptr,
+                                           msg = decoded.msg]()
     {
         msg_function->invoke(0, channel_ptr.get(), msg);
     });
