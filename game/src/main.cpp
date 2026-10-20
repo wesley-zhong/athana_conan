@@ -66,6 +66,8 @@ int main(int argc, char** argv)
         ERR_LOG(" XXXXXXXXXXXXXX game data init failed ");
         return -2;
     }
+    // cfg read test
+    //cfg::herodata::HeroData* hero_data =  Cfg::Tables->TbHeroData.get(1001);
 
     success = Discovery::initWithConf(core::AthenaConfig::instance());
     if (!success)
