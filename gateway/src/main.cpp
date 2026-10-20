@@ -72,6 +72,8 @@ int main(int argc, char** argv)
     tcp_client.onTriggerEvent = GateClientNetWorkHandler::onEventTrigger;
     tcp_client.setChannelIdleTime(config.get("client", "idle-write-time", 3000),
                                   config.get("client", "idle-read-time", 9000));
+    tcp_client.setChannelBuffSize((size_t) config.get<int>("client", "recv-buff-size", 0),
+                                  (size_t) config.get<int>("client", "send-buff-size", 0));
 
     tcp_client.start(config.get("client", "event-loop-num", 1));
 
@@ -97,6 +99,8 @@ int main(int argc, char** argv)
 
     tcp_server.setChannelIdleTime(config.get("server", "idle-read-time", 9000),
                                   config.get("server", "idle-write-time", 3000));
+    tcp_server.setChannelBuffSize((size_t) config.get<int>("server", "recv-buff-size", 0),
+                                  (size_t) config.get<int>("server", "send-buff-size", 0));
     if (!tcp_server.bind(serverPort).start(config.get("server", "event-loop-num", 2)))
     {
         ERR_LOG("tcp server start failed, port ={}", serverPort);

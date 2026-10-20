@@ -10,15 +10,34 @@
 
 namespace transport
 {
-    Channel::Channel(EventLoop* event_loop, uv_tcp_t* tcp) : _eventLoop(event_loop), client(tcp),
-                                                             last_recv_time(0), last_send_time(0),
-                                                             userData(nullptr)
+    namespace
     {
-        // 收发 ring 分开设容：收 ring 满且无完整帧即关连接（uv_alloc_cb），64KB 足够容纳
-        // 若干并发积压的合法帧；发 ring 必须能装下最大单帧（MAX_PACKET_SIZE+8 帧头），
-        // 否则 eventLoopWrite 装不下时整帧丢弃。整体 16MB/连接 → 128KB + 8MB
-        recv_buffer = new core::ByteBuffer(64 * 1024);
-        send_buff = new core::ByteBuffer((size_t)MAX_PACKET_SIZE + 8);
+        // 配置兜底：0 视为默认容量；超过协议帧长上限(MAX_PACKET_SIZE+8)的容量纯属
+        // 浪费，一并钳住。负数配置经 int→size_t 转换会变成超大值，也会被钳到这里——
+        // RingByteBuf 对非法容量是抛异常，而 Channel 构造发生在 libuv 回调里，
+        // 异常抛穿 C 栈是未定义行为，必须在构造前拦下
+        size_t clampBuffSize(size_t size)
+        {
+            if (size == 0)
+            {
+                return Channel::DEFAULT_BUFF_SIZE;
+            }
+            size_t maxFrame = (size_t)Channel::MAX_PACKET_SIZE + 8;
+            return size > maxFrame ? maxFrame : size;
+        }
+    }
+
+    Channel::Channel(EventLoop* event_loop, uv_tcp_t* tcp,
+                     size_t recvBuffSize, size_t sendBuffSize) : _eventLoop(event_loop), client(tcp),
+                                                                  last_recv_time(0), last_send_time(0),
+                                                                  userData(nullptr)
+    {
+        // 收发 ring 分开设容，容量可配（默认 64K，内部向上取 2 的幂，64K → 实际 128K）。
+        // 容量必须 ≥ 该连接最大帧长（协议上限 MAX_PACKET_SIZE+8）：recv 小于最大入站帧时
+        // 帧没收全就写满 ring，uv_alloc_cb 按“ring 满且无完整帧”关连接；send 小于最大
+        // 出站帧时帧被 eventLoopWrite 静默丢弃——按业务实际最大帧长留足，不要盲目调小
+        recv_buffer = new core::ByteBuffer(clampBuffSize(recvBuffSize));
+        send_buff = new core::ByteBuffer(clampBuffSize(sendBuffSize));
         heartbeat_timer.data = this;
         addr_ = computeAddr();
     }
@@ -58,7 +77,19 @@ namespace transport
     {
         if (nread > 0)
         {
-            recv_buffer->advanceWriteIndex(nread);
+            // ring 满时 uv_alloc_cb 走 dummy 1 字节路径并已 close()：
+            // 这 1 字节不属于 ring，推进索引会被拒绝
+            if (isClosed())
+            {
+                return;
+            }
+            if (!recv_buffer->advanceWriteIndex(nread))
+            {
+                // 理论不可达（nread ≤ alloc 给出的连续写窗口），防御性关闭
+                ERR_LOG("advanceWriteIndex failed from {}, close it", this->getAddr());
+                this->close();
+                return;
+            }
             last_recv_time = nowTime();
             return;
         }
@@ -236,8 +267,8 @@ namespace transport
         int32 len = (int32)bodyLen;
         send_buff->writeInt32(len + 4);
         send_buff->writeInt32(msgId);
-        // writeBytes 参数是 char*（非 const），body.data() 返回 const char*，这里只是拷贝不改内容
-        send_buff->writeBytes(const_cast<char*>(body.data()), len);
+        // writeBytes 参数已是 const char*，body.data() 直接传入
+        send_buff->writeBytes(body.data(), len);
         last_send_time = nowTime();
 
         if (needCallSend)
@@ -282,9 +313,17 @@ namespace transport
                                }
                                else
                                {
-                                   // 只有成功时才推进索引并继续发送
-                                   channel->send_buff->storage().advanceReadIndex(write_pack->sendSize);
-                                   channel->doUvSend();
+                                   // 只有成功时才推进索引并继续发送；推进失败（理论不可达，
+                                   // sendSize 即刚发出的连续可读长度）说明流已错位，关连接
+                                   if (!channel->send_buff->storage().advanceReadIndex(write_pack->sendSize))
+                                   {
+                                       ERR_LOG("advanceReadIndex failed, addr: {}", channel->getAddr());
+                                       channel->close();
+                                   }
+                                   else
+                                   {
+                                       channel->doUvSend();
+                                   }
                                }
 
                                core::ObjPool::GetPool<WritePack>().release(write_pack);

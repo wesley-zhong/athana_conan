@@ -55,6 +55,8 @@ int main(int argc, char **argv) {
     transport::TcpClient tcp_client;
     tcp_client.setChannelIdleTime(config.get("client", "idle-write-time", 3000),
                                   config.get("client", "idle-read-time", 5000));
+    tcp_client.setChannelBuffSize((size_t) config.get<int>("client", "recv-buff-size", 0),
+                                  (size_t) config.get<int>("client", "send-buff-size", 0));
     tcp_client.onConnected = ClientNetWorkHandler::onConnect;
     tcp_client.onRead = ClientNetWorkHandler::onMsg;
     tcp_client.onTriggerEvent = ClientNetWorkHandler::onEventTrigger;

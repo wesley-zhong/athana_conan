@@ -6,6 +6,10 @@ event-loop-num = 2
 # 连接空闲超时（毫秒）：读空闲超时判定对端失联，写空闲超时触发心跳
 idle-read-time = 5000
 idle-write-time = 3000
+# 每条连接收/发缓冲容量（字节），缺省/0 = 64K（内部取 2 的幂，实际 128K）。
+# 必须 ≥ 最大帧长：recv 偏小收到大帧会断连，send 偏小大帧被丢弃
+recv-buff-size = 0
+send-buff-size = 0
 
 [server]
 # 要连接的对端服务地址与并发连接数

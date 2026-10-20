@@ -1,6 +1,14 @@
 #include "RingByteBuf.h"
 #include <algorithm>
+#include <cstring>
 #include <new>
+#include <stdexcept>
+
+#ifdef USE_MIMALLOC
+#include <mimalloc.h>
+#elif defined(USE_JEMALLOC)
+#include <jemalloc/jemalloc.h>
+#endif
 
 namespace core {
 
@@ -69,21 +77,6 @@ RingByteBuf& RingByteBuf::operator=(RingByteBuf&& other) noexcept
         other.tail_.store(0, std::memory_order_relaxed);
     }
     return *this;
-}
-
-size_t RingByteBuf::readableBytes() const noexcept
-{
-    size_t h = head_.load(std::memory_order_acquire);
-    size_t t = tail_.load(std::memory_order_acquire);
-    return (t - h) & mask_;
-}
-
-size_t RingByteBuf::writableBytes() const noexcept
-{
-    // moved-from 对象 cap_ == 0，报告不可写，避免 (cap_ - 1) 无符号下溢成 SIZE_MAX
-    if (cap_ == 0) return 0;
-    // 实际可用最大空间为 cap_ - 1
-    return (cap_ - 1) - readableBytes();
 }
 
 bool RingByteBuf::tryWrite(const void* src, size_t len)
@@ -172,20 +165,22 @@ uint8_t* RingByteBuf::linearWritablePtr(size_t* outLen) noexcept
     return buf_ + t;
 }
 
-void RingByteBuf::advanceReadIndex(size_t n)
+bool RingByteBuf::advanceReadIndex(size_t n) noexcept
 {
-    if (n == 0) return;
-    if (n > readableBytes()) throw std::out_of_range("advanceReadIndex overflow");
+    if (n == 0) return true;
+    if (n > readableBytes()) return false;
     size_t h = head_.load(std::memory_order_relaxed);
     head_.store((h + n) & mask_, std::memory_order_release);
+    return true;
 }
 
-void RingByteBuf::advanceWriteIndex(size_t n)
+bool RingByteBuf::advanceWriteIndex(size_t n) noexcept
 {
-    if (n == 0) return;
-    if (n > writableBytes()) throw std::out_of_range("advanceWriteIndex overflow");
+    if (n == 0) return true;
+    if (n > writableBytes()) return false;
     size_t t = tail_.load(std::memory_order_relaxed);
     tail_.store((t + n) & mask_, std::memory_order_release);
+    return true;
 }
 
 // 注意：仅可在无生产者/消费者并发访问时调用（两次独立 store 非原子，
@@ -212,9 +207,10 @@ void RingByteBuf::je_free(void* ptr)
 #ifdef USE_MIMALLOC
     mi_free(ptr);
 #elif defined(USE_JEMALLOC)
-    je_free(ptr);
+    // 非限定名会先命中类作用域的 RingByteBuf::je_free 自身，无限递归栈溢出
+    return ::je_free(ptr);
 #else
-    std::free(ptr);
+    return std::free(ptr);
 #endif
 }
 

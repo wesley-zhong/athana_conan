@@ -35,6 +35,13 @@ public:
 
     virtual ~EventLoop();
 
+    // 本 loop 上每条 Channel 收/发缓冲容量（loop 生命周期内固定，Channel 构造时读取）。
+    // 0 表示用 Channel::DEFAULT_BUFF_SIZE(64K)。须在 start() 之前设置
+    void setBuffSize(size_t recvBuffSize, size_t sendBuffSize) {
+        recv_buff_size_ = recvBuffSize;
+        send_buff_size_ = sendBuffSize;
+    }
+
     void execute();
 
     // 任意线程：投递任务到 loop 线程执行。push + 唤醒总是成对出现，合并成一个接口防止漏唤醒
@@ -171,6 +178,10 @@ private:
     EventTrigger *_eventTrigger;
     char *maxPackBody;
     int maxPackBodyLen;
+
+    // setBuffSize 设置，start 前写入、之后 loop 线程只读
+    size_t recv_buff_size_ = 0;
+    size_t send_buff_size_ = 0;
 
     // ipc worker 端：连接 boss 用于接收传递过来的连接句柄
     uv_pipe_t ipc_pipe_{};

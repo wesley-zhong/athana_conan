@@ -55,6 +55,9 @@ public:
 
     TcpClient& setChannelIdleTime(uint64 idle_write_time, uint64 idle_read_time);
 
+    // 每条连接收/发缓冲容量（字节），0 表示用默认(64K)。须在 start() 之前调用
+    TcpClient& setChannelBuffSize(size_t recvBuffSize, size_t sendBuffSize);
+
     void triggerEvent(Channel *channel, TriggerEventEnum reason) override;
 
     std::function<void(Channel *, int)> onConnected;
@@ -67,6 +70,9 @@ private:
     std::vector<std::unique_ptr<EventLoop>> loops;
     // setChannelIdleTime 创建，随 client 析构自动释放（IdleStateHandler 完整类型见 EventLoop.h）
     std::unique_ptr<EventTrigger> event_trigger;
+    // setChannelBuffSize 暂存，start() 创建 loop 时经 EventLoop::setBuffSize 下发
+    size_t channel_recv_buff_size_ = 0;
+    size_t channel_send_buff_size_ = 0;
     mutable std::atomic<size_t> next_loop{0};
 };
 

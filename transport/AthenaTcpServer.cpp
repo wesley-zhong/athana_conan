@@ -29,7 +29,8 @@ namespace transport
         workers_.reserve(eventLoopNum);
         for (int i = 0; i < eventLoopNum; i++)
         {
-            workers_.push_back(std::make_shared<EventLoop>(this, event_trigger.get()));
+            auto& worker = workers_.emplace_back(std::make_shared<EventLoop>(this, event_trigger.get()));
+            worker->setBuffSize(channel_recv_buff_size_, channel_send_buff_size_);
         }
         for (auto& w : workers_)
         {
@@ -109,6 +110,14 @@ namespace transport
     AthenaTcpServer& AthenaTcpServer::setChannelIdleTime(uint64 idle_read_time, uint64 idle_write_time)
     {
         event_trigger = std::make_unique<IdleStateHandler>(this, idle_write_time, idle_read_time);
+        return *this;
+    }
+
+    AthenaTcpServer& AthenaTcpServer::setChannelBuffSize(size_t recvBuffSize, size_t sendBuffSize)
+    {
+        // 先暂存，start() 创建 worker 时下发（与 event_trigger 同路：worker 在 start 内构造）
+        channel_recv_buff_size_ = recvBuffSize;
+        channel_send_buff_size_ = sendBuffSize;
         return *this;
     }
 } // namespace transport

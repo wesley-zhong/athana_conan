@@ -127,6 +127,8 @@ int main(int argc, char** argv)
     transport::AthenaTcpServer tcp_server;
     tcp_server.setChannelIdleTime(config.get("server", "idle-read-time", 10000),
                                   config.get("server", "idle-write-time", 0));
+    tcp_server.setChannelBuffSize((size_t) config.get<int>("server", "recv-buff-size", 0),
+                                  (size_t) config.get<int>("server", "send-buff-size", 0));
     tcp_server.onNewConnection = GameServerNetWorkHandler::onNewConnect;
     tcp_server.onRead = GameServerNetWorkHandler::onMsg;
     tcp_server.onClosed = GameServerNetWorkHandler::onClosed;

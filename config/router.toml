@@ -14,12 +14,18 @@ event-loop-num = 2
 # 连接空闲超时（毫秒）：读空闲超时判定对端失联，写空闲超时触发心跳；0 表示不检测
 idle-read-time = 9000
 idle-write-time = 3000
+# 每条连接收/发缓冲容量（字节），缺省/0 = 64K（内部取 2 的幂，实际 128K）。
+# 必须 ≥ 该服务最大帧长：recv 偏小收到大帧会断连，send 偏小大帧被丢弃
+recv-buff-size = 0
+send-buff-size = 0
 
 [client]
 # 内部 tcp client（连接 discovery/game 服务）逻辑线程数与空闲超时（毫秒）
 logic-thread = 2
 idle-read-time = 9000
 idle-write-time = 3000
+recv-buff-size = 0
+send-buff-size = 0
 
 [discover]
 server_nodes = "http://localhost:2379;http://localhost:2379"

@@ -33,7 +33,8 @@ void TcpClient::start(int eventLoopNum) {
     for (int i = 0; i < eventLoopNum; i++) {
         // asyncs 在 loop 线程初始化，与 AthenaTcpServer 相同：先建后 start，
         // 避免提前 wake 的未定义行为
-        loops.push_back(std::make_unique<EventLoop>(this, event_trigger.get()));
+        auto &loop = loops.emplace_back(std::make_unique<EventLoop>(this, event_trigger.get()));
+        loop->setBuffSize(channel_recv_buff_size_, channel_send_buff_size_);
     }
     for (auto &loop: loops) {
         loop->start();
@@ -62,6 +63,13 @@ void TcpClient::triggerEvent(Channel *channel, TriggerEventEnum reason) {
 //only surport one
 TcpClient &TcpClient::setChannelIdleTime(uint64 idle_write_time, uint64 idle_read_time) {
     event_trigger = std::make_unique<IdleStateHandler>(this, idle_write_time, idle_read_time);
+    return *this;
+}
+
+TcpClient &TcpClient::setChannelBuffSize(size_t recvBuffSize, size_t sendBuffSize) {
+    // start 前暂存，start() 创建 loop 时下发
+    channel_recv_buff_size_ = recvBuffSize;
+    channel_send_buff_size_ = sendBuffSize;
     return *this;
 }
 

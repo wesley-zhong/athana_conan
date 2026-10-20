@@ -143,7 +143,8 @@ void EventLoop::asyncConnect(const std::string &ip, int port) {
             delete connect_req;
             return;
         }
-        auto channel = std::make_shared<Channel>(event_loop, client);
+        auto channel = std::make_shared<Channel>(event_loop, client,
+                                                 event_loop->recv_buff_size_, event_loop->send_buff_size_);
         client->data = channel.get();
         event_loop->registerChannel(channel);
         connect_req->data = channel.get();
@@ -435,7 +436,7 @@ void EventLoop::uv_ipc_read_cb(uv_stream_t *stream, ssize_t nread, const uv_buf_
 }
 
 void EventLoop::adoptConnection(uv_tcp_t *client) {
-    auto channel = std::make_shared<Channel>(this, client);
+    auto channel = std::make_shared<Channel>(this, client, recv_buff_size_, send_buff_size_);
     client->data = channel.get();
     registerChannel(channel);
     uv_read_start((uv_stream_t *) client, uv_alloc_cb, uv_read_cb);

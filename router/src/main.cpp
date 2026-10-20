@@ -84,6 +84,8 @@ int main(int argc, char** argv)
 
     tcp_server.setChannelIdleTime(config.get("server", "idle-read-time", 9000),
                                   config.get("server", "idle-write-time", 3000));
+    tcp_server.setChannelBuffSize((size_t) config.get<int>("server", "recv-buff-size", 0),
+                                  (size_t) config.get<int>("server", "send-buff-size", 0));
     if (!tcp_server.bind(serverPort).start(config.get("server", "event-loop-num", 2)))
     {
         ERR_LOG("tcp server start failed, port ={}", serverPort);

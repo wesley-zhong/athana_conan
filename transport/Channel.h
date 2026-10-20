@@ -34,8 +34,14 @@ public:
     // single packet max size: frame = 4B packLen + 4B msgId + body
     static constexpr int MAX_PACKET_SIZE = 4 * 1024 * 1024;
 
-    // 只能在 loop 线程调用（uv handle 已绑定该 loop）
-    Channel(EventLoop *event_loop, uv_tcp_t *client);
+    // 收发缓冲默认容量（字节）。ring 向上取 2 的幂：64K → 实际分配 128K，可用 128K-1
+    static constexpr size_t DEFAULT_BUFF_SIZE = 64 * 1024;
+
+    // 只能在 loop 线程调用（uv handle 已绑定该 loop）。
+    // recvBuffSize/sendBuffSize 必须 ≥ 该连接的最大帧长：recv 偏小时入站帧没收全就写满
+    // ring，uv_alloc_cb 会按“ring 满”关连接；send 偏小时出站帧被 eventLoopWrite 丢弃
+    Channel(EventLoop *event_loop, uv_tcp_t *client,
+            size_t recvBuffSize = DEFAULT_BUFF_SIZE, size_t sendBuffSize = DEFAULT_BUFF_SIZE);
     ~Channel();
 
     Channel(const Channel &) = delete;
@@ -96,7 +102,7 @@ public:
         if (readableBytes < 8) {
             return -1;
         }
-        uint32 packLen = recv_buffer->getInt32();
+        uint32 packLen = recv_buffer->peekInt32();
         if (packLen > (uint32) (MAX_PACKET_SIZE - 4)) {
             return -2;
         }
