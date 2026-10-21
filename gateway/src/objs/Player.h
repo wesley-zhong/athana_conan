@@ -36,10 +36,20 @@ public:
         return pid;
     }
 
+    int64_t getSid()
+    {
+        return sid;
+    }
+
+    transport::Channel* getChannel()
+    {
+        return channel;
+    }
+
     void setValid()
     {
+        // userData 挂接挪到 createPlayer 建号时：登录未完成就掉线也能按连接反查
         valid = true;
-        channel->setUserData(this);
     }
 
     void setPid(uint32_t pid);

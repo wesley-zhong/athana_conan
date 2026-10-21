@@ -1,12 +1,13 @@
 #include "PlayerLoginHandler.h"
 
-#include "log/XLog.h"
 #include "ProtoCommon.pb.h"
 #include "ProtoInner.pb.h"
+#include "ProtoTask.pb.h"
 #include "transport/Dispatcher.h"
 #include "discovery/PeerConn.h"
 #include "objs/PlayerOnlineService.h"
 #include "utils/Snowflake.h"
+#include "common/XTime.h"
 
 void PlayerLoginHandler::onInnerLoginRes(transport::Channel* channel, InnerLoginResponse* res)
 {
@@ -18,6 +19,13 @@ void PlayerLoginHandler::onInnerLoginRes(transport::Channel* channel, InnerLogin
     }
     existPlayer->setValid();
     INFO_LOG("----- on login res  roleId={} sid ={} success", res->roleid(), res->sid());
+
+    // 此处 channel 是 gateway<->game 的内部链路，回客户端要走玩家自己的连接
+    auto clientRes = std::make_shared<LoginResponse>();
+    clientRes->set_errorcode(0);
+    clientRes->set_servertime(core::XTime::currentTimeMillis());
+    clientRes->set_roleid(res->roleid());
+    existPlayer->getChannel()->sendMsg(LOGIN_RESPONSE, clientRes);
 }
 
 void PlayerLoginHandler::onLoginReq(transport::Channel* channel, LoginRequest* req)

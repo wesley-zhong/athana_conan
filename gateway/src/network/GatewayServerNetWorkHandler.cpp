@@ -13,6 +13,7 @@
 #include "gate_actor/GateActor.h"
 #include "discovery/PeerConn.h"
 #include "common/NodeInfo.h"
+#include "objs/PlayerOnlineService.h"
 
 
 void GatewayServerNetWorkHandler::initAllMsgRegister()
@@ -76,11 +77,9 @@ void GatewayServerNetWorkHandler::onMsg(transport::Channel* channel, void* buff,
 
 void GatewayServerNetWorkHandler::onClosed(transport::Channel* channel)
 {
-    void* userData = channel->getUserData();
-    if (userData == nullptr)
-    {
-        return;
-    }
+    // 掉线按连接反查出表归还，并转 game 触发登出/存档。
+    // 不用 userData 判断——顶号回收后它是悬垂的池对象指针，由 Service 内部自查
+    PlayerOnlineService::onPlayerDisconnect(channel);
     INFO_LOG("connection ={}  closed ", channel->getAddr());
 }
 
