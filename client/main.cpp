@@ -57,6 +57,8 @@ int main(int argc, char **argv) {
                                   config.get("client", "idle-read-time", 5000));
     tcp_client.setChannelBuffSize((size_t) config.get<int>("client", "recv-buff-size", 0),
                                   (size_t) config.get<int>("client", "send-buff-size", 0));
+    // 客户端进程：对 gateway 的对外端口发起连接，链路 12B 头（msgLen+msgId+magicNum，无 playerId）
+    tcp_client.setProtoMode(transport::Channel::ProtoMode::CLIENT);
     tcp_client.onConnected = ClientNetWorkHandler::onConnect;
     tcp_client.onRead = ClientNetWorkHandler::onMsg;
     tcp_client.onTriggerEvent = ClientNetWorkHandler::onEventTrigger;

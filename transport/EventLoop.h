@@ -42,6 +42,12 @@ public:
         send_buff_size_ = sendBuffSize;
     }
 
+    // 本 loop 上每条 Channel 的链路协议（INNER 服务器间 16B 头 / CLIENT 对外 12B 头），
+    // loop 上所有连接统一模式。须在 start() 之前设置，默认 INNER
+    void setProtoMode(Channel::ProtoMode mode) {
+        proto_mode_ = mode;
+    }
+
     void execute();
 
     // 任意线程：投递任务到 loop 线程执行。push + 唤醒总是成对出现，合并成一个接口防止漏唤醒
@@ -189,6 +195,9 @@ private:
     // setBuffSize 设置，start 前写入、之后 loop 线程只读
     size_t recv_buff_size_ = 0;
     size_t send_buff_size_ = 0;
+
+    // setProtoMode 设置，start 前写入、之后 loop 线程只读（默认 INNER）
+    Channel::ProtoMode proto_mode_ = Channel::ProtoMode::INNER;
 
     // ipc worker 端：连接 boss 用于接收传递过来的连接句柄
     uv_pipe_t ipc_pipe_{};

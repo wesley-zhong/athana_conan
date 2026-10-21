@@ -17,6 +17,7 @@ private:
     static void onLoginReq(transport::Channel *channel, LoginRequest *req);
 
     static void onHeartBeat(transport::Channel *channel, HeartBeatRequest *res);
+
 };
 
 #endif

@@ -189,7 +189,8 @@ std::vector<std::shared_ptr<transport::Channel>> PeerConn::getChannelsByType(int
     return result;
 }
 
-bool PeerConn::sendMsg(int serverType, int msgId, std::shared_ptr<google::protobuf::Message> msg) {
+bool PeerConn::sendMsg(int serverType, int msgId, std::shared_ptr<google::protobuf::Message> msg,
+                       int64_t playerId) {
     std::shared_ptr<transport::Channel> channel;
     {
         std::lock_guard<std::mutex> lk(mutex_);
@@ -206,16 +207,16 @@ bool PeerConn::sendMsg(int serverType, int msgId, std::shared_ptr<google::protob
         }
         channel = node->channels[0];
     }
-    return sendMsg(std::move(channel), msgId, std::move(msg));
+    return sendMsg(std::move(channel), msgId, std::move(msg), playerId);
 
 }
 
 bool PeerConn::sendMsg(std::shared_ptr<transport::Channel> channel, int msgId,
-                       std::shared_ptr<google::protobuf::Message> msg) {
+                       std::shared_ptr<google::protobuf::Message> msg, int64_t playerId) {
     if (channel == nullptr || msg == nullptr) {
         return false;
     }
-    channel->sendMsg(msgId, std::move(msg));
+    channel->sendMsg(msgId, std::move(msg), playerId);
     return true;
 }
 

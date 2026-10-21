@@ -13,7 +13,6 @@
 #include "transport/ByteUtils.h"
 
 #include "transport/EventDefs.h"
-#include "ProtoMsgId.pb.h"
 
 void ClientNetWorkHandler::initAllMsgRegister() {
     REGISTER_MSG_ID_FUN(LOGIN_RESPONSE, LoginResponse, PlayerLoginHandler::onLoginRes);
@@ -34,14 +33,14 @@ int next_login_id = 100;
 void ClientNetWorkHandler::onConnect(transport::Channel *channel, int status) {
     auto login = std::make_shared<LoginRequest>();
     login->set_roleid(next_login_id++);
-    channel->sendMsg(LOGIN_REQUEST, login);
+    // 客户端链路帧头无 playerId 字段，归属信息走 body 的 proto roleid
+    channel->sendMsg(LOGIN_REQUEST, login, login->roleid());
 }
 
 void ClientNetWorkHandler::onMsg(transport::Channel *channel, void *buff, int len) {
-    INFO_LOG("  === ------------on read len={} remote addr ={} ", len, channel->getAddr());
     // 拆帧头 + 查注册表 + 反序列化 + 取 channel shared_ptr，集中在 Decoder
     transport::DecodedMsg decoded;
-    transport::Decoder::parseHeader(buff, len, &decoded);
+    transport::Decoder::parseHeader(channel, buff, len, &decoded);
     switch (transport::Decoder::decodeMsg(channel, &decoded)) {
         case transport::DecodeResult::NOT_REGISTERED:
             ERR_LOG(" msgId ={} not found process function", decoded.msgId);
@@ -53,7 +52,7 @@ void ClientNetWorkHandler::onMsg(transport::Channel *channel, void *buff, int le
         case transport::DecodeResult::OK:
             break;
     }
-
+    INFO_LOG("  === ------------on read len={} remote addr ={}  msgId= {}", len, channel->getAddr(), decoded.msgId);
     core::actor::ActorSystem::instance().execute(logicActors[2 % logicActors.size()],
                                            [playerId = decoded.playerId,
                                             msg_function = decoded.msg_function,
@@ -68,7 +67,7 @@ void ClientNetWorkHandler::onEventTrigger(transport::Channel *channel, transport
     if (reason == transport::WRITE_IDLE) {
         auto msg = std::make_shared<HeartBeatRequest>();
         msg->set_clienttime(5555);
-        channel->sendMsg(HEART_BEAT_PUSH, msg);
+        channel->sendMsg(HEART_BEAT_REQUEST, msg);
         // INFO_LOG("heart beat = -----------------");
         return;
     }

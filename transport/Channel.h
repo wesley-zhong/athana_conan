@@ -31,7 +31,19 @@ struct WritePack {
 //   因此最后一个 shared_ptr 在任意线程释放都是安全的。
 class Channel {
 public:
-    // single packet max size: frame = 4B packLen + 4B msgId + body
+    // 链路协议模式（构造时随连接确定，收发帧头随之不同）：
+    // - INNER 服务器间链路：| 4B msgLen | 4B msgId | 4B playerId | 4B magicNum | body |
+    // - CLIENT 对外客户端链路：| 4B msgLen | 4B msgId | 4B magicNum | body |（无 playerId）
+    // msgLen 语义一致：除自身 4B 外的头 + body 长度，整帧 = 该值 + 4
+    enum class ProtoMode { INNER, CLIENT };
+
+    static constexpr int INNER_HEADER_LEN = 4 * sizeof(int32);
+    static constexpr int INNER_LEN_OVERHEAD = INNER_HEADER_LEN - sizeof(int32);
+    static constexpr int CLIENT_HEADER_LEN = 3 * sizeof(int32);
+    static constexpr int CLIENT_LEN_OVERHEAD = CLIENT_HEADER_LEN - sizeof(int32);
+    // 帧头尾部魔数（INNER@+12 / CLIENT@+8）：帧流错位/对端不认识本协议时快速判定并断连
+    static constexpr uint32 MAGIC_NUM = 0x41544841; // 'ATHA'
+    // single packet max size: frame = header(16B inner / 8B client) + body
     static constexpr int MAX_PACKET_SIZE = 4 * 1024 * 1024;
 
     // 收发缓冲默认容量（字节）。ring 向上取 2 的幂：64K → 实际分配 128K，可用 128K-1
@@ -39,22 +51,25 @@ public:
 
     // 只能在 loop 线程调用（uv handle 已绑定该 loop）。
     // recvBuffSize/sendBuffSize 必须 ≥ 该连接的最大帧长：recv 偏小时入站帧没收全就写满
-    // ring，uv_alloc_cb 会按“ring 满”关连接；send 偏小时出站帧被 eventLoopWrite 丢弃
+    // ring，uv_alloc_cb 会按“ring 满”关连接；send 偏小时出站帧被 eventLoopWrite 丢弃。
+    // protoMode 决定收发帧头格式（服务器间 INNER / 对外客户端 CLIENT），连接生命周期内不变
     Channel(EventLoop *event_loop, uv_tcp_t *client,
-            size_t recvBuffSize = DEFAULT_BUFF_SIZE, size_t sendBuffSize = DEFAULT_BUFF_SIZE);
+            size_t recvBuffSize, size_t sendBuffSize, ProtoMode protoMode);
     ~Channel();
 
     Channel(const Channel &) = delete;
     Channel &operator=(const Channel &) = delete;
 
-    // 线程安全：序列化与落盘都在 loop 线程完成，msg 由 shared_ptr 延长生命周期
-    void sendMsg(int msgId, std::shared_ptr<google::protobuf::Message> msg);
+    // 线程安全：序列化与落盘都在 loop 线程完成，msg 由 shared_ptr 延长生命周期。
+    // playerId 写入内部帧头（登录前的握手/心跳等无归属消息传 0）；
+    // 客户端链路帧头无此字段，该参数被忽略（归属信息走 proto body）
+    void sendMsg(int msgId, std::shared_ptr<google::protobuf::Message> msg, int64_t playerId = 0);
 
     // 线程安全：按帧协议原样发送裸字节（router 中转场景：不反序列化直接转发 body）
-    void sendRawMsg(int msgId, const char *data, int len);
+    void sendRawMsg(int msgId, const char *data, int len, int64_t playerId = 0);
 
     // 线程安全：同上，body 直接按值转移，避免一次拷贝
-    void sendRawMsg(int msgId, std::string body);
+    void sendRawMsg(int msgId, std::string body, int64_t playerId = 0);
 
     void initPackTime();
 
@@ -97,24 +112,40 @@ public:
         return id;
     }
 
+    // 本连接的链路协议（构造时确定）：INNER 16B 头 / CLIENT 12B 头
+    ProtoMode protoMode() const {
+        return proto_mode;
+    }
+
     // loop 线程：连接建立后刷新地址（出站连接构造时尚未 connect，无法取 peer）
     void refreshAddr();
 
     // peek next frame length without consuming:
-    // -1 incomplete, -2 illegal length(caller should close), else frame bytes = packLen + 4
+    // -1 incomplete, -2 illegal length/bad magic(caller should close), else frame bytes = len field + 4
     int peekNextPackLen() const {
+        int headerLen = proto_mode == ProtoMode::INNER ? INNER_HEADER_LEN : CLIENT_HEADER_LEN;
         auto readableBytes = (int) recv_buffer->storage().readableBytes();
-        if (readableBytes < 8) {
+        if (readableBytes < headerLen) {
             return -1;
         }
-        uint32 packLen = recv_buffer->peekInt32();
-        if (packLen > (uint32) (MAX_PACKET_SIZE - 4)) {
+        // 头必须整体偷看：INNER 布局 msgLen@+0、msgId@+4、playerId@+8、magicNum@+12；
+        // CLIENT 布局 msgLen@+0、msgId@+4、magicNum@+8（无 playerId）
+        char hdr[INNER_HEADER_LEN];
+        recv_buffer->storage().peek(hdr, headerLen);
+        uint32 msgLen = ByteUtils::readInt32(hdr);
+        if (msgLen > (uint32) (MAX_PACKET_SIZE - 4)) {
             return -2;
         }
-        if (packLen > (uint32) (readableBytes - 4)) {
+        // 魔数在头尾（INNER@+12 / CLIENT@+8）：不匹配说明流已错位或对端不讲本协议，
+        // 立即断连比黑盒错解更安全
+        int magicOff = proto_mode == ProtoMode::INNER ? 12 : 8;
+        if (ByteUtils::readInt32(hdr + magicOff) != MAGIC_NUM) {
+            return -2;
+        }
+        if (msgLen > (uint32) (readableBytes - 4)) {
             return -1;
         }
-        return (int) packLen + 4;
+        return (int) msgLen + 4;
     }
 
     int getPack(char *outPacket, int packLen) const {
@@ -137,9 +168,9 @@ public:
 private:
     friend class EventLoop;
 
-    void eventLoopWrite(int msgId, const std::shared_ptr<google::protobuf::Message> &body);
+    void eventLoopWrite(int msgId, const std::shared_ptr<google::protobuf::Message> &body, int64_t playerId);
 
-    void eventLoopRawWrite(int msgId, const std::string &body);
+    void eventLoopRawWrite(int msgId, const std::string &body, int64_t playerId);
 
     void closeInLoop();
 
@@ -157,6 +188,8 @@ private:
     bool timer_closed_ = false;
     std::string addr_;
     uint32 id;
+    // 本连接的链路协议（构造时确定），决定收发帧头布局
+    ProtoMode proto_mode;
     // inline 变量（C++17）：类内初始化的静态成员须标 inline 才能过 MSVC C2864
     inline static std::atomic<uint32> next_id{0};
 };

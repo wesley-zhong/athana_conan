@@ -28,7 +28,7 @@ void LoginService::onPlayerLogin(transport::Channel* channel, InnerLoginRequest*
     auto res = std::make_shared<InnerLoginResponse>();
     res->set_roleid(req->roleid());
     res->set_sid(req->sid());
-    channel->sendMsg(INNER_TO_GAME_LOGIN_RES, res);
+    channel->sendMsg(INNER_TO_GAME_LOGIN_RES, res, req->roleid());
 
     // only for test
     //existPlayer->saveDataToDB();

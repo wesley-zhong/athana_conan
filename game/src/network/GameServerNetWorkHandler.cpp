@@ -36,7 +36,7 @@ void GameServerNetWorkHandler::onMsg(transport::Channel* channel, void* buff, in
 {
     // 拆帧头 + 查注册表 + 反序列化 + 取 channel shared_ptr，集中在 Decoder
     transport::DecodedMsg decoded;
-    transport::Decoder::parseHeader(buff, len, &decoded);
+    transport::Decoder::parseHeader(channel, buff, len, &decoded);
     switch (transport::Decoder::decodeMsg(channel, &decoded))
     {
         case transport::DecodeResult::NOT_REGISTERED:

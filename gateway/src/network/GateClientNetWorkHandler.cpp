@@ -20,6 +20,7 @@ void GateClientNetWorkHandler::initAllMsgRegister()
 {
     SystemMsgHandler::registMsg();
     PlayerLoginHandler::registMsgHandler();
+
 }
 
 void GateClientNetWorkHandler::onNewConnect(transport::Channel* channel, int status)
@@ -37,7 +38,7 @@ void GateClientNetWorkHandler::onMsg(transport::Channel* channel, void* buff, in
 {
     // 拆帧头 + 查注册表 + 反序列化 + 取 channel shared_ptr，集中在 Decoder
     transport::DecodedMsg decoded;
-    transport::Decoder::parseHeader(buff, len, &decoded);
+    transport::Decoder::parseHeader(channel, buff, len, &decoded);
     switch (transport::Decoder::decodeMsg(channel, &decoded))
     {
     case transport::DecodeResult::NOT_REGISTERED:
@@ -52,8 +53,11 @@ void GateClientNetWorkHandler::onMsg(transport::Channel* channel, void* buff, in
     }
 
     int hashCode = (int)decoded.playerId;
-    INFO_LOG("=== on read   channel ={}  msgId={}  len ={}  hashcode={}", channel->getAddr(), decoded.msgId,
-             decoded.bodyLen, hashCode);
+    if (decoded.msgId != INNER_HEART_BEAT_REQ && decoded.msgId != INNER_HEART_BEAT_RES)
+    {
+        INFO_LOG("=== on read   channel ={}  msgId={}  len ={}  hashcode={}", channel->getAddr(), decoded.msgId,
+                 decoded.bodyLen, hashCode);
+    }
 
     GateActor::execute(LOGIC, hashCode, [playerId = decoded.playerId,
                            msg_function = decoded.msg_function,

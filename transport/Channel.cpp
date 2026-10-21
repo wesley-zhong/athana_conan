@@ -12,7 +12,7 @@ namespace transport
 {
     namespace
     {
-        // 配置兜底：0 视为默认容量；超过协议帧长上限(MAX_PACKET_SIZE+8)的容量纯属
+        // 配置兜底：0 视为默认容量；超过协议帧长上限(MAX_PACKET_SIZE+16)的容量纯属
         // 浪费，一并钳住。负数配置经 int→size_t 转换会变成超大值，也会被钳到这里——
         // RingByteBuf 对非法容量是抛异常，而 Channel 构造发生在 libuv 回调里，
         // 异常抛穿 C 栈是未定义行为，必须在构造前拦下
@@ -22,19 +22,20 @@ namespace transport
             {
                 return Channel::DEFAULT_BUFF_SIZE;
             }
-            size_t maxFrame = (size_t)Channel::MAX_PACKET_SIZE + 8;
+            size_t maxFrame = (size_t)Channel::MAX_PACKET_SIZE + Channel::INNER_HEADER_LEN;
             return size > maxFrame ? maxFrame : size;
         }
     }
 
     Channel::Channel(EventLoop* event_loop, uv_tcp_t* tcp,
-                     size_t recvBuffSize, size_t sendBuffSize) : _eventLoop(event_loop), client(tcp),
-                                                                  last_recv_time(0), last_send_time(0),
-                                                                  userData(nullptr),
-                                                                  id(generateId())
+                     size_t recvBuffSize, size_t sendBuffSize, ProtoMode protoMode)
+                     : _eventLoop(event_loop), client(tcp),
+                     last_recv_time(0), last_send_time(0),
+                     userData(nullptr),
+                     id(generateId()), proto_mode(protoMode)
     {
         // 收发 ring 分开设容，容量可配（默认 64K，内部向上取 2 的幂，64K → 实际 128K）。
-        // 容量必须 ≥ 该连接最大帧长（协议上限 MAX_PACKET_SIZE+8）：recv 小于最大入站帧时
+        // 容量必须 ≥ 该连接最大帧长（协议上限 MAX_PACKET_SIZE+头长）：recv 小于最大入站帧时
         // 帧没收全就写满 ring，uv_alloc_cb 按“ring 满且无完整帧”关连接；send 小于最大
         // 出站帧时帧被 eventLoopWrite 静默丢弃——按业务实际最大帧长留足，不要盲目调小
         recv_buffer = new core::ByteBuffer(clampBuffSize(recvBuffSize));
@@ -116,7 +117,7 @@ namespace transport
         }
     }
 
-    void Channel::sendMsg(int msgId, std::shared_ptr<google::protobuf::Message> msg)
+    void Channel::sendMsg(int msgId, std::shared_ptr<google::protobuf::Message> msg, int64_t playerId)
     {
         // 通过注册表拿到 shared_ptr，任务持有期间 channel 保证存活
         std::shared_ptr<Channel> self = _eventLoop->channelPtr(this);
@@ -124,13 +125,13 @@ namespace transport
         {
             return;
         }
-        _eventLoop->executeOnEventLoop([self, msgId, msg]()
+        _eventLoop->executeOnEventLoop([self, msgId, msg, playerId]()
         {
-            self->eventLoopWrite(msgId, msg);
+            self->eventLoopWrite(msgId, msg, playerId);
         });
     }
 
-    void Channel::sendRawMsg(int msgId, const char* data, int len)
+    void Channel::sendRawMsg(int msgId, const char* data, int len, int64_t playerId)
     {
         if (data == nullptr || len <= 0)
         {
@@ -138,19 +139,19 @@ namespace transport
         }
         // body 按值捕获进任务，跨线程投递期间数据保持存活
         std::string body(data, (size_t)len);
-        sendRawMsg(msgId, std::move(body));
+        sendRawMsg(msgId, std::move(body), playerId);
     }
 
-    void Channel::sendRawMsg(int msgId, std::string body)
+    void Channel::sendRawMsg(int msgId, std::string body, int64_t playerId)
     {
         std::shared_ptr<Channel> self = _eventLoop->channelPtr(this);
         if (self == nullptr || isClosed())
         {
             return;
         }
-        _eventLoop->executeOnEventLoop([self, msgId, body = std::move(body)]()
+        _eventLoop->executeOnEventLoop([self, msgId, body = std::move(body), playerId]()
         {
-            self->eventLoopRawWrite(msgId, body);
+            self->eventLoopRawWrite(msgId, body, playerId);
         });
     }
 
@@ -208,7 +209,7 @@ namespace transport
         }
     }
 
-    void Channel::eventLoopWrite(int msgId, const std::shared_ptr<google::protobuf::Message>& msg)
+    void Channel::eventLoopWrite(int msgId, const std::shared_ptr<google::protobuf::Message>& msg, int64_t playerId)
     {
         if (closed_)
         {
@@ -217,7 +218,11 @@ namespace transport
         bool needCallSend = send_buff->storage().readableBytes() == 0;
 
         int64 bodyLen = (int64)msg->ByteSizeLong();
-        int64 frameLen = bodyLen + 2 * sizeof(int32); // 4B packLen + 4B msgId + body
+        // 帧长 = 头 + body：INNER 16B 头（msgLen+msgId+playerId+magicNum），
+        // CLIENT 12B 头（msgLen+msgId+magicNum），len 字段均不含自身 4B
+        int headerLen = proto_mode == ProtoMode::INNER ? INNER_HEADER_LEN : CLIENT_HEADER_LEN;
+        int lenOverhead = proto_mode == ProtoMode::INNER ? INNER_LEN_OVERHEAD : CLIENT_LEN_OVERHEAD;
+        int64 frameLen = bodyLen + headerLen;
         if (frameLen > MAX_PACKET_SIZE)
         {
             ERR_LOG(" msgId = {} frame too large frameLen ={}, drop it", msgId, frameLen);
@@ -241,8 +246,14 @@ namespace transport
             return;
         }
         int32 len = (int32)bodyLen;
-        send_buff->writeInt32(len + 4);
+        send_buff->writeInt32(len + lenOverhead);
         send_buff->writeInt32(msgId);
+        if (proto_mode == ProtoMode::INNER)
+        {
+            send_buff->writeInt32((uint32)(int32)playerId);
+        }
+        // 两种帧头都以魔数收尾：INNER 紧跟 playerId（@+12），CLIENT 紧跟 msgId（@+8）
+        send_buff->writeInt32(MAGIC_NUM);
         send_buff->writeBytes(packBuf, len);
         last_send_time = nowTime();
 
@@ -253,7 +264,7 @@ namespace transport
         }
     }
 
-    void Channel::eventLoopRawWrite(int msgId, const std::string& body)
+    void Channel::eventLoopRawWrite(int msgId, const std::string& body, int64_t playerId)
     {
         if (closed_)
         {
@@ -262,7 +273,11 @@ namespace transport
         bool needCallSend = send_buff->storage().readableBytes() == 0;
 
         int64 bodyLen = (int64)body.size();
-        int64 frameLen = bodyLen + 2 * sizeof(int32); // 4B packLen + 4B msgId + body
+        // 帧长 = 头 + body：INNER 16B 头（msgLen+msgId+playerId+magicNum），
+        // CLIENT 12B 头（msgLen+msgId+magicNum），len 字段均不含自身 4B
+        int headerLen = proto_mode == ProtoMode::INNER ? INNER_HEADER_LEN : CLIENT_HEADER_LEN;
+        int lenOverhead = proto_mode == ProtoMode::INNER ? INNER_LEN_OVERHEAD : CLIENT_LEN_OVERHEAD;
+        int64 frameLen = bodyLen + headerLen;
         if (frameLen > MAX_PACKET_SIZE)
         {
             ERR_LOG(" msgId = {} frame too large frameLen ={}, drop it", msgId, frameLen);
@@ -274,8 +289,14 @@ namespace transport
             return;
         }
         int32 len = (int32)bodyLen;
-        send_buff->writeInt32(len + 4);
+        send_buff->writeInt32(len + lenOverhead);
         send_buff->writeInt32(msgId);
+        if (proto_mode == ProtoMode::INNER)
+        {
+            send_buff->writeInt32((uint32)(int32)playerId);
+        }
+        // 两种帧头都以魔数收尾：INNER 紧跟 playerId（@+12），CLIENT 紧跟 msgId（@+8）
+        send_buff->writeInt32(MAGIC_NUM);
         // writeBytes 参数已是 const char*，body.data() 直接传入
         send_buff->writeBytes(body.data(), len);
         last_send_time = nowTime();

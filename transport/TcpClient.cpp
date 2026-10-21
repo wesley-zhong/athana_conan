@@ -35,6 +35,7 @@ void TcpClient::start(int eventLoopNum) {
         // 避免提前 wake 的未定义行为
         auto &loop = loops.emplace_back(std::make_unique<EventLoop>(this, event_trigger.get()));
         loop->setBuffSize(channel_recv_buff_size_, channel_send_buff_size_);
+        loop->setProtoMode(proto_mode_);
     }
     for (auto &loop: loops) {
         loop->start();
@@ -70,6 +71,12 @@ TcpClient &TcpClient::setChannelBuffSize(size_t recvBuffSize, size_t sendBuffSiz
     // start 前暂存，start() 创建 loop 时下发
     channel_recv_buff_size_ = recvBuffSize;
     channel_send_buff_size_ = sendBuffSize;
+    return *this;
+}
+
+TcpClient &TcpClient::setProtoMode(Channel::ProtoMode mode) {
+    // 同 setChannelBuffSize：start 前暂存，start() 创建 loop 时下发
+    proto_mode_ = mode;
     return *this;
 }
 

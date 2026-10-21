@@ -15,7 +15,8 @@ void Player::sendMsg(int msgId, std::shared_ptr<google::protobuf::Message> msg)
     {
         return;
     }
-    channel->sendMsg(msgId, msg);
+    // 帧头 playerId：下游（router/网关）按它路由回这个玩家
+    channel->sendMsg(msgId, msg, (int64_t)pid);
 }
 
 void Player::initModules()

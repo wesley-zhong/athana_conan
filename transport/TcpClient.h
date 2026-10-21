@@ -58,6 +58,10 @@ public:
     // 每条连接收/发缓冲容量（字节），0 表示用默认(64K)。须在 start() 之前调用
     TcpClient& setChannelBuffSize(size_t recvBuffSize, size_t sendBuffSize);
 
+    // 所有出站连接的链路协议：INNER 服务器间 16B 头（默认）/ CLIENT 对外客户端 12B 头。
+    // 须在 start() 之前调用
+    TcpClient& setProtoMode(Channel::ProtoMode mode);
+
     void triggerEvent(Channel *channel, TriggerEventEnum reason) override;
 
     std::function<void(Channel *, int)> onConnected;
@@ -73,6 +77,8 @@ private:
     // setChannelBuffSize 暂存，start() 创建 loop 时经 EventLoop::setBuffSize 下发
     size_t channel_recv_buff_size_ = 0;
     size_t channel_send_buff_size_ = 0;
+    // setProtoMode 暂存，start() 创建 loop 时经 EventLoop::setProtoMode 下发
+    Channel::ProtoMode proto_mode_ = Channel::ProtoMode::INNER;
     mutable std::atomic<size_t> next_loop{0};
 };
 

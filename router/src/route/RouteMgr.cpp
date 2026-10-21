@@ -59,7 +59,8 @@ void RouteMgr::onRouteTransfer(transport::Channel *channel, InnerRouteTransfer *
         return;
     }
     for (auto &destChannel: channels) {
-        destChannel->sendRawMsg(msg->inner_msg_id(), msg->body().data(), (int) msg->body().size());
+        destChannel->sendRawMsg(msg->inner_msg_id(), msg->body().data(),
+                                (int) msg->body().size(), msg->player_id());
     }
 }
 
@@ -69,6 +70,7 @@ bool RouteMgr::forwardToService(const std::string &serviceId, const InnerRouteTr
         WARN_LOG("route forward: serviceId ={} has no live channel", serviceId);
         return false;
     }
-    channel->sendRawMsg(msg.inner_msg_id(), msg.body().data(), (int) msg.body().size());
+    channel->sendRawMsg(msg.inner_msg_id(), msg.body().data(),
+                        (int) msg.body().size(), msg.player_id());
     return true;
 }

@@ -31,6 +31,7 @@ namespace transport
         {
             auto& worker = workers_.emplace_back(std::make_shared<EventLoop>(this, event_trigger.get()));
             worker->setBuffSize(channel_recv_buff_size_, channel_send_buff_size_);
+            worker->setProtoMode(proto_mode_);
         }
         for (auto& w : workers_)
         {
@@ -118,6 +119,13 @@ namespace transport
         // 先暂存，start() 创建 worker 时下发（与 event_trigger 同路：worker 在 start 内构造）
         channel_recv_buff_size_ = recvBuffSize;
         channel_send_buff_size_ = sendBuffSize;
+        return *this;
+    }
+
+    AthenaTcpServer& AthenaTcpServer::setProtoMode(Channel::ProtoMode mode)
+    {
+        // 同 setChannelBuffSize：先暂存，start() 创建 worker 时下发
+        proto_mode_ = mode;
         return *this;
     }
 } // namespace transport

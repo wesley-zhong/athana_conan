@@ -42,10 +42,12 @@ public:
     static std::vector<std::shared_ptr<transport::Channel>> getChannelsByType(int serverType);
 
 
+    // playerId 写入帧头（登录前/无归属消息传 0），内部透传给 Channel::sendMsg
     static bool sendMsg(std::shared_ptr<transport::Channel> channel, int msgId,
-                        std::shared_ptr<google::protobuf::Message> msg);
+                        std::shared_ptr<google::protobuf::Message> msg, int64_t playerId = 0);
 
-    static bool sendMsg(int serverType, int msgId, std::shared_ptr<google::protobuf::Message> msg);
+    static bool sendMsg(int serverType, int msgId,
+                        std::shared_ptr<google::protobuf::Message> msg, int64_t playerId = 0);
 
 
 private:

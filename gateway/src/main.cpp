@@ -103,6 +103,8 @@ int main(int argc, char** argv)
                                   config.get("server", "idle-write-time", 3000));
     tcp_server.setChannelBuffSize((size_t) config.get<int>("server", "recv-buff-size", 0),
                                   (size_t) config.get<int>("server", "send-buff-size", 0));
+    // 对外端口：客户端链路 12B 头（msgLen+msgId+magicNum，无 playerId）；服务器间链路由上面的 tcp_client 负责
+    tcp_server.setProtoMode(transport::Channel::ProtoMode::CLIENT);
     if (!tcp_server.bind(serverPort).start(config.get("server", "event-loop-num", 2)))
     {
         ERR_LOG("tcp server start failed, port ={}", serverPort);

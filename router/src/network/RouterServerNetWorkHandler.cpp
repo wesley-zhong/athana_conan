@@ -34,12 +34,12 @@ void RouterServerNetWorkHandler::onConnect(transport::Channel* channel)
     INFO_LOG("++++++++  on new connection ={}", channel->getAddr());
 }
 
-//|---4 msgLen|----4 msgId|-----4 playeId |------ 4 crc| ------ body|
+//|---4 msgLen|----4 msgId|-----4 playerId|------4 magicNum|------body|
 void RouterServerNetWorkHandler::onMsg(transport::Channel* channel, void* buff, int len)
 {
     // 拆帧头 + 查注册表 + 反序列化 + 取 channel shared_ptr，集中在 Decoder
     transport::DecodedMsg decoded;
-    transport::Decoder::parseHeader(buff, len, &decoded);
+    transport::Decoder::parseHeader(channel, buff, len, &decoded);
     switch (transport::Decoder::decodeMsg(channel, &decoded))
     {
         case transport::DecodeResult::NOT_REGISTERED:
@@ -54,11 +54,12 @@ void RouterServerNetWorkHandler::onMsg(transport::Channel* channel, void* buff, 
     }
 
     int hashCode = (int)((uintptr_t)channel);
-    RouterActor::execute(LOGIC, hashCode, [msg_function = decoded.msg_function,
+    RouterActor::execute(LOGIC, hashCode, [playerId = decoded.playerId,
+                                           msg_function = decoded.msg_function,
                                            channel_ptr = decoded.channel_ptr,
                                            msg = decoded.msg]()
     {
-        msg_function->invoke(0, channel_ptr.get(), msg);
+        msg_function->invoke(playerId, channel_ptr.get(), msg);
     });
 }
 
