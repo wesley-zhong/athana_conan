@@ -8,7 +8,7 @@
 #include "utils/Snowflake.h"
 
 void PlayerLoginHandler::onInnerLoginRes(transport::Channel *channel, InnerLoginResponse *res) {
-    INFO_LOG("----- on login res ={}", res->roleid(), res->sid());
+    INFO_LOG("----- on login res  roleId={} sid ={}", res->roleid(), res->sid());
 }
 
 void PlayerLoginHandler::onLoginReq(transport::Channel *channel, LoginRequest *req) {

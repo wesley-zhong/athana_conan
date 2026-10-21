@@ -9,7 +9,6 @@
 #include "transport/Decoder.h"
 #include "transport/EventLoop.h"
 #include "log/XLog.h"
-#include "transport/ByteUtils.h"
 
 #include "ProtoInner.pb.h"
 #include "SystemMsgHandler.h"
@@ -41,26 +40,28 @@ void GateClientNetWorkHandler::onMsg(transport::Channel* channel, void* buff, in
     transport::Decoder::parseHeader(buff, len, &decoded);
     switch (transport::Decoder::decodeMsg(channel, &decoded))
     {
-        case transport::DecodeResult::NOT_REGISTERED:
-            ERR_LOG("msgId ={} not found process function", decoded.msgId);
-            return;
-        case transport::DecodeResult::PARSE_FAILED:
-        case transport::DecodeResult::BAD_HEADER:
-        case transport::DecodeResult::CHANNEL_GONE:
-            return;
-        case transport::DecodeResult::OK:
-            break;
+    case transport::DecodeResult::NOT_REGISTERED:
+        ERR_LOG("msgId ={} not found process function", decoded.msgId);
+        return;
+    case transport::DecodeResult::PARSE_FAILED:
+    case transport::DecodeResult::BAD_HEADER:
+    case transport::DecodeResult::CHANNEL_GONE:
+        return;
+    case transport::DecodeResult::OK:
+        break;
     }
-    // INFO_LOG("=== on read   channel ={}  msgId={}  len ={}", channel->getAddr(), decoded.msgId, decoded.bodyLen);
 
-    int hashCode = (int)((uintptr_t)channel);
+    int hashCode = (int)decoded.playerId;
+    INFO_LOG("=== on read   channel ={}  msgId={}  len ={}  hashcode={}", channel->getAddr(), decoded.msgId,
+             decoded.bodyLen, hashCode);
+
     GateActor::execute(LOGIC, hashCode, [playerId = decoded.playerId,
-                                         msg_function = decoded.msg_function,
-                                         channel_ptr = decoded.channel_ptr,
-                                         msg = decoded.msg]()
-                                           {
-                                               msg_function->invoke(playerId, channel_ptr.get(), msg);
-                                           });
+                           msg_function = decoded.msg_function,
+                           channel_ptr = decoded.channel_ptr,
+                           msg = decoded.msg]()
+                       {
+                           msg_function->invoke(playerId, channel_ptr.get(), msg);
+                       });
 }
 
 void GateClientNetWorkHandler::onEventTrigger(transport::Channel* channel, transport::TriggerEventEnum reason)
@@ -70,7 +71,7 @@ void GateClientNetWorkHandler::onEventTrigger(transport::Channel* channel, trans
         auto msg = std::make_shared<InnerHeartBeatRequest>();
         msg->set_time(8888);
         channel->sendMsg(INNER_HEART_BEAT_REQ, msg);
-      //  INFO_LOG("heart beat = -----------------{}", channel->getAddr());
+        //  INFO_LOG("heart beat = -----------------{}", channel->getAddr());
         return;
     }
     //    // this should be closed

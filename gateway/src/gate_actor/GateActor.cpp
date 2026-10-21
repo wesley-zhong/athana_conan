@@ -14,6 +14,7 @@ static const char* actorTypeName(ActorType actorType)
     case LOGIC: return "logic";
     case IO: return "io";
     case DB: return "db";
+
     default: return "unknown";
     }
 }

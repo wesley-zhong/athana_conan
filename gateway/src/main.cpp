@@ -63,6 +63,10 @@ int main(int argc, char** argv)
 
     auto &config = core::AthenaConfig::instance();
 
+    // init logic thread pool
+    GatewayServerNetWorkHandler::startLogicThread(config.get("server", "io-thread", 1),
+                                              config.get("server", "logic-thread", 2));
+
     //tcp client
     GateClientNetWorkHandler::initAllMsgRegister();
     transport::TcpClient tcp_client;
@@ -72,8 +76,8 @@ int main(int argc, char** argv)
     tcp_client.onTriggerEvent = GateClientNetWorkHandler::onEventTrigger;
     tcp_client.setChannelIdleTime(config.get("client", "idle-write-time", 3000),
                                   config.get("client", "idle-read-time", 9000));
-    tcp_client.setChannelBuffSize((size_t) config.get<int>("client", "recv-buff-size", 0),
-                                  (size_t) config.get<int>("client", "send-buff-size", 0));
+    tcp_client.setChannelBuffSize((size_t) config.get<int>("client", "recv-buff-size", 32*1024),
+                                  (size_t) config.get<int>("client", "send-buff-size", 32*1024));
 
     tcp_client.start(config.get("client", "event-loop-num", 1));
 
@@ -88,10 +92,8 @@ int main(int argc, char** argv)
     INFO_LOG("#### bind server port:{}", serverPort);
     // tcp server
     GatewayServerNetWorkHandler::initAllMsgRegister();
-    GatewayServerNetWorkHandler::startLogicThread(config.get("server", "io-thread", 1),
-                                                  config.get("server", "logic-thread", 2));
-    transport::AthenaTcpServer tcp_server;
 
+    transport::AthenaTcpServer tcp_server;
     tcp_server.onNewConnection = GatewayServerNetWorkHandler::onConnect;
     tcp_server.onRead = GatewayServerNetWorkHandler::onMsg;
     tcp_server.onClosed = GatewayServerNetWorkHandler::onClosed;
