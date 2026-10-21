@@ -116,9 +116,9 @@ int main(int argc, char** argv)
     int serverPort = core::AthenaConfig::instance().get("server", "tcp-port", 0);
     INFO_LOG("#### bind server port:{}", serverPort);
 
+    GameServerNetWorkHandler::initAllMsgRegister();
     // init all functions call
     auto& config = core::AthenaConfig::instance();
-    GameServerNetWorkHandler::initAllMsgRegister();
     GameServerNetWorkHandler::startLogicThread(config.get("server", "io-thread", 1),
                                                config.get("server", "logic-thread", 2),
                                                config.get("server", "db-thread", 1));
@@ -139,8 +139,7 @@ int main(int argc, char** argv)
         ERR_LOG("tcp server start failed, port ={}", serverPort);
         return -6;
     }
-    //
-
+    // only for test -- begin
     RoleDO roleDo;
     roleDo.name = "kkkk_name_2";
     roleDo._id = 99999;
@@ -176,7 +175,6 @@ int main(int argc, char** argv)
     INFO_LOG("==========================  wait release");
     std::this_thread::sleep_for(std::chrono::seconds(5));
 
-
     // 💡 主线程阻塞等待，无限期休眠（CPU 占用≈0）
     {
         std::unique_lock<std::mutex> lock(g_mutex);
@@ -184,6 +182,5 @@ int main(int argc, char** argv)
     }
 
     INFO_LOG("service exited");
-
     return 0;
 }
