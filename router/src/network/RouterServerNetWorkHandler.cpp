@@ -9,7 +9,6 @@
 #include "transport/EventLoop.h"
 #include "log/XLog.h"
 #include "transport/ByteUtils.h"
-#include "ProtoMsgId.pb.h"
 #include "ProtoInner.pb.h"
 #include "SystemMsgHandler.h"
 #include "route/RouteMgr.h"
