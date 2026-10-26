@@ -1,10 +1,12 @@
-#ifndef GAME_ROLE_HPP_
-#define GAME_ROLE_HPP_
+#ifndef GAME_PLAYER_HPP_
+#define GAME_PLAYER_HPP_
 #include "common/ObjectPool.hpp"
 #include "log/XLog.h"
 #include "transport/Channel.h"
 #include "transport/EventLoop.h"
-#include "module/Module.h"
+// 不 include module/Module.h：Player 只用 ModuleContainer*（可前向声明），
+// 反向包含会与 Module.h → objs/Player.h 构成循环，导致 Module 模板体里
+// Player 是不完整类型。需要完整 BaseModule 的地方（如 Player.cpp）自己引 RoleModule.h
 #include "module/ModuleContainer.h"
 #include "actor/Actor.h"
 

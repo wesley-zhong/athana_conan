@@ -7,9 +7,10 @@
 
 #include "BaseModule.h"
 #include "dal/mongodb/MongodbDAO.hpp"
-#include "gateway/src/objs/Player.h"
-
-class BaseDAO;
+// BaseModule.h 只前向声明了 Player；本文件的方法体用到 owner->getPid()，
+// 必须包含完整定义。注意只能引 game 的 Player.h，不能是 gateway 的（同名类）
+#include "objs/Player.h"
+#include "objs/Player.h"
 
 template <typename DO>
 class Module : public BaseModule
