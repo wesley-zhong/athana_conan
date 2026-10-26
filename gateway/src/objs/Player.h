@@ -1,5 +1,5 @@
-#ifndef GAME_ROLE_HPP_
-#define GAME_ROLE_HPP_
+#ifndef  GATE_PLAYER_HPP_
+#define GATE_PLAYER_HPP_
 #include "Channel.h"
 #include "common/ObjectPool.hpp"
 #include "log/XLog.h"
